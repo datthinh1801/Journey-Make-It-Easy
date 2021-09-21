@@ -1,6 +1,5 @@
 .row-container {
     max-width: 1000px;
-    padding: 0 18px;
     display: flex;
     justify-content: space-between;
     margin-left: auto;
@@ -34,8 +33,13 @@ body {
 .no-select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.heart-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
 }

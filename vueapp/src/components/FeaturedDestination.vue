@@ -4,17 +4,20 @@
     <HeartButton class="heart-btn"/>
     <div class="item-info">
       <strong class="roboto">Shelborne South Beach</strong>
+      <RatingSection/>
     </div>
   </div>
 </template>
 
 <script>
 import HeartButton from "./HeartButton";
+import RatingSection from "./RatingSection";
 
 export default {
   name: 'FeaturedDestination',
   components: {
     HeartButton,
+    RatingSection
   }
 }
 </script>
@@ -26,11 +29,6 @@ div {
   position: relative;
 }
 
-.heart-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
 
 img {
   max-width: 240px;

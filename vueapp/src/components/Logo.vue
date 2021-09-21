@@ -15,6 +15,7 @@ export default {
 #logo {
   font-family: 'Pacifico', cursive;
   color: #F9C100;
-  font-size: 22px
+  font-size: 22px;
+  margin-left: -10px;
 }
 </style>
