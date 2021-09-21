@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container">
+  <div class="row-container item-list">
     <FeaturedBlog v-for="n in 3" :key="n"/>
   </div>
 </template>
@@ -19,8 +19,6 @@ export default {
 @import "../styles/global.css";
 
 .row-container {
-  justify-content: space-between;
-  padding: 0;
   width: 1000px;
 }
 </style>

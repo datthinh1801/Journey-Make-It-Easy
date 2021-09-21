@@ -5,6 +5,7 @@
     <RecentSearchesSection/>
     <FeaturedDestinationsSection/>
     <FeaturedBlogsSection/>
+    <GoodReviewsSection/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import HeroSection from './components/HeroSection'
 import RecentSearchesSection from './components/RecentSearchesSection'
 import FeaturedDestinationsSection from "./components/FeaturedDestinationsSection";
 import FeaturedBlogsSection from "./components/FeaturedBlogsSection";
+import GoodReviewsSection from "./components/GoodReviewsSection";
 
 export default {
   name: 'App',
@@ -23,6 +25,7 @@ export default {
     RecentSearchesSection,
     FeaturedDestinationsSection,
     FeaturedBlogsSection,
+    GoodReviewsSection,
   }
 }
 </script>
