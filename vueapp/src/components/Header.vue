@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="container">
+    <div class="row-container">
       <Logo/>
       <Button/>
     </div>

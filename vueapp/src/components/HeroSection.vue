@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="row-container">
     <img id="hero-img" alt="hero-img" src="Hero_image.png">
     <img id="hero-text" alt="hero-text" src="Hero_text.png">
     <SearchBox id="search-box"/>
@@ -20,7 +20,7 @@ export default {
 <style scoped>
 @import '../styles/global.css';
 
-.container {
+.row-container {
   margin-top: 60px;
   position: relative;
 }
