@@ -1,0 +1,41 @@
+.row-container {
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.item-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.heart-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
