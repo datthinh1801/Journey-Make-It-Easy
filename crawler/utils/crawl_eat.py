@@ -1,16 +1,15 @@
-from bs4 import BeautifulSoup
-
-import requests
 import base64
 
+from bs4 import BeautifulSoup
+from aiohttp import ClientSession
 
-def extract_site_data_eat(url):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'}
-    r = requests.get(url, headers=headers)
+from utils import fetch_html
 
-    print('done request')
-    soup = BeautifulSoup(r.content, 'html.parser')
+
+async def extract_site_data_eat(url: str, session: ClientSession):
+    html_page = await fetch_html(url, session)
+    soup = BeautifulSoup(html_page, 'html.parser')
+
     map_class_info = {'Address': 'fhGHT', 'Phone': 'iPqaD _F G- ddFHE eKwUx',
                       'Website': 'dOGcA Ci Wc _S C fhGHT', 'Open Time': 'dauAM'}
     selects = soup.find_all('div', class_='eSAOV H3')
@@ -22,18 +21,18 @@ def extract_site_data_eat(url):
             tag = 'div'
 
         data[info] = selects[1].find(tag, class_=map_class_info[info])
-        if data[info] != None:
+        if data[info] is not None:
             if info == 'Website':
                 # decode base64 and strip
                 data[info] = base64.b64decode(
                     data[info].get('data-encoded-url')).decode()[4:-4]
             else:
-                data[info] = data[info].get_text().replace('\xa0', ' ')
+                data[info] = data.get(info).get_text().replace('\xa0', ' ')
                 if info == 'Open Time':
                     time = data[info][len(' Open now: '):]
                     if len(time) > 20:
-                        data[info] = time[0:len(time)//2] + \
-                            ' / ' + time[len(time)//2:]
+                        data[info] = time[0:len(time) // 2] + \
+                                     ' / ' + time[len(time) // 2:]
                     else:
                         data[info] = time
                         if 'See all hours' in time:
@@ -46,7 +45,7 @@ def extract_site_data_eat(url):
 
     tag = {'name': 'csKes Wf b', 'content': 'bYIkW'}
 
-    if layout_select == None:
+    if layout_select is None:
         layout_select = soup.find('div', class_='fbAWK')
         tag = {'name': 'dMshX b', 'content': 'cfvAV'}
 
@@ -62,13 +61,9 @@ def extract_site_data_eat(url):
     return data
 
 
-def Extract_link_top_restaurant(url):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'}
-    r = requests.get(url, headers=headers)
-
-    print('done request')
-    soup = BeautifulSoup(r.content, 'html.parser')
+async def extract_link_top_restaurant(url: str, session: ClientSession):
+    html_page = await fetch_html(url, session)
+    soup = BeautifulSoup(html_page, 'html.parser')
     map_class_links = {'link': 'bHGqj Cj b'}
     select_links = soup.find('div', class_='deQwQ').find_all(
         'a', class_=map_class_links['link'])
@@ -78,14 +73,14 @@ def Extract_link_top_restaurant(url):
     return links
 
 
-def Extract_top_restaurant(url):
-    links_restaurant = Extract_link_top_restaurant(url)
+async def extract_top_restaurant(url, session):
+    links_restaurant = await extract_link_top_restaurant(url, session)
 
     data_restaurant = {}
     for link in links_restaurant:
         try:
-            data_restaurant[link] = extract_site_data_eat(
-                'https://www.tripadvisor.com'+links_restaurant[link])
+            data_restaurant[link] = await extract_site_data_eat(
+                'https://www.tripadvisor.com' + links_restaurant[link], session)
         except:
             print(link)
 
