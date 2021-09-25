@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from aiohttp import ClientSession
 
-from .utils import fetch_html
+from utils import fetch_html
 
 
 async def extract_attractions(url: str, session: ClientSession):
@@ -61,7 +61,7 @@ async def extract_attractions(url: str, session: ClientSession):
     else:
         map_info['open_time'] = ''
 
-    map_info['name'] = soup.find('h1').text
+    map_info['name'] = soup.find('h1', class_='WlYyy cPsXC GeSzT').text
 
     return map_info
 
@@ -93,19 +93,15 @@ async def extract_all_attractions(url: str, session: ClientSession):
 
 async def main():
     from pprint import pprint
+    url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
     session = ClientSession(headers={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
-    # pprint(await extract_all_attractions(
-    #     'https://www.tripadvisor.com/Attractions-g303946-Activities-Vung_Tau_Ba_Ria_Vung_Tau_Province.html', session))
-    pprint(await extract_attractions(
-        'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html',
-        session))
+    pprint(await extract_attractions(url, session))
     # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
     await session.close()
 
 
 if __name__ == '__main__':
     import asyncio
-    from pprint import pprint
 
-    pprint(asyncio.run(main()))
+    asyncio.run(main())

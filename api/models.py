@@ -19,6 +19,20 @@ class Attraction(models.Model):
     suggested_duration = models.TextField(blank=True)
 
 
-attraction = Attraction()
-attraction.name = 'Test'
-attraction.save()
+class RestaurantDetails(models.Model):
+    _id = models.ObjectIdField()
+    cuisines = models.TextField()
+    meals = models.TextField()
+    special_diets = models.TextField()
+
+
+class Restaurant(models.Model):
+    _id = models.ObjectIdField()
+    name = models.CharField(max_length=100)
+    address = models.TextField()
+    open_time = models.TextField()
+    phone = models.TextField()
+    website = models.TextField()
+    details = models.EmbeddedField(
+        model_container=RestaurantDetails
+    )

@@ -3,34 +3,34 @@ import base64
 from bs4 import BeautifulSoup
 from aiohttp import ClientSession
 
-from api.utils import fetch_html
+from utils import fetch_html
 
 
-async def extract_site_data_eat(url: str, session: ClientSession):
+async def extract_restaurant(url: str, session: ClientSession):
     html_page = await fetch_html(url, session)
     soup = BeautifulSoup(html_page, 'html.parser')
 
-    map_class_info = {'Address': 'fhGHT',
-                      'Phone': 'iPqaD _F G- ddFHE eKwUx',
-                      'Website': 'dOGcA Ci Wc _S C fhGHT',
-                      'Open Time': 'dauAM'}
+    map_class_info = {'address': 'fhGHT',
+                      'phone': 'iPqaD _F G- ddFHE eKwUx',
+                      'website': 'dOGcA Ci Wc _S C fhGHT',
+                      'open_time': 'dauAM'}
     selects = soup.find_all('div', class_='eSAOV H3')
 
     data = {}
     for info in map_class_info:
         tag = 'a'
-        if info == 'Open Time':
+        if info == 'open_time':
             tag = 'div'
 
         data[info] = selects[1].find(tag, class_=map_class_info[info])
         if data[info] is not None:
-            if info == 'Website':
+            if info == 'website':
                 # decode base64 and strip
                 data[info] = base64.b64decode(
                     data[info].get('data-encoded-url')).decode()[4:-4]
             else:
                 data[info] = data.get(info).get_text().replace('\xa0', ' ')
-                if info == 'Open Time':
+                if info == 'open_time':
                     time = data[info][len(' Open now: '):]
                     if len(time) > 20:
                         data[info] = time[0:len(time) // 2] + \
@@ -57,9 +57,11 @@ async def extract_site_data_eat(url: str, session: ClientSession):
     contents = layout_select.find_all(
         'div', class_=tag['content'])
     for i in range(len(names)):
-        name = names[i].get_text().strip()
+        name = names[i].get_text().strip().lower().replace(' ', '_')
         details[name] = contents[i].get_text().strip()
-    data['Details'] = details
+    data['details'] = details
+
+    data['name'] = soup.find('h1', class_='fHibz').text
 
     return data
 
@@ -82,9 +84,27 @@ async def extract_top_restaurant(url, session):
     data_restaurant = {}
     for link in links_restaurant:
         try:
-            data_restaurant[link] = await extract_site_data_eat(
+            data_restaurant[link] = await extract_restaurant(
                 'https://www.tripadvisor.com' + links_restaurant[link], session)
         except:
-            print(link)
+            # print(link)
+            pass
 
     return data_restaurant
+
+
+async def main():
+    from pprint import pprint
+    url = 'https://www.tripadvisor.com/Restaurant_Review-g303946-d19454105-Reviews-Pizza_Leo-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
+    # TODO: 'https://www.tripadvisor.com/Restaurant_Review-g303946-d4793485-Reviews-Matildas-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
+    # open time (close in x minues)
+    session = ClientSession(headers={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
+    pprint(await extract_restaurant(url, session))
+    await session.close()
+
+
+if __name__ == '__main__':
+    import asyncio
+
+    asyncio.run(main())
