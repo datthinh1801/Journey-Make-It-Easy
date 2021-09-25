@@ -2,7 +2,7 @@ import asyncio
 from bs4 import BeautifulSoup
 from aiohttp import ClientSession
 
-from api.utils import fetch_html
+from utils import fetch_html
 
 
 async def extract_stay_data(url: str, session: ClientSession):
