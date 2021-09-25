@@ -54,7 +54,6 @@ async def main():
         # Extract Eat
         # /Restaurants
         data_vn[city] = nation_data
-        break
     await session.close()
 
 

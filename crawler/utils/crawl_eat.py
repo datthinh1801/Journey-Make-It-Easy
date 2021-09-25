@@ -10,8 +10,10 @@ async def extract_site_data_eat(url: str, session: ClientSession):
     html_page = await fetch_html(url, session)
     soup = BeautifulSoup(html_page, 'html.parser')
 
-    map_class_info = {'Address': 'fhGHT', 'Phone': 'iPqaD _F G- ddFHE eKwUx',
-                      'Website': 'dOGcA Ci Wc _S C fhGHT', 'Open Time': 'dauAM'}
+    map_class_info = {'Address': 'fhGHT',
+                      'Phone': 'iPqaD _F G- ddFHE eKwUx',
+                      'Website': 'dOGcA Ci Wc _S C fhGHT',
+                      'Open Time': 'dauAM'}
     selects = soup.find_all('div', class_='eSAOV H3')
 
     data = {}
@@ -43,7 +45,8 @@ async def extract_site_data_eat(url: str, session: ClientSession):
 
     layout_select = soup.find('div', class_='eojKU R2 H h')
 
-    tag = {'name': 'csKes Wf b', 'content': 'bYIkW'}
+    tag = {'name': 'csKes Wf b',
+           'content': 'bYIkW'}
 
     if layout_select is None:
         layout_select = soup.find('div', class_='fbAWK')
