@@ -4,21 +4,22 @@ from aiohttp import ClientSession
 from utils import fetch_html
 
 
-async def extract_site_data(url: str, session: ClientSession):
+async def extract_attractions(url: str, session: ClientSession):
+    """Extract attractions of a given destination."""
     html_page = await fetch_html(url, session)
     soup = BeautifulSoup(html_page, 'html.parser')
 
-    map_class_for_open_time = {'Open Time': 'bHGlw'}
+    map_class_for_open_time = {'open_time': 'bHGlw'}
 
-    map_class_to_data = {'About': 'WlYyy diXIH dDKKM',
-                         'Suggested Duration': 'cYygO _c',
-                         'Admission tickets': 'WlYyy cPsXC cMKSg',
-                         'Images': 'eMVst _R w h GA'
+    map_class_to_data = {'about': 'WlYyy diXIH dDKKM',
+                         'suggested_duration': 'cYygO _c',
+                         'admission_ticket': 'WlYyy cPsXC cMKSg',
+                         'images': 'eMVst _R w h GA'
                          }
-    map_class_for_address = {'Address': 'WlYyy cacGK Wb'}
+    map_class_for_address = {'address': 'WlYyy cacGK Wb'}
     map_info = {}
     for i in map_class_to_data:
-        if i != 'Images':
+        if i != 'images':
             data = soup.find('div', class_='fNXCm A').find(
                 'div', class_=map_class_to_data[i])
             if data is not None:
@@ -40,32 +41,33 @@ async def extract_site_data(url: str, session: ClientSession):
     # In case address not found
     try:
         data = soup.find('div', class_='gaAck').find(
-            'span', class_=map_class_for_address['Address'])
+            'span', class_=map_class_for_address['address'])
     except:
         data = None
 
     if data is not None:
-        map_info['Address'] = data.get_text().strip()
+        map_info['address'] = data.get_text().strip()
     else:
-        map_info['Address'] = ''
-    # print(map_info)
+        map_info['address'] = ''
 
     # In case open time not found
-    data = None
     try:
-        data = soup.find('div', class_='WlYyy diXIH dTqpp').find(
-            'span', class_=map_class_for_open_time['Open Time'])
+        data = soup.find('div', class_='WlYyy diXIH dTqpp'). \
+            find('span', class_=map_class_for_open_time['open_time'])
     except:
         data = None
     if data is not None:
-        map_info['Open Time'] = data.get_text().strip()
+        map_info['open_time'] = data.get_text().strip()
     else:
-        map_info['Open Time'] = ''
+        map_info['open_time'] = ''
+
+    map_info['name'] = soup.find('h1', class_='WlYyy cPsXC GeSzT').text
 
     return map_info
 
 
-async def extract_full_site_of_city(url: str, session: ClientSession):
+async def extract_all_attractions(url: str, session: ClientSession):
+    """Extract all attractions of a given destination."""
     html_page = await fetch_html(url, session)
     soup = BeautifulSoup(html_page, 'html.parser')
 
@@ -83,7 +85,23 @@ async def extract_full_site_of_city(url: str, session: ClientSession):
     data_site = {}
 
     for site in relative_urls_site:
-        data_site[site] = await extract_site_data(
+        data_site[site] = await extract_attractions(
             'https://www.tripadvisor.com' + relative_urls_site[site], session)
 
     return data_site
+
+
+async def main():
+    from pprint import pprint
+    url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
+    session = ClientSession(headers={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
+    pprint(await extract_attractions(url, session))
+    # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
+    await session.close()
+
+
+if __name__ == '__main__':
+    import asyncio
+
+    asyncio.run(main())

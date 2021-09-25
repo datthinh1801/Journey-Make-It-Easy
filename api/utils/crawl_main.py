@@ -4,7 +4,7 @@ from aiohttp import ClientSession
 
 from crawl_do import extract_full_site_of_city
 from crawl_eat import extract_top_restaurant
-from utils import fetch_html
+from api.utils import fetch_html
 
 
 async def extract_link_city_of_country(url: str, session: ClientSession):
@@ -54,7 +54,6 @@ async def main():
         # Extract Eat
         # /Restaurants
         data_vn[city] = nation_data
-        break
     await session.close()
 
 
