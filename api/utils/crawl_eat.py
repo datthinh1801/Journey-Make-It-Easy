@@ -3,7 +3,7 @@ import base64
 from bs4 import BeautifulSoup
 from aiohttp import ClientSession
 
-from utils import fetch_html
+from api.utils import fetch_html
 
 
 async def extract_site_data_eat(url: str, session: ClientSession):

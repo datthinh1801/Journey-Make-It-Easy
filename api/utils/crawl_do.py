@@ -1,8 +1,7 @@
-import asyncio
 from bs4 import BeautifulSoup
 from aiohttp import ClientSession
 
-from utils import fetch_html
+from .utils import fetch_html
 
 
 async def extract_attractions(url: str, session: ClientSession):
@@ -10,17 +9,17 @@ async def extract_attractions(url: str, session: ClientSession):
     html_page = await fetch_html(url, session)
     soup = BeautifulSoup(html_page, 'html.parser')
 
-    map_class_for_open_time = {'Open Time': 'bHGlw'}
+    map_class_for_open_time = {'open_time': 'bHGlw'}
 
-    map_class_to_data = {'About': 'WlYyy diXIH dDKKM',
-                         'Suggested Duration': 'cYygO _c',
-                         'Admission tickets': 'WlYyy cPsXC cMKSg',
-                         'Images': 'eMVst _R w h GA'
+    map_class_to_data = {'about': 'WlYyy diXIH dDKKM',
+                         'suggested_duration': 'cYygO _c',
+                         'admission_ticket': 'WlYyy cPsXC cMKSg',
+                         'images': 'eMVst _R w h GA'
                          }
-    map_class_for_address = {'Address': 'WlYyy cacGK Wb'}
+    map_class_for_address = {'address': 'WlYyy cacGK Wb'}
     map_info = {}
     for i in map_class_to_data:
-        if i != 'Images':
+        if i != 'images':
             data = soup.find('div', class_='fNXCm A').find(
                 'div', class_=map_class_to_data[i])
             if data is not None:
@@ -42,26 +41,27 @@ async def extract_attractions(url: str, session: ClientSession):
     # In case address not found
     try:
         data = soup.find('div', class_='gaAck').find(
-            'span', class_=map_class_for_address['Address'])
+            'span', class_=map_class_for_address['address'])
     except:
         data = None
 
     if data is not None:
-        map_info['Address'] = data.get_text().strip()
+        map_info['address'] = data.get_text().strip()
     else:
-        map_info['Address'] = ''
-    # print(map_info)
+        map_info['address'] = ''
 
     # In case open time not found
     try:
         data = soup.find('div', class_='WlYyy diXIH dTqpp'). \
-            find('span', class_=map_class_for_open_time['Open Time'])
+            find('span', class_=map_class_for_open_time['open_time'])
     except:
         data = None
     if data is not None:
-        map_info['Open Time'] = data.get_text().strip()
+        map_info['open_time'] = data.get_text().strip()
     else:
-        map_info['Open Time'] = ''
+        map_info['open_time'] = ''
+
+    map_info['name'] = soup.find('h1').text
 
     return map_info
 
@@ -105,4 +105,7 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    import asyncio
+    from pprint import pprint
+
+    pprint(asyncio.run(main()))

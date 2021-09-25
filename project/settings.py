@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'graphene_django'
+    'api',
+    # 'graphene_django'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'journey',
-        'ENFORCE_SCHEMA': True,
+        'ENFORCE_SCHEMA': False,
     }
 }
 
