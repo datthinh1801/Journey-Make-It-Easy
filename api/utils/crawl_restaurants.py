@@ -1,9 +1,10 @@
+import asyncio
 import base64
 
 from bs4 import BeautifulSoup
 
 # change this to .utils if use python shell
-from utils import fetch_html
+from utils import fetch_html, BASE_URL
 
 
 async def extract_restaurant_data(url: str):
@@ -82,7 +83,7 @@ async def extract_link_top_restaurant(url: str):
     return links
 
 
-async def extract_top_restaurant(url):
+async def extract_top_restaurant(url: str):
     """Extract information of top restaurants of a destination, given the destination's full URL."""
     links_restaurant = await extract_link_top_restaurant(url)
 
@@ -90,7 +91,7 @@ async def extract_top_restaurant(url):
     for link in links_restaurant:
         try:
             tasks.append(
-                asyncio.create_task(extract_restaurant_data('https://www.tripadvisor.com' + link)))
+                asyncio.create_task(extract_restaurant_data(BASE_URL + link)))
         except:
             pass
 
@@ -99,7 +100,6 @@ async def extract_top_restaurant(url):
 
 if __name__ == '__main__':
     from pprint import pprint
-    import asyncio
 
     url = 'https://www.tripadvisor.com/Restaurants-g303946-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
     pprint(asyncio.run(extract_top_restaurant(url)))

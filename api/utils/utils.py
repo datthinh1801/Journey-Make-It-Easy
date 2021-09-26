@@ -1,5 +1,7 @@
 from aiohttp import ClientSession
 
+BASE_URL = 'https://www.tripadvisor.com'
+
 
 async def fetch_html(url: str):
     """Asynchronously fetch an HTML page of a given URL."""

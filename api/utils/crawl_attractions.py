@@ -1,9 +1,8 @@
-import re
-
+import asyncio
 from bs4 import BeautifulSoup
 
 # change this to .utils if use python shell
-from utils import fetch_html
+from utils import fetch_html, BASE_URL
 
 
 async def extract_attraction_data(url: str):
@@ -69,7 +68,7 @@ async def extract_attraction_data(url: str):
 
 
 async def extract_all_attractions(url: str):
-    """Extract all attractions of a given destination."""
+    """Extract all attractions of a city, given its URL."""
     html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
@@ -85,12 +84,11 @@ async def extract_all_attractions(url: str):
     tasks = []
     for site in relative_urls_site:
         tasks.append(
-            asyncio.create_task(extract_attraction_data('https://www.tripadvisor.com' + site)))
+            asyncio.create_task(extract_attraction_data(BASE_URL + site)))
     return await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
-    import asyncio
     from pprint import pprint
 
     url = 'https://www.tripadvisor.com/Attractions-g293925-Activities-Ho_Chi_Minh_City.html'
