@@ -1,13 +1,15 @@
+import asyncio
 import base64
 
 from bs4 import BeautifulSoup
-from aiohttp import ClientSession
 
-from utils import fetch_html
+# change this to .utils if use python shell
+from utils import fetch_html, BASE_URL
 
 
-async def extract_restaurant(url: str, session: ClientSession):
-    html_page = await fetch_html(url, session)
+async def extract_restaurant_data(url: str):
+    """Extract information of a restaurant, given its full URL."""
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
     map_class_info = {'address': 'fhGHT',
@@ -66,45 +68,38 @@ async def extract_restaurant(url: str, session: ClientSession):
     return data
 
 
-async def extract_link_top_restaurant(url: str, session: ClientSession):
-    html_page = await fetch_html(url, session)
+async def extract_link_top_restaurant(url: str):
+    """Extract top restaurants from the Restaurants page of a destination."""
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
     map_class_links = {'link': 'bHGqj Cj b'}
+
     select_links = soup.find('div', class_='deQwQ').find_all(
         'a', class_=map_class_links['link'])
-    links = {}
+
+    links = []
     for link in select_links:
-        links[link.get_text()] = link.get('href')
+        links.append(link.get('href'))
     return links
 
 
-async def extract_top_restaurant(url, session):
-    links_restaurant = await extract_link_top_restaurant(url, session)
+async def extract_top_restaurant(url: str):
+    """Extract information of top restaurants of a destination, given the destination's full URL."""
+    links_restaurant = await extract_link_top_restaurant(url)
 
-    data_restaurant = {}
+    tasks = []
     for link in links_restaurant:
         try:
-            data_restaurant[link] = await extract_restaurant(
-                'https://www.tripadvisor.com' + links_restaurant[link], session)
+            tasks.append(
+                asyncio.create_task(extract_restaurant_data(BASE_URL + link)))
         except:
-            # print(link)
             pass
 
-    return data_restaurant
-
-
-async def main():
-    from pprint import pprint
-    url = 'https://www.tripadvisor.com/Restaurant_Review-g303946-d19454105-Reviews-Pizza_Leo-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    # TODO: 'https://www.tripadvisor.com/Restaurant_Review-g303946-d4793485-Reviews-Matildas-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    # open time (close in x minues)
-    session = ClientSession(headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
-    pprint(await extract_restaurant(url, session))
-    await session.close()
+    return await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
-    import asyncio
+    from pprint import pprint
 
-    asyncio.run(main())
+    url = 'https://www.tripadvisor.com/Restaurants-g303946-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
+    pprint(asyncio.run(extract_top_restaurant(url)))

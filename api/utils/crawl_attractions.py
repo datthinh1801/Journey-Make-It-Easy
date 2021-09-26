@@ -1,12 +1,13 @@
+import asyncio
 from bs4 import BeautifulSoup
-from aiohttp import ClientSession
 
-from utils import fetch_html
+# change this to .utils if use python shell
+from utils import fetch_html, BASE_URL
 
 
-async def extract_attractions(url: str, session: ClientSession):
-    """Extract attractions of a given destination."""
-    html_page = await fetch_html(url, session)
+async def extract_attraction_data(url: str):
+    """Extract information of an attraction, given its full URL."""
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
     map_class_for_open_time = {'open_time': 'bHGlw'}
@@ -66,42 +67,29 @@ async def extract_attractions(url: str, session: ClientSession):
     return map_info
 
 
-async def extract_all_attractions(url: str, session: ClientSession):
-    """Extract all attractions of a given destination."""
-    html_page = await fetch_html(url, session)
+async def extract_all_attractions(url: str):
+    """Extract all attractions of a city, given its URL."""
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
     select_top_attractions = soup.find_all(
         'div', class_='fVbwn cdAAV cagLQ eZTON dofsx')
 
-    relative_urls_site = {}
+    relative_urls_site = []
     for select in select_top_attractions:
         data_link = select.find('a')
         if data_link is not None:
-            name = select.find(
-                'div', class_='bUshh o csemS').get_text().strip()
-            relative_urls_site[name] = data_link.get('href')
+            relative_urls_site.append(data_link.get('href'))
 
-    data_site = {}
-
+    tasks = []
     for site in relative_urls_site:
-        data_site[site] = await extract_attractions(
-            'https://www.tripadvisor.com' + relative_urls_site[site], session)
-
-    return data_site
-
-
-async def main():
-    from pprint import pprint
-    url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    session = ClientSession(headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
-    pprint(await extract_attractions(url, session))
-    # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
-    await session.close()
+        tasks.append(
+            asyncio.create_task(extract_attraction_data(BASE_URL + site)))
+    return await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
-    import asyncio
+    from pprint import pprint
 
-    asyncio.run(main())
+    url = 'https://www.tripadvisor.com/Attractions-g293925-Activities-Ho_Chi_Minh_City.html'
+    pprint(asyncio.run(extract_all_attractions(url)))

@@ -36,3 +36,14 @@ class Restaurant(models.Model):
     details = models.EmbeddedField(
         model_container=RestaurantDetails
     )
+
+
+class City(models.Model):
+    _id = models.ObjectIdField()
+    name = models.TextField()
+    attractions = models.ArrayField(
+        model_container=Attraction
+    )
+    restaurants = models.ArrayField(
+        model_container=Restaurant
+    )
