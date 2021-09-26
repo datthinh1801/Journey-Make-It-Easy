@@ -93,7 +93,5 @@ if __name__ == '__main__':
     import asyncio
     from pprint import pprint
 
-    # url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
     url = 'https://www.tripadvisor.com/Attractions-g293925-Activities-Ho_Chi_Minh_City.html'
     pprint(asyncio.run(extract_all_attractions(url)))
