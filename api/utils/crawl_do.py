@@ -1,10 +1,13 @@
+import re
+
 from bs4 import BeautifulSoup
 
-from .utils import fetch_html
+# change this to .utils if use python shell
+from utils import fetch_html
 
 
-async def extract_attractions(url: str):
-    """Extract attractions of a given destination."""
+async def extract_attraction_data(url: str):
+    """Extract information of an attraction, given its full URL."""
     html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
@@ -73,31 +76,24 @@ async def extract_all_attractions(url: str):
     select_top_attractions = soup.find_all(
         'div', class_='fVbwn cdAAV cagLQ eZTON dofsx')
 
-    relative_urls_site = {}
+    relative_urls_site = []
     for select in select_top_attractions:
         data_link = select.find('a')
         if data_link is not None:
-            name = select.find(
-                'div', class_='bUshh o csemS').get_text().strip()
-            relative_urls_site[name] = data_link.get('href')
+            relative_urls_site.append(data_link.get('href'))
 
-    data_site = {}
-
+    tasks = []
     for site in relative_urls_site:
-        data_site[site] = await extract_attractions(
-            'https://www.tripadvisor.com' + relative_urls_site[site], session)
-
-    return data_site
-
-
-async def main():
-    from pprint import pprint
-    url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    pprint(await extract_attractions(url))
-    # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
+        tasks.append(
+            asyncio.create_task(extract_attraction_data('https://www.tripadvisor.com' + site)))
+    return await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
     import asyncio
+    from pprint import pprint
 
-    asyncio.run(main())
+    # url = 'https://www.tripadvisor.com/Attraction_Review-g303946-d12374392-Reviews-GreenlinesDP_Fast_Ferry-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
+    # TODO: https://www.tripadvisor.com/Attraction_Review-g303946-d11950036-Reviews-Christ_the_King-Vung_Tau_Ba_Ria_Vung_Tau_Province.html
+    url = 'https://www.tripadvisor.com/Attractions-g293925-Activities-Ho_Chi_Minh_City.html'
+    pprint(asyncio.run(extract_all_attractions(url)))

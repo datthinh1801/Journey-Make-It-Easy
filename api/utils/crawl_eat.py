@@ -1,13 +1,12 @@
 import base64
 
 from bs4 import BeautifulSoup
-from aiohttp import ClientSession
 
-from utils import fetch_html
+from .utils import fetch_html
 
 
-async def extract_restaurant(url: str, session: ClientSession):
-    html_page = await fetch_html(url, session)
+async def extract_restaurant(url: str):
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
     map_class_info = {'address': 'fhGHT',
@@ -66,8 +65,8 @@ async def extract_restaurant(url: str, session: ClientSession):
     return data
 
 
-async def extract_link_top_restaurant(url: str, session: ClientSession):
-    html_page = await fetch_html(url, session)
+async def extract_link_top_restaurant(url: str):
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
     map_class_links = {'link': 'bHGqj Cj b'}
     select_links = soup.find('div', class_='deQwQ').find_all(
@@ -78,14 +77,14 @@ async def extract_link_top_restaurant(url: str, session: ClientSession):
     return links
 
 
-async def extract_top_restaurant(url, session):
-    links_restaurant = await extract_link_top_restaurant(url, session)
+async def extract_top_restaurant(url):
+    links_restaurant = await extract_link_top_restaurant(url)
 
     data_restaurant = {}
     for link in links_restaurant:
         try:
             data_restaurant[link] = await extract_restaurant(
-                'https://www.tripadvisor.com' + links_restaurant[link], session)
+                'https://www.tripadvisor.com' + links_restaurant[link])
         except:
             # print(link)
             pass
@@ -93,18 +92,11 @@ async def extract_top_restaurant(url, session):
     return data_restaurant
 
 
-async def main():
+if __name__ == '__main__':
     from pprint import pprint
+    import asyncio
+
     url = 'https://www.tripadvisor.com/Restaurant_Review-g303946-d19454105-Reviews-Pizza_Leo-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
     # TODO: 'https://www.tripadvisor.com/Restaurant_Review-g303946-d4793485-Reviews-Matildas-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
     # open time (close in x minues)
-    session = ClientSession(headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
-    pprint(await extract_restaurant(url, session))
-    await session.close()
-
-
-if __name__ == '__main__':
-    import asyncio
-
-    asyncio.run(main())
+    pprint(asyncio.run(extract_restaurant(url)))
