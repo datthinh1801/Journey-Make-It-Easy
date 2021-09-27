@@ -34,4 +34,8 @@ header {
   z-index: 1;
 }
 
+.shadow {
+  border-bottom: 1px solid #e5e5e5;
+}
+
 </style>
