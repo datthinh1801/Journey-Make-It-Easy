@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 from crawl_attractions import extract_all_attractions
 from crawl_restaurants import extract_top_restaurant
+from crawl_stays import get_stay_city
 from utils import fetch_html, BASE_URL
 
 
@@ -12,7 +13,8 @@ async def extract_amenities(city_path: str):
             BASE_URL + city_path.replace('Tourism', 'Attractions')),
         'restaurants': await extract_top_restaurant(
             BASE_URL + city_path.replace('Tourism', 'Restaurants')),
-        # TODO: extract hotels
+        'stays' : await get_stay_city(
+            BASE_URL + city_path.replace('Tourism', 'Hotels'))
     }
 
 
