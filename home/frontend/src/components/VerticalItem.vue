@@ -46,7 +46,10 @@ export default {
 }
 
 .info {
+}
 
+.info h4 {
+  margin-top: 10px;
 }
 
 .heart-btn {

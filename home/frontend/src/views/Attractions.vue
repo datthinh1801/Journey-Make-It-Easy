@@ -14,6 +14,14 @@ import TopAttractionsSection from "../components/TopAttractionsSection";
 export default {
   name: 'Attractions',
   components: {TopAttractionsSection, NavBar, Header},
+  data() {
+    return {
+      items: {
+        itemName: 'Item 1',
+        imgSrc: 'images/placeholder_img.png'
+      }
+    }
+  }
 }
 </script>
 

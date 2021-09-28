@@ -8,8 +8,8 @@
       <button :class="$style.leftButton">
         <font-awesome-icon icon="chevron-left"/>
       </button>
-      <RecommendationItem v-for="(item, i) in items" :key="i" :class="$style.recommendedItem" :imgSrc="item.imgSrc"
-                          :itemName="item.itemName"/>
+      <VerticalItem v-for="(item, i) in items" :key="i" :class="$style.recommendedItem" :imgSrc="item.imgSrc"
+                    :itemName="item.itemName"/>
       <button :class="$style.rightButton">
         <font-awesome-icon icon="chevron-right"/>
       </button>
@@ -18,16 +18,17 @@
 </template>
 
 <script>
-import RecommendationItem from "./RecommendationItem";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faChevronLeft, faChevronRight);
 
+import VerticalItem from "./VerticalItem";
+
 export default {
   name: 'RecommendationGroup',
-  components: {RecommendationItem},
+  components: {VerticalItem,},
   props: ['title', 'description'],
   data() {
     return {
@@ -61,6 +62,8 @@ export default {
 
 .recommendedItem {
   cursor: pointer;
+  max-width: 95%;
+  max-height: 95%;
 }
 
 .itemContainer {
@@ -74,17 +77,21 @@ export default {
 
 .leftButton,
 .rightButton {
-  display: flex;
-  height: 30px;
-  width: 30px;
   background-color: white;
-  border-radius: 100%;
-  border: 2px solid black;
   color: black;
+
+  display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 80px;
+
+  height: 33px;
+  width: 33px;
+  top: 33%;
+
+  border-radius: 100%;
+  border: 2px solid black;
+
   font-size: 22px;
   transition: 0.2s;
   z-index: 1;
@@ -98,7 +105,7 @@ export default {
 }
 
 .rightButton {
-  right: 25px;
+  right: 0;
 }
 
 </style>
