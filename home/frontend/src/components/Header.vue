@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="row-container">
+    <div class="row-container width-control">
       <Logo/>
       <Button/>
     </div>

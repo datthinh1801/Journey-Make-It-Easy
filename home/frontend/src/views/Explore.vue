@@ -2,7 +2,7 @@
   <div>
     <div>
       <Header/>
-      <div :class="[$style.title, 'roboto', 'row-container']">
+      <div :class="[$style.title, 'roboto', 'row-container','width-control']">
         <span>Explore</span><span>{{ place }}</span>
       </div>
       <NavBar/>

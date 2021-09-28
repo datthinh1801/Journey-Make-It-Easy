@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="width-control">
     <h2>Recommendations</h2>
     <div v-for="(item, i) in recommendationDetails" :key="i">
-      <RecommendationGroup :title="item.title" :description="item.description"/>
+      <RecommendationGroup :description="item.description" :title="item.title"/>
     </div>
   </div>
 </template>
@@ -34,6 +34,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+div.width-control {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

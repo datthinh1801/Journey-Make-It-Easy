@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$style.image">
-      <img :src="imgSrc" :alt="imgSrc">
+      <img :alt="imgSrc" :src="imgSrc">
     </div>
     <div :class="$style.info">
       <h4>{{ itemName }}</h4>
@@ -20,6 +20,7 @@ export default {
 .image {
   width: 200px;
   height: 200px;
+  margin-bottom: 0;
 }
 
 .image img {
@@ -29,6 +30,11 @@ export default {
 }
 
 .image img:hover {
+  opacity: 0.8;
   overflow: hidden;
+}
+
+h4 {
+  margin-top: 10px;
 }
 </style>

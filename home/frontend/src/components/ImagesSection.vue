@@ -1,5 +1,5 @@
 <template>
-  <div :class="['row-container', $style.gridContainer]">
+  <div :class="['row-container', 'width-control', $style.gridContainer]">
     <div :class="$style.gridItemMain"></div>
     <div :class="$style.gridItemSub"></div>
     <div :class="$style.gridItemSub"></div>

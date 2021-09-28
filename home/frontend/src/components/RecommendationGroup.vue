@@ -8,7 +8,7 @@
       <button :class="$style.leftButton">
         <font-awesome-icon icon="chevron-left"/>
       </button>
-      <RecommendationItem :class="$style.recommendedItem" v-for="(item, i) in items" :key="i" :imgSrc="item.imgSrc"
+      <RecommendationItem v-for="(item, i) in items" :key="i" :class="$style.recommendedItem" :imgSrc="item.imgSrc"
                           :itemName="item.itemName"/>
       <button :class="$style.rightButton">
         <font-awesome-icon icon="chevron-right"/>
@@ -75,8 +75,8 @@ export default {
 .leftButton,
 .rightButton {
   display: flex;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   background-color: white;
   border-radius: 100%;
   border: 2px solid black;
@@ -85,7 +85,7 @@ export default {
   align-items: center;
   position: absolute;
   top: 80px;
-  font-size: 26px;
+  font-size: 22px;
   transition: 0.2s;
   z-index: 1;
   cursor: pointer;

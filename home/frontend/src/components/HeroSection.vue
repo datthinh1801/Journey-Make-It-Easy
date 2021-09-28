@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container">
+  <div class="row-container width-control">
     <img id="hero-img" alt="hero-img" src="images/Hero_image.png">
     <img id="hero-text" alt="hero-text" src="images/Hero_text.png">
     <SearchBox id="search-box"/>

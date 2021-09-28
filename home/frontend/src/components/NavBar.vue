@@ -1,5 +1,5 @@
 <template>
-  <nav :id="$style.nav" class="row-container">
+  <nav class="row-container width-control">
     <router-link :class="[$style.navItem, 'roboto']" to="/">
       Home
       <font-awesome-icon icon="home"/>
