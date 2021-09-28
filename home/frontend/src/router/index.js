@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Explore from '../views/Explore';
 import Attractions from '../views/Attractions';
 import Restaurants from '../views/Restaurants';
 import Hotels from '../views/Hotels';
@@ -13,6 +14,11 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home
+    },
+    {
+        path: '/explore',
+        name: 'Explore',
+        component: Explore
     },
     {
         path: '/attractions',

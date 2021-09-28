@@ -41,10 +41,6 @@ export default {
 <style module>
 @import '../styles/global.css';
 
-#nav {
-  margin-top: 60px;
-}
-
 .navItem {
   background-color: white;
   color: black;

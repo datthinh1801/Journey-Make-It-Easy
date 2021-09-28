@@ -19,9 +19,9 @@ async def extract_amenities(city_path: str):
 async def extract_city_data(city_path: str):
     """Extract information of a city, given its path."""
     data = await extract_amenities(city_path)
-
     html_page = await fetch_html(BASE_URL + city_path)
     soup = BeautifulSoup(html_page, 'html.parser')
+
     data['name'] = soup.find('h1', class_='WlYyy cPsXC MLeMj eKEDF').find('span').find_all('span')[1].text
     return data
 
