@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header/>
     <HeroSection/>
     <FeaturedDestinationsSection/>
     <FeaturedBlogsSection/>
@@ -7,6 +8,7 @@
 </template>
 
 <script>
+import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import FeaturedDestinationsSection from "../components/FeaturedDestinationsSection";
 import FeaturedBlogsSection from "../components/FeaturedBlogsSection";
@@ -14,6 +16,7 @@ import FeaturedBlogsSection from "../components/FeaturedBlogsSection";
 export default {
   name: 'Home',
   components: {
+    Header,
     HeroSection,
     FeaturedDestinationsSection,
     FeaturedBlogsSection

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img alt="featured-destination-img" src="placeholder_img.png">
+    <img alt="featured-destination-img" src="images/placeholder_img.png">
     <HeartButton class="heart-btn"/>
     <div class="item-info">
       <strong class="roboto">Shelborne South Beach</strong>
@@ -25,10 +25,10 @@ export default {
 <style scoped>
 @import "../styles/global.css";
 
-div {
+div:not(.item-info) {
   position: relative;
+  cursor: pointer;
 }
-
 
 img {
   max-width: 240px;

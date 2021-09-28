@@ -1,7 +1,7 @@
 <template>
   <div class="row-container">
-    <img id="hero-img" alt="hero-img" src="Hero_image.png">
-    <img id="hero-text" alt="hero-text" src="Hero_text.png">
+    <img id="hero-img" alt="hero-img" src="images/Hero_image.png">
+    <img id="hero-text" alt="hero-text" src="images/Hero_text.png">
     <SearchBox id="search-box"/>
   </div>
 </template>
