@@ -26,7 +26,7 @@ const routes = [
         component: Attractions
     },
     {
-        path: '/restaurant',
+        path: '/restaurants',
         name: 'Restaurants',
         component: Restaurants
     },
