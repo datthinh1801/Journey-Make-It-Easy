@@ -1,19 +1,17 @@
 <template>
   <div>
-    <Header/>
-    <NavBar :class="$style.navbar"/>
+    <HeaderAndNav/>
     <TopAttractionsSection place="Da Lat"/>
   </div>
 </template>
 
 <script>
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
 import TopAttractionsSection from "../components/TopAttractionsSection";
+import HeaderAndNav from "../components/HeaderAndNav";
 
 export default {
   name: 'Attractions',
-  components: {TopAttractionsSection, NavBar, Header},
+  components: {HeaderAndNav, TopAttractionsSection,},
   data() {
     return {
       items: {
@@ -25,8 +23,5 @@ export default {
 }
 </script>
 
-<style module>
-.navbar {
-  margin-top: 60px;
-}
+<style>
 </style>

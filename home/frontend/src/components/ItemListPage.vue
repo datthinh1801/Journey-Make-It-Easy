@@ -3,7 +3,7 @@
     <Header/>
     <NavBar/>
     <h1>{{ title }}</h1>
-    <div>
+    <div :class="$style['content-list']">
       <FilterPanel id="filter-panel"/>
       <ItemListSection id="item-list-section"/>
     </div>
@@ -26,5 +26,10 @@ export default {
 <style module>
 nav {
   margin-top: 60px;
+}
+
+.content-list {
+  display: flex;
+  justify-content: center;
 }
 </style>

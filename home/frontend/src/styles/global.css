@@ -1,12 +1,11 @@
 .row-container {
     display: flex;
     justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .width-control {
     max-width: 1000px;
+    margin: auto;
 }
 
 .col-container {

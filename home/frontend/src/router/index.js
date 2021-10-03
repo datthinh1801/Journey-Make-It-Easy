@@ -6,6 +6,7 @@ import Attractions from '../views/Attractions';
 import Restaurants from '../views/Restaurants';
 import Hotels from '../views/Hotels';
 import Articles from '../views/Articles';
+import Restaurant from '../views/Restaurant';
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
         path: '/articles',
         name: 'Articles',
         component: Articles
+    },
+    {
+        path: '/restaurant',
+        name: 'Restaurant',
+        component: Restaurant
     }
 ]
 
