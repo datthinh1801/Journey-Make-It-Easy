@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="row-container width-control">
-      <Logo/>
+      <Logo class="logo"/>
       <Button/>
     </div>
   </header>
@@ -34,8 +34,7 @@ header {
   z-index: 1;
 }
 
-.shadow {
-  border-bottom: 1px solid #e5e5e5;
+.logo {
+  margin-left: -10px;
 }
-
 </style>

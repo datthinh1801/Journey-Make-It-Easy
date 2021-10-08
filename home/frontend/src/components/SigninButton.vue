@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button class="roboto">Sign in</button>
+    <router-link tag="button" to="/signin">Sign in</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SigninButton'
+  name: 'SigninButton',
 }
 </script>
 
