@@ -8,6 +8,7 @@ import Hotels from '../views/Hotels';
 import Articles from '../views/Articles';
 import Restaurant from '../views/Restaurant';
 import SignIn from '../views/SignIn';
+import SignUp from '../views/SignUp';
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
         path: '/signin',
         name: 'SignIn',
         component: SignIn
+    },
+    {
+        path: '/signup',
+        name: 'SignUp',
+        component: SignUp
     },
     {
         path: '/explore',

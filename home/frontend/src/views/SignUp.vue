@@ -2,7 +2,7 @@
   <div :class="$style['overlay']">
     <div :class="$style['form-container']">
       <div :class="$style['form-header']">
-        <h2 class="no-select">Sign In</h2>
+        <h2 class="no-select">Sign Up</h2>
         <router-link tag="button" to="/">
           <font-awesome-icon icon="times"/>
         </router-link>
@@ -11,18 +11,16 @@
       <router-link tag="div" to="/">
         <Logo :class="$style.logo"/>
       </router-link>
-      <form action="auth" method="post">
+      <form action="signup" method="post">
         <input id="username" v-model="username" class="roboto" name="username" placeholder="Username or email"
                tabindex="1" type="text">
         <input id="password" v-model="password" class="roboto" name="password" placeholder="Password" tabindex="2"
                type="password">
-        <div :class="$style['forgot-pw-container']">
-          <a href="/forgot-password" tabindex="4">Forgot your password ?</a>
-        </div>
-        <input :class="$style['signin-button']" tabindex="3" type="submit" value="Sign in">
-        <div :class="$style.or"><span class="no-select">Or</span></div>
+        <input id="re-password" v-model="rePassword" class="roboto" name="re-password"
+               placeholder="Re-enter your password" tabindex="3"
+               type="password">
+        <input :class="$style['signin-button']" tabindex="4" type="submit" value="Sign in">
       </form>
-      <router-link :class="$style['signup-button']" tabindex="5" tag="button" to="/signup">Sign Up</router-link>
     </div>
   </div>
 </template>
@@ -39,7 +37,8 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      rePassword: '',
     }
   },
   components: {
@@ -63,8 +62,6 @@ export default {
   display: flex;
   margin: auto;
   cursor: pointer;
-  justify-content: center;
-  align-items: center;
 }
 
 .or {
