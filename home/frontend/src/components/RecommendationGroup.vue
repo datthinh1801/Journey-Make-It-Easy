@@ -31,63 +31,65 @@ library.add(faChevronLeft, faChevronRight);
 
 import VerticalItem from "./VerticalItem";
 
-import store from "../store/store";
-
 export default {
   name: 'RecommendationGroup',
   components: {VerticalItem,},
   props: ['title', 'description'],
   data() {
     return {
-      currentIndex: 0,
-      itemsToShow: 3,
-      maxItems: 5,
+      currentItem: 0,
     }
   },
   computed: {
     items() {
       if (this.title === 'Do') {
-        return store.attractions;
-      } else if (this.title === 'Eat') {
-        return store.restaurants;
+        return this.$store.getters.attractions;
+      } else if (this.title === 'Stay') {
+        return this.$store.getters.hotels;
       } else {
-        return store.hotels;
+        return this.$store.getters.restaurants
       }
     },
-    showNext() {
-      return this.currentIndex + this.itemsToShow !== this.maxItems;
-    },
     showPrev() {
-      return this.currentIndex !== 0;
+      return this.currentItem > 0;
+    },
+    showNext() {
+      // TODO: Define the maximum number of items to shwo
+      return true;
     }
   },
   methods: {
-    getAttraction(num) {
-      for (let i = 0; i < num; ++i) {
-        store.getAttraction();
-      }
+    getAttraction() {
+      this.$store.commit('getAttraction');
     },
-    getRestaurant(num) {
-      for (let i = 0; i < num; ++i) {
-        store.getRestaurant();
-      }
+    getRestaurant() {
+      this.$store.commit('getRestaurant');
     },
-    getHotels(num) {
-      for (let i = 0; i < num; ++i) {
-        store.getHotels();
+    getHotel() {
+      this.$store.commit('getHotel');
+    },
+    getItem() {
+      if (this.title === 'Do') {
+        this.getAttraction();
+      } else if (this.title === 'Eat') {
+        this.getRestaurant();
+      } else {
+        this.getHotel();
       }
     },
     moveLeft() {
-
+      //https://css-tricks.com/css-only-carousel/
+      this.currentItem = Math.min(this.currentItem - 1, 0);
     },
     moveRight() {
-
+      this.getItem()
+      ++this.currentItem;
     }
   },
   mounted() {
-    this.getAttraction(3);
-    this.getRestaurant(3);
-    this.getHotels(3);
+    for (let i = 0; i < this.$store.state.maxHorizontalItems; ++i) {
+      this.getItem();
+    }
   }
 }
 </script>
@@ -112,6 +114,8 @@ export default {
   grid-column: 2/5;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  overflow: hidden;
   padding-left: 20px;
   padding-right: 10px;
 }

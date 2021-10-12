@@ -9,20 +9,14 @@
 </template>
 
 <script>
-import store from "../store/store";
-
 export default {
   name: 'SigninButton',
   computed: {
     authenticated() {
-      return store.authenticated;
+      return this.$store.state.authenticated;
     }
   },
-  methods: {
-    authenticate() {
-      store.authenticate();
-    }
-  }
+  methods: {}
 }
 </script>
 

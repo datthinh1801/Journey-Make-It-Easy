@@ -11,16 +11,16 @@
       <router-link tag="div" to="/">
         <Logo :class="$style.logo"/>
       </router-link>
-      <form action="signup" method="post">
-        <input id="username" v-model="username" class="roboto" name="username" placeholder="Username or email"
+      <div :class="$style['custom-form']">
+        <input id="username" class="roboto" name="username" placeholder="Username or email"
                tabindex="1" type="text">
-        <input id="password" v-model="password" class="roboto" name="password" placeholder="Password" tabindex="2"
+        <input id="password" class="roboto" name="password" placeholder="Password" tabindex="2"
                type="password">
-        <input id="re-password" v-model="rePassword" class="roboto" name="re-password"
+        <input id="re-password" class="roboto" name="re-password"
                placeholder="Re-enter your password" tabindex="3"
                type="password">
-        <input :class="$style['signin-button']" tabindex="4" type="submit" value="Sign in">
-      </form>
+        <button :class="$style['signup-button']" tabindex="4" @click="signUp">Sign Up</button>
+      </div>
     </div>
   </div>
 </template>
@@ -35,16 +35,19 @@ library.add(faTimes);
 export default {
   name: 'login',
   data() {
-    return {
-      username: '',
-      password: '',
-      rePassword: '',
-    }
+    return {}
   },
   components: {
     Logo,
   },
-  methods: {}
+  methods: {
+    signUp() {
+      let username = document.querySelector('#username').value;
+      let password = document.querySelector('#password').value;
+      let rePassword = document.querySelector('#re-password').value;
+      this.$store.commit('signUp', {username, password, rePassword});
+    }
+  }
 }
 </script>
 
@@ -56,75 +59,26 @@ export default {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
+  text-transform: capitalize;
   border: 1px solid #ddd;
   height: 40px;
-  width: 80%;
+  width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin: auto;
   cursor: pointer;
 }
 
-.or {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0 20px 0;
-  text-align: center;
-  align-items: center;
-  max-width: 100%;
-}
-
-.or span {
-  margin: 0 20px;
-}
-
-.or::before {
-  width: 100%;
-  content: '';
-  height: 1px;
-  background-color: #ccc;
-}
-
-.or::after {
-  width: 100%;
-  content: '';
-  height: 1px;
-  background-color: #ccc;
-}
-
-.forgot-pw-container {
-  width: 100%;
-  text-align: right;
-  margin: 10px 0 10px 0;
-}
-
-.forgot-pw-container a {
-  text-decoration: none;
-  color: black;
-  font-size: 14px;
-}
-
-.forgot-pw-container a:hover {
-  text-decoration: underline;
-}
-
-.signin-button {
-  background-color: #F9C100;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  text-transform: capitalize;
-  font-weight: 500;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.form-container form {
+.form-container .custom-form {
   display: flex;
   flex-direction: column;
   max-width: 80%;
   margin: 20px auto 0 auto;
 }
 
-.form-container form input {
+.form-container .custom-form input,
+.signup-button {
   height: 40px;
   margin-top: 10px;
   border-radius: 10px;
@@ -132,12 +86,12 @@ export default {
   font-size: 16px;
 }
 
-.form-container form input::placeholder {
+.form-container .custom-form input::placeholder {
   font-size: 14px;
 }
 
-.form-container form input[type="text"],
-.form-container form input[type="password"] {
+.form-container .custom-form input[type="text"],
+.form-container .custom-form input[type="password"] {
   padding-left: 20px;
 }
 
@@ -147,11 +101,6 @@ export default {
   justify-content: center;
   font-size: 28px;
   cursor: pointer;
-}
-
-.form-container hr {
-  width: 100%;
-  max-width: 100%;
 }
 
 .form-header {

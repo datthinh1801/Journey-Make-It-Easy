@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Top Attractions in {{ place }}</h1>
+    <h1 :class="$style.header">Top Attractions in {{ place }}</h1>
     <div :class="$style['content-container']" class="width-control">
       <VerticalItem v-for="i in 9" :key="i" :class="$style['grid-item']" :imgSrc="items.imgSrc" :itemName="items.name"/>
     </div>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style module>
-h1 {
+h1.header {
   text-align: center;
 }
 

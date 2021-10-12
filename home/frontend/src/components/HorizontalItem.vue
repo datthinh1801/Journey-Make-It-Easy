@@ -1,13 +1,14 @@
 <template>
   <div :class="$style['item-container']">
     <div :class="$style['img-container']">
-      <img :class="$style['item-img']" alt="item-img" src="images/placeholder_img.png">
+      <img :class="$style['item-img']" alt="item-img" :src="imgSrc">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
-    <div>
-      <h4>Wooden House</h4>
-      <RatingSection/>
-      <!--Price, review, features-->
+    <div :class="$style['detail-container']">
+      <h3>{{ itemName }}</h3>
+      <RatingSection star-count="5"/>
+      <hr>
+      Price, review, features
     </div>
   </div>
 </template>
@@ -20,12 +21,16 @@ import RatingSection from "./RatingSection";
 export default {
   name: 'HorizontalItem',
   components: {RatingSection, HeartButton},
+  props: ['itemName', 'imgSrc'],
 }
 </script>
 
 <style module>
 .item-container {
   display: flex;
+  border: 1px solid #777;
+  margin-bottom: 5px;
+  height: 200px;
 }
 
 .img-container {
@@ -41,5 +46,18 @@ export default {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.detail-container {
+  width: 100%;
+  margin-left: 10px;
+}
+
+.detail-container h3 {
+  margin: 10px 0;
+}
+
+.detail-container hr {
+  width: 100%;
 }
 </style>

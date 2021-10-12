@@ -12,9 +12,9 @@
         <Logo :class="$style.logo"/>
       </router-link>
       <div :class="$style['custom-form']">
-        <input id="username" v-model="username" class="roboto" name="username" placeholder="Username or email"
+        <input id="username" class="roboto" name="username" placeholder="Username or email"
                tabindex="1" type="text">
-        <input id="password" v-model="password" class="roboto" name="password" placeholder="Password" tabindex="2"
+        <input id="password" class="roboto" name="password" placeholder="Password" tabindex="2"
                type="password">
         <div :class="$style['forgot-pw-container']">
           <a href="/forgot-password" tabindex="4">Forgot your password ?</a>
@@ -34,24 +34,29 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTimes);
 
-import store from '../store/store';
+import {mapGetters} from 'vuex';
 
 export default {
-  name: 'login',
+  name: 'SignIn',
   data() {
-    return {
-      username: '',
-      password: ''
-    }
+    return {}
   },
   components: {
     Logo,
+  },
+  computed: {
+    ...mapGetters([
+      'attractions',
+      'restaurants',
+      'hotels',
+    ])
   },
   methods: {
     signIn() {
       // const username = document.querySelector('#username').value;
       // const password = document.querySelector('#password').value;
-      store.authenticate('eve.holt@reqres.in', 'cityslicka');
+      // TODO: Uncomment these above lines
+      this.$store.commit('signIn', {username: 'eve.holt@reqres.in', password: 'cityslicka'});
     }
   }
 }

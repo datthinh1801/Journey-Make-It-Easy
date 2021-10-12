@@ -1,10 +1,10 @@
 <template>
   <div>
     <HeaderAndNav/>
-    <h1>Restaurants in {{ place }}</h1>
+    <h1 :class="$style.head">Restaurants in {{ place }}</h1>
     <div :class="$style['content-list']">
-      <FilterPanel id="filter-panel"/>
-      <ItemListSection id="item-list-section"/>
+      <FilterPanel :id="$style['filter-panel']"/>
+      <ItemListSection :id="$style['item-list-section']"/>
     </div>
   </div>
 </template>
@@ -27,8 +27,21 @@ export default {
 </script>
 
 <style module>
+h1.head {
+  text-align: center;
+}
+
 .content-list {
   display: flex;
   justify-content: center;
+}
+
+#filter-panel {
+
+}
+
+#item-list-section {
+  width: 500px;
+  margin-left: 10px;
 }
 </style>
