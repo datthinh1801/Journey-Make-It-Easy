@@ -5,8 +5,8 @@ from aiohttp import ClientSession
 from utils import fetch_html
 
 
-async def extract_stay_data(url: str, session: ClientSession):
-    html_page = await fetch_html(url, session)
+async def extract_stay_data(url: str):
+    html_page = await fetch_html(url)
     soup = BeautifulSoup(html_page, 'html.parser')
 
     map_class_for_address = {
@@ -67,16 +67,15 @@ async def extract_stay_data(url: str, session: ClientSession):
 
 
 async def main():
-    from pprint import pprint
-
     session = ClientSession(headers={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'})
     data = await extract_stay_data(
-        'https://www.tripadvisor.com/Hotel_Review-g293925-d8142973-Reviews-Hotel_des_Arts_Saigon_MGallery-Ho_Chi_Minh_City.html',
-        session)
-    pprint(data)
+        'https://www.tripadvisor.com/Hotel_Review-g293925-d8142973-Reviews-Hotel_des_Arts_Saigon_MGallery-Ho_Chi_Minh_City.html')
     await session.close()
+    return data
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    import json
+
+    print(json.dumps(asyncio.run(main())))

@@ -11,7 +11,7 @@
       <router-link tag="div" to="/">
         <Logo :class="$style.logo"/>
       </router-link>
-      <form action="auth" method="post">
+      <div :class="$style['custom-form']">
         <input id="username" v-model="username" class="roboto" name="username" placeholder="Username or email"
                tabindex="1" type="text">
         <input id="password" v-model="password" class="roboto" name="password" placeholder="Password" tabindex="2"
@@ -19,9 +19,9 @@
         <div :class="$style['forgot-pw-container']">
           <a href="/forgot-password" tabindex="4">Forgot your password ?</a>
         </div>
-        <input :class="$style['signin-button']" tabindex="3" type="submit" value="Sign in">
+        <button :class="$style['signin-button']" tabindex="3" type="submit" @click="signIn">Sign in</button>
         <div :class="$style.or"><span class="no-select">Or</span></div>
-      </form>
+      </div>
       <router-link :class="$style['signup-button']" tabindex="5" tag="button" to="/signup">Sign Up</router-link>
     </div>
   </div>
@@ -34,6 +34,8 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTimes);
 
+import store from '../store/store';
+
 export default {
   name: 'login',
   data() {
@@ -45,7 +47,13 @@ export default {
   components: {
     Logo,
   },
-  methods: {}
+  methods: {
+    signIn() {
+      // const username = document.querySelector('#username').value;
+      // const password = document.querySelector('#password').value;
+      store.authenticate('eve.holt@reqres.in', 'cityslicka');
+    }
+  }
 }
 </script>
 
@@ -120,14 +128,15 @@ export default {
   cursor: pointer;
 }
 
-.form-container form {
+.form-container .custom-form {
   display: flex;
   flex-direction: column;
   max-width: 80%;
   margin: 20px auto 0 auto;
 }
 
-.form-container form input {
+.form-container .custom-form input,
+.signin-button {
   height: 40px;
   margin-top: 10px;
   border-radius: 10px;
@@ -135,12 +144,12 @@ export default {
   font-size: 16px;
 }
 
-.form-container form input::placeholder {
+.form-container .custom-form input::placeholder {
   font-size: 14px;
 }
 
-.form-container form input[type="text"],
-.form-container form input[type="password"] {
+.form-container .custom-form input[type="text"],
+.form-container .custom-form input[type="password"] {
   padding-left: 20px;
 }
 
