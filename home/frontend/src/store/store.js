@@ -22,5 +22,29 @@ export default Vue.observable({
     username: null,
     getUsername() {
         return this.username;
+    },
+
+    // attraction
+    attractions: [],
+    async getAttraction() {
+        this.attractions.push(await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
+            return res.data[0];
+        }));
+    },
+
+    // restaurants
+    restaurants: [],
+    async getRestaurant() {
+        this.restaurants.push(await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
+            return res.data[0];
+        }));
+    },
+
+    // hotels
+    hotels: [],
+    async getHotels() {
+        this.hotels.push(await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
+            return res.data[0];
+        }));
     }
 });
