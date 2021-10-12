@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 class Nation(models.Model):
     name = models.TextField()
-    number_voting = models.TextField()
-    rating_score = models.FloatField()
+    number_voting = models.TextField(default=0)
+    rating_score = models.FloatField(default=0)
 
 
 class City(models.Model):
     name = models.TextField()
-    number_voting = models.TextField()
-    rating_score = models.FloatField()
+    number_voting = models.TextField(default=0)
+    rating_score = models.FloatField(default=0)
     nation = models.ForeignKey(Nation, on_delete=models.CASCADE)
 
 
@@ -22,8 +22,8 @@ class Attraction(models.Model):
     admission_ticket = models.TextField(blank=True)
     open_time = models.TextField(blank=True)
     suggested_duration = models.TextField(blank=True)
-    number_voting = models.TextField()
-    rating_score = models.FloatField()
+    number_voting = models.TextField(default=0)
+    rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 
@@ -38,8 +38,8 @@ class Restaurant(models.Model):
     special_diets = models.TextField()
     price_range = models.TextField()
     features = models.TextField()
-    number_voting = models.TextField()
-    rating_score = models.FloatField()
+    number_voting = models.TextField(default=0)
+    rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 
@@ -52,8 +52,8 @@ class Stay(models.Model):
     room_features = models.TextField()
     room_types = models.TextField()
     property_amenities = models.TextField()
-    number_voting = models.TextField()
-    rating_score = models.FloatField()
+    number_voting = models.TextField(default=0)
+    rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 
@@ -107,5 +107,3 @@ class Stay_Voting(models.Model):
     item_vote = models.ForeignKey(Stay, on_delete=models.CASCADE)
     point = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
