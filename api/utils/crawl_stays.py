@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import asyncio
 import base64
+import json
 from utils import fetch_html, BASE_URL
 
 async def extract_stay_data(url: str):
