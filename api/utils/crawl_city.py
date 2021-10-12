@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+import json
+import sys
 
 from crawl_attractions import extract_all_attractions
 from crawl_restaurants import extract_top_restaurant
@@ -32,5 +34,23 @@ if __name__ == '__main__':
     import asyncio
     from pprint import pprint
 
+    if len(sys.argv) > 1 and sys.argv[1] == '--help':
+        print('usage: python crawl_city.py <url> <file_save_name>')
+        exit(0)
+
     city_path = '/Tourism-g303946-Vung_Tau_Ba_Ria_Vung_Tau_Province-Vacations.html'
-    pprint(asyncio.run(extract_city_data(city_path)))
+    if len(sys.argv) > 1:
+        s = sys.argv[1]
+        if s.find(BASE_URL) == 0:
+            city_path = sys.argv[1].replace(BASE_URL, '')
+            print(city_path)
+        else:
+            print('Not valid url')
+            exit(0)
+
+    data = asyncio.run(extract_city_data(city_path))
+    pprint(data)
+
+    if len(sys.argv) > 2:
+        with open(sys.argv[2], 'w') as fp:
+            json.dump(data, fp)
