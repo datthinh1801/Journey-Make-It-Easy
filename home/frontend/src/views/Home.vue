@@ -23,6 +23,9 @@ export default {
     HeroSection,
     FeaturedDestinationsSection,
     FeaturedBlogsSection
+  },
+  mounted() {
+    this.$store.commit('changePath', '/');
   }
 }
 </script>

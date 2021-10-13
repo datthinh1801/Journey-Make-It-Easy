@@ -20,7 +20,6 @@ const store = new Vuex.Store({
 
         // STATE for AUTHENTICATION
         authenticated: false,
-        username: null,
 
         // STATE for EXPLORE page
         attractionArr: [],
@@ -36,7 +35,7 @@ const store = new Vuex.Store({
             });
 
             state.authenticated = response.data.token;
-            await router.push({path: '/'});
+            await router.push({path: state.currentURL});
         },
         async signUp(state, payload) {
             let {
@@ -69,6 +68,9 @@ const store = new Vuex.Store({
                 await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
                     return res.data[0];
                 }));
+        },
+        changePath(state, path) {
+            state.currentURL = path;
         },
     },
     getters: {

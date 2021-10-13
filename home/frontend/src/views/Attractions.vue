@@ -19,6 +19,9 @@ export default {
         imgSrc: 'images/placeholder_img.png'
       }
     }
+  },
+  mounted() {
+    this.$store.commit('changePath', '/attractions');
   }
 }
 </script>

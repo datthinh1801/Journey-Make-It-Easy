@@ -29,6 +29,9 @@ export default {
     return {
       place: 'Da Lat'
     }
+  },
+  mounted() {
+    this.$store.commit('changePath', '/explore');
   }
 }
 </script>

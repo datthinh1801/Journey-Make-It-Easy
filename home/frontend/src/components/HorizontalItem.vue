@@ -29,8 +29,18 @@ export default {
 .item-container {
   display: flex;
   border: 1px solid #777;
+  border-radius: 4px;
   margin-bottom: 5px;
   height: 200px;
+  cursor: pointer;
+}
+
+.item-container:hover .img-container {
+  opacity: 0.8;
+}
+
+.item-container:hover .detail-container h3 {
+  text-decoration: underline;
 }
 
 .img-container {

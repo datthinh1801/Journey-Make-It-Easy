@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../styles/global.css';
-
 header {
   background-color: white;
   position: fixed;
@@ -36,5 +34,9 @@ header {
 
 .logo {
   margin-left: -10px;
+}
+
+.shadow {
+  border-bottom: 1px solid #ddd;
 }
 </style>
