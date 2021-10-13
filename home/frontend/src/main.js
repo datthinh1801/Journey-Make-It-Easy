@@ -26,6 +26,9 @@ const store = new Vuex.Store({
         restaurantArr: [],
         hotelArr: [],
         maxHorizontalItems: 3,
+
+        // STATE for ARTICLES page
+        articleArr: [],
     },
     mutations: {
         async signIn(state, credential) {
@@ -57,11 +60,17 @@ const store = new Vuex.Store({
                     return res.data[0];
                 }));
         },
+        clearAllAttractions(state) {
+            state.attractionArr = [];
+        },
         async getRestaurant(state) {
             state.restaurantArr.push(
                 await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
                     return res.data[0];
                 }));
+        },
+        clearAllRestaurants(state) {
+            state.restaurantArr = [];
         },
         async getHotel(state) {
             state.hotelArr.push(
@@ -69,9 +78,21 @@ const store = new Vuex.Store({
                     return res.data[0];
                 }));
         },
+        clearAllHotels(state) {
+            state.hotelArr = [];
+        },
         changePath(state, path) {
             state.currentURL = path;
         },
+        async getArticle(state) {
+            state.articleArr =
+                await axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
+                    return res.data;
+                });
+        },
+        clearAllArticles(state) {
+            state.articleArr = [];
+        }
     },
     getters: {
         attractions: state => {
@@ -82,6 +103,9 @@ const store = new Vuex.Store({
         },
         hotels: state => {
             return state.hotelArr;
+        },
+        articles: state => {
+            return state.articleArr;
         }
     }
 })

@@ -24,6 +24,9 @@ export default {
   },
   mounted() {
     this.$store.commit('changePath', '/hotels');
+  },
+  beforeDestroy() {
+    this.$store.commit('clearAllHotels');
   }
 }
 </script>

@@ -32,6 +32,11 @@ export default {
   },
   mounted() {
     this.$store.commit('changePath', '/explore');
+  },
+  beforeDestroy() {
+    this.$store.commit('clearAllAttractions');
+    this.$store.commit('clearAllHotels');
+    this.$store.commit('clearAllRestaurants');
   }
 }
 </script>

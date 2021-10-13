@@ -25,6 +25,9 @@ export default {
   },
   mounted() {
     this.$store.commit('changePath', '/restaurants');
+  },
+  beforeDestroy() {
+    this.$store.commit('clearAllRestaurants');
   }
 }
 </script>
