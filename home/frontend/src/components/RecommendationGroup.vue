@@ -51,8 +51,7 @@ export default {
       } else {
         itemArr = this.$store.state.restaurantArr;
       }
-      // return itemArr.slice(this.currentItem, this.itemToShow);
-      return itemArr;
+      return itemArr.slice(this.currentItem, this.currentItem + this.itemToShow);
     },
     showPrev() {
       return this.currentItem > 0;
@@ -63,8 +62,8 @@ export default {
     }
   },
   methods: {
-    getAttraction() {
-      this.$store.dispatch('getAttraction');
+    async getAttraction() {
+      await this.$store.dispatch('getAttraction');
     },
     getRestaurant() {
       this.$store.dispatch('getRestaurant');
@@ -72,9 +71,9 @@ export default {
     getHotel() {
       this.$store.dispatch('getHotel');
     },
-    getItem() {
+    async getItem() {
       if (this.title === 'Do') {
-        this.getAttraction();
+        await this.getAttraction();
       } else if (this.title === 'Eat') {
         this.getRestaurant();
       } else {
@@ -82,11 +81,10 @@ export default {
       }
     },
     moveLeft() {
-      //https://css-tricks.com/css-only-carousel/
       this.currentItem = Math.max(this.currentItem - 1, 0);
     },
-    moveRight() {
-      this.getItem();
+    async moveRight() {
+      await this.getItem();
       ++this.currentItem;
     }
   },
