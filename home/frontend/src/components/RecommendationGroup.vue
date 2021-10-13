@@ -10,10 +10,10 @@
         <font-awesome-icon icon="chevron-left"/>
       </button>
 
-      <VerticalItem v-for="(item, i) in items" :key="i"
+      <VerticalItem v-for="(item, i) in items" v-bind:key="item.name + i"
                     :class="$style.recommendedItem"
                     :imgSrc="item.images[0]"
-                    :itemName="item.name"/>
+                    :itemName="item.name + i"/>
 
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
         <font-awesome-icon icon="chevron-right"/>
@@ -38,17 +38,21 @@ export default {
   data() {
     return {
       currentItem: 0,
+      itemToShow: 3,
     }
   },
   computed: {
     items() {
+      let itemArr = [];
       if (this.title === 'Do') {
-        return this.$store.getters.attractions;
+        itemArr = this.$store.state.attractionArr;
       } else if (this.title === 'Stay') {
-        return this.$store.getters.hotels;
+        itemArr = this.$store.state.hotelArr;
       } else {
-        return this.$store.getters.restaurants
+        itemArr = this.$store.state.restaurantArr;
       }
+      // return itemArr.slice(this.currentItem, this.itemToShow);
+      return itemArr;
     },
     showPrev() {
       return this.currentItem > 0;
@@ -60,13 +64,13 @@ export default {
   },
   methods: {
     getAttraction() {
-      this.$store.commit('getAttraction');
+      this.$store.dispatch('getAttraction');
     },
     getRestaurant() {
-      this.$store.commit('getRestaurant');
+      this.$store.dispatch('getRestaurant');
     },
     getHotel() {
-      this.$store.commit('getHotel');
+      this.$store.dispatch('getHotel');
     },
     getItem() {
       if (this.title === 'Do') {
@@ -79,15 +83,15 @@ export default {
     },
     moveLeft() {
       //https://css-tricks.com/css-only-carousel/
-      this.currentItem = Math.min(this.currentItem - 1, 0);
+      this.currentItem = Math.max(this.currentItem - 1, 0);
     },
     moveRight() {
-      this.getItem()
+      this.getItem();
       ++this.currentItem;
     }
   },
   mounted() {
-    for (let i = 0; i < this.$store.state.maxHorizontalItems; ++i) {
+    for (let i = 0; i < this.itemToShow; ++i) {
       this.getItem();
     }
   }

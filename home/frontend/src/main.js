@@ -54,29 +54,20 @@ const store = new Vuex.Store({
             console.log(response);
             await router.push({path: '/signin'})
         },
-        async getAttraction(state) {
-            state.attractionArr.push(
-                await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
-                    return res.data[0];
-                }));
+        getAttraction(state, data) {
+            state.attractionArr.push(data);
         },
         clearAllAttractions(state) {
             state.attractionArr = [];
         },
-        async getRestaurant(state) {
-            state.restaurantArr.push(
-                await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
-                    return res.data[0];
-                }));
+        getRestaurant(state, data) {
+            state.restaurantArr.push(data);
         },
         clearAllRestaurants(state) {
             state.restaurantArr = [];
         },
-        async getHotel(state) {
-            state.hotelArr.push(
-                await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList').then(res => {
-                    return res.data[0];
-                }));
+        getHotel(state, data) {
+            state.hotelArr.push(data);
         },
         clearAllHotels(state) {
             state.hotelArr = [];
@@ -94,18 +85,18 @@ const store = new Vuex.Store({
             state.articleArr = [];
         }
     },
-    getters: {
-        attractions: state => {
-            return state.attractionArr;
+    actions: {
+        async getAttraction(context) {
+            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
+            context.commit('getAttraction', response.data[0]);
         },
-        restaurants: state => {
-            return state.restaurantArr;
+        async getRestaurant(context) {
+            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
+            context.commit('getRestaurant', response.data[0]);
         },
-        hotels: state => {
-            return state.hotelArr;
-        },
-        articles: state => {
-            return state.articleArr;
+        async getHotel(context) {
+            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
+            context.commit('getHotel', response.data[0]);
         }
     }
 })
