@@ -46,24 +46,27 @@ async def extract_stay_data(url: str):
 						map_info[i] = data['href'].replace('mailto:', '')		
 					elif i == 'feature':
 						data = soup.find('div', class_= map_data['Parrent_div']).find_all(map_data[i][0], class_= map_data[i][1])
-						
-						images = data[2].get('data-ssrev-handlers')
-						
-						i = images.find('"url":"')
-						while i != -1:
-							images = images[i + 7:]
-							j = images.find('"')
-							link = images[:j]
-							if ('photo-o' in link) and ('dynamic' not in link):
-								z = link.find('?')
-								if z != -1:
-									link = link[:z]
-								links.append(link)
-							images = images[j + 1:]
-							i = images.find('"url":"')
-						
-						data = json.loads(data[3].get('data-ssrev-handlers'))
+
 						try:
+							images = data[2].get('data-ssrev-handlers')
+
+							i = images.find('"url":"')
+							while i != -1:
+								images = images[i + 7:]
+								j = images.find('"')
+								link = images[:j]
+								if ('photo-o' in link) and ('dynamic' not in link):
+									z = link.find('?')
+									if z != -1:
+										link = link[:z]
+									links.append(link)
+								images = images[j + 1:]
+								i = images.find('"url":"')
+						except:
+							pass
+						
+						try:
+							data = json.loads(data[3].get('data-ssrev-handlers'))
 							amenities_tag = data['load'][3]['amenities']['highlightedAmenities']
 							amenities = {}
 							tag = []

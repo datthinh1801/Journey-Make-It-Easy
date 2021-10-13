@@ -54,16 +54,25 @@ async def extract_restaurant_data(url: str):
         layout_select = soup.find('div', class_='fbAWK')
         tag = {'name': 'dMshX b', 'content': 'cfvAV'}
 
-    names = layout_select.find_all(
-        'div', class_=tag['name'])
-    contents = layout_select.find_all(
-        'div', class_=tag['content'])
-    for i in range(len(names)):
-        name = names[i].get_text().strip().lower().replace(' ', '_')
-        details[name] = contents[i].get_text().strip()
+    if layout_select is not None:
+        names = layout_select.find_all(
+            'div', class_=tag['name'])
+        contents = layout_select.find_all(
+            'div', class_=tag['content'])
+        for i in range(len(names)):
+            name = names[i].get_text().strip().lower().replace(' ', '_')
+            details[name] = contents[i].get_text().strip()
+
     data['details'] = details
 
     data['name'] = soup.find('h1', class_='fHibz').text
+
+    if data['website'] == None:
+        data['website'] = ''
+    if data['open_time'] == None:
+        data['open_time'] = ''
+    if data['phone'] == None:
+        data['phone'] = ''
 
     return data
 
@@ -74,8 +83,11 @@ async def extract_link_top_restaurant(url: str):
     soup = BeautifulSoup(html_page, 'html.parser')
     map_class_links = {'link': 'bHGqj Cj b'}
 
-    select_links = soup.find('div', class_='deQwQ').find_all(
-        'a', class_=map_class_links['link'])
+    try:
+        select_links = soup.find('div', class_='deQwQ').find_all(
+            'a', class_=map_class_links['link'])
+    except:
+        select_links = []
 
     links = []
     for link in select_links:

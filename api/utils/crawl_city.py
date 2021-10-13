@@ -27,6 +27,8 @@ async def extract_city_data(city_path: str):
     html_page = await fetch_html(BASE_URL + city_path)
     soup = BeautifulSoup(html_page, 'html.parser')
     data['name'] = soup.find('h1', class_='WlYyy cPsXC MLeMj eKEDF').find('span').find_all('span')[1].text
+    print(data['name'])
+    print(data)
     return data
 
 

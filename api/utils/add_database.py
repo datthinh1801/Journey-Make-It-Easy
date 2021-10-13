@@ -2,23 +2,10 @@ import psycopg2
 import json
 import sys
 
-def add_city(data):
-   vietnam_id = 2
-
-   # Establishing the connection
-   conn = psycopg2.connect(
-      database='Journey-Make-It-Easy', user='postgres', password='1234', host='127.0.0.1', port='10000'
-   )
-
-   # Setting auto commit false
-   conn.autocommit = True
-
-   # Creating a cursor object using the cursor() method
-   cursor = conn.cursor()
-
+def add_city(data, nation_id, cursor):
    #add city
    query_str = "INSERT INTO api_city (name, number_voting, rating_score, nation_id) VALUES (%s, %s, %s, %s)"
-   item_insert = (data['name'], 0, 0, vietnam_id)
+   item_insert = (data['name'], 0, 0, nation_id)
    cursor.execute(query_str, item_insert)
 
    #select city_id
@@ -54,12 +41,6 @@ def add_city(data):
          price_range = details['price_range']
       if 'features' in details.keys():
          features = details['features']
-      if item['website'] == None:
-         item['website'] = ''
-      if item['open_time'] == None:
-         item['open_time'] = ''
-      if item['phone'] == None:
-         item['phone'] = ''
       item_insert = (item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets, price_range, features,
                      item['website'], 0, 0, city_id)
       cursor.execute(query_str, item_insert)
@@ -79,11 +60,11 @@ def add_city(data):
       amenities = item['amenities']
       room_features, room_types, property_amenities = '', '', ''
       if 'room_features' in amenities.keys():
-         room_features = amenities['room_features']
+         room_features = ', '.join(amenities['room_features'])
       if 'room_types' in amenities.keys():
-         room_types = amenities['room_types']
+         room_types = ', '.join(amenities['room_types'])
       if 'property_amenities' in amenities.keys():
-         property_amenities = amenities['property_amenities']
+         property_amenities = ', '.join(amenities['property_amenities'])
       item_insert = (item['name'], item['about'], item['address'], item['phone'], item['email'],
                      room_features, room_types, property_amenities, 0, 0, city_id)
       cursor.execute(query_str, item_insert)
@@ -95,16 +76,43 @@ def add_city(data):
          item_insert = (link, item_id)
          cursor.execute(query_str, item_insert)
 
+
+def add_nation(data, cursor):
+   #add nation
+   query_str = "INSERT INTO api_nation (name, number_voting, rating_score) VALUES (%s, %s, %s)"
+   item_insert = (data['name'], 0, 0)
+   cursor.execute(query_str, item_insert)
+
+   #get nation_id
+   query_str = "SELECT max(id) FROM api_nation"
+   cursor.execute(query_str)
+   nation_id = cursor.fetchall()[0][0]
+
+   for i in data['citys']:
+      add_city(i, nation_id, cursor)
+
+
+def setup(data):
+   # Establishing the connection
+   conn = psycopg2.connect(
+      database='Journey-Make-It-Easy', user='postgres', password='1234', host='127.0.0.1', port='10000'
+   )
+
+   # Setting auto commit false
+   conn.autocommit = True
+
+   # Creating a cursor object using the cursor() method
+   cursor = conn.cursor()
+
+   """Call function here"""
+   add_nation(data, cursor)
+
    # Commit your changes in the database
    conn.commit()
 
    # Closing the connection
    cursor.close()
    conn.close()
-
-
-def add_nation(data):
-   pass
 
 
 if __name__ == '__main__':
@@ -115,6 +123,6 @@ if __name__ == '__main__':
    with open(sys.argv[1]) as f:
       try:
          data = json.load(f)
-         add_city(data)
+         setup(data)
       except:
          print('Cannot open file json')
