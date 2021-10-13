@@ -32,13 +32,13 @@ export default {
   },
   computed: {
     articles() {
-      return this.$store.getters.articles;
+      return this.$store.state.articleArr;
     }
   },
   methods: {},
   mounted() {
     this.$store.commit('changePath', '/articles');
-    this.$store.commit('getArticle');
+    this.$store.dispatch('getArticle');
   },
   beforeDestroy() {
     this.$store.commit('clearAllArticles');

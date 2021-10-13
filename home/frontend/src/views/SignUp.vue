@@ -45,7 +45,7 @@ export default {
       let username = document.querySelector('#username').value;
       let password = document.querySelector('#password').value;
       let rePassword = document.querySelector('#re-password').value;
-      this.$store.commit('signUp', {username, password, rePassword});
+      this.$store.dispatch('signUp', {username, password, rePassword});
     }
   }
 }

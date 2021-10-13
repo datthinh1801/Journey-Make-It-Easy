@@ -31,28 +31,11 @@ const store = new Vuex.Store({
         articleArr: [],
     },
     mutations: {
-        async signIn(state, credential) {
-            let {username, password} = credential;
-            let response = await axios.post('https://reqres.in/api/login', {
-                username, password
-            });
-
-            state.authenticated = response.data.token;
-            await router.push({path: state.currentURL});
+        signIn(state, token) {
+            state.authenticated = token;
         },
-        async signUp(state, payload) {
-            let {
-                username, password
-                // , rePassword
-            }
-                = payload;
-            let response = await axios.post('https://reqres.in/api/users', {
-                email: username, password: password
-                // , rePassword
-            });
+        signUp() {
 
-            console.log(response);
-            await router.push({path: '/signin'})
         },
         getAttraction(state, data) {
             state.attractionArr.push(data);
@@ -75,17 +58,35 @@ const store = new Vuex.Store({
         changePath(state, path) {
             state.currentURL = path;
         },
-        async getArticle(state) {
-            state.articleArr =
-                await axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
-                    return res.data;
-                });
+        getArticle(state, articleArr) {
+            state.articleArr = articleArr;
         },
         clearAllArticles(state) {
             state.articleArr = [];
         }
     },
     actions: {
+        async signIn(context, credential) {
+            let {username, password} = credential;
+            let response = await axios.post('https://reqres.in/api/login', {
+                username, password
+            });
+            context.commit('signIn', response.data.token);
+            await router.push({path: context.state.currentURL});
+        },
+        async signUp(context, payload) {
+            let {
+                username, password
+                // , rePassword
+            } = payload;
+            let response = await axios.post('https://reqres.in/api/users', {
+                email: username, password: password
+                // , rePassword
+            });
+            console.log(response);
+            context.commit('signUp');
+            await router.push({path: '/signin'})
+        },
         async getAttraction(context) {
             let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
             context.commit('getAttraction', response.data[0]);
@@ -97,6 +98,10 @@ const store = new Vuex.Store({
         async getHotel(context) {
             let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
             context.commit('getHotel', response.data[0]);
+        },
+        async getArticle(context) {
+            let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');
+            context.commit('getArticle', articleArr.data);
         }
     }
 })

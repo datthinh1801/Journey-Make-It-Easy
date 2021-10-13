@@ -56,7 +56,7 @@ export default {
       // const username = document.querySelector('#username').value;
       // const password = document.querySelector('#password').value;
       // TODO: Uncomment these above lines
-      this.$store.commit('signIn', {username: 'eve.holt@reqres.in', password: 'cityslicka'});
+      this.$store.dispatch('signIn', {username: 'eve.holt@reqres.in', password: 'cityslicka'});
     }
   }
 }
