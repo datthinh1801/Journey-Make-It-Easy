@@ -2,8 +2,12 @@
   <div>
     <h1 :class="$style.header">Top Attractions in {{ place }}</h1>
     <div :class="$style['content-container']" class="width-control">
-      <VerticalItem v-for="i in 9" :key="i" :class="$style['grid-item']" :imgSrc="items.imgSrc" :itemName="items.name"/>
+      <VerticalItem v-for="(item, i) in items" :key="i"
+                    :class="$style['grid-item']"
+                    :imgSrc="item.images[4]"
+                    :itemName="item.name"/>
     </div>
+    <button :class="$style['load-more-btn']" @click="loadMore">LOAD MORE</button>
   </div>
 </template>
 
@@ -13,14 +17,30 @@ import VerticalItem from "./VerticalItem";
 export default {
   name: 'TopAttractionsSection',
   components: {VerticalItem},
-  props: ['place'],
-  data() {
-    return {
-      items: {
-        name: 'Item 1',
-        imgSrc: 'images/placeholder_img.png',
-      }
+  computed: {
+    place() {
+      // return this.$store.state.place.upper();
+      return 'Da Lat';
+    },
+    items() {
+      return this.$store.state.attractionArr;
     }
+  },
+  methods: {
+    getAttraction(n) {
+      for (let i = 0; i < n; ++i) {
+        this.$store.dispatch('getAttraction');
+      }
+    },
+    loadMore() {
+      this.getAttraction(9);
+    }
+  },
+  beforeMount() {
+    this.getAttraction(9);
+  },
+  beforeDestroy() {
+    this.$store.commit('clearAllAttractions');
   }
 }
 </script>
@@ -41,5 +61,28 @@ h1.header {
 .grid-item {
   width: 100%;
   height: 100%;
+}
+
+button.load-more-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 150px;
+  height: 60px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: white;
+  border: 3px solid black;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button.load-more-btn:hover {
+  background-color: black;
+  color: white;
 }
 </style>
