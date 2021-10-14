@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.item">
-    <div :class="$style.image">
+    <div :class="[$style.image]">
       <img :alt="imgSrc" :src="imgSrc">
       <HeartButton :class="$style['heart-btn']"/>
     </div>

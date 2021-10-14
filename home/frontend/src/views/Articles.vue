@@ -6,7 +6,8 @@
       <hr>
 
       <div :class="$style['articles-container']">
-        <div v-for="(article, i) in articles" :key="i" :class="$style.article">
+        <div v-for="(article, i) in articles" :key="i"
+             :class="$style.article">
           <div :class="$style.info">
             <h2 class="roboto">{{ article.title }}</h2>
             <div class="roboto" :class="$style['pre-content']">{{ article.body.substr(0, 50) + '...' }}</div>
@@ -15,16 +16,18 @@
           <img src="images/placeholder_img.png" alt="article-img">
         </div>
       </div>
+      <LoadMoreButton/>
     </section>
   </div>
 </template>
 
 <script>
 import HeaderAndNav from "../components/HeaderAndNav";
+import LoadMoreButton from "../components/LoadMoreButton";
 
 export default {
   name: 'Articles',
-  components: {HeaderAndNav},
+  components: {LoadMoreButton, HeaderAndNav},
   data() {
     return {
       author: 'Thinh, Nguyen Dat',

@@ -10,8 +10,7 @@ export default {
 
 <style module>
 button.load-more-btn {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto;
   display: flex;
   justify-content: center;
   align-items: center;

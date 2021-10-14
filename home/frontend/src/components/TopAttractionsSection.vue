@@ -54,6 +54,7 @@ h1.header {
 .content-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
   grid-gap: 20px;
   margin-left: auto;
   margin-right: auto;
