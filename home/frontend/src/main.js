@@ -92,7 +92,7 @@ const store = new Vuex.Store({
             context.commit('getAttraction', response.data[0]);
         },
         async getRestaurant(context) {
-            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
+            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/restaurantList');
             context.commit('getRestaurant', response.data[0]);
         },
         async getHotel(context) {
