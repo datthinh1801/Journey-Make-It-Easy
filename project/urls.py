@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from graphene_django.views import GraphQLView
+
+import home.views
 from api.schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path("graphql", GraphQLView.as_view(graphiql=True, schema=schema)),
+    path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
+    path('login', home.views.login),
+    path('register', home.views.register),
+    path('logout', home.views.register),
+    path('token', home.views.get_csrf_token)
 ]
