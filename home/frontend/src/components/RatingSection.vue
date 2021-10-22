@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Stars/>
+    <Stars :starCount="starCount"/>
+    <!--Review counts go here-->
   </div>
 </template>
 
@@ -9,6 +10,7 @@ import Stars from "./Stars";
 
 export default {
   name: 'RatingSection',
+  props: ['starCount'],
   components: {
     Stars,
   }

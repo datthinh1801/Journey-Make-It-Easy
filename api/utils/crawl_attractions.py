@@ -89,7 +89,7 @@ async def extract_all_attractions(url: str):
 
 
 if __name__ == '__main__':
-    from pprint import pprint
+    import json
 
     url = 'https://www.tripadvisor.com/Attractions-g293925-Activities-Ho_Chi_Minh_City.html'
-    pprint(asyncio.run(extract_all_attractions(url)))
+    print(json.dumps(asyncio.run(extract_all_attractions(url))))

@@ -1,6 +1,6 @@
 <template>
   <div class="col-container">
-    <img alt="blog-img" src="placeholder_img.png">
+    <img alt="blog-img" src="images/placeholder_img.png">
     <HeartButton class="heart-btn"/>
     <div>
       <div class="roboto">Author</div>
@@ -37,6 +37,7 @@ img {
   max-height: 292px;
   max-width: 320px;
   position: relative;
+  cursor: pointer;
 }
 
 div.col-container div:not(.roboto) {

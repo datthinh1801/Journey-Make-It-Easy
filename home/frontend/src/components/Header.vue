@@ -1,7 +1,7 @@
 <template>
   <header>
-    <div class="row-container">
-      <Logo/>
+    <div class="row-container width-control">
+      <Logo class="logo"/>
       <Button/>
     </div>
   </header>
@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../styles/global.css';
-
 header {
   background-color: white;
   position: fixed;
@@ -34,4 +32,11 @@ header {
   z-index: 1;
 }
 
+.logo {
+  margin-left: -10px;
+}
+
+.shadow {
+  border-bottom: 1px solid #ddd;
+}
 </style>

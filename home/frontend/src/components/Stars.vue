@@ -1,10 +1,14 @@
 <template>
   <div :class="$style.container">
-    <font-awesome-icon :class="$style.star" :icon="'star'"/>
-    <font-awesome-icon :class="$style.star" :icon="'star'"/>
-    <font-awesome-icon :class="$style.star" :icon="'star'"/>
-    <font-awesome-icon :class="$style.star" :icon="'star'"/>
-    <font-awesome-icon :class="$style.star" :icon="'star-half'"/>
+    <div>
+      <font-awesome-icon v-for="i in fullStars" :key="i" :class="$style.star" :icon="'star'"/>
+      <font-awesome-icon v-if="lastStar" :class="$style.star" :icon="'star-half'"/>
+      <font-awesome-icon v-for="j in hiddenStars" :key="j" :class="[$style.star, $style['hidden-star']]"
+                         :icon="'star'"/>
+    </div>
+    <div>
+      {{ printedStarCount }}
+    </div>
   </div>
 </template>
 
@@ -17,16 +21,39 @@ library.add(faStarHalf);
 
 export default {
   name: 'Stars',
+  props: ['starCount'],
+  computed: {
+    lastStar() {
+      return Math.round(this.starCount % 1);
+    },
+    fullStars() {
+      return Math.floor(this.starCount);
+    },
+    printedStarCount() {
+      return this.starCount.padEnd(3, '.0');
+    },
+    hiddenStars() {
+      return Math.round(5 - Math.round(this.starCount));
+    }
+  }
 }
 </script>
 
 <style module>
 .container {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.container div {
+  margin: 0 3px;
 }
 
 .star {
   color: #F9C100;
+}
+
+.hidden-star {
+  color: transparent;
 }
 </style>

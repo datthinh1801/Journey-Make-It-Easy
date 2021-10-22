@@ -111,7 +111,7 @@ async def extract_top_restaurant(url: str):
 
 
 if __name__ == '__main__':
-    from pprint import pprint
+    import json
 
     url = 'https://www.tripadvisor.com/Restaurants-g303946-Vung_Tau_Ba_Ria_Vung_Tau_Province.html'
-    pprint(asyncio.run(extract_top_restaurant(url)))
+    print(json.dumps(asyncio.run(extract_top_restaurant(url))))

@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container item-list">
+  <div class="row-container item-list width-control">
     <FeaturedBlog v-for="n in 3" :key="n"/>
   </div>
 </template>

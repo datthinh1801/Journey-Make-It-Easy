@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container">
+  <div class="row-container width-control">
     <p class="roboto title">Your recent searches</p>
     <RecentSearches/>
   </div>

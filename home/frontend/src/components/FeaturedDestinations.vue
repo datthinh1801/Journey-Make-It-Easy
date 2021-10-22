@@ -1,22 +1,34 @@
 <template>
-  <div class="container item-list">
-    <div v-for="n in 4" :key="n">
-      <FeaturedDestination/>
-    </div>
+  <div :class="$style['grid-container']">
+    <VerticalItem v-for="n in 4" :key="n" :imgSrc="item.imgSrc" :itemName="item.name"/>
   </div>
 </template>
 
 <script>
-import FeaturedDestination from "./FeaturedDestination";
+import VerticalItem from "./VerticalItem";
 
 export default {
   name: 'FeaturedDestinations',
   components: {
-    FeaturedDestination,
+    VerticalItem,
+  },
+  data() {
+    return {
+      item: {
+        name: 'Item',
+        imgSrc: 'images/placeholder_img.png'
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style module>
 @import "../styles/global.css";
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
 </style>

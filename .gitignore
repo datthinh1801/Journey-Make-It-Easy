@@ -2,3 +2,5 @@
 **/node_modules/
 **/.idea/
 **/__pycache__/
+**/*.hot-update.js
+**/*.hot-update.json
