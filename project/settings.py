@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'api',
-    # 'graphene_django'
+    'graphene_django',
 ]
 
 MIDDLEWARE = [

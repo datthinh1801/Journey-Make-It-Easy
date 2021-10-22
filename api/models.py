@@ -12,7 +12,7 @@ class City(models.Model):
     name = models.TextField()
     number_voting = models.TextField(default=0)
     rating_score = models.FloatField(default=0)
-    nation = models.ForeignKey(Nation, on_delete=models.CASCADE)
+    nation = models.ForeignKey(Nation, related_name="citys", on_delete=models.CASCADE)
 
 
 class Attraction(models.Model):
@@ -24,7 +24,7 @@ class Attraction(models.Model):
     suggested_duration = models.TextField(blank=True)
     number_voting = models.TextField(default=0)
     rating_score = models.FloatField(default=0)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name="attractions", on_delete=models.CASCADE)
 
 
 class Restaurant(models.Model):
@@ -40,7 +40,7 @@ class Restaurant(models.Model):
     features = models.TextField()
     number_voting = models.TextField(default=0)
     rating_score = models.FloatField(default=0)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name="restaurants", on_delete=models.CASCADE)
 
 
 class Stay(models.Model):
@@ -54,56 +54,59 @@ class Stay(models.Model):
     property_amenities = models.TextField()
     number_voting = models.TextField(default=0)
     rating_score = models.FloatField(default=0)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name="stays", on_delete=models.CASCADE)
 
 
 class Nation_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Nation, on_delete=models.CASCADE)
+    item = models.ForeignKey(Nation,related_name="images", on_delete=models.CASCADE)
 
 
 class Nation_Voting(models.Model):
-    item_vote = models.ForeignKey(Nation, on_delete=models.CASCADE)
+    item_vote = models.ForeignKey(Nation, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="nation_votings", on_delete=models.CASCADE)
 
 
 class City_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(City, on_delete=models.CASCADE)
+    item = models.ForeignKey(City, related_name="images", on_delete=models.CASCADE)
 
 
 class City_Voting(models.Model):
-    item_vote = models.ForeignKey(City, on_delete=models.CASCADE)
+    item_vote = models.ForeignKey(City, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="city_votings", on_delete=models.CASCADE)
+
 
 class Attraction_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Attraction, on_delete=models.CASCADE)
+    item = models.ForeignKey(Attraction, related_name="images", on_delete=models.CASCADE)
 
 
 class Attraction_Voting(models.Model):
-    item_vote = models.ForeignKey(Attraction, on_delete=models.CASCADE)
+    item_vote = models.ForeignKey(Attraction, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="attraction_votings", on_delete=models.CASCADE)
+
 
 class Restaurant_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    item = models.ForeignKey(Restaurant, related_name="images", on_delete=models.CASCADE)
 
 
 class Restaurant_Voting(models.Model):
-    item_vote = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    item_vote = models.ForeignKey(Restaurant, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="restaurant_votings", on_delete=models.CASCADE)
+
 
 class Stay_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Stay, on_delete=models.CASCADE)
+    item = models.ForeignKey(Stay, related_name="stays", on_delete=models.CASCADE)
 
 
 class Stay_Voting(models.Model):
-    item_vote = models.ForeignKey(Stay, on_delete=models.CASCADE)
+    item_vote = models.ForeignKey(Stay, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="stay_votings", on_delete=models.CASCADE)
