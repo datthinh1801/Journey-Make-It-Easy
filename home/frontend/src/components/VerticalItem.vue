@@ -1,6 +1,6 @@
 <template>
-  <div :class="$style.item">
-    <div :class="[$style.image]">
+  <div :class="[$style.item]">
+    <div :class="[$style.image, $style.skeleton]">
       <img :alt="imgSrc" :src="imgSrc">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
@@ -57,4 +57,7 @@ export default {
   right: 10px;
   top: 10px;
 }
+
+/*https://www.geeksforgeeks.org/how-to-create-skeleton-screen-loading-effect-using-css/*/
+/*TODO: Build the skeleton*/
 </style>
