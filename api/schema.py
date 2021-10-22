@@ -17,8 +17,8 @@ class CityType(DjangoObjectType):
 class AttractionType(DjangoObjectType):
     class Meta:
         model = Attraction
-        feilds = ('id', 'name', 'about', 'address', 'admission_ticket', 'open_time', 'suggested_duration', 'number_voting', 'rating_score', 'city_id',
-                  'images', 'voting')
+        feilds = ('id', 'name', 'about', 'address', 'admission_ticket', 'open_time', 'suggested_duration', 'number_voting',
+                  'rating_score', 'city_id', 'images', 'voting')
 
 
 class RestaurantType(DjangoObjectType):
