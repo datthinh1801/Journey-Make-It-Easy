@@ -59,6 +59,12 @@ async def extract_stay_data(url: str):
 									z = link.find('?')
 									if z != -1:
 										link = link[:z]
+									if link.find('photo-s') != -1:
+										link = link.replace('photo-s', 'photo-l')
+									if link.find('photo-o') != -1:
+										link = link.replace('photo-o', 'photo-l')
+									if link.find('photo-f') != -1:
+										link = link.replace('photo-f', 'photo-l')
 									links.append(link)
 								images = images[j + 1:]
 								i = images.find('"url":"')
@@ -107,6 +113,12 @@ async def extract_stay_data(url: str):
 			if z != -1:
 				link = link[:z]
 				link = link.replace('dynamic-', '')
+			if link.find('photo-s') != -1:
+				link = link.replace('photo-s', 'photo-l')
+			if link.find('photo-o') != -1:
+				link = link.replace('photo-o', 'photo-l')
+			if link.find('photo-f') != -1:
+				link = link.replace('photo-f', 'photo-l')
 			links.append(link)
 
 	map_info['images'] = links

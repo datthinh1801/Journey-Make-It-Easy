@@ -1,0 +1,5 @@
+images link: https://media-cdn.tripadvisor.com/media/photo-l/12/54/7e/a4/thu-do-motel.jpg
+change photo-l to [photo-f,photo-s,photo-o] to get bigger size images
+
+google map address link:
+call function 'convert_address_to_link_gg_map' to get link google map with `addess` argument

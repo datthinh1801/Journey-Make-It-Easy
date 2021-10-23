@@ -36,7 +36,7 @@ async def extract_restaurant_data(url: str):
                     time = data[info][len(' Open now: '):]
                     if len(time) > 20:
                         data[info] = time[0:len(time) // 2] + \
-                                     ' / ' + time[len(time) // 2:]
+                            ' / ' + time[len(time) // 2:]
                     else:
                         data[info] = time
                         if 'See all hours' in time:
@@ -74,6 +74,22 @@ async def extract_restaurant_data(url: str):
     if data['phone'] == None:
         data['phone'] = ''
 
+    try:
+        data_link_img = soup.find(
+            'div', class_='mosaic_photos').find_all('img', class_='basicImg')
+    except:
+        data_link_img = None
+    links_image = []
+    for d in data_link_img:
+        link = d['data-lazyurl']
+        if link.find('photo-s') != -1:
+            link = link.replace('photo-s', 'photo-l')
+        if link.find('photo-o') != -1:
+            link = link.replace('photo-o', 'photo-l')
+        if link.find('photo-f') != -1:
+            link = link.replace('photo-f', 'photo-l')
+        links_image.append(link)
+    data['images'] = links_image
     return data
 
 
