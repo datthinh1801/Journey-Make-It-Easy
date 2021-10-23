@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 # change this to .utils if use python shell
 from utils import fetch_html, BASE_URL
+from convert_address_to_ggmap_links import convert_address_to_link_gg_map
 
 
 async def extract_attraction_data(url: str):
@@ -50,6 +51,7 @@ async def extract_attraction_data(url: str):
         map_info['address'] = data.get_text().strip()
     else:
         map_info['address'] = ''
+    # map_info['ggmap'] = convert_address_to_link_gg_map(map_info['address'])
 
     # In case open time not found
     try:

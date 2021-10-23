@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 # change this to .utils if use python shell
 from utils import fetch_html, BASE_URL
+from convert_address_to_ggmap_links import convert_address_to_link_gg_map
 
 
 async def extract_restaurant_data(url: str):
@@ -41,6 +42,8 @@ async def extract_restaurant_data(url: str):
                         data[info] = time
                         if 'See all hours' in time:
                             data[info] = ''
+                # if info == 'address':
+                #     data['ggmap'] = convert_address_to_link_gg_map(data[info])
 
     details = {}
     # Check layout 1

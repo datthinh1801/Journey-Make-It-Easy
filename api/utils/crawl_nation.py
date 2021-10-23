@@ -36,7 +36,6 @@ async def extract_nation_data(nation_url: str):
     for city_link in city_links:
         citys.append(asyncio.create_task(extract_city_data(city_link)))
 
-
     data['name'] = nation_name
     data['citys'] = await asyncio.gather(*citys)
     return data
@@ -51,19 +50,19 @@ if __name__ == '__main__':
         exit(0)
 
     url = 'https://www.tripadvisor.com/Tourism-g293921-Vietnam-Vacations.html'
-    if len(sys.argv) > 1:
-        s = sys.argv[1]
-        if s.find(BASE_URL) == 0:
-            url = s
-            print(url)
-        else:
-            print('Not valid url')
-            exit(0)
+    # if len(sys.argv) > 1:
+    #     s = sys.argv[1]
+    #     if s.find(BASE_URL) == 0:
+    #         url = s
+    #         print(url)
+    #     else:
+    #         print('Not valid url')
+    #         exit(0)
 
     data = asyncio.run(extract_nation_data(url))
-    pprint(data)
 
-    if len(sys.argv) > 2:
+    if len(sys.argv) >=0:
         import json
-        with open(sys.argv[2], 'w') as fp:
+        with open('vietnam.json', 'w') as fp:
             json.dump(data, fp)
+            print('ok')

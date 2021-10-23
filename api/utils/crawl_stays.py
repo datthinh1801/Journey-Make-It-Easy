@@ -3,6 +3,7 @@ import asyncio
 import base64
 import json
 from utils import fetch_html, BASE_URL
+from convert_address_to_ggmap_links import convert_address_to_link_gg_map
 
 async def extract_stay_data(url: str):
 	html_page = await fetch_html(url)
@@ -98,6 +99,8 @@ async def extract_stay_data(url: str):
 
 					else:
 						map_info[i] = data.get_text()
+						# if i == 'address':
+						# 	map_info['ggmap']= convert_address_to_link_gg_map(map_info[i])
 				else:
 					map_info[i] = ''		
 
