@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
     state: {
         // SETTINGS
-        BASE_URL: 'http://localhost:8000',
+        BASE_URL: 'http://localhost:8000/graphql',
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
@@ -103,10 +103,29 @@ const store = new Vuex.Store({
             await router.push({path: '/signin'})
         },
         async getAttraction(context) {
-            let response = await axios.post(`${context.state.BASE_URL}/graphql`, {
-                
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                    getCityByName(name: "Da Lat") {
+                        id,
+                        name
+                    }
+                  }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getCityByName'];
             });
-            context.commit('getAttraction', response.data[0]);
+            // context.commit('getAttraction', response.data[0]);
+            console.log(data.name);
         },
         async getRestaurant(context) {
             let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/restaurantList');
