@@ -14,6 +14,9 @@ Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
     state: {
+        // SETTINGS
+        BASE_URL: 'http://localhost:8000',
+        CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
         place: null,
@@ -66,13 +69,25 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        async getCSRFToken(context) {
+            let response = await axios.get(`${context.state.BASE_URL}/token`);
+            return response.data.token;
+        },
         async signIn(context, credential) {
             let {username, password} = credential;
-            let response = await axios.post('https://reqres.in/api/login', {
-                username, password
-            });
-            context.commit('signIn', response.data.token);
-            await router.push({path: context.state.currentURL});
+            // let token = await context.dispatch('getCSRFToken');
+            let response = await axios.post(`${context.state.BASE_URL}/login`, {
+                    username, password
+                },
+                {
+                    headers: {
+                        'Origin': 'http://localhost',
+                        // 'X-CSRFToken': token,
+                    },
+                });
+            console.log(response.data);
+            // context.commit('signIn', response.data.token);
+            // await router.push({path: context.state.currentURL});
         },
         async signUp(context, payload) {
             let {

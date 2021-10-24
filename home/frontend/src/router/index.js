@@ -9,6 +9,7 @@ import Articles from '../views/Articles';
 import Restaurant from '../views/Restaurant';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
+import Attraction from '../views/Attraction';
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
         path: '/restaurant',
         name: 'Restaurant',
         component: Restaurant
+    },
+    {
+        path: '/attraction',
+        name: 'Attraction',
+        component: Attraction
     }
 ]
 

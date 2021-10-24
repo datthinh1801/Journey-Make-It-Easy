@@ -2,34 +2,32 @@
   <div>
     <HeaderAndNav/>
     <div class="width-control">
-      <h1>{{ restaurantName }}</h1>
-      <div :class="$style['description-container']">
+      <div class="row-container">
+        <h1>{{ restaurantName }}</h1>
         <div class="row-container">
-          <RatingSection starCount="5"/>
-          <div class="row-container">
-            <BigHeart/>
-            <ShareButton/>
-          </div>
+          <BigHeart/>
+          <ShareButton/>
         </div>
-        <div>
-          <span :class="$style['address-info']">
+      </div>
+      <div :class="$style['description-container']">
+        <RatingSection starCount="5"/>
+        <div class="info-container">
+          <div class="address-info">
             <font-awesome-icon icon="map-marked-alt"/>
             <span>{{ address }}</span>
-          </span>
-          |
-          <span :class="$style['phone-info']">
-          <font-awesome-icon :icon="['fas','phone-alt']"/>
-          <span>Phone: <span>{{ phone }}</span></span>
-          </span>
-          |
-          <span :class="$style.website">
+          </div>
+          <div class="phone-info">
+            <font-awesome-icon :icon="['fas','phone-alt']"/>
+            <span>Phone: <span>{{ phone }}</span></span>
+          </div>
+          <div class="website">
             <a :href="website" target="_blank">
               <font-awesome-icon icon="window-maximize"/>
               <span>Website</span>
             </a>
-          </span>
+          </div>
         </div>
-        <div :class="$style['open-time-container']" class="roboto">
+        <div class="roboto open-time-container" :class="$style['open-time']">
           <font-awesome-icon icon="clock"/>
           <span>Open Time: {{ openTime }}</span>
         </div>
@@ -99,15 +97,15 @@
                 style="border:0;" width="600"></iframe>
           </div>
           <div :class="$style.info">
-          <span :class="$style['address-info']">
+          <span class="address-info">
             <font-awesome-icon icon="map-marker-alt"/>
             <span>{{ address }}</span>
           </span>
-            <span :class="$style['phone-info']">
+            <span class="address-info">
           <font-awesome-icon :icon="['fas','phone-alt']"/>
           <span>Phone: <span>{{ phone }}</span></span>
           </span>
-            <span :class="$style.website">
+            <span class="website">
             <a :href="website" target="_blank">
               <font-awesome-icon icon="window-maximize"/>
               <span>Website</span>
@@ -165,55 +163,25 @@ h1 {
 .description-container {
 }
 
-.address-info {
-  cursor: pointer;
-}
+/*.info-container {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  margin: 5px 0;*/
+/*}*/
 
-.address-info span {
-  margin-left: 5px;
-}
+/*.info-container div::after {*/
+/*  content: '  |  ';*/
+/*  color: #aaa;*/
+/*  font-size: 18px;*/
+/*  white-space: pre;*/
+/*}*/
 
-.address-info:hover span {
-  text-decoration: underline;
-}
+/*.info-container div:last-child::after {*/
+/*  content: '';*/
+/*}*/
 
-.phone-info {
-  cursor: pointer;
-}
-
-.phone-info span:not(span:only-child) {
-  margin-left: 5px;
-}
-
-.phone-info:hover span span {
-  text-decoration: underline;
-}
-
-.website a {
-  text-decoration: none;
-  color: black;
-}
-
-.website a span {
-  margin-left: 5px;
-}
-
-.website:hover a span {
-  text-decoration: underline;
-}
-
-.open-time-container {
-  margin-top: 5px;
-  max-width: fit-content;
-}
-
-.open-time-container span {
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-.open-time-container:hover span {
-  text-decoration: underline;
+.open-time {
+  margin-bottom: 5px;
 }
 
 .image-section {

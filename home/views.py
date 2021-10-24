@@ -14,24 +14,26 @@ def get_csrf_token(request):
     return JsonResponse({'token': token})
 
 
-def login(requets):
-    if requets.method == 'POST':
-        username = requets.POST['username']
-        password = requets.POST['password']
-
-        user = auth.authenticate(username=username, password=password)
-
-        if user is not None:
-            auth.login(requets, user)
-        else:
-            return JsonResponse({'messages': 'User not exists'})
+def login(request):
+    if request.method == 'POST':
+        print(request)
+        # username = request.POST['username']
+        # password = request.POST['password']
+        #
+        # user = auth.authenticate(username=username, password=password)
+        #
+        # if user is not None:
+        #     auth.login(request, user)
+        # else:
+        #     return JsonResponse({'messages': 'User not exists'})
 
     return JsonResponse({'messages': 'Method not support'})
 
-def register(requets):
-    if requets.method == 'POST':
-        username = requets.POST['username']
-        password = requets.POST['password']
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
         if User.objects.filter(username=username).exists():
             return JsonResponse({'messages': 'Username already exists'})
@@ -41,6 +43,7 @@ def register(requets):
             return JsonResponse({'messages': 'Register success'})
 
     return JsonResponse({'messages': 'Method not support'})
+
 
 def logout(request):
     if request.method == 'POST':

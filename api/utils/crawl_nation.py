@@ -61,8 +61,9 @@ if __name__ == '__main__':
 
     data = asyncio.run(extract_nation_data(url))
 
-    if len(sys.argv) >=0:
+    if len(sys.argv) >= 0:
         import json
+
         with open('vietnam.json', 'w') as fp:
             json.dump(data, fp)
             print('ok')

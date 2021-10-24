@@ -49,6 +49,10 @@ export default {
   margin: 0 3px;
 }
 
+.container div:first-child {
+  margin-left: 0;
+}
+
 .star {
   color: #F9C100;
 }

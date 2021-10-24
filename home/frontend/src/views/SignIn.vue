@@ -34,8 +34,6 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTimes);
 
-import {mapGetters} from 'vuex';
-
 export default {
   name: 'SignIn',
   data() {
@@ -44,13 +42,7 @@ export default {
   components: {
     Logo,
   },
-  computed: {
-    ...mapGetters([
-      'attractions',
-      'restaurants',
-      'hotels',
-    ])
-  },
+  computed: {},
   methods: {
     signIn() {
       // const username = document.querySelector('#username').value;
