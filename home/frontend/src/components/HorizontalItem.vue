@@ -17,7 +17,7 @@ import HeartButton from "./HeartButton";
 export default {
   name: 'HorizontalItem',
   components: {HeartButton},
-  props: ['itemName', 'imgSrc', 'imgHeight', 'imgWidth', 'itemHeight', 'itemWidth'],
+  props: ['imgSrc', 'imgHeight', 'imgWidth', 'itemHeight', 'itemWidth'],
 }
 </script>
 
@@ -27,7 +27,6 @@ export default {
   border: 1px solid #777;
   border-radius: 4px;
   margin-bottom: 5px;
-  /*height: 200px;*/
   cursor: pointer;
 }
 

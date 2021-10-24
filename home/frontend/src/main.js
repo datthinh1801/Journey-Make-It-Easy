@@ -19,7 +19,7 @@ const store = new Vuex.Store({
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
-        city: 'Da Lat',
+        city: 'Ho Chi Minh City',
         item: null,
 
         // STATE for AUTHENTICATION
@@ -54,7 +54,7 @@ const store = new Vuex.Store({
             state.restaurantArr = [];
         },
         getHotel(state, data) {
-            state.hotelArr.push(data);
+            state.hotelArr = data;
         },
         clearAllHotels(state) {
             state.hotelArr = [];
@@ -169,15 +169,46 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                console.log(respData);
                 data = respData.data['getCityByName']['restaurants'];
             });
 
             context.commit('getRestaurant', data);
         },
-        async getHotel(context) {
-            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/hotelList');
-            context.commit('getHotel', response.data[0]);
+        async getHotel(context, city) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                    getCityByName(name: "${city}") {
+                      stays {
+                        id,
+                        name,
+                        roomTypes,
+                        roomFeatures,
+                        propertyAmenities,
+                        numberVoting,
+                        ratingScore,
+                        images {
+                          id,
+                          link
+                        }
+                      }
+                    }
+                  }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getCityByName']['stays'];
+            });
+
+            context.commit('getHotel', data);
         },
         async getArticle(context) {
             let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');

@@ -6,7 +6,6 @@
       <FilterPanel :id="$style['filter-panel']"/>
       <div :id="$style['item-list-section']">
         <HorizontalItem v-for="item in items" :key="item.id"
-                        :item-name="item.name"
                         :item-height="itemHeight"
                         :item-width="itemWidth"
                         :img-src="item.images[0].link"
@@ -34,7 +33,7 @@
             </div>
           </div>
         </HorizontalItem>
-        <LoadMoreButton @loadMore="loadMore"/>
+        <LoadMoreButton v-if="endOfArray" @loadMore="loadMore"/>
       </div>
     </div>
   </div>
@@ -61,6 +60,9 @@ export default {
     }
   },
   computed: {
+    endOfArray() {
+      return this.item_n < this.$store.state.restaurantArr.length;
+    },
     place() {
       return this.$store.state.city;
     },
