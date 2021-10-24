@@ -4,12 +4,13 @@
     <div :class="$style['content-container']" class="width-control">
       <VerticalItem v-for="(item, i) in items" :key="i"
                     :class="$style['grid-item']"
-                    :imgSrc="item.images[4]"
+                    :imgSrc="item.images[0].link"
                     :itemName="item.name"
                     :img-width="imgWidth"
                     :img-height="imgHeight"/>
     </div>
-    <LoadMoreButton @loadMore="loadMore"/>
+    <LoadMoreButton @loadMore="loadMore"
+                    v-if="endOfArray"/>
   </div>
 </template>
 
@@ -20,13 +21,20 @@ import LoadMoreButton from "./LoadMoreButton";
 export default {
   name: 'TopAttractionsSection',
   components: {LoadMoreButton, VerticalItem},
+  data() {
+    return {
+      item_n: 9,
+    }
+  },
   computed: {
+    endOfArray() {
+      return this.item_n < this.$store.state.attractionArr.length;
+    },
     place() {
-      // return this.$store.state.place.toUpperCase();
-      return 'Da Lat'.toUpperCase();
+      return this.$store.state.city;
     },
     items() {
-      return this.$store.state.attractionArr;
+      return this.$store.state.attractionArr.slice(0, this.item_n);
     },
     imgWidth() {
       return '320px';
@@ -36,17 +44,15 @@ export default {
     }
   },
   methods: {
-    getAttraction(n) {
-      for (let i = 0; i < n; ++i) {
-        this.$store.dispatch('getAttraction');
-      }
-    },
     loadMore() {
-      this.getAttraction(9);
+      this.item_n += 9;
+    },
+    fetchAttraction() {
+      this.$store.dispatch('getAttraction', this.place)
     }
   },
   beforeMount() {
-    this.getAttraction(9);
+    this.fetchAttraction();
   },
   beforeDestroy() {
     this.$store.commit('clearAllAttractions');

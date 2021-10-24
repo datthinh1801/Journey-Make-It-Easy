@@ -19,7 +19,8 @@ const store = new Vuex.Store({
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
-        place: null,
+        city: 'Da Lat',
+        item: null,
 
         // STATE for AUTHENTICATION
         authenticated: false,
@@ -41,7 +42,7 @@ const store = new Vuex.Store({
 
         },
         getAttraction(state, data) {
-            state.attractionArr.push(data);
+            state.attractionArr = data;
         },
         clearAllAttractions(state) {
             state.attractionArr = [];
@@ -102,16 +103,26 @@ const store = new Vuex.Store({
             context.commit('signUp');
             await router.push({path: '/signin'})
         },
-        async getAttraction(context) {
+        async getAttraction(context, city) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}`,
                 data: {
+                    // TODO: Implement variable here
                     query: `query {
-                    getCityByName(name: "Da Lat") {
-                        id,
-                        name
+                    getCityByName(name: "${city}") {
+                        restaurants {
+                          id,
+                          name,
+                          cuisines,
+                          meals,
+                          specialDiets,
+                          images{
+                            id,
+                            link,
+                          }
+                        }
                     }
                   }`
                 },
@@ -122,10 +133,11 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName'];
+                data = respData.data['getCityByName']['restaurants'];
             });
-            // context.commit('getAttraction', response.data[0]);
-            console.log(data.name);
+
+            // console.log(data);
+            context.commit('getAttraction', data);
         },
         async getRestaurant(context) {
             let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/restaurantList');

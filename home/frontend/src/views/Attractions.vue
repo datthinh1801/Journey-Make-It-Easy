@@ -13,12 +13,7 @@ export default {
   name: 'Attractions',
   components: {HeaderAndNav, TopAttractionsSection,},
   data() {
-    return {
-      items: {
-        itemName: 'Item 1',
-        imgSrc: 'images/placeholder_img.png'
-      }
-    }
+    return {}
   },
   mounted() {
     this.$store.commit('changePath', '/attractions');
