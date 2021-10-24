@@ -70,6 +70,7 @@ class Attraction_VotingType(DjangoObjectType):
         model = Attraction_Voting
         feilds = ('id', 'item_vote', 'point', 'user')
 
+
 class Restaurant_ImageType(DjangoObjectType):
     class Meta:
         model = Restaurant_Image

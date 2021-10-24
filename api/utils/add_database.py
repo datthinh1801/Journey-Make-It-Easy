@@ -95,7 +95,7 @@ def add_nation(data, cursor):
 def setup(data):
    # Establishing the connection
    conn = psycopg2.connect(
-      database='Journey-Make-It-Easy', user='postgres', password='1234', host='127.0.0.1', port='10000'
+      database='Journey-Make-It-Easy', user='postgres', password='1234', host='127.0.0.1', port='5432'
    )
 
    # Setting auto commit false
