@@ -44,20 +44,18 @@ def add_city(data, nation_id, cursor):
         if 'features' in details.keys():
             features = details['features']
         item_insert = (
-            item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets,
-            price_range,
-            features,
-            item['website'], 0, 0, city_id)
+        item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets, price_range,
+        features,
+        item['website'], 0, 0, city_id)
         cursor.execute(query_str, item_insert)
-        '''
+
         query_str = "SELECT max(id) FROM api_restaurant"
         cursor.execute(query_str)
         item_id = cursor.fetchall()[0][0]
         query_str = "INSERT INTO api_restaurant_image (link, item_id) VALUES (%s, %s)"
         for link in item['images']:
-           item_insert = (link, item_id)
-           cursor.execute(query_str, item_insert)
-        '''
+            item_insert = (link, item_id)
+            cursor.execute(query_str, item_insert)
 
     # add stays
     for item in data['stays']:
