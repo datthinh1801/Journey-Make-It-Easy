@@ -7,6 +7,7 @@
       <div :id="$style['item-list-section']">
         <HorizontalItem v-for="(item, i) in items" :key="i"
                         :item-name="item.name"
+                        :item-height="itemHeight"
                         :img-src="item.images[0]"
                         :img-width="imgWidth"
                         :img-height="imgHeight">
