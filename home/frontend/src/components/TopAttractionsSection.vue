@@ -5,7 +5,9 @@
       <VerticalItem v-for="(item, i) in items" :key="i"
                     :class="$style['grid-item']"
                     :imgSrc="item.images[4]"
-                    :itemName="item.name"/>
+                    :itemName="item.name"
+                    :img-width="imgWidth"
+                    :img-height="imgHeight"/>
     </div>
     <LoadMoreButton @loadMore="loadMore"/>
   </div>
@@ -25,6 +27,12 @@ export default {
     },
     items() {
       return this.$store.state.attractionArr;
+    },
+    imgWidth() {
+      return '320px';
+    },
+    imgHeight() {
+      return '320px';
     }
   },
   methods: {
