@@ -22,6 +22,7 @@
               <div>
                 <h5>Room Types</h5>
                 <ul>
+                  <!--TODO: Fix the unknown empty item-->
                   <li v-for="i in minLen(getRoomTypes(item))" :key="i">
                     {{ getRoomTypes(item)[i] }}
                   </li>
@@ -69,13 +70,15 @@ export default {
   },
   computed: {
     endOfArray() {
-      return this.item_n < this.$store.state.hotelArr.length;
+      // TODO: Replace this after data is ok
+      return this.item_n < this.$store.state.hotelArr.filter(item => item.images.length > 0)
+          .length;
     },
     place() {
       return this.$store.state.city;
     },
     items() {
-      // TODO: Remove this after data is ok
+      // TODO: Replace this after data is ok
       return this.$store.state.hotelArr.filter(item => item.images.length > 0)
           .slice(0, this.item_n);
     },
@@ -90,7 +93,7 @@ export default {
     },
     itemWidth() {
       return "700px";
-    }
+    },
   },
   methods: {
     loadMore() {
