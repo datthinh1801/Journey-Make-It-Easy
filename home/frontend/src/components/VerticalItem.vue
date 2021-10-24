@@ -1,7 +1,7 @@
 <template>
   <div :class="[$style.item]">
     <div :class="[$style.image, $style.skeleton]">
-      <img :alt="imgSrc" :src="imgSrc">
+      <img :alt="imgSrc" :src="imgSrc" :style="{width: imgWidth, height: imgHeight}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
     <div :class="$style.info">
@@ -21,7 +21,10 @@ import HeartButton from "./HeartButton";
 export default {
   name: 'VerticalItem',
   components: {HeartButton},
-  props: ['imgSrc', 'itemName', 'itemDescription']
+  props: ['imgSrc', 'itemName', 'itemDescription', 'imgWidth', 'imgHeight'],
+  data() {
+    return {}
+  }
 }
 </script>
 
@@ -41,8 +44,7 @@ export default {
 }
 
 .image img {
-  max-width: 100%;
-  max-height: 100%;
+  object-fit: cover;
 }
 
 .info {

@@ -13,7 +13,9 @@
       <VerticalItem v-for="(item, i) in items" v-bind:key="item.name + i"
                     :class="$style.recommendedItem"
                     :imgSrc="item.images[0]"
-                    :itemName="item.name + i"/>
+                    :itemName="item.name + i"
+                    :imgWidth="imgWidth"
+                    :imgHeight="imgHeight"/>
 
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
         <font-awesome-icon icon="chevron-right"/>
@@ -57,8 +59,14 @@ export default {
       return this.currentItem > 0;
     },
     showNext() {
-      // TODO: Define the maximum number of items to shwo
+      // TODO: Define the maximum number of items to show
       return true;
+    },
+    imgWidth() {
+      return '230px';
+    },
+    imgHeight() {
+      return '230px';
     }
   },
   methods: {
