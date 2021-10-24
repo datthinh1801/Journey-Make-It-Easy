@@ -48,7 +48,7 @@ const store = new Vuex.Store({
             state.attractionArr = [];
         },
         getRestaurant(state, data) {
-            state.restaurantArr.push(data);
+            state.restaurantArr = data;
         },
         clearAllRestaurants(state) {
             state.restaurantArr = [];
@@ -109,7 +109,6 @@ const store = new Vuex.Store({
                 method: 'post',
                 url: `${context.state.BASE_URL}`,
                 data: {
-                    // TODO: Implement variable here
                     query: `query {
                     getCityByName(name: "${city}") {
                         attractions {
@@ -139,9 +138,42 @@ const store = new Vuex.Store({
 
             context.commit('getAttraction', data);
         },
-        async getRestaurant(context) {
-            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/restaurantList');
-            context.commit('getRestaurant', response.data[0]);
+        async getRestaurant(context, city) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                    getCityByName(name: "${city}") {
+                        restaurants {
+                          id,
+                          name,
+                          cuisines,
+                          priceRange,
+                          specialDiets,
+                          numberVoting,
+                          ratingScore,
+                          images {
+                            id,
+                            link,
+                          }
+                        }
+                    }
+                  }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                console.log(respData);
+                data = respData.data['getCityByName']['restaurants'];
+            });
+
+            context.commit('getRestaurant', data);
         },
         async getHotel(context) {
             let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/hotelList');

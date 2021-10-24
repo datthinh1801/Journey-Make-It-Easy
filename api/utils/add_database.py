@@ -44,10 +44,9 @@ def add_city(data, nation_id, cursor):
         if 'features' in details.keys():
             features = details['features']
         item_insert = (
-            item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets,
-            price_range,
-            features,
-            item['website'], 0, 0, city_id)
+        item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets, price_range,
+        features,
+        item['website'], 0, 0, city_id)
         cursor.execute(query_str, item_insert)
 
         query_str = "SELECT max(id) FROM api_restaurant"
@@ -128,6 +127,5 @@ if __name__ == '__main__':
         try:
             data = json.load(f)
             setup(data)
-        except Exception as e:
-            # print('Cannot open file json')
-            print(e)
+        except:
+            print('Cannot open file json')

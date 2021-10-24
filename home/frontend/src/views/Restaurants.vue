@@ -5,24 +5,32 @@
     <div :class="$style['content-list']">
       <FilterPanel :id="$style['filter-panel']"/>
       <div :id="$style['item-list-section']">
-        <HorizontalItem v-for="(item, i) in items" :key="i"
+        <HorizontalItem v-for="item in items" :key="item.id"
                         :item-name="item.name"
                         :item-height="itemHeight"
-                        :img-src="item.images[0]"
+                        :item-width="itemWidth"
+                        :img-src="item.images[0].link"
                         :img-width="imgWidth"
                         :img-height="imgHeight">
           <div :class="$style['item-detail-container']">
-            <div>
-              <font-awesome-icon icon="dollar-sign" :class="$style.price"/>
-              <span>{{ item.details.price_range }}</span>
+            <div :class="$style['item-detail-top']">
+              <h3>{{ item.name }}</h3>
+              <RatingSection star-count="item.ratingScore" rating-count="item.numberVoting"/>
+              <hr>
             </div>
-            <div>
-              <font-awesome-icon icon="concierge-bell" :class="$style.cuisine"/>
-              <span>{{ item.details.cuisines }}</span>
-            </div>
-            <div>
-              <font-awesome-icon icon="glass-cheers" :class="$style.specialty"/>
-              <span>{{ item.details.special_diets }}</span>
+            <div :class="$style['item-detail-bottom']">
+              <div v-if="item.priceRange">
+                <font-awesome-icon icon="dollar-sign" :class="$style.price"/>
+                <span>{{ item.priceRange }}</span>
+              </div>
+              <div v-if="item.cuisines">
+                <font-awesome-icon icon="concierge-bell" :class="$style.cuisine"/>
+                <span>{{ item.cuisines }}</span>
+              </div>
+              <div v-if="item.specialDiets">
+                <font-awesome-icon icon="glass-cheers" :class="$style.specialty"/>
+                <span>{{ item.specialDiets }}</span>
+              </div>
             </div>
           </div>
         </HorizontalItem>
@@ -40,22 +48,30 @@ import LoadMoreButton from "../components/LoadMoreButton";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faDollarSign, faConciergeBell, faGlassCheers} from "@fortawesome/free-solid-svg-icons";
+import RatingSection from "../components/RatingSection";
 
 library.add(faDollarSign, faConciergeBell, faGlassCheers);
 
 export default {
   name: 'Restaurants',
-  components: {LoadMoreButton, HeaderAndNav, FilterPanel, HorizontalItem},
+  components: {RatingSection, LoadMoreButton, HeaderAndNav, FilterPanel, HorizontalItem},
+  data() {
+    return {
+      item_n: 10,
+    }
+  },
   computed: {
     place() {
-      // return this.$store.state.place.toUpperCase();
-      return 'Da Lat'.toUpperCase();
+      return this.$store.state.city;
     },
     items() {
-      return this.$store.state.restaurantArr;
+      return this.$store.state.restaurantArr.slice(0, this.item_n);
     },
     itemHeight() {
       return '200px';
+    },
+    itemWidth() {
+      return '600px';
     },
     imgWidth() {
       return '200px';
@@ -65,18 +81,13 @@ export default {
     }
   },
   methods: {
-    getItem(n) {
-      for (let i = 0; i < n; ++i) {
-        this.$store.dispatch('getRestaurant');
-      }
-    },
     loadMore() {
-      this.getItem(9);
+      this.item_n += 10;
     }
   },
   mounted() {
     this.$store.commit('changePath', '/restaurants');
-    this.getItem(9);
+    this.$store.dispatch('getRestaurant', this.place);
   },
   beforeDestroy() {
     this.$store.commit('clearAllRestaurants');
@@ -99,24 +110,33 @@ h1.head {
 }
 
 #item-list-section {
-  width: 500px;
   margin-left: 10px;
 }
 
 .item-detail-container {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  padding: 10px;
+}
+
+.item-detail-top {
+  grid-row: 1/3;
+}
+
+.item-detail-top h3 {
+  margin: 0;
+}
+
+.item-detail-top hr {
+  max-width: 100%;
+  width: 100%;
+}
+
+.item-detail-bottom {
+  grid-row: 3/7;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.item-detail-container div {
-  font-size: 14px;
-}
-
-.item-detail-container div {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
+  justify-content: space-around;
 }
 
 .item-detail-container .price,

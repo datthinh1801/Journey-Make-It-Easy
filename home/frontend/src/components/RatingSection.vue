@@ -1,7 +1,7 @@
 <template>
   <div>
     <Stars v-if="ratingCount > 0" :starCount="starCount"/>
-    <div v-else :class="$style.else">No review yet.</div>
+    <div v-else :class="$style.else">No review yet</div>
     <!--Review counts go here-->
   </div>
 </template>

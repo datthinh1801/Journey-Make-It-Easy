@@ -59,7 +59,7 @@ class Stay(models.Model):
 
 class Nation_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Nation,related_name="images", on_delete=models.CASCADE)
+    item = models.ForeignKey(Nation, related_name="images", on_delete=models.CASCADE)
 
 
 class Nation_Voting(models.Model):
@@ -103,7 +103,7 @@ class Restaurant_Voting(models.Model):
 
 class Stay_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Stay, related_name="stays", on_delete=models.CASCADE)
+    item = models.ForeignKey(Stay, related_name="images", on_delete=models.CASCADE)
 
 
 class Stay_Voting(models.Model):

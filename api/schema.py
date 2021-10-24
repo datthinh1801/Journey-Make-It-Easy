@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from .models import *
 
+
 class NationType(DjangoObjectType):
     class Meta:
         model = Nation
@@ -17,8 +18,9 @@ class CityType(DjangoObjectType):
 class AttractionType(DjangoObjectType):
     class Meta:
         model = Attraction
-        feilds = ('id', 'name', 'about', 'address', 'admission_ticket', 'open_time', 'suggested_duration', 'number_voting',
-                  'rating_score', 'city_id', 'images', 'voting')
+        feilds = (
+        'id', 'name', 'about', 'address', 'admission_ticket', 'open_time', 'suggested_duration', 'number_voting',
+        'rating_score', 'city_id', 'images', 'voting')
 
 
 class RestaurantType(DjangoObjectType):
@@ -32,7 +34,8 @@ class StayType(DjangoObjectType):
     class Meta:
         model = Stay
         feilds = ('id', 'name', 'about', 'address', 'phone', 'email', 'room_features', 'room_types'
-                  'property_amenities', 'number_voting', 'rating_score', 'city_id', 'images', 'voting')
+                                                                                       'property_amenities',
+                  'number_voting', 'rating_score', 'city_id', 'images', 'voting')
 
 
 class Nation_ImageType(DjangoObjectType):
@@ -69,6 +72,7 @@ class Attraction_VotingType(DjangoObjectType):
     class Meta:
         model = Attraction_Voting
         feilds = ('id', 'item_vote', 'point', 'user')
+
 
 class Restaurant_ImageType(DjangoObjectType):
     class Meta:
@@ -115,12 +119,16 @@ class Query(graphene.ObjectType):
     get_stay_by_id = graphene.Field(StayType, id=graphene.String(required=True))
     get_stay_by_name = graphene.Field(StayType, name=graphene.String(required=True))
 
-    get_voting_nation = graphene.Field(Nation_VotingType, user=graphene.String(required=True), id=graphene.String(required=True))
-    get_voting_city = graphene.Field(City_VotingType, user=graphene.String(required=True), id=graphene.String(required=True))
-    get_voting_attraction = graphene.Field(Attraction_VotingType, user=graphene.String(required=True), id=graphene.String(required=True))
-    get_voting_restaurant = graphene.Field(Restaurant_VotingType, user=graphene.String(required=True), id=graphene.String(required=True))
-    get_voting_stay = graphene.Field(Stay_VotingType, user=graphene.String(required=True), id=graphene.String(required=True))
-
+    get_voting_nation = graphene.Field(Nation_VotingType, user=graphene.String(required=True),
+                                       id=graphene.String(required=True))
+    get_voting_city = graphene.Field(City_VotingType, user=graphene.String(required=True),
+                                     id=graphene.String(required=True))
+    get_voting_attraction = graphene.Field(Attraction_VotingType, user=graphene.String(required=True),
+                                           id=graphene.String(required=True))
+    get_voting_restaurant = graphene.Field(Restaurant_VotingType, user=graphene.String(required=True),
+                                           id=graphene.String(required=True))
+    get_voting_stay = graphene.Field(Stay_VotingType, user=graphene.String(required=True),
+                                     id=graphene.String(required=True))
 
     def resolve_all_nations(root, info):
         return Nation.objects.all()
