@@ -41,3 +41,54 @@
     top: 4px;
     right: 4px;
 }
+
+.open-time-container {
+    margin-top: 5px;
+    max-width: fit-content;
+}
+
+.open-time-container span {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.open-time-container:hover span {
+    text-decoration: underline;
+}
+
+.address-info {
+    cursor: pointer;
+}
+
+.address-info span {
+    margin-left: 5px;
+}
+
+.address-info:hover span {
+    text-decoration: underline;
+}
+
+.phone-info {
+    cursor: pointer;
+}
+
+.phone-info span:not(span:only-child) {
+    margin-left: 5px;
+}
+
+.phone-info:hover span span {
+    text-decoration: underline;
+}
+
+.website a {
+    text-decoration: none;
+    color: black;
+}
+
+.website a span {
+    margin-left: 5px;
+}
+
+.website:hover a span {
+    text-decoration: underline;
+}
