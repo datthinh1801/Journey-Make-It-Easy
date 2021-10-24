@@ -15,7 +15,7 @@ import HeartButton from "./HeartButton";
 export default {
   name: 'VerticalItem',
   components: {HeartButton},
-  props: ['imgSrc', 'itemName', 'itemDescription', 'imgWidth', 'imgHeight'],
+  props: ['imgSrc', 'imgWidth', 'imgHeight'],
   data() {
     return {}
   }

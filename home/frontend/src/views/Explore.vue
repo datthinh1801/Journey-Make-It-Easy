@@ -26,8 +26,11 @@ export default {
   name: 'Explore',
   components: {RecommendationSection, ImagesSection, NavBar, Header},
   data() {
-    return {
-      place: 'Da Lat'
+    return {}
+  },
+  computed: {
+    place() {
+      return this.$store.state.city;
     }
   },
   mounted() {

@@ -17,8 +17,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../styles/global.css";
-
 div.row-container {
   margin-top: 50px;
   display: flex;

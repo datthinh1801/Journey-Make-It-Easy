@@ -213,6 +213,35 @@ const store = new Vuex.Store({
         async getArticle(context) {
             let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');
             context.commit('getArticle', articleArr.data);
+        },
+        async getAllAttractions(context) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                        allAttractions {
+                          id,
+                          name,
+                          images {
+                            id,
+                            link
+                          }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['allAttractions'];
+            });
+
+            context.commit('getAttraction', data);
         }
     }
 })

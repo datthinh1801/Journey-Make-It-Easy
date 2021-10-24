@@ -11,12 +11,14 @@
       </button>
 
       <!--TODO: Implement click event on these items-->
-      <VerticalItem v-for="(item, i) in items" v-bind:key="item.name + i"
+      <VerticalItem v-for="item in items" :key="item.id"
                     :class="$style.recommendedItem"
-                    :imgSrc="item.images[0]"
-                    :itemName="item.name + i"
+                    :imgSrc="item.images[0].link"
                     :imgWidth="imgWidth"
-                    :imgHeight="imgHeight"/>
+                    :imgHeight="imgHeight"
+      >
+        <h4>{{ item.name }}</h4>
+      </VerticalItem>
 
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
         <font-awesome-icon icon="chevron-right"/>
@@ -45,12 +47,15 @@ export default {
     }
   },
   computed: {
+    place() {
+      return this.$store.state.city;
+    },
     items() {
       let itemArr = [];
       if (this.title === 'Do') {
         itemArr = this.$store.state.attractionArr;
       } else if (this.title === 'Stay') {
-        itemArr = this.$store.state.hotelArr;
+        itemArr = this.$store.state.hotelArr.filter(item => item.images.length > 0);
       } else {
         itemArr = this.$store.state.restaurantArr;
       }
@@ -71,14 +76,14 @@ export default {
     }
   },
   methods: {
-    async getAttraction() {
-      await this.$store.dispatch('getAttraction');
+    getAttraction() {
+      this.$store.dispatch('getAttraction', this.place);
     },
     getRestaurant() {
-      this.$store.dispatch('getRestaurant');
+      this.$store.dispatch('getRestaurant', this.place);
     },
     getHotel() {
-      this.$store.dispatch('getHotel');
+      this.$store.dispatch('getHotel', this.place);
     },
     async getItem() {
       if (this.title === 'Do') {

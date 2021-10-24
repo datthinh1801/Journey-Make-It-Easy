@@ -26,6 +26,9 @@ export default {
   },
   mounted() {
     this.$store.commit('changePath', '/');
+  },
+  beforeDestroy() {
+    this.$store.commit('clearAllAttractions');
   }
 }
 </script>
