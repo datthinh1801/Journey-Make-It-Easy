@@ -16,16 +16,16 @@ def get_csrf_token(request):
 
 def login(request):
     if request.method == 'POST':
-        print(request)
-        # username = request.POST['username']
-        # password = request.POST['password']
-        #
-        # user = auth.authenticate(username=username, password=password)
-        #
-        # if user is not None:
-        #     auth.login(request, user)
-        # else:
-        #     return JsonResponse({'messages': 'User not exists'})
+        print(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+        else:
+            return JsonResponse({'messages': 'User not exists'})
 
     return JsonResponse({'messages': 'Method not support'})
 

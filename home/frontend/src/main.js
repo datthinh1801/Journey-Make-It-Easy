@@ -103,7 +103,9 @@ const store = new Vuex.Store({
             await router.push({path: '/signin'})
         },
         async getAttraction(context) {
-            let response = await axios.get('https://my-json-server.typicode.com/datthinh1801/mock-api/attractionList');
+            let response = await axios.post(`${context.state.BASE_URL}/graphql`, {
+                
+            });
             context.commit('getAttraction', response.data[0]);
         },
         async getRestaurant(context) {
