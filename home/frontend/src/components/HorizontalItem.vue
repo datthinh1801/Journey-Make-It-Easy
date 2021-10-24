@@ -1,14 +1,14 @@
 <template>
   <div :class="$style['item-container']">
     <div :class="$style['img-container']">
-      <img :class="$style['item-img']" alt="item-img" :src="imgSrc">
+      <img :class="$style['item-img']" alt="item-img" :src="imgSrc" :style="{height: imgHeight, width: imgWidth}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
     <div :class="$style['detail-container']">
       <h3>{{ itemName }}</h3>
       <RatingSection star-count="5"/>
       <hr>
-      Price, review, features
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ import RatingSection from "./RatingSection";
 export default {
   name: 'HorizontalItem',
   components: {RatingSection, HeartButton},
-  props: ['itemName', 'imgSrc'],
+  props: ['itemName', 'imgSrc', 'imgHeight', 'imgWidth'],
 }
 </script>
 
@@ -47,11 +47,6 @@ export default {
   position: relative;
 }
 
-.item-img {
-  max-width: 200px;
-  max-height: 200px;
-}
-
 .heart-btn {
   position: absolute;
   top: 5px;
@@ -61,6 +56,7 @@ export default {
 .detail-container {
   width: 100%;
   margin-left: 10px;
+  margin-right: 10px;
 }
 
 .detail-container h3 {
@@ -69,5 +65,6 @@ export default {
 
 .detail-container hr {
   width: 100%;
+  max-width: 100%;
 }
 </style>

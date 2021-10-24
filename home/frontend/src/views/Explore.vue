@@ -7,10 +7,10 @@
       </div>
       <NavBar/>
     </div>
-    <div :id="$style.imageSection">
+    <div :class="$style.imageSection">
       <ImagesSection/>
     </div>
-    <div :id="$style.recommendationSection" :class="['row-container', 'col-container']">
+    <div :class="['row-container', 'col-container', $style.recommendationSection]">
       <RecommendationSection/>
     </div>
   </div>
@@ -57,10 +57,10 @@ export default {
   margin-right: 10px;
 }
 
-#imageSection {
+.imageSection {
   margin-top: 40px;
 }
 
-#recommendationSection {
+.recommendationSection {
 }
 </style>

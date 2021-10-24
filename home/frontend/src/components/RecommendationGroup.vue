@@ -10,6 +10,7 @@
         <font-awesome-icon icon="chevron-left"/>
       </button>
 
+      <!--TODO: Implement click event on these items-->
       <VerticalItem v-for="(item, i) in items" v-bind:key="item.name + i"
                     :class="$style.recommendedItem"
                     :imgSrc="item.images[0]"

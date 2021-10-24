@@ -7,8 +7,24 @@
       <div :id="$style['item-list-section']">
         <HorizontalItem v-for="(item, i) in items" :key="i"
                         :item-name="item.name"
-                        img-src="images/placeholder_img.png"
-        />
+                        :img-src="item.images[0]"
+                        :img-width="imgWidth"
+                        :img-height="imgHeight">
+          <div :class="$style['item-detail-container']">
+            <div>
+              <font-awesome-icon icon="dollar-sign" :class="$style.price"/>
+              <span>{{ item.details.price_range }}</span>
+            </div>
+            <div>
+              <font-awesome-icon icon="concierge-bell" :class="$style.cuisine"/>
+              <span>{{ item.details.cuisines }}</span>
+            </div>
+            <div>
+              <font-awesome-icon icon="glass-cheers" :class="$style.specialty"/>
+              <span>{{ item.details.special_diets }}</span>
+            </div>
+          </div>
+        </HorizontalItem>
         <LoadMoreButton @loadMore="loadMore"/>
       </div>
     </div>
@@ -21,6 +37,11 @@ import FilterPanel from "../components/FilterPanel";
 import HorizontalItem from "../components/HorizontalItem";
 import LoadMoreButton from "../components/LoadMoreButton";
 
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faDollarSign, faConciergeBell, faGlassCheers} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faDollarSign, faConciergeBell, faGlassCheers);
+
 export default {
   name: 'Restaurants',
   components: {LoadMoreButton, HeaderAndNav, FilterPanel, HorizontalItem},
@@ -31,6 +52,12 @@ export default {
     },
     items() {
       return this.$store.state.restaurantArr;
+    },
+    imgWidth() {
+      return '200px';
+    },
+    imgHeight() {
+      return '200px';
     }
   },
   methods: {
@@ -70,5 +97,41 @@ h1.head {
 #item-list-section {
   width: 500px;
   margin-left: 10px;
+}
+
+.item-detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item-detail-container div {
+  font-size: 14px;
+}
+
+.item-detail-container div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.item-detail-container .price,
+.item-detail-container .cuisine,
+.item-detail-container .specialty {
+  font-size: 18px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.item-detail-container .price {
+  color: #1f891f;
+}
+
+.item-detail-container .cuisine {
+  color: #e5d12e;
+}
+
+.item-detail-container .specialty {
+  color: #bc3131;
 }
 </style>
