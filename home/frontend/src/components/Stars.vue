@@ -1,9 +1,12 @@
 <template>
   <div :class="$style.container">
     <div>
-      <font-awesome-icon v-for="i in fullStars" :key="i" :class="$style.star" :icon="'star'"/>
-      <font-awesome-icon v-if="lastStar" :class="$style.star" :icon="'star-half'"/>
-      <font-awesome-icon v-for="j in hiddenStars" :key="j" :class="[$style.star, $style['hidden-star']]"
+      <font-awesome-icon v-for="i in fullStars" :key="i"
+                         :class="$style.star" :icon="'star'"/>
+      <font-awesome-icon v-if="lastStar"
+                         :class="$style.star" :icon="'star-half'"/>
+      <font-awesome-icon v-for="j in hiddenStars" :key="j"
+                         :class="[$style.star, $style['hidden-star']]"
                          :icon="'star'"/>
     </div>
     <div>
@@ -30,7 +33,7 @@ export default {
       return Math.floor(this.starCount);
     },
     printedStarCount() {
-      return this.starCount.padEnd(3, '.0');
+      return String(this.starCount).padEnd(3, '.0');
     },
     hiddenStars() {
       return Math.round(5 - Math.round(this.starCount));

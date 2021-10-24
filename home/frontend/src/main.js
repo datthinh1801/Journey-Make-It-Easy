@@ -112,12 +112,13 @@ const store = new Vuex.Store({
                     // TODO: Implement variable here
                     query: `query {
                     getCityByName(name: "${city}") {
-                        restaurants {
+                        attractions {
                           id,
                           name,
-                          cuisines,
-                          meals,
-                          specialDiets,
+                          openTime,
+                          numberVoting,
+                          suggestedDuration,
+                          ratingScore,
                           images{
                             id,
                             link,
@@ -133,10 +134,9 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName']['restaurants'];
+                data = respData.data['getCityByName']['attractions'];
             });
 
-            // console.log(data);
             context.commit('getAttraction', data);
         },
         async getRestaurant(context) {

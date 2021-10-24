@@ -2,12 +2,18 @@
   <div>
     <h1 :class="$style.header">Top Attractions in {{ place }}</h1>
     <div :class="$style['content-container']" class="width-control">
-      <VerticalItem v-for="(item, i) in items" :key="i"
+      <VerticalItem v-for="item in items" :key="item.id"
                     :class="$style['grid-item']"
                     :imgSrc="item.images[0].link"
                     :itemName="item.name"
                     :img-width="imgWidth"
-                    :img-height="imgHeight"/>
+                    :img-height="imgHeight"
+      >
+        <div :class="$style['item-description']">
+          <h3 :class="$style.title">{{ item.name }}</h3>
+          <RatingSection :star-count="item.ratingScore"/>
+        </div>
+      </VerticalItem>
     </div>
     <LoadMoreButton @loadMore="loadMore"
                     v-if="endOfArray"/>
@@ -17,10 +23,11 @@
 <script>
 import VerticalItem from "./VerticalItem";
 import LoadMoreButton from "./LoadMoreButton";
+import RatingSection from "./RatingSection";
 
 export default {
   name: 'TopAttractionsSection',
-  components: {LoadMoreButton, VerticalItem},
+  components: {RatingSection, LoadMoreButton, VerticalItem},
   data() {
     return {
       item_n: 9,
@@ -44,6 +51,9 @@ export default {
     }
   },
   methods: {
+    itemRatingScore(item) {
+      return item['ratingScore'];
+    },
     loadMore() {
       this.item_n += 9;
     },
@@ -77,5 +87,9 @@ h1.header {
 .grid-item {
   width: 100%;
   height: 100%;
+}
+
+div.item-description .title {
+  margin: 0;
 }
 </style>

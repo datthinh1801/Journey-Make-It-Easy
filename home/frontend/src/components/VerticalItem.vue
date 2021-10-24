@@ -1,17 +1,11 @@
 <template>
   <div :class="[$style.item]">
-    <div :class="[$style.image, $style.skeleton]">
-      <img :alt="imgSrc" :src="imgSrc" :style="{width: imgWidth, height: imgHeight}">
+    <div :class="[$style.image]">
+      <img :alt="imgSrc" :src="imgSrc"
+           :style="{width: imgWidth, height: imgHeight}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
-    <div :class="$style.info">
-      <h4>
-        {{ itemName }}
-      </h4>
-      <div>
-        {{ itemDescription }}
-      </div>
-    </div>
+      <slot></slot>
   </div>
 </template>
 
