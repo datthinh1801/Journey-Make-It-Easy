@@ -73,6 +73,10 @@ export default {
   position: relative;
 }
 
+.item-detail-container {
+  height: 40px;
+}
+
 .item-detail-container h4 {
   margin: 0;
 }
