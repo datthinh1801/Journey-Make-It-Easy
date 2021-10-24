@@ -44,7 +44,7 @@ def add_city(data, nation_id, cursor):
       item_insert = (item['name'], item['address'], item['open_time'], item['phone'], cuisines, meals, special_diets, price_range, features,
                      item['website'], 0, 0, city_id)
       cursor.execute(query_str, item_insert)
-      '''
+
       query_str = "SELECT max(id) FROM api_restaurant"
       cursor.execute(query_str)
       item_id = cursor.fetchall()[0][0]
@@ -52,7 +52,7 @@ def add_city(data, nation_id, cursor):
       for link in item['images']:
          item_insert = (link, item_id)
          cursor.execute(query_str, item_insert)
-      '''
+
 
    # add stays
    for item in data['stays']:
