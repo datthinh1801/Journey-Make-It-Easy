@@ -60,7 +60,6 @@ if __name__ == '__main__':
     #         exit(0)
 
     data = asyncio.run(extract_nation_data(url))
-    asyncio.close()
 
     if len(sys.argv) >=0:
         import json
