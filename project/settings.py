@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Journey-Make-It-Easy',
+        'NAME': 'journey',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
-        'PORT': 10000
+        'PORT': 5432
     }
 }
 
