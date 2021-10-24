@@ -24,8 +24,10 @@ async def extract_restaurant_data(url: str):
         tag = 'a'
         if info == 'open_time':
             tag = 'div'
-
-        data[info] = selects[1].find(tag, class_=map_class_info[info])
+        try:
+            data[info] = selects[1].find(tag, class_=map_class_info[info])
+        except:
+            data[info] = None
         if data[info] is not None:
             if info == 'website':
                 # decode base64 and strip
@@ -44,6 +46,8 @@ async def extract_restaurant_data(url: str):
                             data[info] = ''
                 # if info == 'address':
                 #     data['ggmap'] = convert_address_to_link_gg_map(data[info])
+        if data[info] == None:
+            data[info] = ''
 
     details = {}
     # Check layout 1
