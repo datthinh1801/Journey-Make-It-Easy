@@ -163,23 +163,6 @@ h1 {
 .description-container {
 }
 
-/*.info-container {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  margin: 5px 0;*/
-/*}*/
-
-/*.info-container div::after {*/
-/*  content: '  |  ';*/
-/*  color: #aaa;*/
-/*  font-size: 18px;*/
-/*  white-space: pre;*/
-/*}*/
-
-/*.info-container div:last-child::after {*/
-/*  content: '';*/
-/*}*/
-
 .open-time {
   margin-bottom: 5px;
 }

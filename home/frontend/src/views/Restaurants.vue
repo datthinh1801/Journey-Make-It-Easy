@@ -53,11 +53,14 @@ export default {
     items() {
       return this.$store.state.restaurantArr;
     },
+    itemHeight() {
+      return '200px';
+    },
     imgWidth() {
       return '200px';
     },
     imgHeight() {
-      return '200px';
+      return this.itemHeight;
     }
   },
   methods: {

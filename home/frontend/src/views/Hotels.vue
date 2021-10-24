@@ -7,8 +7,38 @@
       <div :id="$style['item-list-section']">
         <HorizontalItem v-for="(item, i) in items" :key="i"
                         :item-name="item.name"
-                        img-src="images/placeholder_img.png"
-        />
+                        :item-height="itemHeight"
+                        :img-src="item.images[0]"
+                        :img-height="imgHeight"
+                        :img-width="imgWidth"
+        >
+          <div :class="$style['item-detail-container']">
+            <div>
+              <h5>Top Room Features</h5>
+              <ul>
+                <li v-for="i in minLen(getRoomFeatures(item))" :key="i">
+                  {{ getRoomFeatures(item)[i] }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5>Top Room Types</h5>
+              <ul>
+                <li v-for="i in minLen(getRoomTypes(item))" :key="i">
+                  {{ getRoomTypes(item)[i] }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5>Top Amenities</h5>
+              <ul>
+                <li v-for="i in minLen(getPropAmenities(item))" :key="i">
+                  {{ getPropAmenities(item)[i] }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </HorizontalItem>
         <LoadMoreButton @loadMore="loadMore"/>
       </div>
     </div>
@@ -31,6 +61,15 @@ export default {
     },
     items() {
       return this.$store.state.hotelArr;
+    },
+    imgWidth() {
+      return '250px';
+    },
+    imgHeight() {
+      return this.itemHeight;
+    },
+    itemHeight() {
+      return '250px';
     }
   },
   methods: {
@@ -41,6 +80,21 @@ export default {
     },
     loadMore() {
       this.getItem(9);
+    },
+    minLen(list) {
+      return Math.min(3, list.length);
+    },
+    getAmenities(item) {
+      return item.amenities;
+    },
+    getRoomFeatures(item) {
+      return this.getAmenities(item).room_features;
+    },
+    getRoomTypes(item) {
+      return this.getAmenities(item).room_types;
+    },
+    getPropAmenities(item) {
+      return this.getAmenities(item).property_amenities;
     }
   },
   mounted() {
@@ -68,7 +122,32 @@ h1.head {
 }
 
 #item-list-section {
-  width: 500px;
+  width: 700px;
   margin-left: 10px;
+}
+
+.item-detail-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.item-detail-container h5 {
+  margin: 0;
+}
+
+.item-detail-container div ul {
+  margin: 0;
+  padding: 0;
+}
+
+.item-detail-container div li {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0 10px 5px;
+  list-style: none;
+}
+
+.item-detail-container div li::before {
+  content: '\2714';
 }
 </style>

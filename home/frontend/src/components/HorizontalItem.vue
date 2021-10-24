@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['item-container']">
+  <div :class="$style['item-container']" :style="{height: itemHeight}">
     <div :class="$style['img-container']">
       <img :class="$style['item-img']" alt="item-img" :src="imgSrc" :style="{height: imgHeight, width: imgWidth}">
       <HeartButton :class="$style['heart-btn']"/>
@@ -21,7 +21,7 @@ import RatingSection from "./RatingSection";
 export default {
   name: 'HorizontalItem',
   components: {RatingSection, HeartButton},
-  props: ['itemName', 'imgSrc', 'imgHeight', 'imgWidth'],
+  props: ['itemName', 'imgSrc', 'imgHeight', 'imgWidth', 'itemHeight'],
 }
 </script>
 
@@ -31,7 +31,7 @@ export default {
   border: 1px solid #777;
   border-radius: 4px;
   margin-bottom: 5px;
-  height: 200px;
+  /*height: 200px;*/
   cursor: pointer;
 }
 
