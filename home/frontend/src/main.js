@@ -20,7 +20,6 @@ const store = new Vuex.Store({
         // GENERIC STATE
         currentURL: '/',
         city: 'Ho Chi Minh City',
-        item: null,
 
         // STATE for AUTHENTICATION
         authenticated: false,
@@ -33,6 +32,10 @@ const store = new Vuex.Store({
 
         // STATE for ARTICLES page
         articleArr: [],
+
+        // STATE for rendering item in SINGLE ITEM pages
+        item: {},
+        currentAttraction: 'Bitexco Financial Tower',
     },
     mutations: {
         signIn(state, token) {
@@ -67,6 +70,9 @@ const store = new Vuex.Store({
         },
         clearAllArticles(state) {
             state.articleArr = [];
+        },
+        saveItem(state, item) {
+            state.item = item;
         }
     },
     actions: {
@@ -242,6 +248,41 @@ const store = new Vuex.Store({
             });
 
             context.commit('getAttraction', data);
+        },
+        async getAttractionDetail(context, name) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                         getAttractionByName(name: "${name}"){
+                            name,
+                            about,
+                            address,
+                            admissionTicket,
+                            openTime,
+                            suggestedDuration,
+                            numberVoting,
+                            ratingScore,
+                            images{
+                              id,
+                              link
+                            }
+                          }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getAttractionByName'];
+            });
+
+            context.commit('saveItem', data);
         }
     }
 })

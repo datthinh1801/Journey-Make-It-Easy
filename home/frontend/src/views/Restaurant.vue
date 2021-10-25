@@ -22,7 +22,7 @@
           </div>
           <div class="website">
             <a :href="website" target="_blank">
-              <font-awesome-icon icon="window-maximize"/>
+              <font-awesome-icon icon="external-link-alt"/>
               <span>Website</span>
             </a>
           </div>
@@ -127,7 +127,7 @@ import ShareButton from "../components/ShareButton";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
   faPhoneAlt,
-  faWindowMaximize,
+    faExternalLinkAlt,
   faMapMarkedAlt,
   faClock,
   faMapMarkerAlt,
@@ -137,7 +137,7 @@ import {
   faSpa
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPhoneAlt, faWindowMaximize, faMapMarkedAlt, faClock, faMapMarkerAlt, faUtensils, faConciergeBell, faWallet, faSpa);
+library.add(faPhoneAlt, faExternalLinkAlt, faMapMarkedAlt, faClock, faMapMarkerAlt, faUtensils, faConciergeBell, faWallet, faSpa);
 
 
 export default {

@@ -10,6 +10,7 @@ import Restaurant from '../views/Restaurant';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
 import Attraction from '../views/Attraction';
+import Hotel from "../views/Hotel";
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes = [
         path: '/attraction',
         name: 'Attraction',
         component: Attraction
+    },
+    {
+        path: '/hotel',
+        name: 'Hotel',
+        component: Hotel
     }
 ]
 
