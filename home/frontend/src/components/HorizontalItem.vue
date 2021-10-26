@@ -3,7 +3,7 @@
        :style="{height: itemHeight, width:itemWidth}">
     <div :class="$style['img-container']">
       <img :class="$style['item-img']"
-           alt="item-img" :src="imgSrc"
+           alt="" :src="imgSrc"
            :style="{height: imgHeight, width: imgWidth}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
@@ -46,5 +46,23 @@ export default {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.item-img:empty {
+  background-image: linear-gradient(90deg, #eee 8%, #dadada 18%, #eee 33%);
+  animation: skeletonLoading 1.2s linear infinite;
+  animation-fill-mode: backwards;
+  animation-delay: 0.2s;
+  background-size: 200% 200%;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: -200% 0%;
+  } 
 }
 </style>

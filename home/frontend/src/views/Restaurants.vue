@@ -116,13 +116,12 @@ h1.head {
 }
 
 .item-detail-container {
-  display: grid;
-  grid-template-rows: repeat(6, 1fr);
+  display: flex;
+  flex-direction: column;
   padding: 10px;
 }
 
 .item-detail-top {
-  grid-row: 1/3;
 }
 
 .item-detail-top h3 {
@@ -135,10 +134,10 @@ h1.head {
 }
 
 .item-detail-bottom {
-  grid-row: 3/7;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  height: 100%;
 }
 
 .item-detail-container .price,
