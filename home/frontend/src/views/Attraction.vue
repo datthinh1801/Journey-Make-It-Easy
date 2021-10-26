@@ -108,7 +108,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch('getAttractionDetail', this.$store.state.currentAttraction);
+    this.$store.dispatch('getAttractionDetail', this.$store.state.currentItemName);
   }
 }
 

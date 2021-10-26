@@ -131,10 +131,6 @@ h1.head {
   justify-content: center;
 }
 
-#filter-panel {
-
-}
-
 #item-list-section {
   margin-left: 10px;
 }
@@ -143,9 +139,6 @@ h1.head {
   display: flex;
   flex-direction: column;
   padding: 10px;
-}
-
-.item-detail-top {
 }
 
 .item-detail-top h3 {

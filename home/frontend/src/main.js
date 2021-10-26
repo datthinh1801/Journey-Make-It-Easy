@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {faUserSecret} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {
+    library
+} from '@fortawesome/fontawesome-svg-core'
+import {
+    faUserSecret
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    FontAwesomeIcon
+} from '@fortawesome/vue-fontawesome'
 import router from './router'
 import axios from "axios";
 
@@ -35,7 +41,7 @@ const store = new Vuex.Store({
 
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
-        currentAttraction: 'Bitexco Financial Tower',
+        currentItemName: 'Kebaby',
     },
     mutations: {
         signIn(state, token) {
@@ -81,33 +87,40 @@ const store = new Vuex.Store({
             return response.data.token;
         },
         async signIn(context, credential) {
-            let {username, password} = credential;
+            let {
+                username,
+                password
+            } = credential;
             // let token = await context.dispatch('getCSRFToken');
             let response = await axios.post(`${context.state.BASE_URL}/login`, {
-                    username, password
+                username,
+                password
+            }, {
+                headers: {
+                    'Origin': 'http://localhost',
+                    // 'X-CSRFToken': token,
                 },
-                {
-                    headers: {
-                        'Origin': 'http://localhost',
-                        // 'X-CSRFToken': token,
-                    },
-                });
+            });
             console.log(response.data);
             // context.commit('signIn', response.data.token);
             // await router.push({path: context.state.currentURL});
         },
         async signUp(context, payload) {
             let {
-                username, password
+                username,
+                password
                 // , rePassword
             } = payload;
             let response = await axios.post('https://reqres.in/api/users', {
-                email: username, password: password
+                email: username,
+                password: password
                 // , rePassword
             });
             console.log(response);
             context.commit('signUp');
-            await router.push({path: '/signin'})
+            await router.push({
+                path: '/signin'
+            })
         },
         async getAttraction(context, city) {
             let data;
@@ -283,6 +296,45 @@ const store = new Vuex.Store({
             });
 
             context.commit('saveItem', data);
+        },
+        async getRestaurantDetail(context, name) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}`,
+                data: {
+                    query: `query {
+                         getRestaurantByName(name: "${name}"){
+                            name,
+                            address,
+                            openTime,
+                            phone,
+                            website,
+                            cuisines,
+                            meals,
+                            spcialDiets,
+                            priceRange,
+                            features,
+                            numberVoting,
+                            ratingScore,
+                            images{
+                              link
+                            }
+                          }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getRestaurantByName'];
+            });
+
+            context.commit('saveItem', data);
+
         }
     }
 })

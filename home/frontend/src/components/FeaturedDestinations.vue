@@ -1,21 +1,17 @@
 <template>
   <div :class="$style['grid-container']">
     <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
-      <font-awesome-icon icon="chevron-left"/>
+      <font-awesome-icon icon="chevron-left" />
     </button>
-    <VerticalItem v-for="item in items" :key="item.id"
-                  :img-src="item.images[0].link"
-                  :img-width="imgWidth"
-                  :img-height="imgHeight"
-                  :class="$style['v-item']">
+    <VerticalItem v-for="item in items" :key="item.id" :img-src="item.images[0].link" :img-width="imgWidth"
+      :img-height="imgHeight" :class="$style['v-item']" @click="redirectToItem()">
       <div :class="$style['item-detail-container']">
         <h4>{{ item.name }}</h4>
-        <rating-section :ratingCount="item.numberVoting"
-                        :starCount="item.ratingScore"/>
+        <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
       </div>
     </VerticalItem>
-    <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
-      <font-awesome-icon icon="chevron-right"/>
+    <button :class="$style.rightButton" @click="moveRight()" v-show="showNext">
+      <font-awesome-icon icon="chevron-right" />
     </button>
   </div>
 </template>
@@ -60,6 +56,9 @@ export default {
     },
     moveRight() {
       ++this.this_item;
+    },
+    redirectToItem() {
+      console.log('ok');
     }
   },
   beforeMount() {

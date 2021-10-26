@@ -3,14 +3,14 @@
     <HeaderAndNav/>
     <div class="width-control">
       <div class="row-container">
-        <h1>{{ restaurantName }}</h1>
+        <h1>{{ name }}</h1>
         <div class="row-container">
           <BigHeart/>
           <ShareButton/>
         </div>
       </div>
       <div :class="$style['description-container']">
-        <RatingSection starCount="5"/>
+        <RatingSection :starCount="ratingScore" :ratingCount="numberVoting"/>
         <div class="info-container">
           <div class="address-info">
             <font-awesome-icon icon="map-marked-alt"/>
@@ -38,53 +38,19 @@
         <img alt="first-img" src="images/linh-phuoc-pagoda.jpg">
       </div>
       <div :class="$style['information-section-container']">
-        <div :class="$style['rating-and-reviews-section']">
-          <h3>Ratings and reviews</h3>
-          <RatingSection star-count="5"/>
-          <hr>
-          <h4>Ratings</h4>
-          <div>
-            <div :class="$style['rating-type']">
-              <font-awesome-icon icon="utensils"/>
-              <span>Food</span>
-            </div>
-            <RatingSection starCount="4"/>
-          </div>
-          <div>
-            <div :class="$style['rating-type']">
-              <font-awesome-icon icon="concierge-bell"/>
-              <span>Service</span>
-            </div>
-            <RatingSection starCount="5"/>
-          </div>
-          <div>
-            <div :class="$style['rating-type']">
-              <font-awesome-icon icon="wallet"/>
-              <span>Value</span>
-            </div>
-            <RatingSection starCount="3.5"/>
-          </div>
-          <div>
-            <div :class="$style['rating-type']">
-              <font-awesome-icon icon="spa"/>
-              <span>Atmosphere</span>
-            </div>
-            <RatingSection starCount="1.3"/>
-          </div>
-        </div>
         <div :class="$style['details-section']">
           <h3>Details</h3>
           <div>
             <h6>PRICE RANGE</h6>
-            <span>1,000 - 10,000VND</span>
+            <span>{{priceRange}}</span>
           </div>
           <div>
             <h6>CUISINES</h6>
-            <span>test, test, test</span>
+            <span>{{cuisines}}</span>
           </div>
           <div>
             <h6>SPECIAL DIETS</h6>
-            <span>test, test, test,</span>
+            <span>{{specialDiets}}</span>
           </div>
         </div>
         <div :class="$style['location-and-contact-section']">
@@ -127,7 +93,7 @@ import ShareButton from "../components/ShareButton";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
   faPhoneAlt,
-    faExternalLinkAlt,
+  faExternalLinkAlt,
   faMapMarkedAlt,
   faClock,
   faMapMarkerAlt,
@@ -142,15 +108,53 @@ library.add(faPhoneAlt, faExternalLinkAlt, faMapMarkedAlt, faClock, faMapMarkerA
 
 export default {
   components: {ShareButton, BigHeart, RatingSection, HeaderAndNav,},
-  // props: ['restaurantName'],
   data() {
     return {
-      restaurantName: 'Restaurant name',
-      address: '14 Nguyen Truong To, P2, Vung Tau, Vietnam',
-      website: 'https://www.google.com',
-      phone: '+84 12345789',
-      openTime: '08:00 AM'
     }
+  },
+  computed: {
+    item() {
+      return this.$store.state.item;
+    },
+    name() {
+      return this.item['name'];
+    },
+    address() {
+      return this.item['address'];
+    },
+    openTime() {
+      return this.item['openTime'];
+    },
+    phone() {
+      return this.item['phone'];
+    },
+    webiste() {
+      return this.item['website'];
+    },
+    cuisines() {
+      return this.item['cuisines'];
+    },
+    meals() {
+      return this.item['meals'];
+    },
+    specialDiets() {
+      return this.item['specialDiets'];
+    },
+    features() {
+      return this.item['features'];
+    },
+    numberVoting(){
+      return this.item['numberVoting'];
+    },
+    ratingScore() {
+      return this.item['ratingScore'];
+    },
+    priceRange() {
+      return this.item['priceRange'];
+    }
+  },
+  beforeMount() {
+    this.$store.dispatch('getRestaurantDetail', this.$store.state.currentItemName);
   }
 }
 </script>
@@ -181,7 +185,7 @@ h1 {
 
 .information-section-container {
   display: grid;
-  grid-template-columns: 0.7fr 0.7fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 300px;
   grid-gap: 30px;
   margin-top: 20px;
