@@ -41,7 +41,7 @@ export default {
       return '100%';
     },
     imgHeight() {
-      return '100%';
+      return '200px';
     },
     showPrev() {
       return this.this_item > 0;

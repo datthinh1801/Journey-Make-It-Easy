@@ -41,13 +41,6 @@ export default {
   object-fit: cover;
 }
 
-.info {
-}
-
-.info h4 {
-  margin-top: 10px;
-}
-
 .heart-btn {
   position: absolute;
   right: 10px;
