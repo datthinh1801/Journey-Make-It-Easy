@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
+import VModal from 'vue-js-modal'
 import {
     library
 } from '@fortawesome/fontawesome-svg-core'
@@ -15,6 +16,7 @@ import axios from "axios";
 
 library.add(faUserSecret);
 Vue.use(Vuex);
+Vue.use(VModal);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 

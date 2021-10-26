@@ -1,26 +1,155 @@
 <template>
   <div>
-    <router-link tag="button" to="/signin" v-if="!authenticated">Sign in</router-link>
+    <!-- <router-link tag="button" to="/signin" v-if="!authenticated">Sign in</router-link>
     <div v-else class="user-profile-container">
       <div class="user-profile-img"></div>
       <div class="user-profile-name no-select">Username</div>
-    </div>
+    </div> -->
+    <button @click="showModal">Sign In</button>
+    <modal name="sign-in-modal" :width="700" :height="500">
+      <div :class="$style['signin-modal']">
+        <div :class="$style.form">
+          <div :class="$style['signin-form']" id="signin-form">
+            <h3 class="no-select">Sign In</h3>
+            <hr>
+            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text">
+            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password">
+            <a href="/forgot-password" tabindex="4">Forgot your password?</a>
+            <button :class="$style['signin-button']" tabindex="3" @click="signIn">Sign In</button>
+            <div :class="$style.or"><span class="no-select">Or</span></div>
+            <button :class="$style['signin-button']" tabindex="5" @click="signUp">Sign Up</button>
+          </div>
+          <div :class="$style['signin-form']" style="display: none;" id="signup-form">
+            <h3 class="no-select">Sign Up</h3>
+            <hr>
+            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text">
+            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password">
+            <input id="password2" class="roboto" name="password2" placeholder="RETYPED PASSWORD" tabindex="3" type="password">
+            <button :class="$style['signin-button']" tabindex="4" @click="signUp">Sign Up</button>
+          </div>
+        </div>
+        <img src="images/signin_img.jpg" alt="">
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTimes);
+
 export default {
   name: 'SigninButton',
+  data(){
+    return {
+    }
+  },
   computed: {
     authenticated() {
       return this.$store.state.authenticated;
     }
   },
-  methods: {}
+  methods: {
+    showModal() {
+      this.$modal.show('sign-in-modal');
+    },
+    signIn() {
+
+    },
+    signUp() {
+      document.querySelector('#signin-form').style["display"] = "none";
+      document.querySelector('#signup-form').style["display"] = "flex";
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style module>
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+}
+
+.signin-form hr {
+  width: 100%;
+  max-width: 100%;
+}
+
+.signin-form input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 10px 0;
+  height: 30px;
+  font-size: 16px;
+}
+
+.signin-form input:focus {
+  outline: none;
+}
+
+.signin-form a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #aaa;
+  margin: 5px 0;
+}
+
+.signin-form h3 {
+  margin: 0;
+}
+
+.signin-form button {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.or {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.or span {
+  margin: 0 20px;
+}
+
+.or::before {
+  width: 100%;
+  content: '';
+  height: 1px;
+  background-color: #ccc;
+}
+
+.or::after {
+  width: 100%;
+  content: '';
+  height: 1px;
+  background-color: #ccc;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.signin-modal {
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.signin-modal img {
+  max-width: 120%;
+  max-height: 120%;
+}
+
 .user-profile-container {
   display: flex;
   justify-content: center;

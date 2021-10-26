@@ -128,14 +128,12 @@ export default {
 .search-icon {
   font-size: 24px;
   margin: 0 10px;
-  z-index: 2;
 }
 
 .search-box {
   border: none;
   font-size: 18px;
   font-weight: 500;
-  z-index: 2;
   width: 100%;
   height: 90%;
   border-top-right-radius: 50%;
