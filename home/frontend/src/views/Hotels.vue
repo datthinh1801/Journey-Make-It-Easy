@@ -22,9 +22,8 @@
               <div>
                 <h5>Room Types</h5>
                 <ul>
-                  <!--TODO: Fix the unknown empty item-->
                   <li v-for="i in minLen(getRoomTypes(item))" :key="i">
-                    {{ getRoomTypes(item)[i] }}
+                    {{ getRoomTypes(item)[i - 1] }}
                   </li>
                 </ul>
               </div>
@@ -32,7 +31,7 @@
                 <h5>Room Features</h5>
                 <ul>
                   <li v-for="i in minLen(getRoomFeatures(item))" :key="i">
-                    {{ getRoomFeatures(item)[i] }}
+                    {{ getRoomFeatures(item)[i - 1] }}
                   </li>
                 </ul>
               </div>
@@ -40,7 +39,7 @@
                 <h5>Amenities</h5>
                 <ul>
                   <li v-for="i in minLen(getPropAmen(item))" :key="i">
-                    {{ getPropAmen(item)[i] }}
+                    {{ getPropAmen(item)[i - 1] }}
                   </li>
                 </ul>
               </div>
@@ -141,13 +140,12 @@ h1.head {
 }
 
 .item-detail-container {
-  display: grid;
-  grid-template-rows: repeat(6, 1fr);
+  display: flex;
+  flex-direction: column;
   padding: 10px;
 }
 
 .item-detail-top {
-  grid-row: 1/2;
 }
 
 .item-detail-top h3 {
@@ -160,7 +158,6 @@ h1.head {
 }
 
 .item-detail-bottom {
-  grid-row: 2/7;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
