@@ -19,7 +19,7 @@ const store = new Vuex.Store({
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
-        city: 'Ho Chi Minh City',
+        city: '',
 
         // STATE for AUTHENTICATION
         authenticated: false,
