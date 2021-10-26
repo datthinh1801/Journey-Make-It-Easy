@@ -41,7 +41,7 @@ export default {
 }
 
 .image img:empty {
-  background-image: linear-gradient(90deg, #eee 8%, #dadada 18%, #eee 33%);
+  background-image: linear-gradient(#eee 8%, #dadada 18%, #eee 33%);
   animation: skeletonLoading 1.2s linear infinite;
   animation-fill-mode: backwards;
   animation-delay: 0.2s;
@@ -50,11 +50,11 @@ export default {
 
 @keyframes skeletonLoading {
   0% {
-    background-position: 0% 50%;
+    background-position: 50% 0%;
   }
 
   100% {
-    background-position: -200% 0%;
+    background-position: 0% -200%;
   }
 }
 
