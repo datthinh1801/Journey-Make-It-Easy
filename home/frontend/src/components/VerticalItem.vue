@@ -1,7 +1,7 @@
 <template>
   <div :class="[$style.item]">
     <div :class="[$style.image]">
-      <img :alt="imgSrc" :src="imgSrc"
+      <img alt="" :src="imgSrc"
            :style="{width: imgWidth, height: imgHeight}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
@@ -30,7 +30,6 @@ export default {
 
 .item:hover {
   opacity: 0.8;
-  text-decoration-line: underline;
 }
 
 .image {
@@ -39,6 +38,20 @@ export default {
 
 .image img {
   object-fit: cover;
+}
+
+.image img:empty {
+  animation: skeletonLoading 1.2s linear infinite alternate;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-color: #fff;
+  }
+
+  100% {
+    background-color: #ddd;
+  }
 }
 
 .heart-btn {

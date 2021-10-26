@@ -7,9 +7,11 @@
                   :img-src="item.images[0].link"
                   :img-width="imgWidth"
                   :img-height="imgHeight"
-    >
+                  :class="$style['v-item']">
       <div :class="$style['item-detail-container']">
         <h4>{{ item.name }}</h4>
+        <rating-section :ratingCount="item.numberVoting"
+                        :starCount="item.ratingScore"/>
       </div>
     </VerticalItem>
     <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
@@ -19,12 +21,13 @@
 </template>
 
 <script>
+import RatingSection from './RatingSection.vue';
 import VerticalItem from "./VerticalItem";
 
 export default {
   name: 'FeaturedDestinations',
   components: {
-    VerticalItem,
+    VerticalItem, RatingSection,
   },
   data() {
     return {
@@ -71,6 +74,10 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
   position: relative;
+}
+
+.v-item:hover .item-detail-container h4{
+  text-decoration: underline;
 }
 
 .item-detail-container {

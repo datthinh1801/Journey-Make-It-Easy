@@ -1,6 +1,6 @@
 <template>
   <div class="row-container width-control">
-    <p class="roboto title">Traveller's picks</p>
+    <p class="roboto title">Traveller's Favorite Destinations</p>
     <FeaturedDestinations/>
   </div>
 </template>

@@ -17,7 +17,10 @@
                     :imgWidth="imgWidth"
                     :imgHeight="imgHeight"
       >
+      <div :class="$style['item-detail']">
         <h4>{{ item.name }}</h4>
+        <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore"/>
+      </div>
       </VerticalItem>
 
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
@@ -35,10 +38,11 @@ import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 library.add(faChevronLeft, faChevronRight);
 
 import VerticalItem from "./VerticalItem";
+import RatingSection from "./RatingSection.vue";
 
 export default {
   name: 'RecommendationGroup',
-  components: {VerticalItem,},
+  components: {VerticalItem, RatingSection},
   props: ['title', 'description'],
   data() {
     return {
@@ -123,6 +127,15 @@ export default {
   cursor: pointer;
   max-width: 95%;
   max-height: 95%;
+  margin-bottom: 30px;
+}
+
+.recommendedItem .item-detail h4 {
+  margin: 0;
+}
+
+.recommendedItem:hover .item-detail h4{
+  text-decoration: underline;
 }
 
 .itemContainer {
@@ -176,5 +189,4 @@ export default {
 .rightButton {
   right: 0;
 }
-
 </style>
