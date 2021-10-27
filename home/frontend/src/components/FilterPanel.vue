@@ -1,9 +1,9 @@
 <template>
   <div :class="$style['col-container']">
-    <FilterOptionSection/>
-    <FilterOptionSection/>
-    <FilterOptionSection/>
-    <!--Hide the last hr.-->
+    <FilterOptionSection :filterType="firstFilterGroup" :isRestaurants="isRestaurants" />
+    <FilterOptionSection :filterType="secondFilterGroup" :isRestaurants="isRestaurants" />
+    <FilterOptionSection :filterType="thirdFilterGroup" :isRestaurants="isRestaurants" />
+    <FilterOptionSection :filterType="fourthFilterGroup" :isRestaurants="isRestaurants" />
   </div>
 </template>
 
@@ -12,7 +12,38 @@ import FilterOptionSection from "./FilterOptionSection";
 
 export default {
   name: 'FilterPanel',
-  components: {FilterOptionSection},
+  components: {
+    FilterOptionSection
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    isRestaurants() {
+      return this.$route.name === 'Restaurants';
+    },
+    firstFilterGroup() {
+      return 'ratingScore';
+    },
+    secondFilterGroup() {
+      if (this.isRestaurants) {
+        return 'priceRange';
+      }
+      return 'roomTypes';
+    },
+    thirdFilterGroup() {
+      if (this.isRestaurants) {
+        return 'cuisines'
+      }
+      return 'roomFeatures';
+    },
+    fourthFilterGroup() {
+      if (this.isRestaurants) {
+        return 'specialDiets';
+      }
+      return 'propertyAmenities';
+    },
+  }
 }
 </script>
 
