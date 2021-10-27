@@ -46,7 +46,9 @@ export default {
       this.$modal.show('sign-in-modal');
     },
     signIn() {
-
+      let username = document.getElementById('username').value;
+      let password = document.getElementById('password').value;
+      this.$store.dispatch('signIn', {username, password});
     },
     signUp() {
       document.querySelector('#signin-form').style["display"] = "none";

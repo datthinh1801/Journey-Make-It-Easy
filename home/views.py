@@ -16,7 +16,6 @@ def get_csrf_token(request):
 
 def login(request):
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST['username']
         password = request.POST['password']
 

@@ -23,7 +23,7 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
     state: {
         // SETTINGS
-        BASE_URL: 'http://localhost:8000/graphql',
+        BASE_URL: 'http://localhost:8000',
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',
@@ -97,15 +97,13 @@ const store = new Vuex.Store({
                 password
             } = credential;
             // let token = await context.dispatch('getCSRFToken');
-            let response = await axios.post(`${context.state.BASE_URL}/login`, {
-                username,
-                password
-            }, {
-                headers: {
-                    'Origin': 'http://localhost',
-                    // 'X-CSRFToken': token,
-                },
-            });
+            let response = await axios.post(`${context.state.BASE_URL}/login`,
+                `username=${username}&password=${password}`, {
+                    headers: {
+                        'Origin': context.state.BASE_URL,
+                        // 'X-CSRFToken': token,
+                    },
+                });
             console.log(response.data);
             // context.commit('signIn', response.data.token);
             // await router.push({path: context.state.currentURL});
@@ -131,7 +129,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                     getCityByName(name: "${city}") {
@@ -166,7 +164,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                     getCityByName(name: "${city}") {
@@ -202,7 +200,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                     getCityByName(name: "${city}") {
@@ -242,7 +240,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                         allAttractions {
@@ -271,7 +269,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                          getAttractionByName(name: "${name}"){
@@ -306,7 +304,7 @@ const store = new Vuex.Store({
             let data;
             await axios({
                 method: 'post',
-                url: `${context.state.BASE_URL}`,
+                url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
                          getRestaurantByName(name: "${name}"){
