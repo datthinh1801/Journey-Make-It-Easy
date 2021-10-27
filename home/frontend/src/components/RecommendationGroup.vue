@@ -16,7 +16,7 @@
                     :imgSrc="item.images[0].link"
                     :imgWidth="imgWidth"
                     :imgHeight="imgHeight"
-      >
+                    @click.native="redirectItem(item)">
       <div :class="$style['item-detail']">
         <h4>{{ item.name }}</h4>
         <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore"/>
@@ -104,6 +104,17 @@ export default {
     async moveRight() {
       await this.getItem();
       ++this.currentItem;
+    },
+    redirectItem(item) {
+      this.$store.commit('changeItemName', item.name);
+
+      if (this.title === 'Do') {
+        this.$router.push('attraction');
+      } else if (this.title === 'Eat') {
+        this.$router.push('restaurant');
+      } else {
+        this.$router.push('hotel');
+      }
     }
   },
   mounted() {
