@@ -46,8 +46,7 @@ export default {
       return this.this_item > 0;
     },
     showNext() {
-      // TODO: Define the maximum number of items to show
-      return true;
+      return this.$store.state.attractionArr.length > this.this_item + this.showed_items;
     }
   },
   methods: {

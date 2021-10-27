@@ -43,7 +43,7 @@ const store = new Vuex.Store({
 
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
-        currentItemName: 'Kebaby',
+        currentItemName: 'Cu Chi Tunnels',
     },
     mutations: {
         signIn(state, token) {

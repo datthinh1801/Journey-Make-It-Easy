@@ -10,7 +10,6 @@
         <font-awesome-icon icon="chevron-left"/>
       </button>
 
-      <!--TODO: Implement click event on these items-->
       <VerticalItem v-for="item in items" :key="item.id"
                     :class="$style.recommendedItem"
                     :imgSrc="item.images[0].link"
@@ -69,8 +68,7 @@ export default {
       return this.currentItem > 0;
     },
     showNext() {
-      // TODO: Define the maximum number of items to show
-      return true;
+      return this.$store.state.attractionArr.length > this.currentItem + this.itemToShow;
     },
     imgWidth() {
       return '230px';
@@ -129,7 +127,7 @@ export default {
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-rows: 320px;
 }
 
 .recommendedItem {
@@ -193,6 +191,7 @@ export default {
 .rightButton:hover {
   background-color: black;
   color: white;
+  border-color: white;
 }
 
 .rightButton {
