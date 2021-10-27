@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container width-control">
+  <div class="row-container width-control" :class="$style['row-container']">
     <p class="roboto title">Your recent searches</p>
     <RecentSearches/>
   </div>
@@ -16,10 +16,9 @@ export default {
 }
 </script>
 
-<style scoped>
-div.row-container {
+<style module>
+.row-container {
   margin-top: 30px;
-  padding-left: 40px;
   flex-direction: column;
 }
 </style>

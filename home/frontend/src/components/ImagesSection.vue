@@ -13,8 +13,6 @@ export default {
 </script>
 
 <style module>
-@import "../styles/global.css";
-
 .gridContainer {
   display: grid;
   grid-template-columns: 60% 40%;

@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="heart-btn" :class="$style.btn">
     <font-awesome-icon :icon="['fas', 'heart']"/>
   </button>
 </template>
@@ -15,8 +15,8 @@ export default {
 }
 </script>
 
-<style scoped>
-button {
+<style module>
+.btn {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -28,7 +28,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
   color: red;
 }
 </style>

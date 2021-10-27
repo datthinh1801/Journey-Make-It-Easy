@@ -42,7 +42,7 @@ export default {
       this.$router.push('/explore');
     },
     async search() {
-      let searchStr = document.querySelector('#search-box input').value;
+      let searchStr = document.querySelector('#searchBox-box').value;
       if (searchStr.length > 0){
         this.shouldExtended = true;
       } else {

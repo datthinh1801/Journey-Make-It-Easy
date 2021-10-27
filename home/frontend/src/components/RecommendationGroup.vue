@@ -126,8 +126,6 @@ export default {
 </script>
 
 <style module>
-@import "../styles/global.css";
-
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

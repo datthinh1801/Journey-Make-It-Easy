@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container width-control">
+  <div class="row-container width-control" :class="$style['row-container']">
     <p class="roboto title">Traveller's Favorite Destinations</p>
     <FeaturedDestinations/>
   </div>
@@ -16,8 +16,8 @@ export default {
 }
 </script>
 
-<style scoped>
-div.row-container {
+<style module>
+.row-container {
   margin-top: 50px;
   display: flex;
   flex-direction: column;

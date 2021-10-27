@@ -1,5 +1,5 @@
 <template>
-  <div class="width-control">
+  <div class="width-control" :class="$style['width-control']">
     <h2>Recommendations</h2>
     <div v-for="(item, i) in recommendationDetails" :key="i">
       <RecommendationGroup :description="item.description" :title="item.title"/>
@@ -35,8 +35,8 @@ export default {
 }
 </script>
 
-<style scoped>
-div.width-control {
+<style module>
+.width-control {
   margin-left: auto;
   margin-right: auto;
 }

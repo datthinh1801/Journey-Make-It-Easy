@@ -1,6 +1,6 @@
 <template>
-  <div class="col-container">
-    <img alt="blog-img" src="images/placeholder_img.png">
+  <div class="col-container" :class="$style['col-container']">
+    <img alt="blog-img" src="images/placeholder_img.png" :class="$style.image">
     <HeartButton class="heart-btn"/>
     <div>
       <div class="roboto">Author</div>
@@ -20,10 +20,8 @@ export default {
 }
 </script>
 
-<style scoped>
-@import "../styles/global.css";
-
-img {
+<style module>
+.image {
   max-width: 320px;
   max-height: 190px;
   width: 320px;

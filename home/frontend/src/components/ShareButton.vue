@@ -1,7 +1,7 @@
 <template>
-  <button class="roboto">
-    <font-awesome-icon id="share-icon" :icon="['fas','external-link-alt']"/>
-    Share
+  <button class="roboto" :class="$style.btn">
+    <font-awesome-icon :class="$style['share-icon']" :icon="['fas','external-link-alt']"/>
+    <span>Share</span>
   </button>
 </template>
 
@@ -16,8 +16,8 @@ export default {
 }
 </script>
 
-<style scoped>
-button {
+<style module>
+.btn {
   background-color: transparent;
   border: none;
 
@@ -31,18 +31,18 @@ button {
   cursor: pointer;
 }
 
-#share-icon {
+.share-icon {
   color: #aaa;
   font-size: 20px;
   margin-right: 5px;
   margin-left: 20px;
 }
 
-button:hover #share-icon {
+.btn:hover .share-icon {
   color: black;
 }
 
-button:hover {
+.btn:hover span {
   text-decoration: underline;
   font-weight: 400;
 }

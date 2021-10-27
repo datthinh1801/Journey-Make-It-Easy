@@ -1,8 +1,8 @@
 <template>
-  <div class="row-container width-control">
-    <img id="hero-img" alt="hero-img" src="images/Hero_image.png">
-    <img id="hero-text" alt="hero-text" src="images/Hero_text.png">
-    <SearchBox id="search-box"/>
+  <div class="row-container width-control" :class="$style['row-container']">
+    <img :id="$style['hero-img']" alt="hero-img" src="images/Hero_image.png">
+    <img :id="$style['hero-text']" alt="hero-text" src="images/Hero_text.png">
+    <SearchBox :id="$style['search-box']"/>
   </div>
 </template>
 
@@ -17,9 +17,7 @@ export default {
 }
 </script>
 
-<style scoped>
-@import '../styles/global.css';
-
+<style module>
 .row-container {
   margin-top: 60px;
   position: relative;

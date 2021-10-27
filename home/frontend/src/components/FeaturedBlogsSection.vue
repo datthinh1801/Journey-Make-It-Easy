@@ -16,8 +16,6 @@ export default {
 </script>
 
 <style module>
-@import "../styles/global.css";
-
 .container {
   width: 100%;
   background-color: #e3ebff;

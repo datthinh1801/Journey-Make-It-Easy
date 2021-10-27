@@ -45,8 +45,6 @@ export default {
 </script>
 
 <style module>
-@import "../styles/global.css";
-
 .title {
   margin-top: 70px;
   margin-bottom: 10px;

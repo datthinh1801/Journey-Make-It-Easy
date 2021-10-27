@@ -1,7 +1,7 @@
 <template>
-  <button class="roboto">
-    <font-awesome-icon id="heart-icon" :icon="['fas','heart']"/>
-    Saved
+  <button class="roboto" :class="$style.btn">
+    <font-awesome-icon :class="$style['heart-icon']" :icon="['fas','heart']"/>
+    <span>Saved</span>
   </button>
 </template>
 
@@ -16,33 +16,35 @@ export default {
 }
 </script>
 
-<style scoped>
-button {
+<style module>
+.btn {
   display: flex;
   align-items: center;
 
   border: none;
   background-color: transparent;
+  color: #aaa;
 
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 500;
   text-transform: capitalize;
 
   cursor: pointer;
+  transition: 0;
 }
 
-#heart-icon {
+.heart-icon {
   color: #aaa;
   margin-right: 5px;
   font-size: 20px;
 }
 
-button:hover #heart-icon {
+.btn:hover .heart-icon {
   color: red;
 }
 
-button:hover {
+.btn:hover span {
   text-decoration: underline;
-  font-weight: 400;
+  color: black;
 }
 </style>

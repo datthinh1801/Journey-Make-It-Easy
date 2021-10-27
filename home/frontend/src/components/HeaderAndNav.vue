@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-    <NavBar id="nav-bar"/>
+    <NavBar :id="$style['nav-bar']"/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style module>
 #nav-bar {
   margin-top: 60px;
 }

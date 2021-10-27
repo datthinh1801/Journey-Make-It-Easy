@@ -1,7 +1,7 @@
 <template>
-  <div class="recent-search-item">
-    <font-awesome-icon :icon="['fas','map-marker-alt']" class="map-marker-icon"/>
-    <div class="recent-search-text">
+  <div :class="$style['recent-search-item']">
+    <font-awesome-icon :icon="['fas','map-marker-alt']" :class="$style['map-marker-icon']"/>
+    <div :class="$style['recent-search-text']">
       <strong>Da Lat</strong>
       <p>Lam Dong Province</p>
     </div>
@@ -19,13 +19,12 @@ export default {
 }
 </script>
 
-<style scoped>
-@import '../styles/global.css';
-
+<style module>
 .map-marker-icon {
   font-size: 22px;
 }
 
+/* TODO: Use grid size for width here */
 .recent-search-item {
   background-color: white;
   color: black;

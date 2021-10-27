@@ -1,5 +1,5 @@
 <template>
-  <div class="item-list">
+  <div class="item-list" :class="$style['recent-searches-container']">
     <RecentSearch v-for="n in 4" :key="n"/>
   </div>
 </template>
@@ -18,6 +18,8 @@ export default {
 }
 </script>
 
-<style scoped>
-@import "../styles/global.css";
+<style module>
+.recent-searches-container {
+  width: 100%;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="row-container item-list width-control">
+  <div class="row-container item-list width-control" :class="$style['row-container']">
     <FeaturedBlog v-for="n in 3" :key="n"/>
   </div>
 </template>
@@ -15,9 +15,7 @@ export default {
 }
 </script>
 
-<style scoped>
-@import "../styles/global.css";
-
+<style module>
 .row-container {
   width: 1000px;
 }

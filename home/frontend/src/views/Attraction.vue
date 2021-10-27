@@ -2,7 +2,7 @@
   <div>
     <HeaderAndNav/>
     <div class="width-control">
-      <div class="row-container">
+      <div class="row-container" :class="$style['item-header']">
         <h1>{{ name }}</h1>
         <div class="row-container">
           <BigHeart/>
@@ -115,6 +115,17 @@ export default {
 </script>
 
 <style module>
+.item-header {
+  display: flex;
+  align-items: center;
+}
+
+.item-header div div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 h1 {
   text-align: left;
 }
