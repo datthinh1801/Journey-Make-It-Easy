@@ -35,11 +35,6 @@
 </template>
 
 <script>
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faTimes);
-
 export default {
   name: 'SigninButton',
   data(){
@@ -61,12 +56,24 @@ export default {
     signUp() {
       document.querySelector('#signin-form').style["display"] = "none";
       document.querySelector('#signup-form').style["display"] = "flex";
+    },
+    backToSignIn() {
+      document.querySelector('#signin-form').style["display"] = "flex";
+      document.querySelector('#signup-form').style["display"] = "none";
     }
   }
 }
 </script>
 
 <style module>
+#signup-form div.noselect {
+  text-decoration: none;
+  font-size: 16px;
+  color: #aaa;
+  margin: 5px 0;
+
+}
+
 .signin-form {
   display: flex;
   flex-direction: column;

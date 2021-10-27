@@ -106,7 +106,7 @@ export default {
 
   font-size: 22px;
   transition: 0.2s;
-  z-index: 1;
+  z-index: 0;
   cursor: pointer;
 }
 

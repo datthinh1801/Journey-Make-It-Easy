@@ -81,7 +81,7 @@ const store = new Vuex.Store({
         },
         saveItem(state, item) {
             state.item = item;
-        }
+        },
     },
     actions: {
         async getCSRFToken(context) {
