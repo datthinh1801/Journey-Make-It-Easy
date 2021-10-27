@@ -57,8 +57,8 @@ export default {
     moveRight() {
       ++this.this_item;
     },
-    async redirectToItem(item) {
-      await this.$store.dispatch('getAttractionDetail', item.name);
+    redirectToItem(item) {
+      this.$store.commit('changeItemName', item.name);
       this.$router.push('/attraction');
     },
   },

@@ -82,6 +82,9 @@ const store = new Vuex.Store({
         saveItem(state, item) {
             state.item = item;
         },
+        changeItemName(state, name) {
+            state.currentItemName = name;
+        }
     },
     actions: {
         async getCSRFToken(context) {
