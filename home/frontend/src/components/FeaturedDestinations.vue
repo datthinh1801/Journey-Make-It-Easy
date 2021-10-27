@@ -4,7 +4,7 @@
       <font-awesome-icon icon="chevron-left" />
     </button>
     <VerticalItem v-for="item in items" :key="item.id" :img-src="item.images[0].link" :img-width="imgWidth"
-      :img-height="imgHeight" :class="$style['v-item']" @click="redirectToItem()">
+      :img-height="imgHeight" :class="$style['v-item']" @click.native="redirectToItem(item)">
       <div :class="$style['item-detail-container']">
         <h4>{{ item.name }}</h4>
         <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
@@ -57,9 +57,10 @@ export default {
     moveRight() {
       ++this.this_item;
     },
-    redirectToItem() {
-      console.log('ok');
-    }
+    async redirectToItem(item) {
+      await this.$store.dispatch('getAttractionDetail', item.name);
+      this.$router.push('/attraction');
+    },
   },
   beforeMount() {
     this.$store.dispatch('getAllAttractions');

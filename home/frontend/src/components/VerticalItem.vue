@@ -60,8 +60,8 @@ export default {
 
 .heart-btn {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 1px;
+  top: 8px;
 }
 
 /*https://www.geeksforgeeks.org/how-to-create-skeleton-screen-loading-effect-using-css/*/

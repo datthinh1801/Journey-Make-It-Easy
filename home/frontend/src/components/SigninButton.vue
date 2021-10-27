@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <router-link tag="button" to="/signin" v-if="!authenticated">Sign in</router-link>
-    <div v-else class="user-profile-container">
-      <div class="user-profile-img"></div>
-      <div class="user-profile-name no-select">Username</div>
-    </div> -->
     <button @click="showModal">Sign In</button>
     <modal name="sign-in-modal" :width="700" :height="500">
       <div :class="$style['signin-modal']">
@@ -66,14 +61,6 @@ export default {
 </script>
 
 <style module>
-#signup-form div.noselect {
-  text-decoration: none;
-  font-size: 16px;
-  color: #aaa;
-  margin: 5px 0;
-
-}
-
 .signin-form {
   display: flex;
   flex-direction: column;
