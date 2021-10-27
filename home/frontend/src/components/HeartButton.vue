@@ -30,5 +30,6 @@ export default {
 
 .btn:hover {
   color: red;
+  background-color: white;
 }
 </style>
