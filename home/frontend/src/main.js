@@ -315,7 +315,7 @@ const store = new Vuex.Store({
                             website,
                             cuisines,
                             meals,
-                            spcialDiets,
+                            specialDiets,
                             priceRange,
                             features,
                             numberVoting,

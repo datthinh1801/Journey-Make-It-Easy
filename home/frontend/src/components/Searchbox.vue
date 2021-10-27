@@ -53,7 +53,7 @@ export default {
       let data;
       await axios({
         method: 'post',
-        url: `${this.$store.state.BASE_URL}`,
+        url: `${this.$store.state.BASE_URL}/graphql`,
         data: {
           query: `query {
                     allCitys {

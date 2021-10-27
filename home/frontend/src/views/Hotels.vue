@@ -11,7 +11,7 @@
                         :img-src="item.images[0].link"
                         :img-height="imgHeight"
                         :img-width="imgWidth"
-        >
+                        @click.native="redirectToHotel(item)">
           <div :class="$style['item-detail-container']">
             <div :class="$style['item-detail-top']">
               <h3>{{ item.name }}</h3>
@@ -109,6 +109,10 @@ export default {
     },
     getPropAmen(item) {
       return item['propertyAmenities'].split(', ');
+    },
+    redirectToHotel(item) {
+      this.$store.commit('changeItemName', item.name);
+      this.$router.push('hotel');
     }
   },
   mounted() {

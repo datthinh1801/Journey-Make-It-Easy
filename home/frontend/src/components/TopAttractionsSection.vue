@@ -8,7 +8,7 @@
                     :itemName="item.name"
                     :img-width="imgWidth"
                     :img-height="imgHeight"
-      >
+                    @click.native="redirectToAttraction(item)">
         <div :class="$style['item-description']">
           <h3 :class="$style.title">{{ item.name }}</h3>
           <RatingSection :star-count="item.ratingScore"/>
@@ -59,6 +59,10 @@ export default {
     },
     fetchAttraction() {
       this.$store.dispatch('getAttraction', this.place)
+    },
+    redirectToAttraction(item) {
+      this.$store.commit('changeItemName', item.name);
+      this.$router.push('attraction');
     }
   },
   beforeMount() {

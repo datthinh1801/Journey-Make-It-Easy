@@ -10,7 +10,8 @@
                         :item-width="itemWidth"
                         :img-src="item.images[0].link"
                         :img-width="imgWidth"
-                        :img-height="imgHeight">
+                        :img-height="imgHeight"
+                        @click.native="redirectToRestaurant(item)">
           <div :class="$style['item-detail-container']">
             <div :class="$style['item-detail-top']">
               <h3>{{ item.name }}</h3>
@@ -85,6 +86,10 @@ export default {
   methods: {
     loadMore() {
       this.item_n += 10;
+    },
+    redirectToRestaurant(item) {
+      this.$store.commit('changeItemName', item.name);
+      this.$router.push('restaurant');
     }
   },
   mounted() {

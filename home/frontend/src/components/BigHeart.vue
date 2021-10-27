@@ -33,6 +33,10 @@ export default {
   transition: 0;
 }
 
+.btn:hover {
+  background-color: white;
+}
+
 .heart-icon {
   color: #aaa;
   margin-right: 5px;

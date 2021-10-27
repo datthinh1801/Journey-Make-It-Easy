@@ -25,10 +25,15 @@ export default {
   align-items: center;
 
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 500;
+  color: #aaa;
   text-transform: capitalize;
 
   cursor: pointer;
+}
+
+.btn:hover {
+  background-color: white;
 }
 
 .share-icon {
@@ -44,6 +49,6 @@ export default {
 
 .btn:hover span {
   text-decoration: underline;
-  font-weight: 400;
+  color: black;
 }
 </style>

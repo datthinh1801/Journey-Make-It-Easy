@@ -76,6 +76,10 @@ export default {
   position: relative;
 }
 
+.v-item {
+  z-index: -1;
+}
+
 .v-item:hover .item-detail-container h4{
   text-decoration: underline;
 }
