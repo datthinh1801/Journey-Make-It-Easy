@@ -191,7 +191,7 @@ export default {
 .rightButton:hover {
   background-color: black;
   color: white;
-  border-color: white;
+  border-color: black;
 }
 
 .rightButton {
