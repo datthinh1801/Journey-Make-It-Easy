@@ -15,14 +15,7 @@
             </button>
             <button @click="editor.chain().focus().toggleStrike().run()"
                 :class="{ 'is-active': editor.isActive('strike') }">
-                Strike
-            </button>
-            <button @click="editor.chain().focus().toggleCode().run()"
-                :class="{ 'is-active': editor.isActive('code') }">
-                Code
-            </button>
-            <button @click="editor.chain().focus().unsetAllMarks().run()">
-                Clear
+                <strike>S</strike>
             </button>
             <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
                 :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
@@ -48,10 +41,6 @@
                 :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }">
                 H6
             </button>
-            <button @click="editor.chain().focus().toggleCodeBlock().run()"
-                :class="{ 'is-active': editor.isActive('codeBlock') }">
-                Code block
-            </button>
             <button @click="editor.chain().focus().toggleBlockquote().run()"
                 :class="{ 'is-active': editor.isActive('blockquote') }">
                 Blockquote
@@ -64,6 +53,9 @@
             </button>
             <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
                 Redo (ctrl+y)
+            </button>
+            <button @click="editor.chain().focus().unsetAllMarks().run()">
+                Clear formats
             </button>
         </div>
         <bubble-menu :editor="editor" v-if="editor" class="editor-controller">
@@ -81,7 +73,7 @@
             </button>
             <button @click="editor.chain().focus().toggleStrike().run()"
                 :class="{ 'is-active': editor.isActive('strike') }">
-                <strike>strike</strike>
+                <strike>S</strike>
             </button>
         </bubble-menu>
         <div class="editing-space">
@@ -145,6 +137,10 @@ export default {
     width: 100%;
 }
 
+.editor-controller {
+    display: flex;
+}
+
 .editor-controller button {
     color: black;
     background-color: white;
@@ -152,6 +148,12 @@ export default {
     border-radius: 5px;
     width: auto;
     height: auto;
+    transition: 0ms;
+}
+
+.editor-controller button:active {
+    color: white;
+    background-color: black;
 }
 
 .editing-space .ProseMirror {
