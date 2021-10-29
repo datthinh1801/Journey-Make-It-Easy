@@ -3,29 +3,26 @@
         <div :editor="editor" v-if="editor" class="editor-controller">
             <button @click="editor.chain().focus().toggleBold().run()"
                 :class="{ 'is-active': editor.isActive('bold') }">
-                bold
+                <b>B</b>
             </button>
             <button @click="editor.chain().focus().toggleItalic().run()"
                 :class="{ 'is-active': editor.isActive('italic') }">
-                italic
+                <i>i</i>
+            </button>
+            <button @click="editor.chain().focus().toggleUnderline().run()"
+                :class="{ 'is-active': editor.isActive('underline') }">
+                <u>U</u>
             </button>
             <button @click="editor.chain().focus().toggleStrike().run()"
                 :class="{ 'is-active': editor.isActive('strike') }">
-                strike
+                Strike
             </button>
             <button @click="editor.chain().focus().toggleCode().run()"
                 :class="{ 'is-active': editor.isActive('code') }">
-                code
+                Code
             </button>
             <button @click="editor.chain().focus().unsetAllMarks().run()">
-                clear marks
-            </button>
-            <button @click="editor.chain().focus().clearNodes().run()">
-                clear nodes
-            </button>
-            <button @click="editor.chain().focus().setParagraph().run()"
-                :class="{ 'is-active': editor.isActive('paragraph') }">
-                paragraph
+                Clear
             </button>
             <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
                 :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
@@ -45,53 +42,46 @@
             </button>
             <button @click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
                 :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }">
-                h5
+                H5
             </button>
             <button @click="editor.chain().focus().toggleHeading({ level: 6 }).run()"
                 :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }">
-                h6
-            </button>
-            <button @click="editor.chain().focus().toggleBulletList().run()"
-                :class="{ 'is-active': editor.isActive('bulletList') }">
-                bullet list
-            </button>
-            <button @click="editor.chain().focus().toggleOrderedList().run()"
-                :class="{ 'is-active': editor.isActive('orderedList') }">
-                ordered list
+                H6
             </button>
             <button @click="editor.chain().focus().toggleCodeBlock().run()"
                 :class="{ 'is-active': editor.isActive('codeBlock') }">
-                code block
+                Code block
             </button>
             <button @click="editor.chain().focus().toggleBlockquote().run()"
                 :class="{ 'is-active': editor.isActive('blockquote') }">
-                blockquote
+                Blockquote
             </button>
             <button @click="editor.chain().focus().setHorizontalRule().run()">
-                horizontal rule
+                Divider
             </button>
-            <button @click="editor.chain().focus().setHardBreak().run()">
-                hard break
+            <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().undo()">
+                Undo (ctrl+z)
             </button>
-            <button @click="editor.chain().focus().undo().run()">
-                undo
-            </button>
-            <button @click="editor.chain().focus().redo().run()">
-                redo
+            <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
+                Redo (ctrl+y)
             </button>
         </div>
         <bubble-menu :editor="editor" v-if="editor" class="editor-controller">
             <button @click="editor.chain().focus().toggleBold().run()"
                 :class="{ 'is-active': editor.isActive('bold') }">
-                bold
+                B
             </button>
             <button @click="editor.chain().focus().toggleItalic().run()"
                 :class="{ 'is-active': editor.isActive('italic') }">
-                italic
+                <i>I</i>
+            </button>
+            <button @click="editor.chain().focus().toggleUnderline().run()"
+                :class="{ 'is-active': editor.isActive('underline') }">
+                <u>U</u>
             </button>
             <button @click="editor.chain().focus().toggleStrike().run()"
                 :class="{ 'is-active': editor.isActive('strike') }">
-                strike
+                <strike>strike</strike>
             </button>
         </bubble-menu>
         <div class="editing-space">
@@ -102,14 +92,15 @@
 </template>
 
 <script>
-import {Editor, EditorContent, BubbleMenu} from '@tiptap/vue-2';
+import {Editor, EditorContent, BubbleMenu, History} from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
 
 export default {
     name: 'PostEditor',
     components: {
         EditorContent,
-        BubbleMenu
+        BubbleMenu,
     },
     data() {
         return {
@@ -126,6 +117,8 @@ export default {
             content: '',
             extensions: [ 
                 StarterKit, 
+                History,
+                Underline
             ],
             onUpdate({ editor }) {
                 const wordCount = editor.state.doc.textContent.split(' ').length;
