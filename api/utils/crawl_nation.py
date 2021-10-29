@@ -33,8 +33,13 @@ async def extract_nation_data(nation_url: str):
     city_links, nation_name = await extract_links_of_cities(nation_url)
     data = {}
     citys = []
+    print(len(city_links))
+    count = 5
     for city_link in city_links:
         citys.append(asyncio.create_task(extract_city_data(city_link)))
+        count -= 1
+        if count == 0:
+            break
 
     data['name'] = nation_name
     data['citys'] = await asyncio.gather(*citys)
@@ -64,6 +69,6 @@ if __name__ == '__main__':
     if len(sys.argv) >= 0:
         import json
 
-        with open('vietnam.json', 'w') as fp:
+        with open('vietnam_5_city.json', 'w') as fp:
             json.dump(data, fp)
             print('ok')

@@ -37,7 +37,7 @@ async def extract_attraction_data(url: str):
 
                 # photo-l is small images, change to photo-o to get full size images
                 if 'photo-l' in l_image:
-                    links.append(l_image)
+                    links.append(l_image.replace('photo-l','photo-o'))
             map_info[i] = links
 
     # In case address not found
@@ -51,7 +51,7 @@ async def extract_attraction_data(url: str):
         map_info['address'] = data.get_text().strip()
     else:
         map_info['address'] = ''
-    # map_info['ggmap'] = convert_address_to_link_gg_map(map_info['address'])
+    map_info['ggmap'] = convert_address_to_link_gg_map(map_info['address'])
 
     # In case open time not found
     try:

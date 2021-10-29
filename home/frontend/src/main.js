@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
     state: {
         // SETTINGS
-        BASE_URL: 'http://localhost:8000/graphql',
+        BASE_URL: 'http://localhost:7000/graphql',
         CSRF_TOKEN: '',
         // GENERIC STATE
         currentURL: '/',

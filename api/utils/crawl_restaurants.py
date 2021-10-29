@@ -44,8 +44,8 @@ async def extract_restaurant_data(url: str):
                         data[info] = time
                         if 'See all hours' in time:
                             data[info] = ''
-                # if info == 'address':
-                #     data['ggmap'] = convert_address_to_link_gg_map(data[info])
+                if info == 'address':
+                    data['ggmap'] = convert_address_to_link_gg_map(data[info])
         if data[info] == None:
             data[info] = ''
 
@@ -90,11 +90,11 @@ async def extract_restaurant_data(url: str):
     for d in data_link_img:
         link = d['data-lazyurl']
         if link.find('photo-s') != -1:
-            link = link.replace('photo-s', 'photo-l')
-        if link.find('photo-o') != -1:
-            link = link.replace('photo-o', 'photo-l')
+            link = link.replace('photo-s', 'photo-o')
+        if link.find('photo-l') != -1:
+            link = link.replace('photo-o', 'photo-o')
         if link.find('photo-f') != -1:
-            link = link.replace('photo-f', 'photo-l')
+            link = link.replace('photo-f', 'photo-o')
         links_image.append(link)
     data['images'] = links_image
     return data
