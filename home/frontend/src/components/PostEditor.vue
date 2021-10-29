@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <div v-if="editor" class="editor-controller">
+        <div :editor="editor" v-if="editor" class="editor-controller">
             <button @click="editor.chain().focus().toggleBold().run()"
                 :class="{ 'is-active': editor.isActive('bold') }">
                 bold
@@ -80,30 +80,57 @@
                 redo
             </button>
         </div>
+        <bubble-menu :editor="editor" v-if="editor" class="editor-controller">
+            <button @click="editor.chain().focus().toggleBold().run()"
+                :class="{ 'is-active': editor.isActive('bold') }">
+                bold
+            </button>
+            <button @click="editor.chain().focus().toggleItalic().run()"
+                :class="{ 'is-active': editor.isActive('italic') }">
+                italic
+            </button>
+            <button @click="editor.chain().focus().toggleStrike().run()"
+                :class="{ 'is-active': editor.isActive('strike') }">
+                strike
+            </button>
+        </bubble-menu>
         <div class="editing-space">
+            <div class="word-count">{{ wordCount }} words</div>
             <editor-content :editor="editor" />
         </div>
     </div>
 </template>
 
 <script>
-import {Editor, EditorContent} from '@tiptap/vue-2';
+import {Editor, EditorContent, BubbleMenu} from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
 
 export default {
     name: 'PostEditor',
     components: {
-        EditorContent
+        EditorContent,
+        BubbleMenu
     },
     data() {
         return {
             editor: null,
         }
     },
+    computed: {
+        wordCount() {
+            return this.editor.state.doc.textContent.split(/\s+/).length - 1;
+        }
+    },
     mounted() {
         this.editor = new Editor({
-            content: 'Testing tiptap',
-            extensions: [ StarterKit, ]
+            content: '',
+            extensions: [ 
+                StarterKit, 
+            ],
+            onUpdate({ editor }) {
+                const wordCount = editor.state.doc.textContent.split(' ').length;
+                this.wordCount = wordCount;
+            },
         })
     },
     beforeDestroy() {
@@ -122,6 +149,7 @@ export default {
     border: 2px solid black;
     border-radius: 4px;
     padding: 10px;
+    width: 100%;
 }
 
 .editor-controller button {
@@ -134,11 +162,17 @@ export default {
 }
 
 .editing-space .ProseMirror {
-    margin-top: 30px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
     height: 500px;
     overflow-y: auto;
+}
+
+.word-count {
+    margin-top: 20px;
+    text-align: right;
+    font-weight: 500;
+    color: #777;
 }
 </style>
