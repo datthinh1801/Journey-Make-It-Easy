@@ -4,7 +4,6 @@
     <section :class="$style['articles-section']">
       <h1 :class="$style.head">All Articles</h1>
       <hr>
-
       <div :class="$style['articles-container']">
         <div v-for="(article, i) in articles" :key="i"
              :class="$style.article">
@@ -16,7 +15,7 @@
           <img src="images/placeholder_img.png" alt="article-img">
         </div>
       </div>
-      <LoadMoreButton/>
+      <LoadMoreButton v-if="hasItems" @click.native="loadMore"/>
     </section>
   </div>
 </template>
@@ -31,14 +30,22 @@ export default {
   data() {
     return {
       author: 'Thinh, Nguyen Dat',
+      max_items: 10,
     }
   },
   computed: {
     articles() {
-      return this.$store.state.articleArr;
+      return this.$store.state.articleArr.slice(0, this.max_items);
+    },
+    hasItems() {
+      return this.max_items < this.$store.state.articleArr.length;
     }
   },
-  methods: {},
+  methods: {
+    loadMore() {
+      this.max_items += 10;
+    }
+  },
   mounted() {
     this.$store.commit('changePath', '/articles');
     this.$store.dispatch('getAllArticles');

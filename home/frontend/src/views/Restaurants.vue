@@ -34,7 +34,7 @@
             </div>
           </div>
         </HorizontalItem>
-        <LoadMoreButton v-if="endOfArray" @loadMore="loadMore"/>
+        <LoadMoreButton v-if="hasItems" @loadMore="loadMore"/>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    endOfArray() {
+    hasItems() {
       return this.item_n < this.$store.state.restaurantArr.length;
     },
     place() {
