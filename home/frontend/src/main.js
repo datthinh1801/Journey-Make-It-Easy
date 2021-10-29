@@ -232,7 +232,7 @@ const store = new Vuex.Store({
 
             context.commit('getHotel', data);
         },
-        async getArticle(context) {
+        async getAllArticles(context) {
             let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');
             context.commit('getArticle', articleArr.data);
         },

@@ -20,10 +20,14 @@ button.load-more-btn {
   text-transform: uppercase;
   cursor: pointer;
   background-color: white;
+
   border: 3px solid black;
+  border-radius: 14px;
+
   font-size: 18px;
   font-weight: 500;
-  transition: 0.3s;
+  color: black;
+  transition: 0.2s;
 }
 
 button.load-more-btn:hover {

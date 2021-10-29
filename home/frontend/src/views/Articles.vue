@@ -41,7 +41,7 @@ export default {
   methods: {},
   mounted() {
     this.$store.commit('changePath', '/articles');
-    this.$store.dispatch('getArticle');
+    this.$store.dispatch('getAllArticles');
   },
   beforeDestroy() {
     this.$store.commit('clearAllArticles');
