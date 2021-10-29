@@ -139,6 +139,6 @@ export default {
     border-radius: 5px;
     padding: 5px;
     height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 </style>
