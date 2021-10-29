@@ -63,7 +63,4 @@ export default {
   right: 1px;
   top: 8px;
 }
-
-/*https://www.geeksforgeeks.org/how-to-create-skeleton-screen-loading-effect-using-css/*/
-/*TODO: Build the skeleton*/
 </style>

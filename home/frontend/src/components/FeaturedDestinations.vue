@@ -1,8 +1,5 @@
 <template>
   <div :class="$style['grid-container']">
-    <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
-      <font-awesome-icon icon="chevron-left" />
-    </button>
     <VerticalItem v-for="item in items" :key="item.id" :img-src="item.images[0].link" :img-width="imgWidth"
       :img-height="imgHeight" :class="$style['v-item']" @click.native="redirectToItem(item)">
       <div :class="$style['item-detail-container']">
@@ -10,6 +7,9 @@
         <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
       </div>
     </VerticalItem>
+    <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
+      <font-awesome-icon icon="chevron-left" />
+    </button>
     <button :class="$style.rightButton" @click="moveRight()" v-show="showNext">
       <font-awesome-icon icon="chevron-right" />
     </button>
@@ -76,7 +76,7 @@ export default {
 }
 
 .v-item {
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .v-item:hover .item-detail-container h4{
