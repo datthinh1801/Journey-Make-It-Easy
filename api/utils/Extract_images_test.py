@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 import requests
 
-url = 'https://www.tripadvisor.com/Attraction_Review-g293925-d2005826-Reviews-Cu_Chi_Tunnels-Ho_Chi_Minh_City.html'
+url = 'https://www.tripadvisor.com/Attraction_Review-g293925-d454974-Reviews-Saigon_Opera_House_Ho_Chi_Minh_Municipal_Theater-Ho_Chi_Minh_City.html'
 
 
 headers = {

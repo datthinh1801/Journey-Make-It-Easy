@@ -27,6 +27,26 @@ async def extract_city_data(city_path: str):
     soup = BeautifulSoup(html_page, 'html.parser')
 
     data['name'] = soup.find('h1', class_='WlYyy cPsXC MLeMj eKEDF').find('span').find_all('span')[1].text
+    links = []
+
+    try:
+        data_links = soup.find('div', class_='bzEkR _T').find_all(
+            'picture', class_='dugSS _R dBRxX')
+    except :
+        data_links = []
+
+    for dl in data_links:
+        links.append(str(dl).split('srcset="')[-1].split(' ')[1][3:])
+
+    try:
+        info = soup.find(
+            'div', class_='fqCDQ').get_text().strip()
+    except :
+        info = ''
+    if info == None:
+        info = ''
+    data['images'] = links
+    data['info'] = info
     # print(data['name'])
     # print(data)
     return data
