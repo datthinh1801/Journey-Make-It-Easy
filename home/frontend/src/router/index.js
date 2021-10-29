@@ -11,6 +11,7 @@ import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
 import Attraction from '../views/Attraction';
 import Hotel from "../views/Hotel";
+import ArticleEditor from "../views/ArticleEditor";
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
         path: '/hotel',
         name: 'Hotel',
         component: Hotel
+    },
+    {
+        path: '/article-editor',
+        name: 'ArticleEditor',
+        component: ArticleEditor
     }
 ]
 
