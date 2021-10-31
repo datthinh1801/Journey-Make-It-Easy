@@ -21,7 +21,7 @@ import RatingSection from './RatingSection.vue';
 import VerticalItem from "./VerticalItem";
 
 export default {
-  name: 'FeaturedDestinations',
+  name: 'FeaturedAttractions',
   components: {
     VerticalItem, RatingSection,
   },

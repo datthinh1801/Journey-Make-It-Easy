@@ -1,18 +1,24 @@
 <template>
   <div id="app">
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faCaretUp} from "@fortawesome/free-solid-svg-icons";
+import Footer from './components/Footer.vue'
+import {
+  library
+} from "@fortawesome/fontawesome-svg-core";
+import {
+  faCaretUp
+} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCaretUp);
 
 export default {
   name: 'App',
-  components: {}
+  components: {Footer,}
 }
 </script>
 

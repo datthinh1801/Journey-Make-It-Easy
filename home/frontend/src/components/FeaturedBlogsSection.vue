@@ -1,7 +1,10 @@
 <template>
-  <div :class="$style.container">
+<div :class="$style.container">
+  <h2 class="width-control">Explore more with blog posts</h2>
+  <div :class="$style['item-container']">
     <FeaturedBlogs/>
   </div>
+</div>
 </template>
 
 <script>
@@ -17,13 +20,17 @@ export default {
 
 <style module>
 .container {
-  width: 100%;
-  background-color: #e3ebff;
-  height: 400px;
-  position: absolute;
   margin-top: 50px;
-  left: 0;
-  right: 0;
+  width: 100%;
+  background-color: #fff4ce;
+  padding: 30px 0;
+}
+
+.container h2 {
+  margin-bottom: 20px;
+}
+
+.item-container {
   display: flex;
   align-items: center;
 }

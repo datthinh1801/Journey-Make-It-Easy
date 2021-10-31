@@ -3,7 +3,7 @@
     <Header/>
     <HeroSection/>
     <RecentSearchesSection/>
-    <FeaturedDestinationsSection/>
+    <FeaturedAttractionsSection/>
     <FeaturedBlogsSection/>
   </div>
 </template>
@@ -12,8 +12,8 @@
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import RecentSearchesSection from "../components/RecentSearchesSection";
-import FeaturedDestinationsSection from "../components/FeaturedDestinationsSection";
 import FeaturedBlogsSection from "../components/FeaturedBlogsSection";
+import FeaturedAttractionsSection from '../components/FeaturedAttractionsSection.vue';
 
 export default {
   name: 'Home',
@@ -21,11 +21,12 @@ export default {
     RecentSearchesSection,
     Header,
     HeroSection,
-    FeaturedDestinationsSection,
-    FeaturedBlogsSection
+    FeaturedAttractionsSection,
+    FeaturedBlogsSection,
   },
   mounted() {
-    this.$store.commit('changePath', '/');
+    this.$store.
+    FeaturedAttractionsSectioncommit('changePath', '/');
   },
   beforeDestroy() {
     this.$store.commit('clearAllAttractions');

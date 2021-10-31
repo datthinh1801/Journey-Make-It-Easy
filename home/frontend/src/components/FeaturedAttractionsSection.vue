@@ -1,17 +1,17 @@
 <template>
   <div class="row-container width-control" :class="$style['row-container']">
-    <p class="roboto title">Traveller's Favorite Destinations</p>
-    <FeaturedDestinations/>
+    <p class="roboto title">Popular Destinations</p>
+    <featured-attractions/>
   </div>
 </template>
 
 <script>
-import FeaturedDestinations from "./FeaturedDestinations";
+import FeaturedAttractions from './FeaturedAttractions.vue'
 
 export default {
-  name: 'FeaturedDestinationsSection',
+  name: 'FeaturedAttractionsSection',
   components: {
-    FeaturedDestinations,
+    FeaturedAttractions,
   }
 }
 </script>
