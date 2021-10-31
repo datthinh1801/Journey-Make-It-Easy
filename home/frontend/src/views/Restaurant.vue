@@ -32,9 +32,7 @@
           <span>Open Time: {{ openTime }}</span>
         </div>
       </div>
-      <div :class="$style['image-section']">
-        <image-slider :images="images"/>
-      </div>
+        <image-slider :images="images" :class="$style['image-section']"/>
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
           <h3>Details</h3>
@@ -188,15 +186,8 @@ h1 {
 }
 
 .image-section {
-  display: flex;
   height: 400px;
   width: 100%;
-  overflow: hidden;
-}
-
-.image-section img {
-  max-height: 100%;
-  margin: 2px;
 }
 
 .information-section-container {
