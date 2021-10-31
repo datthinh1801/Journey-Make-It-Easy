@@ -10,7 +10,7 @@
         </div>
       </div>
       <div>
-        <RatingSection star-count="4.5" />
+        <RatingSection :star-count="ratingScore" :rating-count="numberVoting"/>
         <div class="info-container">
           <div class="address-info" v-if="address">
             <font-awesome-icon icon="map-marked-alt" />
@@ -78,12 +78,7 @@ export default {
     ImageSlider
   },
   data() {
-    return {
-      vfOptions: {
-        autoplay: true,
-      },
-      vfTransitions: ['slide'],
-    }
+    return {}
   },
   computed: {
     item() {
@@ -93,31 +88,31 @@ export default {
       return this.item['name'];
     },
     about() {
-      return this.item['about'] || '';
+      return this.item['about'];
     },
     address() {
-      return this.item['address'] || '';
+      return this.item['address'];
     },
     admissionTicket() {
-      return this.item['admissionTicket'] || '';
+      return this.item['admissionTicket'];
     },
     phoneNumber() {
-      return this.item['phone'] || '';
+      return this.item['phone'];
     },
     openTime() {
-      return this.item['openTime'] || '';
+      return this.item['openTime'];
     },
     suggestedDuration() {
-      return this.item['suggestedDuration'] || '';
+      return this.item['suggestedDuration'];
     },
     ratingScore() {
-      return this.item['ratingScore'] || '';
+      return this.item['ratingScore'];
     },
     numberVoting() {
-      return this.item['numberVoting'] || '';
+      return this.item['numberVoting'];
     },
     images() {
-      let imgObjs = this.item['images'] || [];
+      let imgObjs = this.item['images'];
       let imgs = [];
       imgObjs.forEach(imgObj => {
         imgs.push(imgObj['link']);
@@ -125,7 +120,7 @@ export default {
       return imgs;
     },
     website() {
-      return this.item['website'] || '';
+      return this.item['website'];
     }
   },
   beforeMount() {
@@ -149,16 +144,6 @@ export default {
 
 h1 {
   text-align: left;
-}
-
-.info-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.info-container span {
-  margin-left: 5px;
 }
 
 .overview-container {

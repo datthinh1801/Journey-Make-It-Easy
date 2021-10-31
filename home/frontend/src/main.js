@@ -289,7 +289,6 @@ const store = new Vuex.Store({
                                 name
                             },
                             images{
-                              id,
                               link
                             }
                           }
@@ -347,7 +346,45 @@ const store = new Vuex.Store({
             });
 
             context.commit('saveItem', data);
+        },
+        async getHotelDetail(context, name) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getStayByName(name: "${name}") {
+                            name,
+                            about,
+                            address,
+                            phone,
+                            email,
+                            roomFeatures,
+                            roomTypes,
+                            propertyAmenities,
+                            numberVoting,
+                            ratingScore,
+                            city {
+                              name
+                            },
+                            images {
+                              link
+                            }
+                          }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getStayByName'];
+            });
 
+            context.commit('saveItem', data);
         }
     }
 })

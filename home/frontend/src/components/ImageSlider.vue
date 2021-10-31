@@ -54,5 +54,6 @@ export default {
   width: 100%;
   height: 500px;
   border: 1px solid #ccc;
+  z-index: 0;
 }
 </style>

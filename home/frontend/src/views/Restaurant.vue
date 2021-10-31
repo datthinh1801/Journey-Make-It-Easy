@@ -2,7 +2,7 @@
   <div>
     <HeaderAndNav/>
     <div class="width-control">
-      <div class="row-container">
+      <div class="row-container" :class="$style['title-container']">
         <h1>{{ name }}</h1>
         <div class="row-container">
           <BigHeart/>
@@ -33,9 +33,7 @@
         </div>
       </div>
       <div :class="$style['image-section']">
-        <img alt="first-img" src="images/linh-phuoc-pagoda.jpg">
-        <img alt="first-img" src="images/linh-phuoc-pagoda.jpg">
-        <img alt="first-img" src="images/linh-phuoc-pagoda.jpg">
+        <image-slider :images="images"/>
       </div>
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
@@ -55,12 +53,10 @@
         </div>
         <div :class="$style['location-and-contact-section']">
           <div :id="$style.map">
-            <!--TODO: Crawl google map link-->
-<!-- Reference: https://www.embedgooglemap.net/ -->
             <iframe
                 allowfullscreen=""
                 height="450" loading="lazy"
-                src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sTHPT+mac+dinh+chi!6i13"
+                :src="mapURL"
                 tyle="border:0;" width="600"></iframe>
           </div>
           <div :class="$style.info">
@@ -74,7 +70,7 @@
           </span>
             <span class="website">
             <a :href="website" target="_blank">
-              <font-awesome-icon icon="window-maximize"/>
+              <font-awesome-icon icon="external-link-alt"/>
               <span>Website</span>
             </a>
           </span>
@@ -90,6 +86,7 @@ import HeaderAndNav from "../components/HeaderAndNav";
 import RatingSection from "../components/RatingSection";
 import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
+import ImageSlider from "../components/ImageSlider";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
@@ -108,7 +105,12 @@ library.add(faPhoneAlt, faExternalLinkAlt, faMapMarkedAlt, faClock, faMapMarkerA
 
 
 export default {
-  components: {ShareButton, BigHeart, RatingSection, HeaderAndNav,},
+  components: {
+    ShareButton, 
+    BigHeart,
+    RatingSection,
+    HeaderAndNav,
+    ImageSlider,},
   data() {
     return {
     }
@@ -122,6 +124,9 @@ export default {
     },
     address() {
       return this.item['address'];
+    },
+    mapURL() {
+      return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
     },
     openTime() {
       return this.item['openTime'];
@@ -152,7 +157,15 @@ export default {
     },
     priceRange() {
       return this.item['priceRange'];
-    }
+    },
+    images() {
+      let imgObjs = this.item['images'];
+      let imgs = [];
+      imgObjs.forEach(imgObj => {
+        imgs.push(imgObj['link']);
+      });
+      return imgs;
+      }
   },
   beforeMount() {
     this.$store.dispatch('getRestaurantDetail', this.$store.state.currentItemName);
@@ -161,11 +174,13 @@ export default {
 </script>
 
 <style module>
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 h1 {
   text-align: left;
-}
-
-.description-container {
 }
 
 .open-time {
@@ -187,14 +202,14 @@ h1 {
 .information-section-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 300px;
+  grid-template-rows: 400px;
   grid-gap: 30px;
   margin-top: 20px;
 }
 
 .information-section-container > div {
-  box-shadow: 0 0 1px 1px #aaa;
-  border-radius: 4px;
+  box-shadow: 0 0 1px 1px #ccc;
+  border-radius: 3px;
   padding: 10px 20px;
 }
 
@@ -229,12 +244,18 @@ span {
 
 .details-section div {
   margin: 20px 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 #map {
   height: 60%;
   margin: auto auto 20px auto;
+}
+
+#map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .location-and-contact-section iframe {
