@@ -42,29 +42,7 @@
           </div>
         </div>
       </div>
-        <vue-flux 
-          :options="vfOptions"
-          :images="this.images" 
-          :transitions="vfTransitions"
-          ref="slider"
-          :class="$style['overview-image']">
-
-          <template v-slot:preloader>
-            <flux-preloader />
-          </template>
-
-          <template v-slot:controls>
-            <flux-controls />
-          </template>
-
-          <template v-slot:pagination>
-            <flux-pagination />
-          </template>
-
-          <template v-slot:index>
-            <flux-index />
-          </template>
-        </vue-flux>
+       <ImageSlider :images="images"/> 
         <div :class="$style['overview-text']">
           <h2>About</h2>
           <p>{{ about }}</p>
@@ -79,14 +57,7 @@ import HeaderAndNav from "../components/HeaderAndNav";
 import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import RatingSection from "../components/RatingSection";
-
-import {
-  VueFlux,
-  FluxControls,
-  FluxIndex,
-  FluxPagination,
-  FluxPreloader,
-} from 'vue-flux';
+import ImageSlider from "../components/ImageSlider";
 
 import {
   library
@@ -104,11 +75,7 @@ export default {
     ShareButton,
     BigHeart,
     HeaderAndNav,
-    VueFlux,
-    FluxControls,
-    FluxIndex,
-    FluxPagination,
-    FluxPreloader,
+    ImageSlider
   },
   data() {
     return {
@@ -203,11 +170,5 @@ h1 {
 .overview-text {
   text-align: justify;
   margin-top: 50px;
-}
-
-.overview-image {
-  width: 100%;
-  height: 500px;
-  border: 1px solid #ccc;
 }
 </style>
