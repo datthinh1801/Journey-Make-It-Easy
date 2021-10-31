@@ -60,12 +60,17 @@
               <ul>
                 <li v-for="(amenity, i) in amenities" :key="i">
                   {{ amenity }}
-                </li> 
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
+      <div :class="$style.map">
+        <h2>Location</h2>
+        <iframe allowfullscreen="" height="450" loading="lazy" :src="mapURL" tyle="border:0;" width="600"></iframe>
+      </div>
+<!-- TODO: Review section -->
     </div>
   </div>
 </template>
@@ -90,7 +95,7 @@ export default {
     name() {
       return this.$store.state.item.name;
     },
-    ratingScore(){
+    ratingScore() {
       return this.$store.state.item['ratingScore'];
     },
     numberVoting() {
@@ -106,6 +111,9 @@ export default {
     },
     address() {
       return this.$store.state.item['address'];
+    },
+    mapURL() {
+      return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
     },
     phoneNumber() {
       return this.$store.state.item['phone'];
@@ -126,7 +134,7 @@ export default {
       return this.$store.state.item['propertyAmenities'].split(', ');
     }
   },
-  beforeMount(){
+  beforeMount() {
     this.$store.dispatch('getHotelDetail', this.$store.state.currentItemName);
   }
 }
@@ -162,7 +170,8 @@ export default {
 
 .about-detail p {
   line-height: 1.5em;
-  }
+  font-weight: 300;
+}
 
 .item-listing-container div h3 {
   margin: 20px 0;
@@ -172,17 +181,29 @@ export default {
   margin: 0 0 10px 0;
 }
 
-.item-listing-container ul{
+.item-listing-container ul {
   margin: 0;
   padding: 0;
 }
 
-.item-listing-container li{
+.item-listing-container li {
   list-style: none;
   margin: 10px 0;
   padding: 0;
 }
-.item-listing-container li::before{
+
+.item-listing-container li::before {
   content: '\2714';
+}
+
+.map {
+  width: 80%;
+  height: 300px;
+}
+
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 </style>

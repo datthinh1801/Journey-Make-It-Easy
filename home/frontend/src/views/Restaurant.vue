@@ -52,7 +52,7 @@
           </div>
         </div>
         <div :class="$style['location-and-contact-section']">
-          <div :id="$style.map">
+          <div :class="$style.map">
             <iframe
                 allowfullscreen=""
                 height="450" loading="lazy"
@@ -247,12 +247,12 @@ span {
   font-weight: 400;
 }
 
-#map {
+.map {
   height: 60%;
   margin: auto auto 20px auto;
 }
 
-#map iframe {
+.map iframe {
   width: 100%;
   height: 100%;
   border: none;
