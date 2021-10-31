@@ -1,6 +1,6 @@
 <template>
   <div class="row-container width-control" :class="$style['row-container']">
-    <p class="roboto title">Popular Destinations</p>
+    <p class="roboto title">Touristy Attractions</p>
     <featured-attractions/>
   </div>
 </template>

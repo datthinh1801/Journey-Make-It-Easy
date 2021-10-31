@@ -25,9 +25,13 @@ const store = new Vuex.Store({
         // SETTINGS
         BASE_URL: 'http://localhost:8000',
         CSRF_TOKEN: '',
+
         // GENERIC STATE
         currentURL: '/',
         city: '',
+
+        // STATE for HOME
+        cities: [],
 
         // STATE for AUTHENTICATION
         authenticated: false,
@@ -51,6 +55,9 @@ const store = new Vuex.Store({
         },
         signUp() {
 
+        },
+        getCities(state, cities) {
+            state.cities = cities;
         },
         getAttraction(state, data) {
             state.attractionArr = data;
@@ -268,6 +275,38 @@ const store = new Vuex.Store({
             });
 
             context.commit('getAttraction', data);
+        },
+        async getAllCities(context) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        allCitys {
+                          id,
+                          name,
+                          nation {
+                              name,
+                          },
+                          images {
+                            id,
+                            link
+                          }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['allCitys'];
+            });
+
+            context.commit('getCities', data);
         },
         async getAttractionDetail(context, name) {
             let data;

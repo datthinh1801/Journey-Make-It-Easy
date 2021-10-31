@@ -3,6 +3,7 @@
     <Header/>
     <HeroSection/>
     <RecentSearchesSection/>
+    <FeaturedDestinationSection/>
     <FeaturedAttractionsSection/>
     <FeaturedBlogsSection/>
   </div>
@@ -14,6 +15,7 @@ import HeroSection from "../components/HeroSection";
 import RecentSearchesSection from "../components/RecentSearchesSection";
 import FeaturedBlogsSection from "../components/FeaturedBlogsSection";
 import FeaturedAttractionsSection from '../components/FeaturedAttractionsSection.vue';
+import FeaturedDestinationSection from '../components/FeaturedDestinationSection.vue';
 
 export default {
   name: 'Home',
@@ -23,6 +25,7 @@ export default {
     HeroSection,
     FeaturedAttractionsSection,
     FeaturedBlogsSection,
+    FeaturedDestinationSection,
   },
   mounted() {
     this.$store.
