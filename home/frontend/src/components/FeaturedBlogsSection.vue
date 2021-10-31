@@ -22,7 +22,7 @@ export default {
 .container {
   margin-top: 50px;
   width: 100%;
-  background-color: #fff4ce;
+  background-color: #cee3ff;
   padding: 30px 0;
 }
 

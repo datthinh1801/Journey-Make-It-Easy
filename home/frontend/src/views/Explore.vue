@@ -24,7 +24,12 @@ import RecommendationSection from "../components/RecommendationSection";
 
 export default {
   name: 'Explore',
-  components: {RecommendationSection, ImagesSection, NavBar, Header},
+  components: {
+    RecommendationSection,
+    ImagesSection,
+    NavBar,
+    Header
+  },
   data() {
     return {}
   },

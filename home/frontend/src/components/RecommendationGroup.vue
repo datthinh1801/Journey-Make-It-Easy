@@ -6,9 +6,6 @@
     </div>
 
     <div :class="$style.itemContainer">
-      <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
-        <font-awesome-icon icon="chevron-left"/>
-      </button>
 
       <VerticalItem v-for="item in items" :key="item.id"
                     :class="$style.recommendedItem"
@@ -22,6 +19,9 @@
       </div>
       </VerticalItem>
 
+      <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
+        <font-awesome-icon icon="chevron-left"/>
+      </button>
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
         <font-awesome-icon icon="chevron-right"/>
       </button>
@@ -175,7 +175,6 @@ export default {
 
   font-size: 22px;
   transition: 0.2s;
-  z-index: 1;
   cursor: pointer;
 }
 

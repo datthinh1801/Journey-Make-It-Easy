@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Header/>
-    <HeroSection/>
-    <RecentSearchesSection/>
-    <FeaturedDestinationSection/>
-    <FeaturedBlogsSection/>
-    <FeaturedAttractionsSection/>
+    <Header />
+    <HeroSection />
+    <RecentSearchesSection />
+    <FeaturedDestinationSection />
+    <FeaturedBlogsSection />
+    <FeaturedAttractionsSection />
     <FeaturedHotelSection />
     <FeaturedRestaurantSection />
   </div>
