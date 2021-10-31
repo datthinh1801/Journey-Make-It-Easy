@@ -34,8 +34,7 @@ export default {
     FeaturedRestaurantSection,
   },
   mounted() {
-    this.$store.
-    FeaturedAttractionsSectioncommit('changePath', '/');
+    this.$store.commit('changePath', '/');
   },
   beforeDestroy() {
     this.$store.commit('clearAllAttractions');

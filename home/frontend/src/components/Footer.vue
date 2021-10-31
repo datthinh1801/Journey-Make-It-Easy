@@ -20,7 +20,7 @@
 
 .footer-container hr {
     max-width: 100%;
-    width: 100%;
+    width: 1000px;
 }
 
 .footer {

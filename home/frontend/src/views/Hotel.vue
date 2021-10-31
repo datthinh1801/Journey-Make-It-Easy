@@ -68,7 +68,7 @@
       </div>
       <div :class="$style.map">
         <h2>Location</h2>
-        <iframe allowfullscreen="" height="450" loading="lazy" :src="mapURL" tyle="border:0;" width="600"></iframe>
+        <iframe loading="lazy" :src="mapURL"></iframe>
       </div>
 <!-- TODO: Review section -->
     </div>
@@ -199,6 +199,7 @@ export default {
 .map {
   width: 80%;
   height: 300px;
+  margin-bottom: 100px;
 }
 
 .map iframe {

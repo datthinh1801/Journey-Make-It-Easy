@@ -40,14 +40,13 @@ const store = new Vuex.Store({
         attractionArr: [],
         restaurantArr: [],
         hotelArr: [],
-        maxHorizontalItems: 3,
 
         // STATE for ARTICLES page
         articleArr: [],
 
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
-        currentItemName: 'Cu Chi Tunnels',
+        currentItemName: '',
     },
     mutations: {
         signIn(state, token) {

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div>
-        <RatingSection :star-count="ratingScore" :rating-count="numberVoting"/>
+        <RatingSection :star-count="ratingScore" :rating-count="numberVoting" />
         <div class="info-container">
           <div class="address-info" v-if="address">
             <font-awesome-icon icon="map-marked-alt" />
@@ -42,13 +42,19 @@
           </div>
         </div>
       </div>
-       <ImageSlider :images="images"/> 
+      <ImageSlider :images="images" />
+      <div :class="$style['overview-container']">
         <div :class="$style['overview-text']">
           <h2>About</h2>
           <p>{{ about }}</p>
         </div>
-<!-- TODO: Add a list of services here! -->
+        <div v-if="address" :class="$style.map">
+          <h2>Location</h2>
+          <iframe loading="lazy" :src="mapURL"></iframe>
+        </div>
       </div>
+      <!-- TODO: Add a list of services here! -->
+    </div>
   </div>
 </template>
 
@@ -92,6 +98,9 @@ export default {
     },
     address() {
       return this.item['address'];
+    },
+    mapURL() {
+      return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
     },
     admissionTicket() {
       return this.item['admissionTicket'];
@@ -148,12 +157,20 @@ h1 {
 
 .overview-container {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 2fr 1fr;
   grid-gap: 20px;
+  margin-top: 50px;
 }
 
-.overview-text {
-  text-align: justify;
-  margin-top: 50px;
+.map {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 100px;
+}
+
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 </style>
