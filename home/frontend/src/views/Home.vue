@@ -4,8 +4,8 @@
     <HeroSection/>
     <RecentSearchesSection/>
     <FeaturedDestinationSection/>
-    <FeaturedAttractionsSection/>
     <FeaturedBlogsSection/>
+    <FeaturedAttractionsSection/>
   </div>
 </template>
 
