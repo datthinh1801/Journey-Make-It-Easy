@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       this_item: 0,
-      last_item: 9,
       showed_items: 4,
     }
   },

@@ -81,9 +81,13 @@ const store = new Vuex.Store({
         },
         saveItem(state, item) {
             state.item = item;
+            this.commit('changeCity', item.city.name);
         },
         changeItemName(state, name) {
             state.currentItemName = name;
+        },
+        changeCity(state, city) {
+            state.city = city;
         }
     },
     actions: {
@@ -281,6 +285,9 @@ const store = new Vuex.Store({
                             suggestedDuration,
                             numberVoting,
                             ratingScore,
+                            city {
+                                name
+                            },
                             images{
                               id,
                               link
@@ -320,6 +327,9 @@ const store = new Vuex.Store({
                             features,
                             numberVoting,
                             ratingScore,
+                            city {
+                                name
+                            },
                             images{
                               link
                             }

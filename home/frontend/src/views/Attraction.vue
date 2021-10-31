@@ -69,6 +69,7 @@
           <h2>About</h2>
           <p>{{ about }}</p>
         </div>
+<!-- TODO: Add a list of services here! -->
       </div>
   </div>
 </template>
@@ -78,6 +79,7 @@ import HeaderAndNav from "../components/HeaderAndNav";
 import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import RatingSection from "../components/RatingSection";
+
 import {
   VueFlux,
   FluxControls,
