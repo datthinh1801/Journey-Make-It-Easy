@@ -257,6 +257,8 @@ const store = new Vuex.Store({
                         allAttractions {
                           id,
                           name,
+                          numberVoting,
+                          ratingScore,
                           images {
                             id,
                             link
@@ -275,6 +277,66 @@ const store = new Vuex.Store({
             });
 
             context.commit('getAttraction', data);
+        },
+        async getAllRestaurants(context) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        allRestaurants {
+                          id,
+                          name,
+                          numberVoting,
+                          ratingScore,
+                          images {
+                            link
+                          }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['allRestaurants'];
+            });
+
+            context.commit('getRestaurant', data);
+        },
+        async getAllHotels(context) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        allStays {
+                          id,
+                          name,
+                          numberVoting,
+                          ratingScore,
+                          images {
+                            link
+                          }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['allStays'];
+            });
+
+            context.commit('getHotel', data);
         },
         async getAllCities(context) {
             let data;

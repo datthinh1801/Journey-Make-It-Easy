@@ -6,6 +6,8 @@
     <FeaturedDestinationSection/>
     <FeaturedBlogsSection/>
     <FeaturedAttractionsSection/>
+    <FeaturedHotelSection />
+    <FeaturedRestaurantSection />
   </div>
 </template>
 
@@ -16,6 +18,8 @@ import RecentSearchesSection from "../components/RecentSearchesSection";
 import FeaturedBlogsSection from "../components/FeaturedBlogsSection";
 import FeaturedAttractionsSection from '../components/FeaturedAttractionsSection.vue';
 import FeaturedDestinationSection from '../components/FeaturedDestinationSection.vue';
+import FeaturedHotelSection from '../components/FeaturedHotelSection.vue';
+import FeaturedRestaurantSection from '../components/FeaturedRestaurantSection.vue';
 
 export default {
   name: 'Home',
@@ -26,6 +30,8 @@ export default {
     FeaturedAttractionsSection,
     FeaturedBlogsSection,
     FeaturedDestinationSection,
+    FeaturedHotelSection,
+    FeaturedRestaurantSection,
   },
   mounted() {
     this.$store.

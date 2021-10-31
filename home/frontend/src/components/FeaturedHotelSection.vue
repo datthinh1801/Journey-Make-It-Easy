@@ -1,0 +1,127 @@
+<template>
+    <div class="width-control">
+        <p class="roboto title">Luxurious Hotels</p>
+        <div :class="$style['item-list-container']">
+            <vertical-item v-for="(item, i) in items" :key="i" :imgSrc="item.images[0].link" imgWidth="100%"
+                imgHeight="200px" @click.native="redirectToItem(item)" :class="$style['v-item']">
+                <div :class="$style['v-item-detail']">
+                    <h4>{{ item.name }}</h4>
+                    <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
+                </div>
+            </vertical-item>
+            <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
+                <font-awesome-icon icon="chevron-left" />
+            </button>
+            <button :class="$style.rightButton" @click="moveRight()" v-show="showNext">
+                <font-awesome-icon icon="chevron-right" />
+            </button>
+        </div>
+    </div>
+</template>
+
+<script>
+import RatingSection from './RatingSection.vue'
+import VerticalItem from './VerticalItem.vue'
+
+export default {
+    name: 'FeaturedHotelSection',
+    components: {
+       VerticalItem,
+       RatingSection,
+   },
+   data() {
+      return {
+            this_item: 0,
+            showed_items: 4,
+        }
+    },
+    computed: {
+        items() {
+            return this.$store.state.hotelArr.filter(item => item.images.length > 0).slice(this.this_item, this.this_item + this.showed_items);
+        },
+        showPrev() {
+            return this.this_item > 0;
+        },
+        showNext() {
+            return this.$store.state.hotelArr.length > this.this_item + this.showed_items;
+        }
+    },
+    methods: {
+        moveLeft() {
+            this.this_item = Math.max(this.this_item - 1, 0);
+        },
+        moveRight() {
+            ++this.this_item;
+        },
+        redirectToItem(item) {
+            this.$store.commit('changeItemName', item.name);
+            this.$router.push('/hotel');
+        },
+    },
+    beforeMount() {
+        this.$store.dispatch('getAllHotels');
+    }
+}
+</script>
+
+<style module>
+.item-list-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    width: 100%;
+    position: relative;
+}
+
+.item-list-container h4 {
+    margin: 0;
+}
+
+.v-item:hover .v-item-detail h4 {
+    text-decoration: underline;
+}
+
+.v-item-detail {
+    height: 70px;
+}
+
+.leftButton,
+.rightButton {
+  background-color: white;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  height: 33px;
+  width: 33px;
+  top: 33%;
+
+  border-radius: 100%;
+  border: 2px solid black;
+
+  font-size: 22px;
+  transition: 0.2s;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.leftButton {
+  padding-right: 6px;
+  left: -15px;
+}
+
+.rightButton {
+  padding-left: 6px;
+  right: -15px;
+}
+
+.leftButton:hover,
+.rightButton:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+</style>

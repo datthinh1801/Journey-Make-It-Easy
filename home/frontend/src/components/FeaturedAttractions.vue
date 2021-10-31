@@ -79,7 +79,7 @@ export default {
 }
 
 .item-detail-container {
-  height: 40px;
+  height: 70px;
 }
 
 .item-detail-container h4 {
