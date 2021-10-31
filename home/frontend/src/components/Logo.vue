@@ -1,10 +1,15 @@
 <template>
-  <div class="logo no-select">Journey: Make it easy</div>
+  <div class="logo no-select" @click="home">Journey: Make it easy</div>
 </template>
 
 <script>
 export default {
   name: 'Logo',
+  methods: {
+    home() {
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 
@@ -16,5 +21,6 @@ export default {
   font-family: 'Pacifico', cursive;
   color: #F9C100;
   font-size: 22px;
+  cursor: pointer;
 }
 </style>

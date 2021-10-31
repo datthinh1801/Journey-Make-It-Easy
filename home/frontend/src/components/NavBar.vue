@@ -1,8 +1,8 @@
 <template>
   <nav class="row-container width-control">
-    <router-link :class="[$style.navItem, 'roboto']" to="/">
-      Home
-      <font-awesome-icon icon="home"/>
+    <router-link :class="[$style.navItem, 'roboto']" to="/explore">
+      Explore
+      <font-awesome-icon icon="globe-asia"/>
     </router-link>
     <router-link :class="[$style.navItem, 'roboto']" to="/attractions">
       Attractions
@@ -25,13 +25,13 @@
 
 <script>
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faHome} from "@fortawesome/free-solid-svg-icons";
+import {faGlobeAsia} from "@fortawesome/free-solid-svg-icons";
 import {faUtensils} from "@fortawesome/free-solid-svg-icons";
 import {faHotel} from "@fortawesome/free-solid-svg-icons";
 import {faUmbrellaBeach} from "@fortawesome/free-solid-svg-icons";
 import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHome, faUtensils, faHotel, faUmbrellaBeach, faPencilAlt);
+library.add(faGlobeAsia, faUtensils, faHotel, faUmbrellaBeach, faPencilAlt);
 export default {
   name: 'NavBar',
   components: {}

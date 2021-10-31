@@ -61,7 +61,4 @@ export default {
 .imageSection {
   margin-top: 40px;
 }
-
-.recommendationSection {
-}
 </style>

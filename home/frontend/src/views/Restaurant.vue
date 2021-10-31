@@ -56,11 +56,12 @@
         <div :class="$style['location-and-contact-section']">
           <div :id="$style.map">
             <!--TODO: Crawl google map link-->
+<!-- Reference: https://www.embedgooglemap.net/ -->
             <iframe
                 allowfullscreen=""
                 height="450" loading="lazy"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2376825569063!2d106.68680511502117!3d10.793099361836532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528cd9a13a0a5%3A0x8b18b057ab3b248b!2zQ-G7pWMgR-G6oWNoIFF1w6Fu!5e0!3m2!1svi!2s!4v1633419726308!5m2!1svi!2s"
-                style="border:0;" width="600"></iframe>
+                src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sTHPT+mac+dinh+chi!6i13"
+                tyle="border:0;" width="600"></iframe>
           </div>
           <div :class="$style.info">
           <span class="address-info">
