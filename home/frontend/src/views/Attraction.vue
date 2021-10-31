@@ -42,11 +42,6 @@
           </div>
         </div>
       </div>
-      <div :class="$style['overview-container']">
-        <div :class="$style['overview-text']">
-          <h2>About</h2>
-          <p>{{ about }}</p>
-        </div>
         <vue-flux 
           :options="vfOptions"
           :images="this.images" 
@@ -70,8 +65,11 @@
             <flux-index />
           </template>
         </vue-flux>
+        <div :class="$style['overview-text']">
+          <h2>About</h2>
+          <p>{{ about }}</p>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -202,14 +200,12 @@ h1 {
 
 .overview-text {
   text-align: justify;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
+  margin-top: 50px;
 }
 
 .overview-image {
   width: 100%;
-  height: 350px;
+  height: 500px;
   border: 1px solid #ccc;
 }
 </style>
