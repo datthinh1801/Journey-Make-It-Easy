@@ -1,43 +1,43 @@
 <template>
   <div>
-    <HeaderAndNav/>
+    <HeaderAndNav />
     <div class="width-control">
       <div class="row-container" :class="$style['item-header']">
         <h1>{{ name }}</h1>
         <div class="row-container">
-          <BigHeart/>
-          <ShareButton/>
+          <BigHeart />
+          <ShareButton />
         </div>
       </div>
       <div>
-        <RatingSection star-count="4.5"/>
+        <RatingSection star-count="4.5" />
         <div class="info-container">
           <div class="address-info" v-if="address">
-            <font-awesome-icon icon="map-marked-alt"/>
+            <font-awesome-icon icon="map-marked-alt" />
             <span>{{ address }}</span>
           </div>
           <div class="phone-info" v-if="phoneNumber">
-            <font-awesome-icon :icon="['fas','phone-alt']"/>
+            <font-awesome-icon :icon="['fas','phone-alt']" />
             <span>{{ phoneNumber }}</span>
           </div>
           <div class="website" v-if="website">
             <a :href="website" target="_blank">
-              <font-awesome-icon icon="external-link-alt"/>
+              <font-awesome-icon icon="external-link-alt" />
               <span>Website</span>
             </a>
           </div>
         </div>
         <div class="info-container">
           <div class="roboto open-time-container" v-if="openTime">
-            <font-awesome-icon icon="clock"/>
+            <font-awesome-icon icon="clock" />
             <span>Open Time: {{ openTime }}</span>
           </div>
           <div class="roboto open-time-container" v-if="suggestedDuration">
-            <font-awesome-icon icon="angle-double-right"/>
+            <font-awesome-icon icon="angle-double-right" />
             <span>Suggested Duration: {{ suggestedDuration }}</span>
           </div>
           <div class="roboto open-time-container" v-if="admissionTicket">
-            <font-awesome-icon icon="dollar-sign"/>
+            <font-awesome-icon icon="dollar-sign" />
             <span>Admission Fee: {{ admissionTicket }}</span>
           </div>
         </div>
@@ -47,9 +47,29 @@
           <h2>About</h2>
           <p>{{ about }}</p>
         </div>
-        <div :class="$style['overview-image']">
-          <img :src="images[0].link" alt="placeholder">
-        </div>
+        <vue-flux 
+          :options="vfOptions"
+          :images="this.images" 
+          :transitions="vfTransitions"
+          ref="slider"
+          :class="$style['overview-image']">
+
+          <template v-slot:preloader>
+            <flux-preloader />
+          </template>
+
+          <template v-slot:controls>
+            <flux-controls />
+          </template>
+
+          <template v-slot:pagination>
+            <flux-pagination />
+          </template>
+
+          <template v-slot:index>
+            <flux-index />
+          </template>
+        </vue-flux>
       </div>
     </div>
   </div>
@@ -60,15 +80,44 @@ import HeaderAndNav from "../components/HeaderAndNav";
 import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import RatingSection from "../components/RatingSection";
+import {
+  VueFlux,
+  FluxControls,
+  FluxIndex,
+  FluxPagination,
+  FluxPreloader,
+} from 'vue-flux';
 
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faAngleDoubleRight} from "@fortawesome/free-solid-svg-icons"
+import {
+  library
+} from "@fortawesome/fontawesome-svg-core";
+import {
+  faAngleDoubleRight
+} from "@fortawesome/free-solid-svg-icons"
 
 library.add(faAngleDoubleRight);
 
 export default {
   name: 'Attraction',
-  components: {RatingSection, ShareButton, BigHeart, HeaderAndNav},
+  components: {
+    RatingSection,
+    ShareButton,
+    BigHeart,
+    HeaderAndNav,
+    VueFlux,
+    FluxControls,
+    FluxIndex,
+    FluxPagination,
+    FluxPreloader,
+  },
+  data() {
+    return {
+      vfOptions: {
+        autoplay: true,
+      },
+      vfTransitions: ['slide'],
+    }
+  },
   computed: {
     item() {
       return this.$store.state.item;
@@ -101,7 +150,12 @@ export default {
       return this.item['numberVoting'] || '';
     },
     images() {
-      return this.item['images'] || '';
+      let imgObjs = this.item['images'] || [];
+      let imgs = [];
+      imgObjs.forEach(imgObj => {
+        imgs.push(imgObj['link']);
+      });
+      return imgs;
     },
     website() {
       return this.item['website'] || '';
@@ -148,16 +202,14 @@ h1 {
 
 .overview-text {
   text-align: justify;
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   padding: 10px;
-  border-radius: 14px;
+  border-radius: 4px;
 }
 
 .overview-image {
   width: 100%;
-}
-
-.overview-image img {
-  width: 100%;
+  height: 350px;
+  border: 1px solid #ccc;
 }
 </style>
