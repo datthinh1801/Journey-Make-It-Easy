@@ -184,12 +184,12 @@ class Blog(models.Model):
     user = models.ForeignKey(User, related_name="blogs", on_delete=models.CASCADE)
 
 
-class BLog_Image(models.Model):
+class Blog_Image(models.Model):
     link = models.TextField()
     item = models.ForeignKey(Blog, related_name="images", on_delete=models.CASCADE)
 
 
-class BLog_Voting(models.Model):
+class Blog_Voting(models.Model):
     item = models.ForeignKey(Blog, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
     user = models.ForeignKey(User, related_name="blog_votings", on_delete=models.CASCADE)
