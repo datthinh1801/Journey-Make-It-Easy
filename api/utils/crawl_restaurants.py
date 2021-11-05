@@ -73,6 +73,10 @@ async def extract_restaurant_data(url: str):
     data['details'] = details
 
     data['name'] = soup.find('h1', class_='fHibz').text
+    # try:
+    #     data['name'] = soup.find('h1', class_='fHibz').text
+    # except :
+    #     print('restaurant exception: ', url)
 
     if data['website'] == None:
         data['website'] = ''

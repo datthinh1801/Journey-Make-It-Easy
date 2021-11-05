@@ -7,4 +7,4 @@ def convert_address_to_link_gg_map(address):
 
 
 # print(convert_address_to_link_gg_map(
-#     'Phu Hiep TL15 Phu Hiep , Ho Chi Minh City 700000 Vietnam'))
+#     '8/15, Le Thanh Ton Street, Ben Nghe Ward. District 1, Ho Chi Minh City Vietnam'))
