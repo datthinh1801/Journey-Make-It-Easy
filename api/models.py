@@ -149,31 +149,31 @@ class Stay_Voting(models.Model):
 # Review
 class Nation_Review(models.Model):
     item = models.ForeignKey(Nation, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="nation_reviews", on_delete=models.CASCADE)
 
 
 class City_Review(models.Model):
     item = models.ForeignKey(City, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="city_reviews", on_delete=models.CASCADE)
 
 
 class Attraction_Review(models.Model):
     item = models.ForeignKey(Attraction, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="attraction_reviews", on_delete=models.CASCADE)
 
 
 class Restaurant_Review(models.Model):
     item = models.ForeignKey(Restaurant, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="restaurant_reviews", on_delete=models.CASCADE)
 
 
 class Stay_Review(models.Model):
     item = models.ForeignKey(Stay, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="stay_reviews", on_delete=models.CASCADE)
 
 
@@ -197,7 +197,7 @@ class Blog_Voting(models.Model):
 
 class Blog_Review(models.Model):
     item = models.ForeignKey(Blog, related_name="reviews", on_delete=models.CASCADE)
-    review = models.TextField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="blog_reviews", on_delete=models.CASCADE)
 
 
