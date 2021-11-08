@@ -2,16 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.middleware.csrf import get_token
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 
 
 def index(request):
     return render(request, 'index.html')
-
-
-def get_csrf_token(request):
-    token = get_token(request)
-    return token
 
 
 def signIn(request):
@@ -30,10 +25,7 @@ def signIn(request):
             # already login
             response.status_code = 302
         
-        request.session['username'] = username
-        request.session['password'] = password
-        request.session['csrftoken'] = get_token(request)
-
+        response.set_cookie('user_auth', get_token(request))
         return response
     else:
         # method is not supported
@@ -64,7 +56,6 @@ def signUp(request):
 def signOut(request):
     response = HttpResponse()
     if request.method == 'POST':
-        print(request.session.get('username'))
         if request.session.get('username') and request.session.get('password') and request.session.get('csrftoken'):
             # logout successfully
             logout(request)

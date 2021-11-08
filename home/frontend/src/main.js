@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 import VModal from 'vue-js-modal'
+import VueCookies from 'vue-cookies'
+
 import {
     library
 } from '@fortawesome/fontawesome-svg-core'
@@ -17,6 +19,7 @@ import axios from "axios";
 library.add(faUserSecret);
 Vue.use(Vuex);
 Vue.use(VModal);
+Vue.use(VueCookies);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
@@ -27,6 +30,7 @@ const store = new Vuex.Store({
 
         // AUTHENTICATION
         username: '',
+        cookie: '',
 
         // GENERIC STATE
         city: '',
@@ -48,8 +52,9 @@ const store = new Vuex.Store({
         currentItemName: '',
     },
     mutations: {
-        signIn(state, username) {
+        signIn(state, username, cookie) {
             state.username = username;
+            state.cookie = cookie;
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -106,7 +111,8 @@ const store = new Vuex.Store({
                 `username=${username}&password=${password}`);
 
             if (response.status === 200 || response.status === 302) {
-                context.commit('signIn', username);
+                let cookie = document.cookie.split('user_auth=')[1].split(';')[0];
+                context.commit('signIn', username, cookie);
                 return true;
             } else {
                 context.commit('signIn', '');
