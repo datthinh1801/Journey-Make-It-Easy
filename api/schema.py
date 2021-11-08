@@ -172,7 +172,7 @@ class Property_AmenitieType(DjangoObjectType):
 class BlogType(DjangoObjectType):
     class Meta:
         model = Blog
-        feilds = ('id', 'tittle', 'content', 'images', 'votings', 'reviews')
+        feilds = ('id', 'tittle', 'content', 'images', 'number_voting', 'rating_score', 'votings', 'reviews')
 
 
 class Blog_ImageType(DjangoObjectType):
@@ -191,6 +191,14 @@ class Blog_ReviewType(DjangoObjectType):
     class Meta:
         model = Blog_Review
         feilds = ('id', 'item', 'text', 'user')
+
+
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
+        feilds = ('id', 'username', 'first_name', 'last_name', 'nation_votings', 'city_votings', 'attraction_votings', 'restaurant_votings', 'stay_votings', 'blog_votings',
+                  'nation_reviews', 'city_reviews', 'attraction_reviews', 'restaurant_reviews', 'stay_reviews', 'blog_reviews',
+                  'blog', 'user_data')
 
 
 class UserDataType(DjangoObjectType):
@@ -444,7 +452,11 @@ class VoteNation(graphene.Mutation):
             vote = vote[0]
         else:
             vote = Nation_Voting()
-        vote.item = Nation.objects.get(id=id)
+        item = Nation.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
@@ -467,7 +479,11 @@ class VoteCity(graphene.Mutation):
             vote = vote[0]
         else:
             vote = City_Voting()
-        vote.item = City.objects.get(id=id)
+        item = City.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
@@ -490,7 +506,11 @@ class VoteAttraction(graphene.Mutation):
             vote = vote[0]
         else:
             vote = Attraction_Voting()
-        vote.item = Attraction.objects.get(id=id)
+        item = Attraction.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
@@ -513,7 +533,11 @@ class VoteRestaurant(graphene.Mutation):
             vote = vote[0]
         else:
             vote = Restaurant_Voting()
-        vote.item = Restaurant.objects.get(id=id)
+        item = Restaurant.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
@@ -536,7 +560,11 @@ class VoteStay(graphene.Mutation):
             vote = vote[0]
         else:
             vote = Stay_Voting()
-        vote.item = Stay.objects.get(id=id)
+        item = Stay.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
@@ -559,7 +587,11 @@ class VoteBlog(graphene.Mutation):
             vote = vote[0]
         else:
             vote = Blog_Voting()
-        vote.item = Blog.objects.get(id=id)
+        item = Blog.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (item.number_voting + 1)
+        item.number_voting += 1
+        item.save()
+        vote.item = item
         vote.user = info.context.user
         vote.point = point
         vote.save()
