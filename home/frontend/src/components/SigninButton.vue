@@ -1,19 +1,33 @@
 <template>
   <div>
     <button @click="showModal" v-if="!authenticated">Sign In</button>
-    <button v-else>{{usernameAuth}}</button>
-
+    <div v-else :class="$style['userprofile-container']">
+      <button :class="$style['userprofile']" @click="showProfile">
+        <font-awesome-icon :icon="['fas', 'angle-right']" v-if="!expandProfile" />
+        <font-awesome-icon :icon="['fas', 'angle-down']" v-else />
+        <span>
+          {{usernameAuth}}
+        </span>
+      </button>
+      <div v-show="expandProfile" :class="$style['expand-profile-container']" class="no-select" @click="logout">
+        <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
+        <span>Log out</span>
+      </div>
+    </div>
     <modal name="sign-in-modal" @closed="closeModal" :width="700" :height="500">
       <div :class="$style['signin-modal']">
         <div :class="$style.form">
           <div :class="$style['signin-form']" id="signin-form">
             <h3 class="no-select">Sign In</h3>
             <hr>
-            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text" v-model="username">
-            <span v-if="usernameAlert" :class="$style['alert-msg']">Username only includes characters, numbers, and underscore.</span>
+            <span v-if="invalidCredentials" :class="$style['alert-msg']">Invalid username or password.</span>
+            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text"
+              v-model="username">
+            <span v-if="usernameAlert" :class="$style['alert-msg']">{{usernameGuide}}</span>
 
-            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password" v-model="password">
-            <span v-if="passwordAlert" :class="$style['alert-msg']">Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.</span>
+            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password"
+              v-model="password">
+            <span v-if="passwordAlert" :class="$style['alert-msg']">{{passwordGuide}}</span>
             <a href="/forgot-password" tabindex="4">Forgot your password?</a>
 
             <button :class="$style['signin-button']" tabindex="3" @click="signIn">Sign In</button>
@@ -26,12 +40,15 @@
           <div :class="$style['signin-form']" style="display: none;" id="signup-form">
             <h3 class="no-select">Sign Up</h3>
             <hr>
-            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text" v-model="username">
-            <span v-if="usernameAlert" :class="$style['alert-msg']">Username only includes characters, numbers, and underscore.</span>
+            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text"
+              v-model="username">
+            <span v-if="usernameAlert" :class="$style['alert-msg']">{{usernameGuide}}</span>
 
-            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password" v-model="password">
-            <span v-if="passwordAlert" :class="$style['alert-msg']">Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.</span>
-            <input id="password2" class="roboto" name="password2" placeholder="RETYPED PASSWORD" tabindex="3" type="password" v-model="password2">
+            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password"
+              v-model="password">
+            <span v-if="passwordAlert" :class="$style['alert-msg']">{{passwordGuide}}</span>
+            <input id="password2" class="roboto" name="password2" placeholder="RETYPED PASSWORD" tabindex="3"
+              type="password" v-model="password2">
             <span v-if="password2Alert" :class="$style['alert-msg']">Passwords mismatch.</span>
 
             <button :class="$style['signin-button']" tabindex="4" @click="signUp">Sign Up</button>
@@ -44,13 +61,21 @@
 </template>
 
 <script>
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faAngleDown, faSignOutAlt, faAngleRight} from '@fortawesome/free-solid-svg-icons';
+library.add(faAngleDown, faSignOutAlt, faAngleRight);
+
 export default {
   name: 'SigninButton',
-  data(){
+  data() {
     return {
       username: '',
       password: '',
       password2: '',
+      usernameGuide: 'Username only includes characters, numbers, and underscore.',
+      passwordGuide: 'Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.',
+      invalidCredentials: false,
+      expandProfile: false,
     }
   },
   computed: {
@@ -61,7 +86,7 @@ export default {
       return false;
     },
     passwordAlert() {
-      if (// 8 characters
+      if ( // 8 characters
         this.password.length >= 8 &&
         // at least one lowercase
         /[a-z]/.test(this.password) &&
@@ -91,19 +116,31 @@ export default {
   },
   methods: {
     showModal() {
-        this.$store.state.modalUp = true;
-        this.$modal.show('sign-in-modal');
+      this.$store.state.modalUp = true;
+      this.$modal.show('sign-in-modal');
     },
     signIn() {
       let username = document.getElementById('username').value;
       let password = document.getElementById('password').value;
-      this.$store.dispatch('signIn', {username, password});
+      if (this.$store.dispatch('signIn', {
+          username,
+          password
+        })) {
+        this.invalidCredentials = false;
+        this.$modal.hide('sign-in-modal');
+      } else {
+        this.invalidCredentials = true;
+      }
     },
     signUp() {
       let username = document.getElementById('username').value;
       let password = document.getElementById('password').value;
       let password2 = document.getElementById('password2').value;
-      this.$store.dispatch('signUp', {username, password, password2});
+      this.$store.dispatch('signUp', {
+        username,
+        password,
+        password2
+      });
     },
     toSignUp() {
       document.querySelector('#signin-form').style["display"] = "none";
@@ -118,12 +155,57 @@ export default {
       this.password = '';
       this.password2 = '';
       this.$store.state.modalUp = false;
+    },
+    showProfile() {
+      this.expandProfile = !this.expandProfile;
+    },
+    logout() {
+      this.$store.dispatch('signOut');
     }
   }
 }
 </script>
 
 <style module>
+.userprofile-container {
+  position: relative;
+}
+
+.expand-profile-container {
+  margin-left: 5px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.expand-profile-container span {
+  margin-left: 5px;
+}
+
+.expand-profile-container:hover span {
+  text-decoration: underline;
+}
+
+.userprofile {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.userprofile span {
+  margin-left: 5px;
+}
+
+.userprofile:hover {
+  background-color: transparent;
+}
+
+.userprofile:hover span:first-child {
+  text-decoration: underline;
+}
+
 .alert-msg {
   color: red;
   font-size: 12px;

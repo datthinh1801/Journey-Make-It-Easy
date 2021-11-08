@@ -1,14 +1,13 @@
 <template>
   <div :class="$style['search-box-container']" :style="{'z-index': zIndex}">
-  <div :class="$style['box-container']">
-    <label for="search-box">
-      <font-awesome-icon :class="$style['search-icon']" icon="search" /></label>
-    <input id="searchBox-box" class="roboto" :class="$style['search-box']" placeholder="Type to search" type="text"
-      @keyup="search">
-  </div>
+    <div :class="$style['box-container']">
+      <label for="search-box">
+        <font-awesome-icon :class="$style['search-icon']" icon="search" /></label>
+      <input id="searchBox-box" class="roboto" :class="$style['search-box']" placeholder="Type to search" type="text"
+        @keyup="search">
+    </div>
     <ul v-show="shouldExtended" :class="$style['search-result-container']">
-      <li v-for="(item, i) in searches" :key=i
-          @click="goTo(item)">
+      <li v-for="(item, i) in searches" :key=i @click="goTo(item)">
         {{ item }}
       </li>
     </ul>

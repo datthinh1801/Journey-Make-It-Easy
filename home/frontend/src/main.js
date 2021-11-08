@@ -6,7 +6,7 @@ import {
     library
 } from '@fortawesome/fontawesome-svg-core'
 import {
-    faUserSecret
+    faUserSecret,
 } from '@fortawesome/free-solid-svg-icons'
 import {
     FontAwesomeIcon
@@ -27,9 +27,9 @@ const store = new Vuex.Store({
 
         // AUTHENTICATION
         username: '',
+        sessionid: '',
 
         // GENERIC STATE
-        currentURL: '/',
         city: '',
 
         // STATE for HOME
@@ -51,6 +51,9 @@ const store = new Vuex.Store({
     mutations: {
         signIn(state, username) {
             state.username = username;
+        },
+        saveSessionId(state, sessionid) {
+            state.sessionid = sessionid;
         },
         signOut(state) {
             state.username = '';
@@ -107,22 +110,17 @@ const store = new Vuex.Store({
             } = credential;
 
             let response = await axios.post(`${context.state.BASE_URL}/login`,
-                `username=${username}&password=${password}`, {
-                    headers: {
-                        'Origin': context.state.BASE_URL,
-                    },
-                });
+                `username=${username}&password=${password}`);
 
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 302) {
+                let csrftoken = document.cookie.split('csrftoken=')[1].split(';')[0];
                 context.commit('signIn', username);
-            }
-            else {
+                context.commit('saveSessionId', csrftoken);
+                return true;
+            } else {
                 context.commit('signIn', '');
+                return false;
             }
-
-            await router.push({
-                path: '/'
-            });
         },
         async signUp(context, payload) {
             let {
@@ -133,13 +131,15 @@ const store = new Vuex.Store({
                 `username=${username}&password=${password}`
             );
 
-            await router.push({
-                path: '/'
-            })
+            await router.push('/').catch();
         },
         async signOut(context) {
+            await axios.post(`${context.state.BASE_URL}/logout`,
+                `csrftoken=${context.state.sessionid}`
+            );
+
             context.commit('signOut');
-            await router.push('/');
+            await router.push('/').catch();
         },
         async getAttraction(context, city) {
             let data;

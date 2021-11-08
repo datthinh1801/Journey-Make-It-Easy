@@ -11,7 +11,7 @@ def index(request):
 
 def get_csrf_token(request):
     token = get_token(request)
-    return JsonResponse({'token': token})
+    return token
 
 
 def signIn(request):
@@ -23,14 +23,18 @@ def signIn(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
+            # login successfully
             login(request, user)
             response.status_code = 200
         else:
-            response.status_code = 401
+            # already login
+            response.status_code = 302
         
+        response.set_cookie('csrftoken', get_token(request))
         return response
-
-    response.status_code = 405
+    else:
+        # method is not supported
+        response.status_code = 405
     return response
 
 
@@ -41,24 +45,31 @@ def signUp(request):
         password = request.POST['password']
 
         if User.objects.filter(username=username).exists():
+            # username already exists
             response.status_code = 302
         else:
+            # create new user successfully
             user = User.objects.create_user(username=username, password=password)
             user.save()
             response.status_code = 200
-
-    response.status_code = 405
+    else:
+        # method is not supported
+        response.status_code = 405
     return response
 
 
 def signOut(request):
     response = HttpResponse()
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.POST['csrftoken']:
+            # logout successfully
             logout(request)
             response.status_code = 200
         else:
+            # already logout
             response.status_code = 401
 
-    response.status_code = 405
+    else:
+        # method is not supported
+        response.status_code = 405
     return response
