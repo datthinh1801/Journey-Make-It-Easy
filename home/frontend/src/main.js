@@ -181,9 +181,15 @@ const store = new Vuex.Store({
                         restaurants {
                           id,
                           name,
-                          cuisines,
+                          cuisines {
+                              id,
+                              value
+                          },
                           priceRange,
-                          specialDiets,
+                          specialDiets {
+                              id,
+                              value
+                          },
                           numberVoting,
                           ratingScore,
                           images {
@@ -217,9 +223,18 @@ const store = new Vuex.Store({
                       stays {
                         id,
                         name,
-                        roomTypes,
-                        roomFeatures,
-                        propertyAmenities,
+                        roomTypes {
+                            id,
+                            value
+                        },
+                        roomFeatures {
+                            id,
+                            value
+                        },
+                        propertyAmenities {
+                            id,
+                            value
+                        },
                         numberVoting,
                         ratingScore,
                         images {
@@ -377,6 +392,7 @@ const store = new Vuex.Store({
                 data: {
                     query: `query {
                          getAttractionByName(name: "${name}"){
+                            id,
                             name,
                             about,
                             address,
@@ -385,11 +401,17 @@ const store = new Vuex.Store({
                             suggestedDuration,
                             numberVoting,
                             ratingScore,
+                            ggmap,
                             city {
                                 name
                             },
                             images{
+                              id,
                               link
+                            },
+                            reviews {
+                                id,
+                                text
                             }
                           }
                     }`
@@ -414,22 +436,36 @@ const store = new Vuex.Store({
                 data: {
                     query: `query {
                          getRestaurantByName(name: "${name}"){
+                            id,
                             name,
                             address,
                             openTime,
                             phone,
                             website,
-                            cuisines,
-                            meals,
-                            specialDiets,
+                            cuisines {
+                                id,
+                                value
+                            },
+                            meals {
+                                id,
+                                value
+                            },
+                            specialDiets {
+                                id,
+                                value
+                            },
                             priceRange,
-                            features,
+                            features {
+                                id,
+                                value
+                            },
                             numberVoting,
                             ratingScore,
                             city {
                                 name
                             },
                             images{
+                              id,
                               link
                             }
                           }
@@ -455,20 +491,31 @@ const store = new Vuex.Store({
                 data: {
                     query: `query {
                         getStayByName(name: "${name}") {
+                            id,
                             name,
                             about,
                             address,
                             phone,
                             email,
-                            roomFeatures,
-                            roomTypes,
-                            propertyAmenities,
+                            roomFeatures {
+                                id,
+                                value
+                            },
+                            roomTypes {
+                                id,
+                                value
+                            },
+                            propertyAmenities {
+                                id,
+                                value
+                            },
                             numberVoting,
                             ratingScore,
                             city {
                               name
                             },
                             images {
+                              id,
                               link
                             }
                           }
@@ -484,6 +531,37 @@ const store = new Vuex.Store({
                 data = respData.data['getStayByName'];
             });
 
+            context.commit('saveItem', data);
+        },
+        async getCityDetail(context, name) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getCityByName(name: "${name}") {
+                            id,
+                            name,
+                            info,
+                            images {
+                                id,
+                              link,
+                            }
+                          }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getCityByName'];
+            });
+
+            console.log(data);
             context.commit('saveItem', data);
         }
     }

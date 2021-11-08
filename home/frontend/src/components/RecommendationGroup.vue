@@ -13,6 +13,7 @@
                     :imgWidth="imgWidth"
                     :imgHeight="imgHeight"
                     @click.native="redirectItem(item)">
+
       <div :class="$style['item-detail']">
         <h4>{{ item.name }}</h4>
         <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore"/>
@@ -56,11 +57,11 @@ export default {
     items() {
       let itemArr = [];
       if (this.title === 'Do') {
-        itemArr = this.$store.state.attractionArr;
+        itemArr = this.$store.state.attractionArr.filter(item => item.images.length > 0);
       } else if (this.title === 'Stay') {
         itemArr = this.$store.state.hotelArr.filter(item => item.images.length > 0);
       } else {
-        itemArr = this.$store.state.restaurantArr;
+        itemArr = this.$store.state.restaurantArr.filter(item => item.images.length > 0);
       }
       return itemArr.slice(this.currentItem, this.currentItem + this.itemToShow);
     },
@@ -68,7 +69,13 @@ export default {
       return this.currentItem > 0;
     },
     showNext() {
-      return this.$store.state.attractionArr.length > this.currentItem + this.itemToShow;
+      if (this.title === 'Do') {
+        return this.$store.state.attractionArr.length > this.currentItem + this.itemToShow;
+      } else if (this.title === 'Stay') {
+        return this.$store.state.hotelArr.length > this.currentItem + this.itemToShow;
+      } else {
+        return this.$store.state.restaurantArr.length > this.currentItem + this.itemToShow;
+      }
     },
     imgWidth() {
       return '230px';
@@ -87,9 +94,9 @@ export default {
     getHotel() {
       this.$store.dispatch('getHotel', this.place);
     },
-    async getItem() {
+    getItem() {
       if (this.title === 'Do') {
-        await this.getAttraction();
+        this.getAttraction();
       } else if (this.title === 'Eat') {
         this.getRestaurant();
       } else {
@@ -99,8 +106,8 @@ export default {
     moveLeft() {
       this.currentItem = Math.max(this.currentItem - 1, 0);
     },
-    async moveRight() {
-      await this.getItem();
+    moveRight() {
+      this.getItem();
       ++this.currentItem;
     },
     redirectItem(item) {
@@ -115,7 +122,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     for (let i = 0; i < this.itemToShow; ++i) {
       this.getItem();
     }

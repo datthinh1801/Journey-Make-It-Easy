@@ -16,16 +16,6 @@
             <font-awesome-icon icon="map-marked-alt" />
             <span>{{ address }}</span>
           </div>
-          <div class="phone-info" v-if="phoneNumber">
-            <font-awesome-icon :icon="['fas','phone-alt']" />
-            <span>{{ phoneNumber }}</span>
-          </div>
-          <div class="website" v-if="website">
-            <a :href="website" target="_blank">
-              <font-awesome-icon icon="external-link-alt" />
-              <span>Website</span>
-            </a>
-          </div>
         </div>
         <div class="info-container">
           <div class="roboto open-time-container" v-if="openTime">
@@ -53,7 +43,6 @@
           <iframe loading="lazy" :src="mapURL"></iframe>
         </div>
       </div>
-      <!-- TODO: Add a list of services here! -->
     </div>
   </div>
 </template>
@@ -100,13 +89,11 @@ export default {
       return this.item['address'];
     },
     mapURL() {
-      return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
+      // return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
+      return this.item['ggmap'];
     },
     admissionTicket() {
       return this.item['admissionTicket'];
-    },
-    phoneNumber() {
-      return this.item['phone'];
     },
     openTime() {
       return this.item['openTime'];
@@ -128,9 +115,6 @@ export default {
       });
       return imgs;
     },
-    website() {
-      return this.item['website'];
-    }
   },
   beforeMount() {
     this.$store.dispatch('getAttractionDetail', this.$store.state.currentItemName);

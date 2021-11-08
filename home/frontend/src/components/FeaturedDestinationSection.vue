@@ -2,7 +2,7 @@
     <div class="width-control">
         <p class="roboto title">Popular Destinations</p>
         <div :class="$style['item-list-container']">
-            <vertical-item v-for="(item, i) in items" :key="i" imgSrc="images/placeholder_img.png" imgWidth="100%"
+            <vertical-item v-for="item in items" :key="item.id" :imgSrc="item.images[0].link" imgWidth="100%"
                 imgHeight="200px" @click.native="redirectToItem(item)" :class="$style['v-item']">
                 <div :class="$style['v-item-detail']">
                     <h4>{{ item.name }}</h4>
