@@ -89,6 +89,9 @@ const store = new Vuex.Store({
             state.item = item;
             this.commit('changeCity', item.city.name);
         },
+        saveCity(state, item) {
+            state.item = item;
+        },
         changeItemName(state, name) {
             state.currentItemName = name;
         },
@@ -545,7 +548,7 @@ const store = new Vuex.Store({
                             name,
                             info,
                             images {
-                                id,
+                              id,
                               link,
                             }
                           }
@@ -561,8 +564,7 @@ const store = new Vuex.Store({
                 data = respData.data['getCityByName'];
             });
 
-            console.log(data);
-            context.commit('saveItem', data);
+            context.commit('saveCity', data);
         }
     }
 })

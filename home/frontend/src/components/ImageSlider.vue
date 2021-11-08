@@ -1,21 +1,13 @@
 <template>
-    <vue-flux :options="vfOptions" :images="this.images" :transitions="vfTransitions" ref="slider"
+    <vue-flux :options="vfOptions" :images="images" :transitions="vfTransitions" ref="slider"
         :class="$style['overview-image']">
 
         <template v-slot:preloader>
             <flux-preloader />
         </template>
 
-        <template v-slot:controls>
-            <flux-controls />
-        </template>
-
         <template v-slot:pagination>
             <flux-pagination />
-        </template>
-
-        <template v-slot:index>
-            <flux-index />
         </template>
     </vue-flux>
 </template>
@@ -23,8 +15,6 @@
 <script>
 import {
     VueFlux,
-    FluxControls,
-    FluxIndex,
     FluxPagination,
     FluxPreloader,
 } from 'vue-flux';
@@ -33,8 +23,6 @@ export default {
     props: ['images'],
     components: {
         VueFlux,
-        FluxControls,
-        FluxIndex,
         FluxPagination,
         FluxPreloader,
     },
@@ -42,6 +30,7 @@ export default {
         return {
             vfOptions: {
                 autoplay: true,
+                lazyLoadAfter: 2,
             },
             vfTransitions: ['slide'],
         }

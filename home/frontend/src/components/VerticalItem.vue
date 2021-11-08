@@ -1,11 +1,10 @@
 <template>
   <div :class="[$style.item]">
     <div :class="[$style.image]">
-      <img alt="" :src="imgSrc"
-           :style="{width: imgWidth, height: imgHeight}">
-      <HeartButton :class="$style['heart-btn']"/>
+      <img alt="" :src="imgUrl" :style="{width: imgWidth, height: imgHeight}">
+      <HeartButton :class="$style['heart-btn']" />
     </div>
-      <slot></slot>
+    <slot></slot>
   </div>
 </template>
 
@@ -14,10 +13,31 @@ import HeartButton from "./HeartButton";
 
 export default {
   name: 'VerticalItem',
-  components: {HeartButton},
+  components: {
+    HeartButton
+  },
   props: ['imgSrc', 'imgWidth', 'imgHeight'],
   data() {
     return {}
+  },
+  computed: {
+    imgUrl() {
+      let newUrl = this.imgSrc.replace('https://media-cdn', 'https://dynamic-media-cdn')
+      .replace(/\.jpg[\w\W]*/,`.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`);
+      return newUrl;
+    },
+    imgRenderWidth() {
+      if (parseInt(this.imgWidth) <= 300) {
+        return '300';
+      }
+      return parseInt(this.imgWidth);
+    },
+    imgRenderHeight() {
+      if (parseInt(this.imgHeight) <= 300) {
+        return '300';
+      }
+      return parseInt(this.imgHeight);
+    }
   }
 }
 </script>

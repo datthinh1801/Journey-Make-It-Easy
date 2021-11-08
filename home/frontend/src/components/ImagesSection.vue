@@ -13,13 +13,13 @@ export default {
   name: 'ImagesSection',
   computed: {
     images() {
-      const imgs = this.$store.state.item;
-      console.log(imgs);
+      let imgs = this.$store.state.item.images.map(img => img.link);
+      for (let i = 0; i < imgs.length; ++i) {
+        imgs[i] = imgs[i].replace('https://media-cdn', 'https://dynamic-media-cdn')
+        .replace(/\.jpg[\w\W]*/, '.jpg?w=1000&amp;h=500&amp;s=1');
+      }
       return imgs;
     }
-  }
+  },
 }
 </script>
-
-<style module>
-</style>

@@ -102,22 +102,24 @@ export default {
       return Math.min(3, list.length);
     },
     getRoomFeatures(item) {
-      return item['roomFeatures'].split(', ');
+      return item['roomFeatures'].map(item => item.value);
     },
     getRoomTypes(item) {
-      return item['roomTypes'].split(', ');
+      return item['roomTypes'].map(item => item.value);
     },
     getPropAmen(item) {
-      return item['propertyAmenities'].split(', ');
+      return item['propertyAmenities'].map(item => item.value);
     },
     redirectToHotel(item) {
       this.$store.commit('changeItemName', item.name);
       this.$router.push('hotel');
     }
   },
+  beforeCreate() {
+    this.$store.dispatch('getHotel', this.$store.state.city);
+  },
   mounted() {
     this.$store.commit('changePath', '/hotels');
-    this.$store.dispatch('getHotel', this.place);
   },
   beforeDestroy() {
     this.$store.commit('clearAllHotels');

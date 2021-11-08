@@ -2,8 +2,8 @@
     <div class="width-control">
         <p class="roboto title">Luxurious Hotels</p>
         <div :class="$style['item-list-container']">
-            <vertical-item v-for="(item, i) in items" :key="i" :imgSrc="item.images[0].link" imgWidth="100%"
-                imgHeight="200px" @click.native="redirectToItem(item)" :class="$style['v-item']">
+            <vertical-item v-for="(item, i) in items" :key="i" :imgSrc="item.images[0].link" :imgWidth="imgWidth"
+                :imgHeight="imgHeight" @click.native="redirectToItem(item)" :class="$style['v-item']">
                 <div :class="$style['v-item-detail']">
                     <h4>{{ item.name }}</h4>
                     <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
@@ -44,6 +44,12 @@ export default {
         },
         showNext() {
             return this.$store.state.hotelArr.length > this.this_item + this.showed_items;
+        },
+        imgHeight() {
+            return '200px';
+        },
+        imgWidth() {
+            return '100%';
         }
     },
     methods: {

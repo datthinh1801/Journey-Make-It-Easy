@@ -4,7 +4,6 @@
       <Header/>
       <div :class="[$style.title, 'roboto', 'row-container','width-control']">
         <span>Explore</span><span>{{ place }}</span>
-        <div>{{item}}</div>
       </div>
       <NavBar/>
     </div>
@@ -38,12 +37,12 @@ export default {
     place() {
       return this.$store.state.city;
     },
-    item() {
+    itemDetail() {
       return this.$store.state.item;
     }
   },
   beforeMount() {
-    this.$store.dispatch('getCityDetail', this.$store.state.item.city);
+    this.$store.dispatch('getCityDetail', this.$store.state.city);
   },
   mounted() {
     this.$store.commit('changePath', '/explore');

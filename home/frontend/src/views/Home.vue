@@ -38,6 +38,8 @@ export default {
   },
   beforeDestroy() {
     this.$store.commit('clearAllAttractions');
+    this.$store.commit('clearAllHotels');
+    this.$store.commit('clearAllRestaurants');
   }
 }
 </script>

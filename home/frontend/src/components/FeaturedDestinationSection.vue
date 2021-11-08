@@ -2,8 +2,8 @@
     <div class="width-control">
         <p class="roboto title">Popular Destinations</p>
         <div :class="$style['item-list-container']">
-            <vertical-item v-for="item in items" :key="item.id" :imgSrc="item.images[0].link" imgWidth="100%"
-                imgHeight="200px" @click.native="redirectToItem(item)" :class="$style['v-item']">
+            <vertical-item v-for="item in items" :key="item.id" :imgSrc="item.images[0].link" :imgWidth="imgWidth"
+                :imgHeight="imgHeight" @click.native="redirectToItem(item)" :class="$style['v-item']">
                 <div :class="$style['v-item-detail']">
                     <h4>{{ item.name }}</h4>
                     <div>🇻🇳 {{item.nation.name}}</div>
@@ -99,6 +99,12 @@ export default {
         },
         showNext() {
             return this.$store.state.cities.length > this.this_item + this.showed_items;
+        },
+        imgHeight() {
+            return '200px';
+        },
+        imgWidth() {
+            return '235px';
         }
     },
     methods: {
@@ -115,8 +121,7 @@ export default {
         nation(item) {
             if (item.nation.name === 'Vietnam') {
                 return '🇻🇳 ' + item.nation.name;
-            }
-            else {
+            } else {
                 return item.nation.name;
             }
         }
