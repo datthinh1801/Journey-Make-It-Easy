@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User, auth
-from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.middleware.csrf import get_token
 from django.http import HttpResponse, JsonResponse
 
@@ -14,42 +14,51 @@ def get_csrf_token(request):
     return JsonResponse({'token': token})
 
 
-def login(request):
+def signIn(request):
+    response = HttpResponse()
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            auth.login(request, user)
+            login(request, user)
+            response.status_code = 200
         else:
-            return JsonResponse({'messages': 'User not exists'})
+            response.status_code = 401
+        
+        return response
 
-    return JsonResponse({'messages': 'Method not support'})
+    response.status_code = 405
+    return response
 
 
-def register(request):
+def signUp(request):
+    response = HttpResponse()
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
         if User.objects.filter(username=username).exists():
-            return JsonResponse({'messages': 'Username already exists'})
+            response.status_code = 302
         else:
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            return JsonResponse({'messages': 'Register success'})
+            response.status_code = 200
 
-    return JsonResponse({'messages': 'Method not support'})
+    response.status_code = 405
+    return response
 
 
-def logout(request):
+def signOut(request):
+    response = HttpResponse()
     if request.method == 'POST':
         if request.user.is_authenticated:
-            auth.logout(request)
-            return JsonResponse({'messages': 'Log out success'})
+            logout(request)
+            response.status_code = 200
         else:
-            return JsonResponse({'messages': 'You are not login'})
+            response.status_code = 401
 
-    return JsonResponse({'messages': 'Method not support'})
+    response.status_code = 405
+    return response

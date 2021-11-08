@@ -24,7 +24,9 @@ const store = new Vuex.Store({
     state: {
         // SETTINGS
         BASE_URL: 'http://localhost:8000',
-        CSRF_TOKEN: '',
+
+        // AUTHENTICATION
+        username: '',
 
         // GENERIC STATE
         currentURL: '/',
@@ -32,9 +34,6 @@ const store = new Vuex.Store({
 
         // STATE for HOME
         cities: [],
-
-        // STATE for AUTHENTICATION
-        authenticated: false,
 
         // STATE for EXPLORE page
         attractionArr: [],
@@ -49,11 +48,11 @@ const store = new Vuex.Store({
         currentItemName: '',
     },
     mutations: {
-        signIn(state, token) {
-            state.authenticated = token;
+        signIn(state, username) {
+            state.username = username;
         },
-        signUp() {
-
+        signOut(state) {
+            state.username = '';
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -100,43 +99,42 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        async getCSRFToken(context) {
-            let response = await axios.get(`${context.state.BASE_URL}/token`);
-            return response.data.token;
-        },
         async signIn(context, credential) {
             let {
                 username,
                 password
             } = credential;
-            // let token = await context.dispatch('getCSRFToken');
+
             let response = await axios.post(`${context.state.BASE_URL}/login`,
                 `username=${username}&password=${password}`, {
                     headers: {
                         'Origin': context.state.BASE_URL,
-                        // 'X-CSRFToken': token,
                     },
                 });
-            console.log(response.data);
-            // context.commit('signIn', response.data.token);
-            // await router.push({path: context.state.currentURL});
+
+            if (response.status === 200) {
+                context.commit('signIn', username);
+            }
+            await router.push({
+                path: '/'
+            });
         },
         async signUp(context, payload) {
             let {
                 username,
                 password
-                // , rePassword
             } = payload;
-            let response = await axios.post('https://reqres.in/api/users', {
-                email: username,
-                password: password
-                // , rePassword
-            });
-            console.log(response);
-            context.commit('signUp');
+            await axios.post(`${context.state.BASE_URL}/register`,
+                `username=${username}&password=${password}`
+            );
+
             await router.push({
-                path: '/signin'
+                path: '/'
             })
+        },
+        async signOut(context) {
+            context.commit('signOut');
+            await router.push('/');
         },
         async getAttraction(context, city) {
             let data;
