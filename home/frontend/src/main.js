@@ -50,9 +50,9 @@ const store = new Vuex.Store({
         currentItemName: '',
     },
     mutations: {
-        signIn(state, username, cookie) {
-            state.username = username;
-            state.cookie = cookie;
+        signIn(state, payload) {
+            state.username = payload.username;
+            state.cookie = payload.cookie;
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -104,16 +104,21 @@ const store = new Vuex.Store({
                 username,
                 password
             } = credential;
+            let cookie;
 
             let response = await axios.post(`${context.state.BASE_URL}/login`,
-                `username=${username}&password=${password}`);
+                `username=${username}&password=${password}`)
+                .then(resp => {
+                    cookie = resp.data;
+                    return resp;
+                });
 
             if (response.status === 200 || response.status === 302) {
-                let cookie = document.cookie.split('user_auth=')[1].split(';')[0];
-                context.commit('signIn', username, cookie);
+                context.commit('signIn', {username, cookie});
+                await router.push('/').catch(e => console.log(e));
                 return true;
             } else {
-                context.commit('signIn', '');
+                context.commit('signIn', '', '');
                 return false;
             }
         },
@@ -126,12 +131,12 @@ const store = new Vuex.Store({
                 `username=${username}&password=${password}`
             );
 
-            await router.push('/').catch();
+            await router.push('/').catch(e => console.log(e));
         },
         async signOut(context) {
-            await axios.post(`${context.state.BASE_URL}/logout`);
+            await axios.post(`${context.state.BASE_URL}/logout`, `user_auth=${context.state.cookie}`);
 
-            await router.push('/').catch();
+            await router.push('/').catch(e => console.log(e));
             window.location.reload();
         },
         async getAttraction(context, city) {
