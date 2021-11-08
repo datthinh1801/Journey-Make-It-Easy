@@ -26,6 +26,7 @@
     grid-gap: 15px;
     width: 100%;
     position: relative;
+    z-index: -1;
 }
 
 .item-list-container h4 {

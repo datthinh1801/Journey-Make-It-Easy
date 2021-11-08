@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     showModal() {
-      this.$modal.show('sign-in-modal');
+        this.$modal.show('sign-in-modal');
     },
     signIn() {
       let username = document.getElementById('username').value;
@@ -192,7 +192,6 @@ export default {
 }
 
 .signin-modal {
-  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }

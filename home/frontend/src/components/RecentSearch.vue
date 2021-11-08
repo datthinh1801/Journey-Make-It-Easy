@@ -24,7 +24,6 @@ export default {
   font-size: 22px;
 }
 
-/* TODO: Use grid size for width here */
 .recent-search-item {
   background-color: white;
   color: black;

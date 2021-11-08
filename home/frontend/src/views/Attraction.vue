@@ -89,8 +89,8 @@ export default {
       return this.item['address'];
     },
     mapURL() {
-      // return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
-      return this.item['ggmap'];
+      return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
+      // return this.item['ggmap'];
     },
     admissionTicket() {
       return this.item['admissionTicket'];

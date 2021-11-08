@@ -6,7 +6,7 @@
     <input id="searchBox-box" class="roboto" :class="$style['search-box']" placeholder="Type to search" type="text"
       @keyup="search">
   </div>
-    <ul v-if="this.shouldExtended" :class="$style['search-result-container']">
+    <ul v-show="shouldExtended" :class="$style['search-result-container']">
       <li v-for="(item, i) in searches" :key=i
           @click="goTo(item)">
         {{ item }}
@@ -31,11 +31,11 @@ export default {
   data() {
     return {
       searches: [],
+      allSearches: [],
       shouldExtended: false,
     }
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     goTo(item) {
       this.$store.state.city = item;
@@ -43,39 +43,39 @@ export default {
     },
     async search() {
       let searchStr = document.querySelector('#searchBox-box').value;
-      if (searchStr.length > 0){
-        this.shouldExtended = true;
-      } else {
-        this.shouldExtended = false;
-      }
+      this.shouldExtended = searchStr.length > 0;
       let re = new RegExp(`${searchStr}`, 'gi');
-
       let data;
-      await axios({
-        method: 'post',
-        url: `${this.$store.state.BASE_URL}/graphql`,
-        data: {
-          query: `query {
+
+      if (this.allSearches.length === 0) {
+        await axios({
+          method: 'post',
+          url: `${this.$store.state.BASE_URL}/graphql`,
+          data: {
+            query: `query {
                     allCitys {
                       id,
                       name
                     }
                   }`
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      }).then(resp => {
-        return resp.data;
-      }).then(respData => {
-        data = respData.data['allCitys'];
-      });
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }).then(resp => {
+          return resp.data;
+        }).then(respData => {
+          data = respData.data['allCitys'];
+        });
+
+        this.allSearches = data.map(item => item.name);
+      }
 
       this.searches = [];
-      for (let i = 0; i < data.length; ++i) {
-        if (re.test(data[i].name)) {
-          this.searches.push(data[i].name);
+      for (let i = 0; i < this.allSearches.length; ++i) {
+        if (re.test(this.allSearches[i])) {
+          this.searches.push(this.allSearches[i]);
         }
       }
     }
@@ -85,9 +85,6 @@ export default {
 
 <style module>
 .search-box-container {
-  /* display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto; */
   height: fit-content;
   width: 400px;
   border: 1px solid #aaaaaa;
