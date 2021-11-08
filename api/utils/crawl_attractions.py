@@ -1,5 +1,6 @@
 import asyncio
 from bs4 import BeautifulSoup
+import json
 
 # change this to .utils if use python shell
 from utils import fetch_html, BASE_URL
@@ -18,7 +19,6 @@ async def extract_attraction_data(url: str):
                          'admission_ticket': 'WlYyy cPsXC cMKSg',
                          'images': 'eMVst _R w h GA'
                          }
-    map_class_for_address = {'address': 'WlYyy cacGK Wb'}
     map_info = {}
     for i in map_class_to_data:
         if i != 'images':
@@ -37,21 +37,27 @@ async def extract_attraction_data(url: str):
 
                 # photo-l is small images, change to photo-o to get full size images
                 if 'photo-l' in l_image:
-                    links.append(l_image)
+                    links.append(l_image.replace('photo-l','photo-o'))
             map_info[i] = links
 
     # In case address not found
     try:
-        data = soup.find('div', class_='gaAck').find(
-            'span', class_=map_class_for_address['address'])
-    except:
-        data = None
+        data_address = soup.find('section', class_='bQUJb')
+        data_address = str(data_address)
+        start_index = data_address.find('"address":')
+        end_index = data_address[start_index:].find('},')+1
 
-    if data is not None:
-        map_info['address'] = data.get_text().strip()
-    else:
-        map_info['address'] = ''
-    # map_info['ggmap'] = convert_address_to_link_gg_map(map_info['address'])
+        address_json = json.loads(data_address[start_index+10:start_index+end_index])
+
+        address = address_json['streetAddress']+', ' + address_json['addressLocality'] + \
+            ' ' + address_json['postalCode'] + ' ' + address_json['addressCountry']
+
+    except:
+        # print(url)
+        address= ''
+
+    map_info['address'] = address
+    map_info['ggmap'] = convert_address_to_link_gg_map(map_info['address'])
 
     # In case open time not found
     try:

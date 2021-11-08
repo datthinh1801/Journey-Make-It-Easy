@@ -15,7 +15,7 @@ async def extract_amenities(city_path: str):
             BASE_URL + city_path.replace('Tourism', 'Attractions')),
         'restaurants': await extract_top_restaurant(
             BASE_URL + city_path.replace('Tourism', 'Restaurants')),
-        'stays' : await get_stay_city(
+        'stays': await get_stay_city(
             BASE_URL + city_path.replace('Tourism', 'Hotels'))
     }
 
@@ -26,7 +26,29 @@ async def extract_city_data(city_path: str):
     html_page = await fetch_html(BASE_URL + city_path)
     soup = BeautifulSoup(html_page, 'html.parser')
 
-    data['name'] = soup.find('h1', class_='WlYyy cPsXC MLeMj eKEDF').find('span').find_all('span')[1].text
+    data['name'] = soup.find('h1', class_='WlYyy cPsXC MLeMj eKEDF').find(
+        'span').find_all('span')[1].text
+    print('name city: ',data['name'])
+    links = []
+
+    try:
+        data_links = soup.find('div', class_='bzEkR _T').find_all(
+            'picture', class_='dugSS _R dBRxX')
+    except:
+        data_links = []
+
+    for dl in data_links:
+        links.append(str(dl).split('srcset="')[-1].split(' ')[1][3:])
+
+    try:
+        info = soup.find(
+            'div', class_='fqCDQ').get_text().strip()
+    except:
+        info = ''
+    if info == None:
+        info = ''
+    data['images'] = links
+    data['info'] = info
     # print(data['name'])
     # print(data)
     return data

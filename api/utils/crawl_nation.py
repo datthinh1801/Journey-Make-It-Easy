@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 
 from utils import fetch_html, BASE_URL
 from crawl_city import extract_city_data
+from pprint import pprint
+import sys
+import json
 
 
 async def extract_links_of_cities(nation_url: str):
@@ -32,18 +35,25 @@ async def extract_nation_data(nation_url: str):
     """Extract data of a nation, given its full URL."""
     city_links, nation_name = await extract_links_of_cities(nation_url)
     data = {}
+    with open('vietnam.json', 'r') as file:
+        data = json.load(file)
+
     citys = []
-    for city_link in city_links:
+    print(len(city_links))
+    # for city_link in city_links[:5]:
+    #     print(city_link)
+    #     citys.append(asyncio.create_task(extract_city_data(city_link)))
+
+    for city_link in city_links[5:]:
+        print(city_link)
         citys.append(asyncio.create_task(extract_city_data(city_link)))
 
     data['name'] = nation_name
-    data['citys'] = await asyncio.gather(*citys)
+    data['citys'] += await asyncio.gather(*citys)
     return data
 
 
 if __name__ == '__main__':
-    from pprint import pprint
-    import sys
 
     if len(sys.argv) > 1 and sys.argv[1] == '--help':
         print('usage: python crawl_nation.py <url> <file_save_name>')
@@ -62,7 +72,6 @@ if __name__ == '__main__':
     data = asyncio.run(extract_nation_data(url))
 
     if len(sys.argv) >= 0:
-        import json
 
         with open('vietnam.json', 'w') as fp:
             json.dump(data, fp)

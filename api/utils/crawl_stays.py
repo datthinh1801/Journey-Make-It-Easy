@@ -63,11 +63,11 @@ async def extract_stay_data(url: str):
                                     if z != -1:
                                         link = link[:z]
                                     if link.find('photo-s') != -1:
-                                        link = link.replace('photo-s', 'photo-l')
-                                    if link.find('photo-o') != -1:
-                                        link = link.replace('photo-o', 'photo-l')
+                                        link = link.replace('photo-s', 'photo-o')
+                                    if link.find('photo-l') != -1:
+                                        link = link.replace('photo-o', 'photo-o')
                                     if link.find('photo-f') != -1:
-                                        link = link.replace('photo-f', 'photo-l')
+                                        link = link.replace('photo-f', 'photo-o')
                                     links.append(link)
                                 images = images[j + 1:]
                                 i = images.find('"url":"')
@@ -101,8 +101,8 @@ async def extract_stay_data(url: str):
 
                     else:
                         map_info[i] = data.get_text()
-                    # if i == 'address':
-                    # 	map_info['ggmap']= convert_address_to_link_gg_map(map_info[i])
+                    if i == 'address':
+                    	map_info['ggmap']= convert_address_to_link_gg_map(map_info[i])
                 else:
                     map_info[i] = ''
 
@@ -118,11 +118,11 @@ async def extract_stay_data(url: str):
                 link = link[:z]
                 link = link.replace('dynamic-', '')
             if link.find('photo-s') != -1:
-                link = link.replace('photo-s', 'photo-l')
-            if link.find('photo-o') != -1:
-                link = link.replace('photo-o', 'photo-l')
+                link = link.replace('photo-s', 'photo-o')
+            if link.find('photo-l') != -1:
+                link = link.replace('photo-o', 'photo-o')
             if link.find('photo-f') != -1:
-                link = link.replace('photo-f', 'photo-l')
+                link = link.replace('photo-f', 'photo-o')
             links.append(link)
 
     map_info['images'] = links
