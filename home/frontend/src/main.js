@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 import VModal from 'vue-js-modal'
-import VueCookies from 'vue-cookies'
 
 import {
     library
@@ -19,7 +18,6 @@ import axios from "axios";
 library.add(faUserSecret);
 Vue.use(Vuex);
 Vue.use(VModal);
-Vue.use(VueCookies);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
