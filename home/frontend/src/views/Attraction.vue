@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <ImageSlider :images="images" />
+      <ImageSlider />
       <div :class="$style['overview-container']">
         <div :class="$style['overview-text']">
           <h2>About</h2>
@@ -106,14 +106,6 @@ export default {
     },
     numberVoting() {
       return this.item['numberVoting'];
-    },
-    images() {
-      let imgObjs = this.item['images'];
-      let imgs = [];
-      imgObjs.forEach(imgObj => {
-        imgs.push(imgObj['link']);
-      });
-      return imgs;
     },
   },
   beforeMount() {

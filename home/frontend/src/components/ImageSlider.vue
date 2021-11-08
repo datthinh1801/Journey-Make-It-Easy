@@ -1,5 +1,5 @@
 <template>
-    <vue-flux :options="vfOptions" :images="images" :transitions="vfTransitions" ref="slider"
+    <vue-flux :options="vfOptions" :images="renderImages" :transitions="vfTransitions" ref="slider"
         :class="$style['overview-image']">
 
         <template v-slot:preloader>
@@ -20,7 +20,6 @@ import {
 } from 'vue-flux';
 export default {
     name: 'ImageSlider',
-    props: ['images'],
     components: {
         VueFlux,
         FluxPagination,
@@ -33,6 +32,16 @@ export default {
                 lazyLoadAfter: 2,
             },
             vfTransitions: ['slide'],
+        }
+    },
+    computed: {
+        renderImages() {
+            let imgs = this.$store.state.item.images.map(img => img.link);
+            for (let i = 0; i < imgs.length; ++i) {
+                imgs[i] = imgs[i].replace('https://media-cdn', 'https://dynamic-media-cdn')
+                    .replace(/\.jpg[\w\W]*/, '.jpg?w=1000&h=500&s=1');
+            }
+            return imgs;
         }
     },
 }

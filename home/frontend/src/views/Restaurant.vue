@@ -32,7 +32,7 @@
           <span>Open Time: {{ openTime }}</span>
         </div>
       </div>
-        <image-slider :images="images" :class="$style['image-section']"/>
+        <image-slider :class="$style['image-section']"/>
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
           <h3>Details</h3>
@@ -136,16 +136,16 @@ export default {
       return this.item['website'];
     },
     cuisines() {
-      return this.item['cuisines'];
+      return this.item['cuisines'].map(item => item['value']).join(', ');
     },
     meals() {
-      return this.item['meals'];
+      return this.item['meals'].map(item => item['value']).join(', ');
     },
     specialDiets() {
-      return this.item['specialDiets'];
+      return this.item['specialDiets'].map(item => item['value']).join(', ');
     },
     features() {
-      return this.item['features'];
+      return this.item['features'].map(item => item['value']).join(', ');
     },
     numberVoting(){
       return this.item['numberVoting'];
@@ -156,14 +156,6 @@ export default {
     priceRange() {
       return this.item['priceRange'];
     },
-    images() {
-      let imgObjs = this.item['images'];
-      let imgs = [];
-      imgObjs.forEach(imgObj => {
-        imgs.push(imgObj['link']);
-      });
-      return imgs;
-      }
   },
   beforeMount() {
     this.$store.dispatch('getRestaurantDetail', this.$store.state.currentItemName);

@@ -93,8 +93,6 @@ export default {
     }
   },
   mounted() {
-    // FIXME: What is this?
-    this.$store.commit('changePath', '/restaurants');
     this.$store.dispatch('getRestaurant', this.place);
   },
   beforeDestroy() {

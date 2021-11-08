@@ -7,8 +7,9 @@
       </div>
       <NavBar/>
     </div>
-    <div :class="$style.imageSection">
-      <ImagesSection/>
+    <div :class="[$style.imageSection, 'width-control']">
+      <image-slider />
+      {{images}}
     </div>
     <div :class="['row-container', 'col-container', $style.recommendationSection]">
       <RecommendationSection/>
@@ -19,16 +20,16 @@
 <script>
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
-import ImagesSection from "../components/ImagesSection";
 import RecommendationSection from "../components/RecommendationSection";
+import ImageSlider from "../components/ImageSlider";
 
 export default {
   name: 'Explore',
   components: {
     RecommendationSection,
-    ImagesSection,
     NavBar,
-    Header
+    Header,
+    ImageSlider
   },
   data() {
     return {}
@@ -39,7 +40,7 @@ export default {
     },
     itemDetail() {
       return this.$store.state.item;
-    }
+    },
   },
   beforeMount() {
     this.$store.dispatch('getCityDetail', this.$store.state.city);

@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <image-slider :images="images" />
+      <image-slider />
       <div :class="$style['about-section']">
         <h2>About</h2>
         <hr>
@@ -70,7 +70,6 @@
         <h2>Location</h2>
         <iframe loading="lazy" :src="mapURL"></iframe>
       </div>
-<!-- TODO: Review section -->
     </div>
   </div>
 </template>
@@ -100,14 +99,6 @@ export default {
     },
     numberVoting() {
       return this.$store.state.item['numberVoting'];
-    },
-    images() {
-      let imgObjs = this.$store.state.item['images'];
-      let imgs = [];
-      imgObjs.forEach(imgObj => {
-        imgs.push(imgObj['link']);
-      });
-      return imgs;
     },
     address() {
       return this.$store.state.item['address'];
