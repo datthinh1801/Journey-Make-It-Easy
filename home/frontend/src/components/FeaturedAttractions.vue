@@ -36,7 +36,7 @@ export default {
       return this.$store.state.attractionArr.slice(this.this_item, this.this_item + this.showed_items);
     },
     imgWidth() {
-      return '100%';
+      return '235px';
     },
     imgHeight() {
       return '200px';
