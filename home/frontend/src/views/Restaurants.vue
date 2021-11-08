@@ -25,11 +25,11 @@
               </div>
               <div v-if="item.cuisines">
                 <font-awesome-icon icon="concierge-bell" :class="$style.cuisine"/>
-                <span>{{ item.cuisines }}</span>
+                <span>{{ getCuisines(item) }}</span>
               </div>
               <div v-if="item.specialDiets">
                 <font-awesome-icon icon="glass-cheers" :class="$style.specialty"/>
-                <span>{{ item.specialDiets }}</span>
+                <span>{{ getSpecialdiets(item) }}</span>
               </div>
             </div>
           </div>
@@ -90,6 +90,12 @@ export default {
     redirectToRestaurant(item) {
       this.$store.commit('changeItemName', item.name);
       this.$router.push('restaurant');
+    },
+    getCuisines(item) {
+      return item.cuisines.map(cuisine => cuisine['value']).join(', ');
+    },
+    getSpecialdiets(item) {
+      return item.specialDiets.map(specialDiet => specialDiet['value']).join(', ');
     }
   },
   mounted() {

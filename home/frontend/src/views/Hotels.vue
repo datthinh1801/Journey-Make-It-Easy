@@ -69,7 +69,6 @@ export default {
   },
   computed: {
     endOfArray() {
-      // TODO: Replace this after data is ok
       return this.item_n < this.$store.state.hotelArr.filter(item => item.images.length > 0)
           .length;
     },
@@ -77,7 +76,6 @@ export default {
       return this.$store.state.city;
     },
     items() {
-      // TODO: Replace this after data is ok
       return this.$store.state.hotelArr.filter(item => item.images.length > 0)
           .slice(0, this.item_n);
     },

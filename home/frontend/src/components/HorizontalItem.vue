@@ -3,7 +3,7 @@
        :style="{height: itemHeight, width:itemWidth}">
     <div :class="$style['img-container']">
       <img :class="$style['item-img']"
-           alt="" :src="imgSrc"
+           alt="" :src="imgUrl"
            :style="{height: imgHeight, width: imgWidth}">
       <HeartButton :class="$style['heart-btn']"/>
     </div>
@@ -18,6 +18,25 @@ export default {
   name: 'HorizontalItem',
   components: {HeartButton},
   props: ['imgSrc', 'imgHeight', 'imgWidth', 'itemHeight', 'itemWidth'],
+  computed: {
+    imgUrl() {
+      let newUrl = this.imgSrc.replace('https://media-cdn', 'https://dynamic-media-cdn')
+      .replace(/\.jpg[\w\W]*/,`.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`);
+      return newUrl;
+    },
+    imgRenderWidth() {
+      if (parseInt(this.imgWidth) <= 300) {
+        return '300';
+      }
+      return parseInt(this.imgWidth);
+    },
+    imgRenderHeight() {
+      if (parseInt(this.imgHeight) <= 300) {
+        return '300';
+      }
+      return parseInt(this.imgHeight);
+    }
+  }
 }
 </script>
 

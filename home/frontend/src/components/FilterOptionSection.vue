@@ -50,7 +50,7 @@ export default {
       let itemSet = new Set();
       this.itemArray.forEach(item => {
         // cast to String in case rating score is filtered
-        let subItems = String(item[this.filterType]).split(', ').filter(item => item.length > 0);
+        let subItems = item[this.filterType].map(item => item['value']).filter(item => item.length > 0);
         subItems.forEach(subItem => {
           itemSet.add(subItem);
         });
