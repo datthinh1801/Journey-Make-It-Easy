@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 class Nation(models.Model):
     name = models.TextField()
-    number_voting = models.TextField(default=0)
+    number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
 
 
 class City(models.Model):
     name = models.TextField()
     info = models.TextField(blank=True)
-    number_voting = models.TextField(default=0)
+    number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
     nation = models.ForeignKey(Nation, related_name="citys", on_delete=models.CASCADE)
 
@@ -24,7 +24,7 @@ class Attraction(models.Model):
     open_time = models.TextField(blank=True)
     suggested_duration = models.TextField(blank=True)
     ggmap = models.TextField(blank=True)
-    number_voting = models.TextField(default=0)
+    number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, related_name="attractions", on_delete=models.CASCADE)
 
@@ -37,7 +37,7 @@ class Restaurant(models.Model):
     website = models.TextField()
     price_range = models.TextField()
     ggmap = models.TextField(blank=True)
-    number_voting = models.TextField(default=0)
+    number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, related_name="restaurants", on_delete=models.CASCADE)
 
@@ -69,7 +69,7 @@ class Stay(models.Model):
     phone = models.TextField()
     email = models.TextField()
     ggmap = models.TextField(blank=True)
-    number_voting = models.TextField(default=0)
+    number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
     city = models.ForeignKey(City, related_name="stays", on_delete=models.CASCADE)
 
@@ -182,6 +182,8 @@ class Blog(models.Model):
     tittle = models.TextField()
     content = models.TextField()
     user = models.ForeignKey(User, related_name="blogs", on_delete=models.CASCADE)
+    number_voting = models.IntegerField(default=0)
+    rating_score = models.FloatField(default=0)
 
 
 class Blog_Image(models.Model):

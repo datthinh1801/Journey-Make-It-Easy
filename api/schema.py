@@ -172,7 +172,7 @@ class Property_AmenitieType(DjangoObjectType):
 class BlogType(DjangoObjectType):
     class Meta:
         model = Blog
-        feilds = ('id', 'tittle', 'content', 'images', 'votings', 'reviews')
+        feilds = ('id', 'tittle', 'content', 'images', 'number_voting', 'rating_score', 'votings', 'reviews')
 
 
 class Blog_ImageType(DjangoObjectType):
