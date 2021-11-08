@@ -30,7 +30,10 @@ def signIn(request):
             # already login
             response.status_code = 302
         
-        response.set_cookie('csrftoken', get_token(request))
+        request.session['username'] = username
+        request.session['password'] = password
+        request.session['csrftoken'] = get_token(request)
+
         return response
     else:
         # method is not supported
@@ -61,7 +64,8 @@ def signUp(request):
 def signOut(request):
     response = HttpResponse()
     if request.method == 'POST':
-        if request.POST['csrftoken']:
+        print(request.session.get('username'))
+        if request.session.get('username') and request.session.get('password') and request.session.get('csrftoken'):
             # logout successfully
             logout(request)
             response.status_code = 200

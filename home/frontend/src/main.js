@@ -27,7 +27,6 @@ const store = new Vuex.Store({
 
         // AUTHENTICATION
         username: '',
-        sessionid: '',
 
         // GENERIC STATE
         city: '',
@@ -49,9 +48,8 @@ const store = new Vuex.Store({
         currentItemName: '',
     },
     mutations: {
-        signIn(state, username, sessionid) {
+        signIn(state, username) {
             state.username = username;
-            state.sessionid = sessionid;
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -108,8 +106,7 @@ const store = new Vuex.Store({
                 `username=${username}&password=${password}`);
 
             if (response.status === 200 || response.status === 302) {
-                let csrftoken = document.cookie.split('csrftoken=')[1].split(';')[0];
-                context.commit('signIn', username, csrftoken);
+                context.commit('signIn', username);
                 return true;
             } else {
                 context.commit('signIn', '');
@@ -128,9 +125,7 @@ const store = new Vuex.Store({
             await router.push('/').catch();
         },
         async signOut(context) {
-            await axios.post(`${context.state.BASE_URL}/logout`,
-                `csrftoken=${context.state.sessionid}`
-            );
+            await axios.post(`${context.state.BASE_URL}/logout`);
 
             await router.push('/').catch();
             window.location.reload();

@@ -1,15 +1,18 @@
 <template>
-<div>
-    <Header />
-   <post-editor :class="$style['editor']" class="width-control"/> 
-</div>
+    <div>
+        <Header />
+        <post-editor :class="$style['editor']" class="width-control" />
+    </div>
 </template>
 
 <script>
 import Header from '../components/Header.vue'
 import PostEditor from '../components/PostEditor.vue'
 export default {
-  components: { PostEditor, Header, },
+    components: {
+        PostEditor,
+        Header,
+    },
     name: 'ArticleEditor',
     data() {
         return {}
