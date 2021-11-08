@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button @click="showModal">Sign In</button>
+    <button @click="showModal" v-if="!authenticated">Sign In</button>
+    <button v-else>{{usernameAuth}}</button>
+
     <modal name="sign-in-modal" @closed="closeModal" :width="700" :height="500">
       <div :class="$style['signin-modal']">
         <div :class="$style.form">
@@ -79,10 +81,17 @@ export default {
         return false;
       }
       return true;
+    },
+    authenticated() {
+      return this.$store.state.username !== '';
+    },
+    usernameAuth() {
+      return this.$store.state.username;
     }
   },
   methods: {
     showModal() {
+        this.$store.state.modalUp = true;
         this.$modal.show('sign-in-modal');
     },
     signIn() {
@@ -108,6 +117,7 @@ export default {
       this.username = '';
       this.password = '';
       this.password2 = '';
+      this.$store.state.modalUp = false;
     }
   }
 }

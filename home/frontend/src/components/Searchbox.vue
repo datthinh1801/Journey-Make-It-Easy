@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['search-box-container']">
+  <div :class="$style['search-box-container']" :style="{'z-index': zIndex}">
   <div :class="$style['box-container']">
     <label for="search-box">
       <font-awesome-icon :class="$style['search-icon']" icon="search" /></label>
@@ -35,7 +35,14 @@ export default {
       shouldExtended: false,
     }
   },
-  computed: {},
+  computed: {
+    zIndex() {
+      if (this.$store.state.modalUp) {
+        return 0;
+      }
+      return 1;
+    }
+  },
   methods: {
     goTo(item) {
       this.$store.state.city = item;

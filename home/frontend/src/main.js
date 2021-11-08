@@ -34,6 +34,7 @@ const store = new Vuex.Store({
 
         // STATE for HOME
         cities: [],
+        modalUp: false,
 
         // STATE for EXPLORE page
         attractionArr: [],
@@ -115,6 +116,10 @@ const store = new Vuex.Store({
             if (response.status === 200) {
                 context.commit('signIn', username);
             }
+            else {
+                context.commit('signIn', '');
+            }
+
             await router.push({
                 path: '/'
             });
