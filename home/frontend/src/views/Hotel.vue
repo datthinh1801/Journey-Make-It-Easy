@@ -28,7 +28,9 @@
           </div>
         </div>
       </div>
-      <image-slider />
+
+       <ImageSlider />
+
       <div :class="$style['about-section']">
         <h2>About</h2>
         <hr>
@@ -78,8 +80,8 @@
 import HeaderAndNav from '../components/HeaderAndNav.vue';
 import BigHeart from '../components/BigHeart.vue';
 import ShareButton from '../components/ShareButton.vue';
-import ImageSlider from '../components/ImageSlider.vue';
 import RatingSection from '../components/RatingSection.vue';
+import ImageSlider from '../components/ImageSlider.vue';
 
 export default {
   name: 'Hotel',
@@ -87,8 +89,8 @@ export default {
     HeaderAndNav,
     BigHeart,
     ShareButton,
-    ImageSlider,
-    RatingSection
+    RatingSection,
+    ImageSlider
   },
   computed: {
     name() {
@@ -116,13 +118,13 @@ export default {
       return this.$store.state.item['about'];
     },
     roomFeatures() {
-      return this.$store.state.item['roomFeatures'].split(', ');
+      return this.$store.state.item['roomFeatures'].map(item => item['value']);
     },
     roomTypes() {
-      return this.$store.state.item['roomTypes'].split(', ');
+      return this.$store.state.item['roomTypes'].map(item => item['value']);
     },
     amenities() {
-      return this.$store.state.item['propertyAmenities'].split(', ');
+      return this.$store.state.item['propertyAmenities'].map(item => item['value']);
     }
   },
   beforeMount() {
