@@ -56,7 +56,7 @@ def signUp(request):
 def signOut(request):
     response = HttpResponse()
     if request.method == 'POST':
-        if request.POST['user_auth']:
+        if request.user.is_authenticated:
             # logout successfully
             logout(request)
             response.status_code = 200
