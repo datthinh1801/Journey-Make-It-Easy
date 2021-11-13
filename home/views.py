@@ -6,14 +6,14 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "index.html")
 
 
 def signIn(request):
     response = HttpResponse()
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
 
         user = authenticate(request, username=username, password=password)
 
@@ -24,8 +24,6 @@ def signIn(request):
         else:
             # already login
             response.status_code = 302
-        
-        response.write(get_token(request))
         return response
     else:
         # method is not supported
@@ -35,9 +33,9 @@ def signIn(request):
 
 def signUp(request):
     response = HttpResponse()
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
 
         if User.objects.filter(username=username).exists():
             # username already exists
@@ -55,7 +53,7 @@ def signUp(request):
 
 def signOut(request):
     response = HttpResponse()
-    if request.method == 'POST':
+    if request.method == "POST":
         if request.user.is_authenticated:
             # logout successfully
             logout(request)

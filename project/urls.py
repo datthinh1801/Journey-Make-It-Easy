@@ -21,10 +21,10 @@ import home.views
 from api.schema import schema
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-    path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
-    path('login', home.views.signIn),
-    path('register', home.views.signUp),
-    path('logout', home.views.signOut),
+    path("admin/", admin.site.urls),
+    path("", include("home.urls")),
+    path("graphql", GraphQLView.as_view(graphiql=True, schema=schema)),
+    path("login", home.views.signIn),
+    path("register", home.views.signUp),
+    path("logout", home.views.signOut),
 ]

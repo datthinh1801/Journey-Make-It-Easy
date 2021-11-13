@@ -45,7 +45,7 @@ def clear(cursor):
 def add_city(data, nation_id, cursor):
     # add city
     query_str = "INSERT INTO api_city (name, info, number_voting, rating_score, nation_id) VALUES (%s, %s, %s, %s, %s)"
-    item_insert = (data['name'], data['info'], 0, 0, nation_id)
+    item_insert = (data["name"], data["info"], 0, 0, nation_id)
     cursor.execute(query_str, item_insert)
 
     # select city_id
@@ -55,42 +55,61 @@ def add_city(data, nation_id, cursor):
 
     # add images
     query_str = "INSERT INTO api_city_image (link, item_id) VALUES (%s, %s)"
-    for link in data['images']:
+    for link in data["images"]:
         item_insert = (link, city_id)
         cursor.execute(query_str, item_insert)
 
     # add attractions
-    for item in data['attractions']:
+    for item in data["attractions"]:
         query_str = "INSERT INTO api_attraction (name, about, address, admission_ticket, open_time, suggested_duration, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        item_insert = (item['name'], item['about'], item['address'], item['admission_ticket'], item['open_time'],
-                       item['suggested_duration'], item['ggmap'], 0, 0, city_id)
+        item_insert = (
+            item["name"],
+            item["about"],
+            item["address"],
+            item["admission_ticket"],
+            item["open_time"],
+            item["suggested_duration"],
+            item["ggmap"],
+            0,
+            0,
+            city_id,
+        )
         cursor.execute(query_str, item_insert)
         query_str = "SELECT max(id) FROM api_attraction"
         cursor.execute(query_str)
         item_id = cursor.fetchall()[0][0]
         query_str = "INSERT INTO api_attraction_image (link, item_id) VALUES (%s, %s)"
-        for link in item['images']:
+        for link in item["images"]:
             item_insert = (link, item_id)
             cursor.execute(query_str, item_insert)
 
     # add restaurants
-    for item in data['restaurants']:
+    for item in data["restaurants"]:
         query_str = "INSERT INTO api_restaurant (name, address, open_time, phone, price_range, website, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        details = item['details']
-        cuisines, meals, special_diets, price_range, features = '', '', '', '', ''
-        if 'cuisines' in details.keys():
-            cuisines = details['cuisines']
-        if 'meals' in details.keys():
-            meals = details['meals']
-        if 'special_diets' in details.keys():
-            special_diets = details['special_diets']
-        if 'price_range' in details.keys():
-            price_range = details['price_range']
-        if 'features' in details.keys():
-            features = details['features']
+        details = item["details"]
+        cuisines, meals, special_diets, price_range, features = "", "", "", "", ""
+        if "cuisines" in details.keys():
+            cuisines = details["cuisines"]
+        if "meals" in details.keys():
+            meals = details["meals"]
+        if "special_diets" in details.keys():
+            special_diets = details["special_diets"]
+        if "price_range" in details.keys():
+            price_range = details["price_range"]
+        if "features" in details.keys():
+            features = details["features"]
         item_insert = (
-        item['name'], item['address'], item['open_time'], item['phone'], price_range,
-        item['website'], item['ggmap'], 0, 0, city_id)
+            item["name"],
+            item["address"],
+            item["open_time"],
+            item["phone"],
+            price_range,
+            item["website"],
+            item["ggmap"],
+            0,
+            0,
+            city_id,
+        )
         cursor.execute(query_str, item_insert)
 
         query_str = "SELECT max(id) FROM api_restaurant"
@@ -98,40 +117,53 @@ def add_city(data, nation_id, cursor):
         item_id = cursor.fetchall()[0][0]
 
         query_str = "INSERT INTO api_restaurant_image (link, item_id) VALUES (%s, %s)"
-        for link in item['images']:
+        for link in item["images"]:
             item_insert = (link, item_id)
             cursor.execute(query_str, item_insert)
 
         query_str = "INSERT INTO api_meal (value, restaurant_id) VALUES (%s, %s)"
-        for value in meals.split(', '):
+        for value in meals.split(", "):
             item_insert = (value, item_id)
             cursor.execute(query_str, item_insert)
-        query_str = "INSERT INTO api_special_diet (value, restaurant_id) VALUES (%s, %s)"
-        for value in special_diets.split(', '):
+        query_str = (
+            "INSERT INTO api_special_diet (value, restaurant_id) VALUES (%s, %s)"
+        )
+        for value in special_diets.split(", "):
             item_insert = (value, item_id)
             cursor.execute(query_str, item_insert)
         query_str = "INSERT INTO api_cuisine (value, restaurant_id) VALUES (%s, %s)"
-        for value in cuisines.split(', '):
+        for value in cuisines.split(", "):
             item_insert = (value, item_id)
             cursor.execute(query_str, item_insert)
-        query_str = "INSERT INTO api_restaurant_feature (value, restaurant_id) VALUES (%s, %s)"
-        for value in features.split(', '):
+        query_str = (
+            "INSERT INTO api_restaurant_feature (value, restaurant_id) VALUES (%s, %s)"
+        )
+        for value in features.split(", "):
             item_insert = (value, item_id)
             cursor.execute(query_str, item_insert)
 
     # add stays room_features, room_types, property_amenities,
-    for item in data['stays']:
+    for item in data["stays"]:
         query_str = "INSERT INTO api_stay (name, about, address, phone, email, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        amenities = item['amenities']
+        amenities = item["amenities"]
         room_features, room_types, property_amenities = [], [], []
-        if 'room_features' in amenities.keys():
-            room_features = amenities['room_features']
-        if 'room_types' in amenities.keys():
-            room_types = amenities['room_types']
-        if 'property_amenities' in amenities.keys():
-            property_amenities = amenities['property_amenities']
-        item_insert = (item['name'], item['about'], item['address'], item['phone'], item['email'],
-                       item['ggmap'], 0, 0, city_id)
+        if "room_features" in amenities.keys():
+            room_features = amenities["room_features"]
+        if "room_types" in amenities.keys():
+            room_types = amenities["room_types"]
+        if "property_amenities" in amenities.keys():
+            property_amenities = amenities["property_amenities"]
+        item_insert = (
+            item["name"],
+            item["about"],
+            item["address"],
+            item["phone"],
+            item["email"],
+            item["ggmap"],
+            0,
+            0,
+            city_id,
+        )
         cursor.execute(query_str, item_insert)
 
         query_str = "SELECT max(id) FROM api_stay"
@@ -139,7 +171,7 @@ def add_city(data, nation_id, cursor):
         item_id = cursor.fetchall()[0][0]
 
         query_str = "INSERT INTO api_stay_image (link, item_id) VALUES (%s, %s)"
-        for link in item['images']:
+        for link in item["images"]:
             item_insert = (link, item_id)
             cursor.execute(query_str, item_insert)
 
@@ -159,8 +191,10 @@ def add_city(data, nation_id, cursor):
 
 def add_nation(data, cursor):
     # add nation
-    query_str = "INSERT INTO api_nation (name, number_voting, rating_score) VALUES (%s, %s, %s)"
-    item_insert = (data['name'], 0, 0)
+    query_str = (
+        "INSERT INTO api_nation (name, number_voting, rating_score) VALUES (%s, %s, %s)"
+    )
+    item_insert = (data["name"], 0, 0)
     cursor.execute(query_str, item_insert)
 
     # get nation_id
@@ -168,14 +202,18 @@ def add_nation(data, cursor):
     cursor.execute(query_str)
     nation_id = cursor.fetchall()[0][0]
 
-    for i in data['citys']:
+    for i in data["citys"]:
         add_city(i, nation_id, cursor)
 
 
 def setup(data):
     # Establishing the connection
     conn = psycopg2.connect(
-        database='Journey-Make-It-Easy', user='postgres', password='1234', host='127.0.0.1', port='5432'
+        database="Journey-Make-It-Easy",
+        user="postgres",
+        password="1234",
+        host="127.0.0.1",
+        port="5432",
     )
 
     # Setting auto commit false
@@ -196,9 +234,9 @@ def setup(data):
     conn.close()
 
 
-if __name__ == '__main__':
-    if len(sys.argv) < 2 or sys.argv[1] == '--help':
-        print('Usage: python add_database.py <json_file_name>')
+if __name__ == "__main__":
+    if len(sys.argv) < 2 or sys.argv[1] == "--help":
+        print("Usage: python add_database.py <json_file_name>")
         exit(0)
 
     with open(sys.argv[1]) as f:
