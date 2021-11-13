@@ -1,18 +1,20 @@
 <template>
   <div>
     <div>
-      <Header/>
-      <div :class="[$style.title, 'roboto', 'row-container','width-control']">
+      <Header />
+      <div :class="[$style.title, 'roboto', 'row-container', 'width-control']">
         <span>Explore</span><span>{{ place }}</span>
       </div>
-      <NavBar/>
+      <NavBar />
     </div>
     <div :class="[$style.imageSection, 'width-control']">
       <image-slider />
-      {{images}}
+      {{ images }}
     </div>
-    <div :class="['row-container', 'col-container', $style.recommendationSection]">
-      <RecommendationSection/>
+    <div
+      :class="['row-container', 'col-container', $style.recommendationSection]"
+    >
+      <RecommendationSection />
     </div>
   </div>
 </template>
@@ -24,15 +26,15 @@ import RecommendationSection from "../components/RecommendationSection";
 import ImageSlider from "../components/ImageSlider";
 
 export default {
-  name: 'Explore',
+  name: "Explore",
   components: {
     RecommendationSection,
     NavBar,
     Header,
-    ImageSlider
+    ImageSlider,
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     place() {
@@ -43,17 +45,15 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.dispatch('getCityDetail', this.$store.state.city);
-  },
-  mounted() {
-    this.$store.commit('changePath', '/explore');
+    this.$store.dispatch("getCityDetail", this.$store.state.city);
+    document.title = "Explore " + this.$store.state.city;
   },
   beforeDestroy() {
-    this.$store.commit('clearAllAttractions');
-    this.$store.commit('clearAllHotels');
-    this.$store.commit('clearAllRestaurants');
-  }
-}
+    this.$store.commit("clearAllAttractions");
+    this.$store.commit("clearAllHotels");
+    this.$store.commit("clearAllRestaurants");
+  },
+};
 </script>
 
 <style module>
@@ -66,7 +66,7 @@ export default {
 }
 
 .title span:first-child {
-  color: #2E86C1;
+  color: #2e86c1;
   margin-right: 10px;
 }
 

@@ -2,21 +2,23 @@
   <div>
     <h1 :class="$style.header">Top Attractions in {{ place }}</h1>
     <div :class="$style['content-container']" class="width-control">
-      <VerticalItem v-for="item in items" :key="item.id"
-                    :class="$style['grid-item']"
-                    :imgSrc="item.images[0].link"
-                    :itemName="item.name"
-                    :img-width="imgWidth"
-                    :img-height="imgHeight"
-                    @click.native="redirectToAttraction(item)">
+      <VerticalItem
+        v-for="item in items"
+        :key="item.id"
+        :class="$style['grid-item']"
+        :imgSrc="item.images[0].link"
+        :itemName="item.name"
+        :img-width="imgWidth"
+        :img-height="imgHeight"
+        @click.native="redirectToAttraction(item)"
+      >
         <div :class="$style['item-description']">
           <h3 :class="$style.title">{{ item.name }}</h3>
-          <RatingSection :star-count="item.ratingScore"/>
+          <RatingSection :star-count="item.ratingScore" />
         </div>
       </VerticalItem>
     </div>
-    <LoadMoreButton @loadMore="loadMore"
-                    v-if="endOfArray"/>
+    <LoadMoreButton @loadMore="loadMore" v-if="endOfArray" />
   </div>
 </template>
 
@@ -26,12 +28,12 @@ import LoadMoreButton from "./LoadMoreButton";
 import RatingSection from "./RatingSection";
 
 export default {
-  name: 'TopAttractionsSection',
-  components: {RatingSection, LoadMoreButton, VerticalItem},
+  name: "TopAttractionsSection",
+  components: { RatingSection, LoadMoreButton, VerticalItem },
   data() {
     return {
       item_n: 9,
-    }
+    };
   },
   computed: {
     endOfArray() {
@@ -44,34 +46,35 @@ export default {
       return this.$store.state.attractionArr.slice(0, this.item_n);
     },
     imgWidth() {
-      return '320px';
+      return "320px";
     },
     imgHeight() {
-      return '320px';
-    }
+      return "320px";
+    },
   },
   methods: {
     itemRatingScore(item) {
-      return item['ratingScore'];
+      return item["ratingScore"];
     },
     loadMore() {
       this.item_n += 9;
     },
     fetchAttraction() {
-      this.$store.dispatch('getAttraction', this.place)
+      this.$store.dispatch("getAttraction", this.place);
     },
     redirectToAttraction(item) {
-      this.$store.commit('changeItemName', item.name);
-      this.$router.push('attraction');
-    }
+      this.$store.commit("changeItemName", item.name);
+      this.$router.push("attraction");
+    },
   },
   beforeMount() {
     this.fetchAttraction();
+    document.title = "Top Attractions in " + this.place;
   },
   beforeDestroy() {
-    this.$store.commit('clearAllAttractions');
-  }
-}
+    this.$store.commit("clearAllAttractions");
+  },
+};
 </script>
 
 <style module>

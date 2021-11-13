@@ -1,25 +1,32 @@
 <template>
   <div id="app">
-    <router-view/>
-    <Footer/>
+    <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
-import {
-  library
-} from "@fortawesome/fontawesome-svg-core";
-import {
-  faCaretUp
-} from "@fortawesome/free-solid-svg-icons";
+import Footer from "./components/Footer.vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCaretUp);
 
+import axios from "axios";
+
 export default {
-  name: 'App',
-  components: {Footer,}
-}
+  name: "App",
+  components: { Footer },
+  beforeCreate() {
+    this.$store.commit("initializeStore");
+
+    const sessionid = this.$store.state.sessionid;
+
+    if (sessionid) {
+      axios.defaults.headers.common["Cookie"] = `sessionid=${sessionid}`;
+    }
+  },
+};
 </script>
 
 <style scoped>

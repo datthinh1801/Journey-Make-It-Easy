@@ -3,13 +3,21 @@
     <button @click="showModal" v-if="!authenticated">Sign In</button>
     <div v-else :class="$style['userprofile-container']">
       <button :class="$style['userprofile']" @click="showProfile">
-        <font-awesome-icon :icon="['fas', 'angle-right']" v-if="!expandProfile" />
+        <font-awesome-icon
+          :icon="['fas', 'angle-right']"
+          v-if="!expandProfile"
+        />
         <font-awesome-icon :icon="['fas', 'angle-down']" v-else />
         <span>
-          {{usernameAuth}}
+          {{ usernameAuth }}
         </span>
       </button>
-      <div v-show="expandProfile" :class="$style['expand-profile-container']" class="no-select" @click="logout">
+      <div
+        v-show="expandProfile"
+        :class="$style['expand-profile-container']"
+        class="no-select"
+        @click="logout"
+      >
         <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
         <span>Log out</span>
       </div>
@@ -19,64 +27,137 @@
         <div :class="$style.form">
           <div :class="$style['signin-form']" id="signin-form">
             <h3 class="no-select">Sign In</h3>
-            <hr>
-            <span v-if="invalidCredentials" :class="$style['alert-msg']">Invalid username or password.</span>
-            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text"
-              v-model="username">
-            <span v-if="usernameAlert" :class="$style['alert-msg']">{{usernameGuide}}</span>
+            <hr />
+            <span v-if="invalidCredentials" :class="$style['alert-msg']"
+              >Invalid username or password.</span
+            >
+            <input
+              id="username"
+              class="roboto"
+              name="username"
+              placeholder="USERNAME"
+              tabindex="1"
+              type="text"
+              v-model="username"
+            />
+            <span v-if="usernameAlert" :class="$style['alert-msg']">{{
+              usernameGuide
+            }}</span>
 
-            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password"
-              v-model="password">
-            <span v-if="passwordAlert" :class="$style['alert-msg']">{{passwordGuide}}</span>
+            <input
+              id="password"
+              class="roboto"
+              name="password"
+              placeholder="PASSWORD"
+              tabindex="2"
+              type="password"
+              v-model="password"
+            />
+            <span v-if="passwordAlert" :class="$style['alert-msg']">{{
+              passwordGuide
+            }}</span>
             <a href="/forgot-password" tabindex="4">Forgot your password?</a>
 
-            <button :class="$style['signin-button']" tabindex="3" @click="signIn">Sign In</button>
+            <button
+              :class="$style['signin-button']"
+              tabindex="3"
+              @click="signIn"
+            >
+              Sign In
+            </button>
             <div :class="$style.or"><span class="no-select">Or</span></div>
-            <button :class="$style['signin-button']" tabindex="5" @click="toSignUp">Sign Up</button>
+            <button
+              :class="$style['signin-button']"
+              tabindex="5"
+              @click="toSignUp"
+            >
+              Sign Up
+            </button>
           </div>
 
-
-
-          <div :class="$style['signin-form']" style="display: none;" id="signup-form">
+          <div
+            :class="$style['signin-form']"
+            style="display: none"
+            id="signup-form"
+          >
             <h3 class="no-select">Sign Up</h3>
-            <hr>
-            <input id="username" class="roboto" name="username" placeholder="USERNAME" tabindex="1" type="text"
-              v-model="username">
-            <span v-if="usernameAlert" :class="$style['alert-msg']">{{usernameGuide}}</span>
+            <hr />
+            <input
+              id="username"
+              class="roboto"
+              name="username"
+              placeholder="USERNAME"
+              tabindex="1"
+              type="text"
+              v-model="username"
+            />
+            <span v-if="usernameAlert" :class="$style['alert-msg']">{{
+              usernameGuide
+            }}</span>
 
-            <input id="password" class="roboto" name="password" placeholder="PASSWORD" tabindex="2" type="password"
-              v-model="password">
-            <span v-if="passwordAlert" :class="$style['alert-msg']">{{passwordGuide}}</span>
-            <input id="password2" class="roboto" name="password2" placeholder="RETYPED PASSWORD" tabindex="3"
-              type="password" v-model="password2">
-            <span v-if="password2Alert" :class="$style['alert-msg']">Passwords mismatch.</span>
+            <input
+              id="password"
+              class="roboto"
+              name="password"
+              placeholder="PASSWORD"
+              tabindex="2"
+              type="password"
+              v-model="password"
+            />
+            <span v-if="passwordAlert" :class="$style['alert-msg']">{{
+              passwordGuide
+            }}</span>
+            <input
+              id="password2"
+              class="roboto"
+              name="password2"
+              placeholder="RETYPED PASSWORD"
+              tabindex="3"
+              type="password"
+              v-model="password2"
+            />
+            <span v-if="password2Alert" :class="$style['alert-msg']"
+              >Passwords mismatch.</span
+            >
 
-            <button :class="$style['signin-button']" tabindex="4" @click="signUp">Sign Up</button>
+            <button
+              :class="$style['signin-button']"
+              tabindex="4"
+              @click="signUp"
+            >
+              Sign Up
+            </button>
           </div>
         </div>
-        <img src="images/signin_img.jpg" alt="">
+        <img src="images/signin_img.jpg" alt="" />
       </div>
     </modal>
   </div>
 </template>
 
 <script>
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faAngleDown, faSignOutAlt, faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faAngleDown,
+  faSignOutAlt,
+  faAngleRight,
+} from "@fortawesome/free-solid-svg-icons";
 library.add(faAngleDown, faSignOutAlt, faAngleRight);
 
 export default {
-  name: 'SigninButton',
+  name: "SigninButton",
   data() {
     return {
-      username: '',
-      password: '',
-      password2: '',
-      usernameGuide: 'Username only includes characters, numbers, and underscore.',
-      passwordGuide: 'Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.',
+      username: "",
+      password: "",
+      password2: "",
+      usernameGuide:
+        "Username only includes characters, numbers, and underscore.",
+      passwordGuide:
+        "Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.",
       invalidCredentials: false,
       expandProfile: false,
-    }
+    };
   },
   computed: {
     usernameAlert() {
@@ -86,7 +167,8 @@ export default {
       return false;
     },
     passwordAlert() {
-      if ( // 8 characters
+      if (
+        // 8 characters
         this.password.length >= 8 &&
         // at least one lowercase
         /[a-z]/.test(this.password) &&
@@ -108,62 +190,64 @@ export default {
       return true;
     },
     authenticated() {
-      return this.$store.state.username !== '';
+      return this.$store.state.username !== "";
     },
     usernameAuth() {
       return this.$store.state.username;
-    }
+    },
   },
   methods: {
     showModal() {
       this.$store.state.modalUp = true;
-      this.$modal.show('sign-in-modal');
+      this.$modal.show("sign-in-modal");
     },
     signIn() {
-      let username = document.getElementById('username').value;
-      let password = document.getElementById('password').value;
-      if (this.$store.dispatch('signIn', {
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+      if (
+        this.$store.dispatch("signIn", {
           username,
-          password
-        })) {
+          password,
+        })
+      ) {
         this.invalidCredentials = false;
-        this.$modal.hide('sign-in-modal');
+        this.$modal.hide("sign-in-modal");
       } else {
         this.invalidCredentials = true;
       }
     },
     signUp() {
-      let username = document.getElementById('username').value;
-      let password = document.getElementById('password').value;
-      let password2 = document.getElementById('password2').value;
-      this.$store.dispatch('signUp', {
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+      let password2 = document.getElementById("password2").value;
+      this.$store.dispatch("signUp", {
         username,
         password,
-        password2
+        password2,
       });
     },
     toSignUp() {
-      document.querySelector('#signin-form').style["display"] = "none";
-      document.querySelector('#signup-form').style["display"] = "flex";
+      document.querySelector("#signin-form").style["display"] = "none";
+      document.querySelector("#signup-form").style["display"] = "flex";
     },
     backToSignIn() {
-      document.querySelector('#signin-form').style["display"] = "flex";
-      document.querySelector('#signup-form').style["display"] = "none";
+      document.querySelector("#signin-form").style["display"] = "flex";
+      document.querySelector("#signup-form").style["display"] = "none";
     },
     closeModal() {
-      this.username = '';
-      this.password = '';
-      this.password2 = '';
+      this.username = "";
+      this.password = "";
+      this.password2 = "";
       this.$store.state.modalUp = false;
     },
     showProfile() {
       this.expandProfile = !this.expandProfile;
     },
     logout() {
-      this.$store.dispatch('signOut');
-    }
-  }
-}
+      this.$store.dispatch("signOut");
+    },
+  },
+};
 </script>
 
 <style module>
@@ -265,14 +349,14 @@ export default {
 
 .or::before {
   width: 100%;
-  content: '';
+  content: "";
   height: 1px;
   background-color: #ccc;
 }
 
 .or::after {
   width: 100%;
-  content: '';
+  content: "";
   height: 1px;
   background-color: #ccc;
 }
@@ -307,7 +391,7 @@ export default {
 }
 
 .user-profile-img {
-  background-color: #F9C100;
+  background-color: #f9c100;
   border-radius: 50%;
   border: 3px solid transparent;
   height: 30px;
@@ -330,14 +414,14 @@ button {
   cursor: pointer;
   font-size: 16px;
   color: white;
-  background-color: #F9C100;
+  background-color: #f9c100;
   border: none;
   transition: 0.3s;
   margin-right: 10px;
 }
 
 button:hover {
-  background-color: #FDD039;
-  border-color: #FDD039;
+  background-color: #fdd039;
+  border-color: #fdd039;
 }
 </style>

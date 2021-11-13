@@ -1,40 +1,52 @@
 <template>
   <div>
-    <HeaderAndNav/>
+    <HeaderAndNav />
     <h1 :class="$style.head">Restaurants in {{ place }}</h1>
     <div :class="$style['content-list']">
-      <FilterPanel :id="$style['filter-panel']"/>
+      <FilterPanel :id="$style['filter-panel']" />
       <div :id="$style['item-list-section']">
-        <HorizontalItem v-for="item in items" :key="item.id"
-                        :item-height="itemHeight"
-                        :item-width="itemWidth"
-                        :img-src="item.images[0].link"
-                        :img-width="imgWidth"
-                        :img-height="imgHeight"
-                        @click.native="redirectToRestaurant(item)">
+        <HorizontalItem
+          v-for="item in items"
+          :key="item.id"
+          :item-height="itemHeight"
+          :item-width="itemWidth"
+          :img-src="item.images[0].link"
+          :img-width="imgWidth"
+          :img-height="imgHeight"
+          @click.native="redirectToRestaurant(item)"
+        >
           <div :class="$style['item-detail-container']">
             <div :class="$style['item-detail-top']">
               <h3>{{ item.name }}</h3>
-              <RatingSection star-count="item.ratingScore" rating-count="item.numberVoting"/>
-              <hr>
+              <RatingSection
+                star-count="item.ratingScore"
+                rating-count="item.numberVoting"
+              />
+              <hr />
             </div>
             <div :class="$style['item-detail-bottom']">
               <div v-if="item.priceRange">
-                <font-awesome-icon icon="dollar-sign" :class="$style.price"/>
+                <font-awesome-icon icon="dollar-sign" :class="$style.price" />
                 <span>{{ item.priceRange }}</span>
               </div>
               <div v-if="item.cuisines">
-                <font-awesome-icon icon="concierge-bell" :class="$style.cuisine"/>
+                <font-awesome-icon
+                  icon="concierge-bell"
+                  :class="$style.cuisine"
+                />
                 <span>{{ getCuisines(item) }}</span>
               </div>
               <div v-if="item.specialDiets">
-                <font-awesome-icon icon="glass-cheers" :class="$style.specialty"/>
+                <font-awesome-icon
+                  icon="glass-cheers"
+                  :class="$style.specialty"
+                />
                 <span>{{ getSpecialdiets(item) }}</span>
               </div>
             </div>
           </div>
         </HorizontalItem>
-        <LoadMoreButton v-if="hasItems" @loadMore="loadMore"/>
+        <LoadMoreButton v-if="hasItems" @loadMore="loadMore" />
       </div>
     </div>
   </div>
@@ -46,19 +58,29 @@ import FilterPanel from "../components/FilterPanel";
 import HorizontalItem from "../components/HorizontalItem";
 import LoadMoreButton from "../components/LoadMoreButton";
 
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faDollarSign, faConciergeBell, faGlassCheers} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faDollarSign,
+  faConciergeBell,
+  faGlassCheers,
+} from "@fortawesome/free-solid-svg-icons";
 import RatingSection from "../components/RatingSection";
 
 library.add(faDollarSign, faConciergeBell, faGlassCheers);
 
 export default {
-  name: 'Restaurants',
-  components: {RatingSection, LoadMoreButton, HeaderAndNav, FilterPanel, HorizontalItem},
+  name: "Restaurants",
+  components: {
+    RatingSection,
+    LoadMoreButton,
+    HeaderAndNav,
+    FilterPanel,
+    HorizontalItem,
+  },
   data() {
     return {
       item_n: 10,
-    }
+    };
   },
   computed: {
     hasItems() {
@@ -71,40 +93,43 @@ export default {
       return this.$store.state.restaurantArr.slice(0, this.item_n);
     },
     itemHeight() {
-      return '200px';
+      return "200px";
     },
     itemWidth() {
-      return '600px';
+      return "600px";
     },
     imgWidth() {
-      return '200px';
+      return "200px";
     },
     imgHeight() {
       return this.itemHeight;
-    }
+    },
   },
   methods: {
     loadMore() {
       this.item_n += 10;
     },
     redirectToRestaurant(item) {
-      this.$store.commit('changeItemName', item.name);
-      this.$router.push('restaurant');
+      this.$store.commit("changeItemName", item.name);
+      this.$router.push("restaurant");
     },
     getCuisines(item) {
-      return item.cuisines.map(cuisine => cuisine['value']).join(', ');
+      return item.cuisines.map((cuisine) => cuisine["value"]).join(", ");
     },
     getSpecialdiets(item) {
-      return item.specialDiets.map(specialDiet => specialDiet['value']).join(', ');
-    }
+      return item.specialDiets
+        .map((specialDiet) => specialDiet["value"])
+        .join(", ");
+    },
   },
-  mounted() {
-    this.$store.dispatch('getRestaurant', this.place);
+  beforeMount() {
+    this.$store.dispatch("getRestaurant", this.place);
+    document.title = "Restaurants in " + this.place;
   },
   beforeDestroy() {
-    this.$store.commit('clearAllRestaurants');
-  }
-}
+    this.$store.commit("clearAllRestaurants");
+  },
+};
 </script>
 
 <style module>
@@ -118,7 +143,6 @@ h1.head {
 }
 
 #filter-panel {
-
 }
 
 #item-list-section {

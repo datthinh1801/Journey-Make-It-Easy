@@ -17,7 +17,7 @@
             <span>{{ address }}</span>
           </div>
           <div class="phone-info" v-if="phoneNumber">
-            <font-awesome-icon :icon="['fas','phone-alt']" />
+            <font-awesome-icon :icon="['fas', 'phone-alt']" />
             <span>{{ phoneNumber }}</span>
           </div>
           <div class="website" v-if="website">
@@ -29,15 +29,18 @@
         </div>
       </div>
 
-       <ImageSlider />
+      <ImageSlider />
 
       <div :class="$style['about-section']">
         <h2>About</h2>
-        <hr>
+        <hr />
         <div :class="$style['about-detail']">
           <div>
-            <rating-section :starCount="ratingScore" :numberVoting="numberVoting" />
-            <hr>
+            <rating-section
+              :starCount="ratingScore"
+              :numberVoting="numberVoting"
+            />
+            <hr />
             <p>{{ about }}</p>
           </div>
           <div :class="$style['item-listing-container']">
@@ -53,7 +56,7 @@
               <h3>Room Features</h3>
               <ul>
                 <li v-for="(roomFeature, i) in roomFeatures" :key="i">
-                  {{roomFeature}}
+                  {{ roomFeature }}
                 </li>
               </ul>
             </div>
@@ -77,60 +80,65 @@
 </template>
 
 <script>
-import HeaderAndNav from '../components/HeaderAndNav.vue';
-import BigHeart from '../components/BigHeart.vue';
-import ShareButton from '../components/ShareButton.vue';
-import RatingSection from '../components/RatingSection.vue';
-import ImageSlider from '../components/ImageSlider.vue';
+import HeaderAndNav from "../components/HeaderAndNav.vue";
+import BigHeart from "../components/BigHeart.vue";
+import ShareButton from "../components/ShareButton.vue";
+import RatingSection from "../components/RatingSection.vue";
+import ImageSlider from "../components/ImageSlider.vue";
 
 export default {
-  name: 'Hotel',
+  name: "Hotel",
   components: {
     HeaderAndNav,
     BigHeart,
     ShareButton,
     RatingSection,
-    ImageSlider
+    ImageSlider,
   },
   computed: {
     name() {
       return this.$store.state.item.name;
     },
     ratingScore() {
-      return this.$store.state.item['ratingScore'];
+      return this.$store.state.item["ratingScore"];
     },
     numberVoting() {
-      return this.$store.state.item['numberVoting'];
+      return this.$store.state.item["numberVoting"];
     },
     address() {
-      return this.$store.state.item['address'];
+      return this.$store.state.item["address"];
     },
     mapURL() {
       return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
     },
     phoneNumber() {
-      return this.$store.state.item['phone'];
+      return this.$store.state.item["phone"];
     },
     website() {
-      return this.$store.state.item['email'];
+      return this.$store.state.item["email"];
     },
     about() {
-      return this.$store.state.item['about'];
+      return this.$store.state.item["about"];
     },
     roomFeatures() {
-      return this.$store.state.item['roomFeatures'].map(item => item['value']);
+      return this.$store.state.item["roomFeatures"].map(
+        (item) => item["value"]
+      );
     },
     roomTypes() {
-      return this.$store.state.item['roomTypes'].map(item => item['value']);
+      return this.$store.state.item["roomTypes"].map((item) => item["value"]);
     },
     amenities() {
-      return this.$store.state.item['propertyAmenities'].map(item => item['value']);
-    }
+      return this.$store.state.item["propertyAmenities"].map(
+        (item) => item["value"]
+      );
+    },
   },
   beforeMount() {
-    this.$store.dispatch('getHotelDetail', this.$store.state.currentItemName);
-  }
-}
+    this.$store.dispatch("getHotelDetail", this.$store.state.currentItemName);
+    document.title = `Hotel | ${this.name}`;
+  },
+};
 </script>
 
 <style module>
@@ -144,7 +152,6 @@ export default {
   align-items: center;
   justify-content: space-around;
 }
-
 
 .about-section {
   width: 80%;
@@ -186,7 +193,7 @@ export default {
 }
 
 .item-listing-container li::before {
-  content: '\2714';
+  content: "\2714";
 }
 
 .map {

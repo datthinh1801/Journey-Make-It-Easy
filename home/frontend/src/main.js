@@ -28,7 +28,7 @@ const store = new Vuex.Store({
 
         // AUTHENTICATION
         username: '',
-        cookie: '',
+        sessionid: '',
 
         // GENERIC STATE
         city: '',
@@ -50,9 +50,18 @@ const store = new Vuex.Store({
         currentItemName: '',
     },
     mutations: {
+        initializeStore(state) {
+            if (localStorage.getItem('sessionid')) {
+                state.sessionid = localStorage.getItem('sessionid');
+                state.username = localStorage.getItem('username');
+            } else {
+                state.sessionid = '';
+                state.username = '';
+            }
+        },
         signIn(state, payload) {
             state.username = payload.username;
-            state.cookie = payload.cookie;
+            state.sessionid = payload.sessionid;
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -74,9 +83,6 @@ const store = new Vuex.Store({
         },
         clearAllHotels(state) {
             state.hotelArr = [];
-        },
-        changePath(state, path) {
-            state.currentURL = path;
         },
         getArticle(state, articleArr) {
             state.articleArr = articleArr;
@@ -104,18 +110,16 @@ const store = new Vuex.Store({
                 username,
                 password
             } = credential;
-            let cookie;
-
             let response = await axios.post(`${context.state.BASE_URL}/login`,
                 `username=${username}&password=${password}`)
                 .then(resp => {
-                    cookie = resp.data;
                     return resp;
                 });
 
-            if (response.status === 200 || response.status === 302) {
-                context.commit('signIn', {username, cookie});
-                await router.push('/').catch(e => console.log(e));
+            if (response.status === 200) {
+                context.commit('signIn', {username, sessionid: ''});
+                await router.push('/')
+                    .catch(e => console.log(e));
                 return true;
             } else {
                 context.commit('signIn', '', '');
@@ -134,8 +138,7 @@ const store = new Vuex.Store({
             await router.push('/').catch(e => console.log(e));
         },
         async signOut(context) {
-            await axios.post(`${context.state.BASE_URL}/logout`, `user_auth=${context.state.cookie}`);
-
+            await axios.post(`${context.state.BASE_URL}/logout`);
             await router.push('/').catch(e => console.log(e));
             window.location.reload();
         },

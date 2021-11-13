@@ -1,21 +1,22 @@
 <template>
   <div>
-    <HeaderAndNav/>
+    <HeaderAndNav />
     <section :class="$style['articles-section']">
       <h1 :class="$style.head">All Articles</h1>
-      <hr>
+      <hr />
       <div :class="$style['articles-container']">
-        <div v-for="(article, i) in articles" :key="i"
-             :class="$style.article">
+        <div v-for="(article, i) in articles" :key="i" :class="$style.article">
           <div :class="$style.info">
             <h2 class="roboto">{{ article.title }}</h2>
-            <div class="roboto" :class="$style['pre-content']">{{ article.body.substr(0, 50) + '...' }}</div>
+            <div class="roboto" :class="$style['pre-content']">
+              {{ article.body.substr(0, 50) + "..." }}
+            </div>
             <div :class="$style.author" class="roboto">By {{ author }}</div>
           </div>
-          <img src="images/placeholder_img.png" alt="article-img">
+          <img src="images/placeholder_img.png" alt="article-img" />
         </div>
       </div>
-      <LoadMoreButton v-if="hasItems" @click.native="loadMore"/>
+      <LoadMoreButton v-if="hasItems" @click.native="loadMore" />
     </section>
   </div>
 </template>
@@ -25,13 +26,13 @@ import HeaderAndNav from "../components/HeaderAndNav";
 import LoadMoreButton from "../components/LoadMoreButton";
 
 export default {
-  name: 'Articles',
-  components: {LoadMoreButton, HeaderAndNav},
+  name: "Articles",
+  components: { LoadMoreButton, HeaderAndNav },
   data() {
     return {
-      author: 'Thinh, Nguyen Dat',
+      author: "Thinh, Nguyen Dat",
       max_items: 10,
-    }
+    };
   },
   computed: {
     articles() {
@@ -39,21 +40,21 @@ export default {
     },
     hasItems() {
       return this.max_items < this.$store.state.articleArr.length;
-    }
+    },
   },
   methods: {
     loadMore() {
       this.max_items += 10;
-    }
+    },
   },
-  mounted() {
-    this.$store.commit('changePath', '/articles');
-    this.$store.dispatch('getAllArticles');
+  beforeMount() {
+    this.$store.dispatch("getAllArticles");
+    document.title = "Articles";
   },
   beforeDestroy() {
-    this.$store.commit('clearAllArticles');
-  }
-}
+    this.$store.commit("clearAllArticles");
+  },
+};
 </script>
 <style module>
 .articles-section {

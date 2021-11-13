@@ -1,77 +1,84 @@
 <template>
   <div>
-    <HeaderAndNav/>
+    <HeaderAndNav />
     <div class="width-control">
       <div class="row-container" :class="$style['title-container']">
         <h1>{{ name }}</h1>
         <div class="row-container">
-          <BigHeart/>
-          <ShareButton/>
+          <BigHeart />
+          <ShareButton />
         </div>
       </div>
       <div :class="$style['description-container']">
-        <RatingSection :starCount="ratingScore" :ratingCount="numberVoting"/>
+        <RatingSection :starCount="ratingScore" :ratingCount="numberVoting" />
         <div class="info-container">
           <div class="address-info">
-            <font-awesome-icon icon="map-marked-alt"/>
+            <font-awesome-icon icon="map-marked-alt" />
             <span>{{ address }}</span>
           </div>
           <div class="phone-info">
-            <font-awesome-icon :icon="['fas','phone-alt']"/>
-            <span>Phone: <span>{{ phone }}</span></span>
+            <font-awesome-icon :icon="['fas', 'phone-alt']" />
+            <span
+              >Phone: <span>{{ phone }}</span></span
+            >
           </div>
           <div class="website">
             <a :href="website" target="_blank">
-              <font-awesome-icon icon="external-link-alt"/>
+              <font-awesome-icon icon="external-link-alt" />
               <span>Website</span>
             </a>
           </div>
         </div>
         <div class="roboto open-time-container" :class="$style['open-time']">
-          <font-awesome-icon icon="clock"/>
+          <font-awesome-icon icon="clock" />
           <span>Open Time: {{ openTime }}</span>
         </div>
       </div>
-        <image-slider :class="$style['image-section']"/>
+      <image-slider :class="$style['image-section']" />
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
           <h3>Details</h3>
           <div>
             <h6>PRICE RANGE</h6>
-            <span>{{priceRange}}</span>
+            <span>{{ priceRange }}</span>
           </div>
           <div>
             <h6>CUISINES</h6>
-            <span>{{cuisines}}</span>
+            <span>{{ cuisines }}</span>
           </div>
           <div>
             <h6>SPECIAL DIETS</h6>
-            <span>{{specialDiets}}</span>
+            <span>{{ specialDiets }}</span>
           </div>
         </div>
         <div :class="$style['location-and-contact-section']">
           <div :class="$style.map">
             <iframe
-                allowfullscreen=""
-                height="450" loading="lazy"
-                :src="mapURL"
-                tyle="border:0;" width="600"></iframe>
+              allowfullscreen=""
+              height="450"
+              loading="lazy"
+              :src="mapURL"
+              tyle="border:0;"
+              width="600"
+            ></iframe>
           </div>
           <div :class="$style.info">
-          <span class="address-info">
-            <font-awesome-icon icon="map-marker-alt"/>
-            <span>{{ address }}</span>
-          </span>
             <span class="address-info">
-          <font-awesome-icon :icon="['fas','phone-alt']"/>
-          <span>Phone: <span>{{ phone }}</span></span>
-          </span>
+              <font-awesome-icon icon="map-marker-alt" />
+              <span>{{ address }}</span>
+            </span>
+            <span class="address-info">
+              <font-awesome-icon :icon="['fas', 'phone-alt']" />
+              <span
+                >Phone: <span>{{ phone }}</span></span
+              >
+            </span>
             <span class="website">
-            <a :href="website" target="_blank">
-              <font-awesome-icon icon="external-link-alt"/>
-              <span>Website</span>
-            </a>
-          </span>
+              <a :href="website" target="_blank">
+                <font-awesome-icon icon="external-link-alt" />
+                <span>Website</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -86,7 +93,7 @@ import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import ImageSlider from "../components/ImageSlider";
 
-import {library} from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faPhoneAlt,
   faExternalLinkAlt,
@@ -96,71 +103,84 @@ import {
   faUtensils,
   faConciergeBell,
   faWallet,
-  faSpa
+  faSpa,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPhoneAlt, faExternalLinkAlt, faMapMarkedAlt, faClock, faMapMarkerAlt, faUtensils, faConciergeBell, faWallet, faSpa);
-
+library.add(
+  faPhoneAlt,
+  faExternalLinkAlt,
+  faMapMarkedAlt,
+  faClock,
+  faMapMarkerAlt,
+  faUtensils,
+  faConciergeBell,
+  faWallet,
+  faSpa
+);
 
 export default {
   components: {
-    ShareButton, 
+    ShareButton,
     BigHeart,
     RatingSection,
     HeaderAndNav,
-    ImageSlider,},
+    ImageSlider,
+  },
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
     item() {
       return this.$store.state.item;
     },
     name() {
-      return this.item['name'];
+      return this.item["name"];
     },
     address() {
-      return this.item['address'];
+      return this.item["address"];
     },
     mapURL() {
       return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
     },
     openTime() {
-      return this.item['openTime'];
+      return this.item["openTime"];
     },
     phone() {
-      return this.item['phone'];
+      return this.item["phone"];
     },
     webiste() {
-      return this.item['website'];
+      return this.item["website"];
     },
     cuisines() {
-      return this.item['cuisines'].map(item => item['value']).join(', ');
+      return this.item["cuisines"].map((item) => item["value"]).join(", ");
     },
     meals() {
-      return this.item['meals'].map(item => item['value']).join(', ');
+      return this.item["meals"].map((item) => item["value"]).join(", ");
     },
     specialDiets() {
-      return this.item['specialDiets'].map(item => item['value']).join(', ');
+      return this.item["specialDiets"].map((item) => item["value"]).join(", ");
     },
     features() {
-      return this.item['features'].map(item => item['value']).join(', ');
+      return this.item["features"].map((item) => item["value"]).join(", ");
     },
-    numberVoting(){
-      return this.item['numberVoting'];
+    numberVoting() {
+      return this.item["numberVoting"];
     },
     ratingScore() {
-      return this.item['ratingScore'];
+      return this.item["ratingScore"];
     },
     priceRange() {
-      return this.item['priceRange'];
+      return this.item["priceRange"];
     },
   },
   beforeMount() {
-    this.$store.dispatch('getRestaurantDetail', this.$store.state.currentItemName);
-  }
-}
+    this.$store.dispatch(
+      "getRestaurantDetail",
+      this.$store.state.currentItemName
+    );
+    document.title = `Restaurant | ${this.name}`;
+  },
+};
 </script>
 
 <style module>
@@ -217,7 +237,7 @@ h1 {
 }
 
 span {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .details-section h6 {
@@ -261,5 +281,4 @@ span {
   margin-left: 5px;
   font-size: 14px;
 }
-
 </style>

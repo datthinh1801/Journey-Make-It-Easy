@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.middleware.csrf import get_token
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 
@@ -15,16 +14,15 @@ def signIn(request):
         username = request.POST["username"]
         password = request.POST["password"]
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             # login successfully
             login(request, user)
             response.status_code = 200
         else:
-            # already login
-            response.status_code = 302
-        return response
+            # login failed
+            response.status_code = 404
     else:
         # method is not supported
         response.status_code = 405
@@ -53,6 +51,7 @@ def signUp(request):
 
 def signOut(request):
     response = HttpResponse()
+    print(request.user)
     if request.method == "POST":
         if request.user.is_authenticated:
             # logout successfully

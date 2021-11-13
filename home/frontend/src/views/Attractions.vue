@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HeaderAndNav/>
-    <TopAttractionsSection place="Da Lat"/>
+    <HeaderAndNav />
+    <TopAttractionsSection />
   </div>
 </template>
 
@@ -10,18 +10,15 @@ import TopAttractionsSection from "../components/TopAttractionsSection";
 import HeaderAndNav from "../components/HeaderAndNav";
 
 export default {
-  name: 'Attractions',
-  components: {HeaderAndNav, TopAttractionsSection,},
+  name: "Attractions",
+  components: { HeaderAndNav, TopAttractionsSection },
   data() {
-    return {}
-  },
-  mounted() {
-    this.$store.commit('changePath', '/attractions');
+    return {};
   },
   beforeDestroy() {
-    this.$store.commit('clearAllAttractions');
-  }
-}
+    this.$store.commit("clearAllAttractions");
+  },
+};
 </script>
 
 <style module>
