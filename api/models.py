@@ -131,51 +131,6 @@ class Stay_Image(models.Model):
     item = models.ForeignKey(Stay, related_name="images", on_delete=models.CASCADE)
 
 
-# Voting
-# class Nation_Voting(models.Model):
-#     item = models.ForeignKey(Nation, related_name="votings", on_delete=models.CASCADE)
-#     point = models.IntegerField()
-#     user = models.ForeignKey(
-#         User, related_name="nation_votings", on_delete=models.CASCADE
-#     )
-
-
-# class City_Voting(models.Model):
-#     item = models.ForeignKey(City, related_name="votings", on_delete=models.CASCADE)
-#     point = models.IntegerField()
-#     user = models.ForeignKey(
-#         User, related_name="city_votings", on_delete=models.CASCADE
-#     )
-
-
-# class Attraction_Voting(models.Model):
-#     item = models.ForeignKey(
-#         Attraction, related_name="votings", on_delete=models.CASCADE
-#     )
-#     point = models.IntegerField()
-#     user = models.ForeignKey(
-#         User, related_name="attraction_votings", on_delete=models.CASCADE
-#     )
-
-
-# class Restaurant_Voting(models.Model):
-#     item = models.ForeignKey(
-#         Restaurant, related_name="votings", on_delete=models.CASCADE
-#     )
-#     point = models.IntegerField()
-#     user = models.ForeignKey(
-#         User, related_name="restaurant_votings", on_delete=models.CASCADE
-#     )
-
-
-# class Stay_Voting(models.Model):
-#     item = models.ForeignKey(Stay, related_name="votings", on_delete=models.CASCADE)
-#     point = models.IntegerField()
-#     user = models.ForeignKey(
-#         User, related_name="stay_votings", on_delete=models.CASCADE
-#     )
-
-
 # Review
 class Nation_Review(models.Model):
     item = models.ForeignKey(Nation, related_name="reviews", on_delete=models.CASCADE)

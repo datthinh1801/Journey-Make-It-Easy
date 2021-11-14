@@ -136,36 +136,6 @@ class Stay_ImageType(DjangoObjectType):
         feilds = ("id", "link", "item")
 
 
-# class Nation_VotingType(DjangoObjectType):
-#     class Meta:
-#         model = Nation_Voting
-#         feilds = ("id", "item", "point", "user")
-
-
-# class City_VotingType(DjangoObjectType):
-#     class Meta:
-#         model = City_Voting
-#         feilds = ("id", "item", "point", "user")
-
-
-# class Attraction_VotingType(DjangoObjectType):
-#     class Meta:
-#         model = Attraction_Voting
-#         feilds = ("id", "item", "point", "user")
-
-
-# class Restaurant_VotingType(DjangoObjectType):
-#     class Meta:
-#         model = Restaurant_Voting
-#         feilds = ("id", "item", "point", "user")
-
-
-# class Stay_VotingType(DjangoObjectType):
-#     class Meta:
-#         model = Stay_Voting
-#         feilds = ("id", "item", "point", "user")
-
-
 class Nation_ReviewType(DjangoObjectType):
     class Meta:
         model = Nation_Review
@@ -342,23 +312,17 @@ class Query(graphene.ObjectType):
     get_blog_by_id = graphene.Field(BlogType, id=graphene.ID(required=True))
     get_blog_by_user = graphene.List(BlogType, limit=graphene.Int(required=False))
 
-    # get_voting_nation = graphene.Field(Nation_VotingType, id=graphene.ID(required=True))
-    # get_voting_city = graphene.Field(City_VotingType, id=graphene.ID(required=True))
-    # get_voting_attraction = graphene.Field(
-    #     Attraction_VotingType, id=graphene.ID(required=True)
-    # )
-    # get_voting_restaurant = graphene.Field(
-    #     Restaurant_VotingType, id=graphene.ID(required=True)
-    # )
-    # get_voting_stay = graphene.Field(Stay_VotingType, id=graphene.ID(required=True))
-
-    get_review_nation = graphene.Field(Nation_ReviewType, id=graphene.ID(required=True))
-    get_review_city = graphene.Field(City_ReviewType, id=graphene.ID(required=True))
+    get_review_nation = graphene.Field(
+        Nation_ReviewType, item_id=graphene.ID(required=True)
+    )
+    get_review_city = graphene.Field(
+        City_ReviewType, item_id=graphene.ID(required=True)
+    )
     get_review_attraction = graphene.Field(
-        Attraction_ReviewType, id=graphene.ID(required=True)
+        Attraction_ReviewType, item_id=graphene.ID(required=True)
     )
     get_review_restaurant = graphene.Field(
-        Restaurant_ReviewType, id=graphene.ID(required=True)
+        Restaurant_ReviewType, item_id=graphene.ID(required=True)
     )
     get_review_stay = graphene.Field(Stay_ReviewType, id=graphene.ID(required=True))
 
@@ -442,47 +406,20 @@ class Query(graphene.ObjectType):
             return Blog.objects.get(user=info.context.user)
         return None
 
-    # def resolve_get_voting_nation(root, info, id):
-    #     if info.context.user.is_authenticated:
-    #         return Nation_Voting.objects.get(user=info.context.user)
-    #     return None
+    def resolve_get_review_nation(root, info, item_id):
+        return Nation_Review.objects.get(item_id=item_id)
 
-    # def resolve_get_voting_city(root, info, id):
-    #     if info.context.user.is_authenticated:
-    #         return City_Voting.objects.get(user=info.context.user)
-    #     return None
+    def resolve_get_review_city(root, info, item_id):
+        return City_Review.objects.get(item_id=item_id)
 
-    # def resolve_get_voting_attraction(root, info, id):
-    #     if info.context.user.is_authenticated:
-    #         return Attraction_Voting.objects.get(user=info.context.user)
-    #     return None
+    def resolve_get_review_attraction(root, info, item_id):
+        return Attraction_Review.objects.get(item_id=item_id)
 
-    # def resolve_get_voting_restaurant(root, info, id):
-    #     if info.context.user.is_authenticated:
-    #         return Restaurant_Voting.objects.get(user=info.context.user)
-    #     return None
-
-    # def resolve_get_voting_stay(root, info, id):
-    #     if info.context.user.is_authenticated:
-    #         return Stay_Voting.objects.get(user=info.context.user)
-    #     return None
-
-    def resolve_get_review_nation(root, info, itemid):
-        return Nation_Review.objects.get(item=itemid)
-
-    def resolve_get_review_city(root, info, id):
-        if info.context.user.is_authenticated:
-            return City_Review.objects.get(user=info.context.user)
-        return None
-
-    def resolve_get_review_attraction(root, info, itemid):
-        return Attraction_Review.objects.get(item=itemid)
-
-    def resolve_get_review_restaurant(root, info, itemid):
-        return Restaurant_Review.objects.get(item=itemid)
+    def resolve_get_review_restaurant(root, info, item_id):
+        return Restaurant_Review.objects.get(item_id=item_id)
 
     def resolve_get_review_stay(root, info, itemid):
-        return Stay_Review.objects.get(item=itemid)
+        return Stay_Review.objects.get(item_id=itemid)
 
     def resolve_get_user_info(root, info):
         if info.context.user.is_authenticated:
