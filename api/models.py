@@ -44,22 +44,30 @@ class Restaurant(models.Model):
 
 class Meal(models.Model):
     value = models.TextField()
-    restaurant = models.ForeignKey(Restaurant, related_name="meals", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(
+        Restaurant, related_name="meals", on_delete=models.CASCADE
+    )
 
 
 class Special_Diet(models.Model):
     value = models.TextField()
-    restaurant = models.ForeignKey(Restaurant, related_name="special_diets", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(
+        Restaurant, related_name="special_diets", on_delete=models.CASCADE
+    )
 
 
 class Restaurant_Feature(models.Model):
     value = models.TextField()
-    restaurant = models.ForeignKey(Restaurant, related_name="features", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(
+        Restaurant, related_name="features", on_delete=models.CASCADE
+    )
 
 
 class Cuisine(models.Model):
     value = models.TextField()
-    restaurant = models.ForeignKey(Restaurant, related_name="cuisines", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(
+        Restaurant, related_name="cuisines", on_delete=models.CASCADE
+    )
 
 
 class Stay(models.Model):
@@ -76,7 +84,9 @@ class Stay(models.Model):
 
 class Room_Feature(models.Model):
     value = models.TextField()
-    stay = models.ForeignKey(Stay, related_name="room_features", on_delete=models.CASCADE)
+    stay = models.ForeignKey(
+        Stay, related_name="room_features", on_delete=models.CASCADE
+    )
 
 
 class Room_Type(models.Model):
@@ -86,7 +96,9 @@ class Room_Type(models.Model):
 
 class Property_Amenitie(models.Model):
     value = models.TextField()
-    stay = models.ForeignKey(Stay, related_name="property_amenities", on_delete=models.CASCADE)
+    stay = models.ForeignKey(
+        Stay, related_name="property_amenities", on_delete=models.CASCADE
+    )
 
 
 # Image
@@ -102,12 +114,16 @@ class City_Image(models.Model):
 
 class Attraction_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Attraction, related_name="images", on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Attraction, related_name="images", on_delete=models.CASCADE
+    )
 
 
 class Restaurant_Image(models.Model):
     link = models.TextField()
-    item = models.ForeignKey(Restaurant, related_name="images", on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Restaurant, related_name="images", on_delete=models.CASCADE
+    )
 
 
 class Stay_Image(models.Model):
@@ -116,68 +132,101 @@ class Stay_Image(models.Model):
 
 
 # Voting
-class Nation_Voting(models.Model):
-    item = models.ForeignKey(Nation, related_name="votings", on_delete=models.CASCADE)
-    point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="nation_votings", on_delete=models.CASCADE)
+# class Nation_Voting(models.Model):
+#     item = models.ForeignKey(Nation, related_name="votings", on_delete=models.CASCADE)
+#     point = models.IntegerField()
+#     user = models.ForeignKey(
+#         User, related_name="nation_votings", on_delete=models.CASCADE
+#     )
 
 
-class City_Voting(models.Model):
-    item = models.ForeignKey(City, related_name="votings", on_delete=models.CASCADE)
-    point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="city_votings", on_delete=models.CASCADE)
+# class City_Voting(models.Model):
+#     item = models.ForeignKey(City, related_name="votings", on_delete=models.CASCADE)
+#     point = models.IntegerField()
+#     user = models.ForeignKey(
+#         User, related_name="city_votings", on_delete=models.CASCADE
+#     )
 
 
-class Attraction_Voting(models.Model):
-    item = models.ForeignKey(Attraction, related_name="votings", on_delete=models.CASCADE)
-    point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="attraction_votings", on_delete=models.CASCADE)
+# class Attraction_Voting(models.Model):
+#     item = models.ForeignKey(
+#         Attraction, related_name="votings", on_delete=models.CASCADE
+#     )
+#     point = models.IntegerField()
+#     user = models.ForeignKey(
+#         User, related_name="attraction_votings", on_delete=models.CASCADE
+#     )
 
 
-class Restaurant_Voting(models.Model):
-    item = models.ForeignKey(Restaurant, related_name="votings", on_delete=models.CASCADE)
-    point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="restaurant_votings", on_delete=models.CASCADE)
+# class Restaurant_Voting(models.Model):
+#     item = models.ForeignKey(
+#         Restaurant, related_name="votings", on_delete=models.CASCADE
+#     )
+#     point = models.IntegerField()
+#     user = models.ForeignKey(
+#         User, related_name="restaurant_votings", on_delete=models.CASCADE
+#     )
 
 
-class Stay_Voting(models.Model):
-    item = models.ForeignKey(Stay, related_name="votings", on_delete=models.CASCADE)
-    point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="stay_votings", on_delete=models.CASCADE)
+# class Stay_Voting(models.Model):
+#     item = models.ForeignKey(Stay, related_name="votings", on_delete=models.CASCADE)
+#     point = models.IntegerField()
+#     user = models.ForeignKey(
+#         User, related_name="stay_votings", on_delete=models.CASCADE
+#     )
 
 
 # Review
 class Nation_Review(models.Model):
     item = models.ForeignKey(Nation, related_name="reviews", on_delete=models.CASCADE)
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="nation_reviews", on_delete=models.CASCADE)
+    point = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        User, related_name="nation_reviews", on_delete=models.CASCADE
+    )
 
 
 class City_Review(models.Model):
     item = models.ForeignKey(City, related_name="reviews", on_delete=models.CASCADE)
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="city_reviews", on_delete=models.CASCADE)
+    point = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        User, related_name="city_reviews", on_delete=models.CASCADE
+    )
 
 
 class Attraction_Review(models.Model):
-    item = models.ForeignKey(Attraction, related_name="reviews", on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Attraction, related_name="reviews", on_delete=models.CASCADE
+    )
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="attraction_reviews", on_delete=models.CASCADE)
+    point = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        User, related_name="attraction_reviews", on_delete=models.CASCADE
+    )
 
 
 class Restaurant_Review(models.Model):
-    item = models.ForeignKey(Restaurant, related_name="reviews", on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Restaurant, related_name="reviews", on_delete=models.CASCADE
+    )
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="restaurant_reviews", on_delete=models.CASCADE)
+    point = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        User, related_name="restaurant_reviews", on_delete=models.CASCADE
+    )
 
 
 class Stay_Review(models.Model):
     item = models.ForeignKey(Stay, related_name="reviews", on_delete=models.CASCADE)
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="stay_reviews", on_delete=models.CASCADE)
+    point = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        User, related_name="stay_reviews", on_delete=models.CASCADE
+    )
 
 
-#Blog
+# Blog
 class Blog(models.Model):
     tittle = models.TextField()
     content = models.TextField()
@@ -194,13 +243,17 @@ class Blog_Image(models.Model):
 class Blog_Voting(models.Model):
     item = models.ForeignKey(Blog, related_name="votings", on_delete=models.CASCADE)
     point = models.IntegerField()
-    user = models.ForeignKey(User, related_name="blog_votings", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="blog_votings", on_delete=models.CASCADE
+    )
 
 
 class Blog_Review(models.Model):
     item = models.ForeignKey(Blog, related_name="reviews", on_delete=models.CASCADE)
     text = models.TextField()
-    user = models.ForeignKey(User, related_name="blog_reviews", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="blog_reviews", on_delete=models.CASCADE
+    )
 
 
 # More user data
