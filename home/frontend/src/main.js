@@ -674,6 +674,36 @@ const store = new Vuex.Store({
             });
 
             context.commit('saveCity', data);
+        },
+        async getReviews(context, type, id) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getReview${type}(id: "${id}") {
+                            id,
+                            text,
+                            point,
+                            user {
+                                id,
+                                username
+                            }
+                          }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getReviews'];
+            });
+
+            context.commit('saveReviews', data);
         }
     }
 })

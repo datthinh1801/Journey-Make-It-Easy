@@ -1,7 +1,9 @@
 <template>
   <div>
     <HeaderAndNav />
-    <h1 :class="$style.head">Restaurants in {{ place }}</h1>
+    <h1 :class="$style.head">
+      Restaurants in <span :class="$style.place">{{ place }}</span>
+    </h1>
     <div :class="$style['content-list']">
       <div :id="$style['item-list-section']">
         <HorizontalItem
@@ -120,8 +122,14 @@ export default {
         .join(", ");
     },
   },
+  beforeCreate() {
+    if (this.$store.state.city === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch("getRestaurant", this.$store.state.city);
+    }
+  },
   beforeMount() {
-    this.$store.dispatch("getRestaurant", this.place);
     document.title = "Restaurants in " + this.place;
   },
   beforeDestroy() {
@@ -186,5 +194,9 @@ h1.head {
 
 .item-detail-container .specialty {
   color: #bc3131;
+}
+
+.place {
+  color: #2e86c1;
 }
 </style>

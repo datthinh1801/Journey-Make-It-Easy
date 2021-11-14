@@ -44,8 +44,14 @@ export default {
       return this.$store.state.item;
     },
   },
+  beforeCreate() {
+    if (this.$store.state.city === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch("getCityDetail", this.$store.state.city);
+    }
+  },
   beforeMount() {
-    this.$store.dispatch("getCityDetail", this.$store.state.city);
     document.title = "Explore " + this.$store.state.city;
   },
   beforeDestroy() {

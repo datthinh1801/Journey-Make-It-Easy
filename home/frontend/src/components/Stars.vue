@@ -1,13 +1,23 @@
 <template>
   <div :class="$style.container">
     <div>
-      <font-awesome-icon v-for="i in fullStars" :key="i"
-                         :class="$style.star" :icon="'star'"/>
-      <font-awesome-icon v-if="lastStar"
-                         :class="$style.star" :icon="'star-half'"/>
-      <font-awesome-icon v-for="j in hiddenStars" :key="j"
-                         :class="[$style.star, $style['hidden-star']]"
-                         :icon="'star'"/>
+      <font-awesome-icon
+        v-for="i in fullStars"
+        :key="i"
+        :class="$style.star"
+        :icon="'star'"
+      />
+      <font-awesome-icon
+        v-if="lastStar"
+        :class="$style.star"
+        :icon="'star-half'"
+      />
+      <font-awesome-icon
+        v-for="j in hiddenStars"
+        :key="j"
+        :class="[$style.star, $style['hidden-star']]"
+        :icon="'star'"
+      />
     </div>
     <div>
       {{ printedStarCount }}
@@ -16,15 +26,15 @@
 </template>
 
 <script>
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faStar, faStarHalf} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faStar);
 library.add(faStarHalf);
 
 export default {
-  name: 'Stars',
-  props: ['starCount'],
+  name: "Stars",
+  props: ["starCount", "hideScore"],
   computed: {
     lastStar() {
       return Math.round(this.starCount % 1);
@@ -33,13 +43,17 @@ export default {
       return Math.floor(this.starCount);
     },
     printedStarCount() {
-      return String(this.starCount).padEnd(3, '.0');
+      if (this.hideScore) {
+        return "";
+      } else {
+        return String(this.starCount).padEnd(3, ".0");
+      }
     },
     hiddenStars() {
       return Math.round(5 - Math.round(this.starCount));
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style module>
@@ -57,7 +71,7 @@ export default {
 }
 
 .star {
-  color: #F9C100;
+  color: #f9c100;
 }
 
 .hidden-star {

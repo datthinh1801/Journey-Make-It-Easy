@@ -1,7 +1,9 @@
 <template>
   <div>
     <HeaderAndNav />
-    <h1 :class="$style.head">Hotels in {{ place }}</h1>
+    <h1 :class="$style.head">
+      Hotels in <span :class="$style.place">{{ place }}</span>
+    </h1>
     <div :class="$style['content-list']">
       <div :id="$style['item-list-section']">
         <HorizontalItem
@@ -193,5 +195,9 @@ h1.head {
 
 .item-detail-bottom li::before {
   content: "\2714";
+}
+
+.place {
+  color: #2e86c1;
 }
 </style>

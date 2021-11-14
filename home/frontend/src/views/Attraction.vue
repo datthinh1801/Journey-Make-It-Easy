@@ -43,6 +43,10 @@
           <iframe loading="lazy" :src="mapURL"></iframe>
         </div>
       </div>
+      <reviewing-section
+        :numberVoting="numberVoting"
+        :ratingScore="ratingScore"
+      />
     </div>
   </div>
 </template>
@@ -53,66 +57,73 @@ import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import RatingSection from "../components/RatingSection";
 import ImageSlider from "../components/ImageSlider";
+import ReviewingSection from "../components/ReviewingSection.vue";
 
-import {
-  library
-} from "@fortawesome/fontawesome-svg-core";
-import {
-  faAngleDoubleRight
-} from "@fortawesome/free-solid-svg-icons"
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faAngleDoubleRight);
 
 export default {
-  name: 'Attraction',
+  name: "Attraction",
   components: {
     RatingSection,
     ShareButton,
     BigHeart,
     HeaderAndNav,
-    ImageSlider
+    ImageSlider,
+    ReviewingSection,
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     item() {
       return this.$store.state.item;
     },
     name() {
-      return this.item['name'];
+      return this.item["name"];
     },
     about() {
-      return this.item['about'];
+      return this.item["about"];
     },
     address() {
-      return this.item['address'];
+      return this.item["address"];
     },
     mapURL() {
       return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
       // return this.item['ggmap'];
     },
     admissionTicket() {
-      return this.item['admissionTicket'];
+      return this.item["admissionTicket"];
     },
     openTime() {
-      return this.item['openTime'];
+      return this.item["openTime"];
     },
     suggestedDuration() {
-      return this.item['suggestedDuration'];
+      return this.item["suggestedDuration"];
     },
     ratingScore() {
-      return this.item['ratingScore'];
+      return this.item["ratingScore"];
     },
     numberVoting() {
-      return this.item['numberVoting'];
+      return this.item["numberVoting"];
     },
   },
+  beforeCreate() {
+    if (this.$store.state.currentItemName === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch(
+        "getAttractionDetail",
+        this.$store.state.currentItemName
+      );
+    }
+  },
   beforeMount() {
-    this.$store.dispatch('getAttractionDetail', this.$store.state.currentItemName);
-  }
-}
-
+    document.title = `Attraction | ${this.$store.state.currentItemName}`;
+  },
+};
 </script>
 
 <style module>

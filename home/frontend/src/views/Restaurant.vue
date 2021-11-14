@@ -173,12 +173,18 @@ export default {
       return this.item["priceRange"];
     },
   },
+  beforeCreate() {
+    if (this.$store.state.currentItemName === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch(
+        "getRestaurantDetail",
+        this.$store.state.currentItemName
+      );
+    }
+  },
   beforeMount() {
-    this.$store.dispatch(
-      "getRestaurantDetail",
-      this.$store.state.currentItemName
-    );
-    document.title = `Restaurant | ${this.name}`;
+    document.title = `Restaurant | ${this.$store.state.currentItemName}`;
   },
 };
 </script>

@@ -1,0 +1,124 @@
+<template>
+  <div :class="$style['review-section-container']">
+    <div :class="$style['stars-section']" v-if="hasReviews">
+      <h2>{{ ratingScore }}</h2>
+      <Stars :starCount="ratingScore" :hideScore="true" />
+      <i>{{ numberVoting }} reviews</i>
+    </div>
+    <div v-else :class="[$style['stars-section'], $style['else']]">
+      No rating yet.
+    </div>
+    <div :class="$style['review-section']">
+      <h2>Reviews</h2>
+      <hr />
+      <div>
+        <h3>My review</h3>
+        <textarea
+          :class="$style['review-text-section']"
+          wrap="soft"
+          maxlength="300"
+        ></textarea>
+        <button :class="$style['send-review-btn']" @click="sendReview">
+          Send
+        </button>
+      </div>
+      <div v-if="hasReviews">
+        <h3>Others</h3>
+        <ReviewItem
+          v-for="review in reviews"
+          :key="review.id"
+          :username="review.user.username"
+          :point="review.point"
+          :text="review.text"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Stars from "./Stars.vue";
+import ReviewItem from "./ReviewItem.vue";
+
+export default {
+  name: "ReviewingSection",
+  props: ["numberVoting", "ratingScore", "reviews"],
+  components: {
+    Stars,
+    ReviewItem,
+  },
+  data() {
+    return {
+      reviewContent: "",
+    };
+  },
+  computed: {
+    hasReviews() {
+      return this.numberVoting > 0;
+    },
+  },
+  methods: {
+    sendReview() {},
+  },
+};
+</script>
+
+<style module>
+.review-section-container {
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.stars-section {
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+
+.stars-section h2 {
+  margin: 0 10px 0 0;
+}
+
+.review-section {
+  width: 100%;
+}
+
+.review-section h2 {
+  margin: 0 0 20px 0;
+}
+
+.else {
+  color: #aaa;
+  font-style: italic;
+}
+
+.review-text-section {
+  width: 100%;
+  height: 200px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  resize: none;
+}
+
+.review-text-section:focus {
+  outline: 2px solid rgb(112, 112, 112);
+}
+
+.send-review-btn {
+  background: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  float: left;
+  margin-top: 10px;
+}
+
+.send-review-btn:hover {
+  background: black;
+  color: white;
+  border: 2px solid black;
+}
+</style>

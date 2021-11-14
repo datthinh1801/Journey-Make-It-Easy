@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 :class="$style.header">Top Attractions in {{ place }}</h1>
+    <h1 :class="$style.header">
+      Top Attractions in <span :class="$style.place">{{ place }}</span>
+    </h1>
     <div :class="$style['content-container']" class="width-control">
       <VerticalItem
         v-for="item in items"
@@ -59,16 +61,19 @@ export default {
     loadMore() {
       this.item_n += 9;
     },
-    fetchAttraction() {
-      this.$store.dispatch("getAttraction", this.place);
-    },
     redirectToAttraction(item) {
       this.$store.commit("changeItemName", item.name);
       this.$router.push("attraction");
     },
   },
+  beforeCreate() {
+    if (this.$store.state.city === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch("getAttraction", this.$store.state.city);
+    }
+  },
   beforeMount() {
-    this.fetchAttraction();
     document.title = "Top Attractions in " + this.place;
   },
   beforeDestroy() {
@@ -98,5 +103,9 @@ h1.header {
 
 div.item-description .title {
   margin: 0;
+}
+
+.place {
+  color: #2e86c1;
 }
 </style>

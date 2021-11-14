@@ -134,9 +134,15 @@ export default {
       );
     },
   },
+  beforeCreate() {
+    if (this.$store.state.currentItemName === "") {
+      this.$router.push("/");
+    } else {
+      this.$store.dispatch("getHotelDetail", this.$store.state.currentItemName);
+    }
+  },
   beforeMount() {
-    this.$store.dispatch("getHotelDetail", this.$store.state.currentItemName);
-    document.title = `Hotel | ${this.name}`;
+    document.title = `Hotel | ${this.$store.state.currentItemName}`;
   },
 };
 </script>

@@ -467,30 +467,22 @@ class Query(graphene.ObjectType):
     #         return Stay_Voting.objects.get(user=info.context.user)
     #     return None
 
-    def resolve_get_review_nation(root, info, id):
-        if info.context.user.is_authenticated:
-            return Nation_Review.objects.get(user=info.context.user)
-        return None
+    def resolve_get_review_nation(root, info, itemid):
+        return Nation_Review.objects.get(item=itemid)
 
     def resolve_get_review_city(root, info, id):
         if info.context.user.is_authenticated:
             return City_Review.objects.get(user=info.context.user)
         return None
 
-    def resolve_get_review_attraction(root, info, id):
-        if info.context.user.is_authenticated:
-            return Attraction_Review.objects.get(user=info.context.user)
-        return None
+    def resolve_get_review_attraction(root, info, itemid):
+        return Attraction_Review.objects.get(item=itemid)
 
-    def resolve_get_review_restaurant(root, info, id):
-        if info.context.user.is_authenticated:
-            return Restaurant_Review.objects.get(user=info.context.user)
-        return None
+    def resolve_get_review_restaurant(root, info, itemid):
+        return Restaurant_Review.objects.get(item=itemid)
 
-    def resolve_get_review_stay(root, info, id):
-        if info.context.user.is_authenticated:
-            return Stay_Review.objects.get(user=info.context.user)
-        return None
+    def resolve_get_review_stay(root, info, itemid):
+        return Stay_Review.objects.get(item=itemid)
 
     def resolve_get_user_info(root, info):
         if info.context.user.is_authenticated:
