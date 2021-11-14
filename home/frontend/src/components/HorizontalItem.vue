@@ -1,11 +1,16 @@
 <template>
-  <div :class="$style['item-container']"
-       :style="{height: itemHeight, width:itemWidth}">
+  <div
+    :class="$style['item-container']"
+    :style="{ height: itemHeight, width: itemWidth }"
+  >
     <div :class="$style['img-container']">
-      <img :class="$style['item-img']"
-           alt="" :src="imgUrl"
-           :style="{height: imgHeight, width: imgWidth}">
-      <HeartButton :class="$style['heart-btn']"/>
+      <img
+        :class="$style['item-img']"
+        alt=""
+        :src="imgUrl"
+        :style="{ height: imgHeight, width: imgWidth }"
+      />
+      <HeartButton :class="$style['heart-btn']" />
     </div>
     <slot></slot>
   </div>
@@ -15,29 +20,33 @@
 import HeartButton from "./HeartButton";
 
 export default {
-  name: 'HorizontalItem',
-  components: {HeartButton},
-  props: ['imgSrc', 'imgHeight', 'imgWidth', 'itemHeight', 'itemWidth'],
+  name: "HorizontalItem",
+  components: { HeartButton },
+  props: ["imgSrc", "imgHeight", "imgWidth", "itemHeight", "itemWidth"],
   computed: {
     imgUrl() {
-      let newUrl = this.imgSrc.replace('https://media-cdn', 'https://dynamic-media-cdn')
-      .replace(/\.jpg[\w\W]*/,`.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`);
+      let newUrl = this.imgSrc
+        .replace("https://media-cdn", "https://dynamic-media-cdn")
+        .replace(
+          /\.jpg[\w\W]*/,
+          `.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`
+        );
       return newUrl;
     },
     imgRenderWidth() {
       if (parseInt(this.imgWidth) <= 300) {
-        return '300';
+        return "300";
       }
       return parseInt(this.imgWidth);
     },
     imgRenderHeight() {
       if (parseInt(this.imgHeight) <= 300) {
-        return '300';
+        return "300";
       }
       return parseInt(this.imgHeight);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style module>
@@ -45,7 +54,7 @@ export default {
   display: flex;
   border: 1px solid #777;
   border-radius: 4px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
 
@@ -82,6 +91,6 @@ export default {
 
   100% {
     background-position: 0% -200%;
-  } 
+  }
 }
 </style>

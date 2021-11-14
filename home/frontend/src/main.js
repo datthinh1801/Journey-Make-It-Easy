@@ -49,6 +49,9 @@ const store = new Vuex.Store({
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
         currentItemName: '',
+
+        // STATE for filtering
+        filters: null,
     },
     mutations: {
         initializeStore(state) {
@@ -120,7 +123,31 @@ const store = new Vuex.Store({
         },
         changeCity(state, city) {
             state.city = city;
-        }
+        },
+        setFilter(state, {
+            key,
+            value
+        }) {
+            if (!state.filters) {
+                state.filters = {};
+            }
+
+            if (state.filters[key]) {
+
+                state.filters[key].push(value);
+            } else {
+                state.filters[key] = [value];
+            }
+        },
+        removeFilter(state, {
+            key,
+            value
+        }) {
+            state.filters[key] = state.filters[key].filter(item => item !== value);
+        },
+        clearFilters(state) {
+            state.filters = null;
+        },
     },
     actions: {
         async signIn(context, credential) {

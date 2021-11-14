@@ -1,11 +1,16 @@
 <template>
   <div :class="$style['option-container']">
     <h3 :class="$style.title" class="roboto">{{ designedFilterType }}</h3>
-    <FilterOption v-for="(item, i) in items" :key="i"
-                  :class="$style['checkbox-option']"
-                  :title="designedFilterType"
-                  :value="item" class="roboto"/>
-    <hr class="hr-filter-panel">
+    <FilterOption
+      v-for="item in items"
+      :key="item.id"
+      :class="$style['checkbox-option']"
+      :title="designedFilterType"
+      :value="item"
+      :name="filterType"
+      class="roboto"
+    />
+    <hr class="hr-filter-panel" />
   </div>
 </template>
 
@@ -13,13 +18,13 @@
 import FilterOption from "./FilterOption";
 
 export default {
-  name: 'FilterOptionSection',
-  props: ['filterType', 'isRestaurants'],
+  name: "FilterOptionSection",
+  props: ["filterType", "isRestaurants"],
   components: {
-    FilterOption
+    FilterOption,
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     itemArray() {
@@ -30,35 +35,42 @@ export default {
       }
     },
     designedFilterType() {
-      if (this.filterType === 'priceRange') {
-        return 'Price';
-      } else if (this.filterType === 'ratingScore') {
-        return 'Rating';
-      } else if (this.filterType === 'cuisines') {
-        return 'Cuisines';
-      } else if (this.filterType === 'specialDiets') {
-        return 'Special Diets';
-      } else if (this.filterType === 'roomFeatures') {
-        return 'Room Features';
-      } else if (this.filterType === 'roomTypes') {
-        return 'Room Types';
+      // TODO: Remove priceRange
+      if (this.filterType === "priceRange") {
+        return "Price";
+      } else if (this.filterType === "ratingScore") {
+        return "Rating";
+      } else if (this.filterType === "cuisines") {
+        return "Cuisines";
+      } else if (this.filterType === "specialDiets") {
+        return "Special Diets";
+      } else if (this.filterType === "roomFeatures") {
+        return "Room Features";
+      } else if (this.filterType === "roomTypes") {
+        return "Room Types";
       } else {
-        return 'Amenities';
+        return "Amenities";
       }
     },
     items() {
       let itemSet = new Set();
-      this.itemArray.forEach(item => {
+      this.itemArray.forEach((item) => {
         // cast to String in case rating score is filtered
-        let subItems = item[this.filterType].map(item => item['value']).filter(item => item.length > 0);
-        subItems.forEach(subItem => {
+        let subItems = item[this.filterType]
+          .map((itemProp) => itemProp["value"])
+          .filter((itemVal) => itemVal.length > 0);
+
+        subItems.forEach((subItem) => {
           itemSet.add(subItem);
         });
       });
       return itemSet;
-    }
-  }
-}
+    },
+  },
+  beforeDestroy() {
+    this.$store.commit("clearFilters");
+  },
+};
 </script>
 
 <style module>

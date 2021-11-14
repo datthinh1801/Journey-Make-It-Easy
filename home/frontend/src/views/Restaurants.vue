@@ -3,7 +3,6 @@
     <HeaderAndNav />
     <h1 :class="$style.head">Restaurants in {{ place }}</h1>
     <div :class="$style['content-list']">
-      <FilterPanel :id="$style['filter-panel']" />
       <div :id="$style['item-list-section']">
         <HorizontalItem
           v-for="item in items"
@@ -25,22 +24,23 @@
               <hr />
             </div>
             <div :class="$style['item-detail-bottom']">
-              <div v-if="item.priceRange">
+              <div v-if="item.priceRange.length > 0">
                 <font-awesome-icon icon="dollar-sign" :class="$style.price" />
+                <b>Price range: </b>
                 <span>{{ item.priceRange }}</span>
               </div>
-              <div v-if="item.cuisines">
+              <div v-if="item.cuisines.length > 0">
                 <font-awesome-icon
                   icon="concierge-bell"
                   :class="$style.cuisine"
-                />
+                /><b>Cuisines: </b>
                 <span>{{ getCuisines(item) }}</span>
               </div>
-              <div v-if="item.specialDiets">
+              <div v-if="item.specialDiets.length > 0">
                 <font-awesome-icon
                   icon="glass-cheers"
                   :class="$style.specialty"
-                />
+                /><b>Special Diets: </b>
                 <span>{{ getSpecialdiets(item) }}</span>
               </div>
             </div>
@@ -54,7 +54,6 @@
 
 <script>
 import HeaderAndNav from "../components/HeaderAndNav";
-import FilterPanel from "../components/FilterPanel";
 import HorizontalItem from "../components/HorizontalItem";
 import LoadMoreButton from "../components/LoadMoreButton";
 
@@ -74,7 +73,6 @@ export default {
     RatingSection,
     LoadMoreButton,
     HeaderAndNav,
-    FilterPanel,
     HorizontalItem,
   },
   data() {
@@ -93,13 +91,13 @@ export default {
       return this.$store.state.restaurantArr.slice(0, this.item_n);
     },
     itemHeight() {
-      return "200px";
+      return "250px";
     },
     itemWidth() {
-      return "600px";
+      return "800px";
     },
     imgWidth() {
-      return "200px";
+      return "250px";
     },
     imgHeight() {
       return this.itemHeight;
@@ -142,9 +140,6 @@ h1.head {
   justify-content: center;
 }
 
-#filter-panel {
-}
-
 #item-list-section {
   margin-left: 10px;
 }
@@ -152,14 +147,13 @@ h1.head {
 .item-detail-container {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-}
-
-.item-detail-top {
+  padding: 20px;
+  width: 100%;
 }
 
 .item-detail-top h3 {
   margin: 0;
+  font-size: 24px;
 }
 
 .item-detail-top hr {
