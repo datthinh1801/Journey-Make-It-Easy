@@ -54,7 +54,11 @@ const store = new Vuex.Store({
         initializeStore(state) {
             if (localStorage.getItem('journey-jwt')) {
                 state.refreshToken = localStorage.getItem('journey-jwt');
-                state.username = '';
+                let refreshStatus = this.dispatch('refreshToken', state.refreshToken);
+                if (!refreshStatus) {
+                    state.refreshToken = '';
+                    state.username = '';
+                }
             } else {
                 state.refreshToken = '';
                 state.username = '';
@@ -66,6 +70,7 @@ const store = new Vuex.Store({
         }) {
             state.accessToken = accessToken;
             state.refreshToken = refreshToken;
+            localStorage.setItem('journey-jwt', refreshToken);
         },
         saveUsername(state, username) {
             state.username = username;
@@ -74,6 +79,7 @@ const store = new Vuex.Store({
             state.accessToken = '';
             state.refreshToken = '';
             state.username = '';
+            localStorage.removeItem('journey-jwt');
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -197,6 +203,46 @@ const store = new Vuex.Store({
                 return e
             });
             window.location.reload();
+        },
+        async refreshToken(context, refreshToken) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `mutation {
+                        refreshToken(refreshToken: "${refreshToken}") {
+                            token,
+                            payload,
+                            refreshToken
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data['errors']) {
+                return false;
+            } else {
+                let tokenAuth = data['data']['refreshToken'];
+                let accessToken = tokenAuth['token'];
+                let refreshToken = tokenAuth['refreshToken'];
+                let username = tokenAuth['payload']['username'];
+
+                context.commit('saveToken', {
+                    accessToken,
+                    refreshToken
+                });
+                context.commit('saveUsername', username);
+                return true;
+            }
         },
         async getAttraction(context, city) {
             let data;

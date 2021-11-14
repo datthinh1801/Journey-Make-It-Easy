@@ -259,6 +259,16 @@ export default {
   text-align: center;
   font-size: 18px;
   cursor: pointer;
+
+  position: absolute;
+  bottom: -55px;
+  background-color: white;
+  width: 100px;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 10px 0;
 }
 
 .expand-profile-container span {
