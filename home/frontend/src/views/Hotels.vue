@@ -80,19 +80,13 @@ export default {
   },
   computed: {
     endOfArray() {
-      return (
-        this.item_n <
-        this.$store.state.hotelArr.filter((item) => item.images.length > 0)
-          .length
-      );
+      return this.item_n < this.$store.state.hotelArr.length;
     },
     place() {
       return this.$store.state.city;
     },
     items() {
-      return this.$store.state.hotelArr
-        .filter((item) => item.images.length > 0)
-        .slice(0, this.item_n);
+      return this.$store.state.hotelArr.slice(0, this.item_n);
     },
     imgWidth() {
       return "250px";

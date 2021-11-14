@@ -51,9 +51,10 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.hotelArr
-        .filter((item) => item.images.length > 0)
-        .slice(this.this_item, this.this_item + this.showed_items);
+      return this.$store.state.hotelArr.slice(
+        this.this_item,
+        this.this_item + this.showed_items
+      );
     },
     showPrev() {
       return this.this_item > 0;
@@ -83,7 +84,7 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.dispatch("getAllHotels", 20);
+    this.$store.dispatch("getAllHotels", 10);
   },
 };
 </script>

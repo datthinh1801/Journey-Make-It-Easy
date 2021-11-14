@@ -6,34 +6,38 @@
     </div>
 
     <div :class="$style.itemContainer">
-
-      <VerticalItem v-for="item in items" :key="item.id"
-                    :class="$style.recommendedItem"
-                    :imgSrc="item.images[0].link"
-                    :imgWidth="imgWidth"
-                    :imgHeight="imgHeight"
-                    @click.native="redirectItem(item)">
-
-      <div :class="$style['item-detail']">
-        <h4>{{ item.name }}</h4>
-        <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore"/>
-      </div>
+      <VerticalItem
+        v-for="item in items"
+        :key="item.id"
+        :class="$style.recommendedItem"
+        :imgSrc="item.images[0].link"
+        :imgWidth="imgWidth"
+        :imgHeight="imgHeight"
+        @click.native="redirectItem(item)"
+      >
+        <div :class="$style['item-detail']">
+          <h4>{{ item.name }}</h4>
+          <rating-section
+            :ratingCount="item.numberVoting"
+            :starCount="item.ratingScore"
+          />
+        </div>
       </VerticalItem>
 
       <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
-        <font-awesome-icon icon="chevron-left"/>
+        <font-awesome-icon icon="chevron-left" />
       </button>
       <button :class="$style.rightButton" @click="moveRight" v-show="showNext">
-        <font-awesome-icon icon="chevron-right"/>
+        <font-awesome-icon icon="chevron-right" />
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faChevronLeft, faChevronRight);
 
@@ -41,14 +45,14 @@ import VerticalItem from "./VerticalItem";
 import RatingSection from "./RatingSection.vue";
 
 export default {
-  name: 'RecommendationGroup',
-  components: {VerticalItem, RatingSection},
-  props: ['title', 'description'],
+  name: "RecommendationGroup",
+  components: { VerticalItem, RatingSection },
+  props: ["title", "description"],
   data() {
     return {
       currentItem: 0,
       itemToShow: 3,
-    }
+    };
   },
   computed: {
     place() {
@@ -56,48 +60,59 @@ export default {
     },
     items() {
       let itemArr = [];
-      if (this.title === 'Do') {
-        itemArr = this.$store.state.attractionArr.filter(item => item.images.length > 0);
-      } else if (this.title === 'Stay') {
-        itemArr = this.$store.state.hotelArr.filter(item => item.images.length > 0);
+      if (this.title === "Do") {
+        itemArr = this.$store.state.attractionArr;
+      } else if (this.title === "Stay") {
+        itemArr = this.$store.state.hotelArr;
       } else {
-        itemArr = this.$store.state.restaurantArr.filter(item => item.images.length > 0);
+        itemArr = this.$store.state.restaurantArr;
       }
-      return itemArr.slice(this.currentItem, this.currentItem + this.itemToShow);
+      return itemArr.slice(
+        this.currentItem,
+        this.currentItem + this.itemToShow
+      );
     },
     showPrev() {
       return this.currentItem > 0;
     },
     showNext() {
-      if (this.title === 'Do') {
-        return this.$store.state.attractionArr.length > this.currentItem + this.itemToShow;
-      } else if (this.title === 'Stay') {
-        return this.$store.state.hotelArr.length > this.currentItem + this.itemToShow;
+      if (this.title === "Do") {
+        return (
+          this.$store.state.attractionArr.length >
+          this.currentItem + this.itemToShow
+        );
+      } else if (this.title === "Stay") {
+        return (
+          this.$store.state.hotelArr.length > this.currentItem + this.itemToShow
+        );
       } else {
-        return this.$store.state.restaurantArr.length > this.currentItem + this.itemToShow;
+        return (
+          this.$store.state.restaurantArr.length >
+          this.currentItem + this.itemToShow
+        );
       }
     },
     imgWidth() {
-      return '230px';
+      return "230px";
     },
     imgHeight() {
-      return '230px';
-    }
+      return "230px";
+    },
   },
   methods: {
     getAttraction() {
-      this.$store.dispatch('getAttraction', this.place);
+      this.$store.dispatch("getAttraction", this.place);
     },
     getRestaurant() {
-      this.$store.dispatch('getRestaurant', this.place);
+      this.$store.dispatch("getRestaurant", this.place);
     },
     getHotel() {
-      this.$store.dispatch('getHotel', this.place);
+      this.$store.dispatch("getHotel", this.place);
     },
     getItem() {
-      if (this.title === 'Do') {
+      if (this.title === "Do") {
         this.getAttraction();
-      } else if (this.title === 'Eat') {
+      } else if (this.title === "Eat") {
         this.getRestaurant();
       } else {
         this.getHotel();
@@ -111,23 +126,23 @@ export default {
       ++this.currentItem;
     },
     redirectItem(item) {
-      this.$store.commit('changeItemName', item.name);
+      this.$store.commit("changeItemName", item.name);
 
-      if (this.title === 'Do') {
-        this.$router.push('attraction');
-      } else if (this.title === 'Eat') {
-        this.$router.push('restaurant');
+      if (this.title === "Do") {
+        this.$router.push("attraction");
+      } else if (this.title === "Eat") {
+        this.$router.push("restaurant");
       } else {
-        this.$router.push('hotel');
+        this.$router.push("hotel");
       }
-    }
+    },
   },
   beforeMount() {
     for (let i = 0; i < this.itemToShow; ++i) {
       this.getItem();
     }
-  }
-}
+  },
+};
 </script>
 
 <style module>
@@ -148,7 +163,7 @@ export default {
   margin: 0;
 }
 
-.recommendedItem:hover .item-detail h4{
+.recommendedItem:hover .item-detail h4 {
   text-decoration: underline;
 }
 

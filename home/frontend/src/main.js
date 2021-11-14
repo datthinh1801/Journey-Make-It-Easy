@@ -399,7 +399,6 @@ const store = new Vuex.Store({
                 data = respData.data['allAttractions'];
             });
 
-            data = data.filter(attraction => attraction.images.length > 0);
             context.commit('getAttraction', data);
         },
         async getAllRestaurants(context, limit) {
@@ -430,7 +429,6 @@ const store = new Vuex.Store({
                 data = respData.data['allRestaurants'];
             });
 
-            data = data.filter(rest => rest.images.length > 0);
             context.commit('getRestaurant', data);
         },
         async getAllHotels(context, limit) {
@@ -461,7 +459,6 @@ const store = new Vuex.Store({
                 data = respData.data['allStays'];
             });
 
-            data = data.filter(hotel => hotel.images.length > 0);
             context.commit('getHotel', data);
         },
         async getAllCities(context) {
@@ -493,7 +490,7 @@ const store = new Vuex.Store({
             }).then(respData => {
                 data = respData.data['allCitys'];
             });
-            data = data.filter(city => city.images.length > 0);
+
             context.commit('getCities', data);
         },
         async getAttractionDetail(context, name) {
