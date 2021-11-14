@@ -3,7 +3,6 @@
     <HeaderAndNav />
     <h1 :class="$style.head">Hotels in {{ place }}</h1>
     <div :class="$style['content-list']">
-      <FilterPanel :id="$style['filter-panel']" />
       <div :id="$style['item-list-section']">
         <HorizontalItem
           v-for="item in items"
@@ -60,7 +59,6 @@
 
 <script>
 import HeaderAndNav from "../components/HeaderAndNav";
-import FilterPanel from "../components/FilterPanel";
 import HorizontalItem from "../components/HorizontalItem";
 import LoadMoreButton from "../components/LoadMoreButton";
 import RatingSection from "../components/RatingSection";
@@ -71,7 +69,6 @@ export default {
     RatingSection,
     LoadMoreButton,
     HeaderAndNav,
-    FilterPanel,
     HorizontalItem,
   },
   data() {
@@ -168,6 +165,7 @@ h1.head {
 .item-detail-top hr {
   width: 100%;
   max-width: 100%;
+  color: #ccc;
 }
 
 .item-detail-bottom {
@@ -177,6 +175,7 @@ h1.head {
 }
 
 .item-detail-bottom h5 {
+  font-size: 16px;
   margin: 0;
 }
 
@@ -187,7 +186,7 @@ h1.head {
 
 .item-detail-bottom li {
   margin: 5px 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #444;
   list-style: none;
 }
