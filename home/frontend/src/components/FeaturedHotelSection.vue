@@ -1,94 +1,112 @@
 <template>
-    <div class="width-control">
-        <p class="roboto title">Luxurious Hotels</p>
-        <div :class="$style['item-list-container']">
-            <vertical-item v-for="item in items" :key="item.id" :imgSrc="item.images[0].link" :imgWidth="imgWidth"
-                :imgHeight="imgHeight" @click.native="redirectToItem(item)" :class="$style['v-item']">
-                <div :class="$style['v-item-detail']">
-                    <h4>{{ item.name }}</h4>
-                    <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
-                </div>
-            </vertical-item>
-            <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
-                <font-awesome-icon icon="chevron-left" />
-            </button>
-            <button :class="$style.rightButton" @click="moveRight()" v-show="showNext">
-                <font-awesome-icon icon="chevron-right" />
-            </button>
+  <div class="width-control">
+    <p class="roboto title">Luxurious Hotels</p>
+    <div :class="$style['item-list-container']">
+      <vertical-item
+        v-for="item in items"
+        :key="item.id"
+        :imgSrc="item.images[0].link"
+        :imgWidth="imgWidth"
+        :imgHeight="imgHeight"
+        @click.native="redirectToItem(item)"
+        :class="$style['v-item']"
+      >
+        <div :class="$style['v-item-detail']">
+          <h4>{{ item.name }}</h4>
+          <rating-section
+            :ratingCount="item.numberVoting"
+            :starCount="item.ratingScore"
+          />
         </div>
+      </vertical-item>
+      <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
+        <font-awesome-icon icon="chevron-left" />
+      </button>
+      <button
+        :class="$style.rightButton"
+        @click="moveRight()"
+        v-show="showNext"
+      >
+        <font-awesome-icon icon="chevron-right" />
+      </button>
     </div>
+  </div>
 </template>
 
 <script>
-import RatingSection from './RatingSection.vue'
-import VerticalItem from './VerticalItem.vue'
+import RatingSection from "./RatingSection.vue";
+import VerticalItem from "./VerticalItem.vue";
 
 export default {
-    name: 'FeaturedHotelSection',
-    components: {
-       VerticalItem,
-       RatingSection,
-   },
-   data() {
-      return {
-            this_item: 0,
-            showed_items: 4,
-        }
+  name: "FeaturedHotelSection",
+  components: {
+    VerticalItem,
+    RatingSection,
+  },
+  data() {
+    return {
+      this_item: 0,
+      showed_items: 4,
+    };
+  },
+  computed: {
+    items() {
+      return this.$store.state.hotelArr
+        .filter((item) => item.images.length > 0)
+        .slice(this.this_item, this.this_item + this.showed_items);
     },
-    computed: {
-        items() {
-            return this.$store.state.hotelArr.filter(item => item.images.length > 0).slice(this.this_item, this.this_item + this.showed_items);
-        },
-        showPrev() {
-            return this.this_item > 0;
-        },
-        showNext() {
-            return this.$store.state.hotelArr.length > this.this_item + this.showed_items;
-        },
-        imgHeight() {
-            return '200px';
-        },
-        imgWidth() {
-            return '235px';
-        }
+    showPrev() {
+      return this.this_item > 0;
     },
-    methods: {
-        moveLeft() {
-            this.this_item = Math.max(this.this_item - 1, 0);
-        },
-        moveRight() {
-            ++this.this_item;
-        },
-        redirectToItem(item) {
-            this.$store.commit('changeItemName', item.name);
-            this.$router.push('/hotel');
-        },
+    showNext() {
+      return (
+        this.$store.state.hotelArr.length > this.this_item + this.showed_items
+      );
     },
-    beforeMount() {
-        this.$store.dispatch('getAllHotels');
-    }
-}
+    imgHeight() {
+      return "200px";
+    },
+    imgWidth() {
+      return "235px";
+    },
+  },
+  methods: {
+    moveLeft() {
+      this.this_item = Math.max(this.this_item - 1, 0);
+    },
+    moveRight() {
+      ++this.this_item;
+    },
+    redirectToItem(item) {
+      this.$store.commit("changeItemName", item.name);
+      this.$router.push("/hotel");
+    },
+  },
+  beforeMount() {
+    this.$store.dispatch("getAllHotels", 20);
+  },
+};
 </script>
 
 <style module>
 .item-list-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-    width: 100%;
-    position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+  width: 100%;
+  position: relative;
 }
 
 .item-list-container h4 {
-    margin: 0;
+  margin: 0;
 }
 
 .v-item:hover .v-item-detail h4 {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .v-item-detail {
-    height: 70px;
+  height: 70px;
 }
 
 .leftButton,

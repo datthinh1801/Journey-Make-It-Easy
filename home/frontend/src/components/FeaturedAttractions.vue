@@ -1,10 +1,20 @@
 <template>
   <div :class="$style['grid-container']">
-    <VerticalItem v-for="item in items" :key="item.id" :img-src="item.images[0].link" :img-width="imgWidth"
-      :img-height="imgHeight" :class="$style['v-item']" @click.native="redirectToItem(item)">
+    <VerticalItem
+      v-for="item in items"
+      :key="item.id"
+      :img-src="item.images[0].link"
+      :img-width="imgWidth"
+      :img-height="imgHeight"
+      :class="$style['v-item']"
+      @click.native="redirectToItem(item)"
+    >
       <div :class="$style['item-detail-container']">
         <h4>{{ item.name }}</h4>
-        <rating-section :ratingCount="item.numberVoting" :starCount="item.ratingScore" />
+        <rating-section
+          :ratingCount="item.numberVoting"
+          :starCount="item.ratingScore"
+        />
       </div>
     </VerticalItem>
     <button :class="$style.leftButton" @click="moveLeft" v-show="showPrev">
@@ -17,36 +27,43 @@
 </template>
 
 <script>
-import RatingSection from './RatingSection.vue';
+import RatingSection from "./RatingSection.vue";
 import VerticalItem from "./VerticalItem";
 
 export default {
-  name: 'FeaturedAttractions',
+  name: "FeaturedAttractions",
   components: {
-    VerticalItem, RatingSection,
+    VerticalItem,
+    RatingSection,
   },
   data() {
     return {
       this_item: 0,
       showed_items: 4,
-    }
+    };
   },
   computed: {
     items() {
-      return this.$store.state.attractionArr.slice(this.this_item, this.this_item + this.showed_items);
+      return this.$store.state.attractionArr.slice(
+        this.this_item,
+        this.this_item + this.showed_items
+      );
     },
     imgWidth() {
-      return '235px';
+      return "235px";
     },
     imgHeight() {
-      return '200px';
+      return "200px";
     },
     showPrev() {
       return this.this_item > 0;
     },
     showNext() {
-      return this.$store.state.attractionArr.length > this.this_item + this.showed_items;
-    }
+      return (
+        this.$store.state.attractionArr.length >
+        this.this_item + this.showed_items
+      );
+    },
   },
   methods: {
     moveLeft() {
@@ -56,14 +73,14 @@ export default {
       ++this.this_item;
     },
     redirectToItem(item) {
-      this.$store.commit('changeItemName', item.name);
-      this.$router.push('/attraction');
+      this.$store.commit("changeItemName", item.name);
+      this.$router.push("/attraction");
     },
   },
   beforeMount() {
-    this.$store.dispatch('getAllAttractions');
-  }
-}
+    this.$store.dispatch("getAllAttractions", 10);
+  },
+};
 </script>
 
 <style module>
@@ -74,7 +91,7 @@ export default {
   position: relative;
 }
 
-.v-item:hover .item-detail-container h4{
+.v-item:hover .item-detail-container h4 {
   text-decoration: underline;
 }
 

@@ -1,7 +1,11 @@
 <template>
   <div :class="[$style.item]">
     <div :class="[$style.image]">
-      <img alt="" :src="imgUrl" :style="{width: imgWidth, height: imgHeight}">
+      <img
+        alt=""
+        :src="imgUrl"
+        :style="{ width: imgWidth, height: imgHeight }"
+      />
       <HeartButton :class="$style['heart-btn']" />
     </div>
     <slot></slot>
@@ -12,34 +16,44 @@
 import HeartButton from "./HeartButton";
 
 export default {
-  name: 'VerticalItem',
+  name: "VerticalItem",
   components: {
-    HeartButton
+    HeartButton,
   },
-  props: ['imgSrc', 'imgWidth', 'imgHeight'],
+  props: ["imgSrc", "imgWidth", "imgHeight"],
   data() {
-    return {}
+    return {};
   },
   computed: {
     imgUrl() {
-      let newUrl = this.imgSrc.replace('https://media-cdn', 'https://dynamic-media-cdn')
-      .replace(/\.jpg[\w\W]*/,`.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`);
+      let newUrl = this.imgSrc
+        .replace("https://media-cdn", "https://dynamic-media-cdn")
+        .replace(
+          /\.jpg[\w\W]*/,
+          `.jpg?w=${this.imgRenderWidth}&h=${this.imgRenderHeight}&s=1`
+        );
       return newUrl;
     },
     imgRenderWidth() {
       if (parseInt(this.imgWidth) <= 300) {
-        return '300';
+        return "300";
+      } else if (parseInt(this.imgWidth) <= 400) {
+        return "400";
+      } else {
+        return "1000";
       }
-      return parseInt(this.imgWidth);
     },
     imgRenderHeight() {
       if (parseInt(this.imgHeight) <= 300) {
-        return '300';
+        return "300";
+      } else if (parseInt(this.imgHeight) <= 400) {
+        return "400";
+      } else {
+        return "1000";
       }
-      return parseInt(this.imgHeight);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style module>

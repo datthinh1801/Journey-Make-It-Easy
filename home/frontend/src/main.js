@@ -370,14 +370,14 @@ const store = new Vuex.Store({
             let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');
             context.commit('getArticle', articleArr.data);
         },
-        async getAllAttractions(context) {
+        async getAllAttractions(context, limit) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        allAttractions {
+                        allAttractions(limit: ${limit}) {
                           id,
                           name,
                           numberVoting,
@@ -399,16 +399,17 @@ const store = new Vuex.Store({
                 data = respData.data['allAttractions'];
             });
 
+            data = data.filter(attraction => attraction.images.length > 0);
             context.commit('getAttraction', data);
         },
-        async getAllRestaurants(context) {
+        async getAllRestaurants(context, limit) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        allRestaurants {
+                        allRestaurants(limit: ${limit}) {
                           id,
                           name,
                           numberVoting,
@@ -429,16 +430,17 @@ const store = new Vuex.Store({
                 data = respData.data['allRestaurants'];
             });
 
+            data = data.filter(rest => rest.images.length > 0);
             context.commit('getRestaurant', data);
         },
-        async getAllHotels(context) {
+        async getAllHotels(context, limit) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        allStays {
+                        allStays(limit: ${limit}) {
                           id,
                           name,
                           numberVoting,
@@ -459,6 +461,7 @@ const store = new Vuex.Store({
                 data = respData.data['allStays'];
             });
 
+            data = data.filter(hotel => hotel.images.length > 0);
             context.commit('getHotel', data);
         },
         async getAllCities(context) {
@@ -490,7 +493,7 @@ const store = new Vuex.Store({
             }).then(respData => {
                 data = respData.data['allCitys'];
             });
-
+            data = data.filter(city => city.images.length > 0);
             context.commit('getCities', data);
         },
         async getAttractionDetail(context, name) {
