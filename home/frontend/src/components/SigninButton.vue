@@ -201,15 +201,13 @@ export default {
       this.$store.state.modalUp = true;
       this.$modal.show("sign-in-modal");
     },
-    signIn() {
-      let username = document.getElementById("username").value;
-      let password = document.getElementById("password").value;
-      if (
-        this.$store.dispatch("signIn", {
-          username,
-          password,
-        })
-      ) {
+    async signIn() {
+      let response = await this.$store.dispatch("signIn", {
+        username: this.username,
+        password: this.password,
+      });
+
+      if (response) {
         this.invalidCredentials = false;
         this.$modal.hide("sign-in-modal");
       } else {
@@ -244,6 +242,7 @@ export default {
       this.expandProfile = !this.expandProfile;
     },
     logout() {
+      console.log("logout");
       this.$store.dispatch("signOut");
     },
   },

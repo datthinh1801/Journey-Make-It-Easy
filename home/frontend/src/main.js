@@ -28,7 +28,8 @@ const store = new Vuex.Store({
 
         // AUTHENTICATION
         username: '',
-        sessionid: '',
+        accessToken: '',
+        refreshToken: '',
 
         // GENERIC STATE
         city: '',
@@ -51,17 +52,28 @@ const store = new Vuex.Store({
     },
     mutations: {
         initializeStore(state) {
-            if (localStorage.getItem('sessionid')) {
-                state.sessionid = localStorage.getItem('sessionid');
-                state.username = localStorage.getItem('username');
+            if (localStorage.getItem('journey-jwt')) {
+                state.refreshToken = localStorage.getItem('journey-jwt');
+                state.username = '';
             } else {
-                state.sessionid = '';
+                state.refreshToken = '';
                 state.username = '';
             }
         },
-        signIn(state, payload) {
-            state.username = payload.username;
-            state.sessionid = payload.sessionid;
+        saveToken(state, {
+            accessToken,
+            refreshToken
+        }) {
+            state.accessToken = accessToken;
+            state.refreshToken = refreshToken;
+        },
+        saveUsername(state, username) {
+            state.username = username;
+        },
+        revokeCred(state) {
+            state.accessToken = '';
+            state.refreshToken = '';
+            state.username = '';
         },
         getCities(state, cities) {
             state.cities = cities;
@@ -110,20 +122,48 @@ const store = new Vuex.Store({
                 username,
                 password
             } = credential;
-            let response = await axios.post(`${context.state.BASE_URL}/login`,
-                `username=${username}&password=${password}`)
-                .then(resp => {
-                    return resp;
-                });
 
-            if (response.status === 200) {
-                context.commit('signIn', {username, sessionid: ''});
-                await router.push('/')
-                    .catch(e => console.log(e));
-                return true;
-            } else {
-                context.commit('signIn', '', '');
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `mutation {
+                        tokenAuth(username: "${username}", password: "${password}") {
+                            token,
+                            payload,
+                            refreshToken
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data['errors']) {
                 return false;
+            } else {
+                let tokenAuth = data['data']['tokenAuth'];
+                let accessToken = tokenAuth['token'];
+                let refreshToken = tokenAuth['refreshToken'];
+                let username = tokenAuth['payload']['username'];
+
+                context.commit('saveToken', {
+                    accessToken,
+                    refreshToken
+                });
+                context.commit('saveUsername', username);
+
+                router.push('/').catch(e => {
+                    return e;
+                });
+                return true;
             }
         },
         async signUp(context, payload) {
@@ -135,11 +175,27 @@ const store = new Vuex.Store({
                 `username=${username}&password=${password}`
             );
 
-            await router.push('/').catch(e => console.log(e));
+            await router.push('/').catch(e => {
+                return e;
+            });
         },
         async signOut(context) {
-            await axios.post(`${context.state.BASE_URL}/logout`);
-            await router.push('/').catch(e => console.log(e));
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `mutation {
+                        revokeToken(refreshToken: "${context.state.refreshToken}") {
+                            revoked
+                        }
+                    }`
+                }
+            });
+
+            context.commit('revokeCred');
+            await router.push('/').catch(e => {
+                return e
+            });
             window.location.reload();
         },
         async getAttraction(context, city) {
