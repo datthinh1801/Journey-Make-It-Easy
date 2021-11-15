@@ -110,6 +110,9 @@ export default {
       return this.item["numberVoting"];
     },
   },
+  methods: {
+
+  },
   beforeCreate() {
     if (this.$store.state.currentItemName === "") {
       this.$router.push("/");
@@ -118,6 +121,10 @@ export default {
         "getAttractionDetail",
         this.$store.state.currentItemName
       );
+      this.$store.dispatch("getReviews", {
+        type: "Attraction",
+        itemId: this.$store.state.item.id,
+      });
     }
   },
   beforeMount() {

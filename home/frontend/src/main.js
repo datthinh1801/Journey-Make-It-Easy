@@ -49,6 +49,8 @@ const store = new Vuex.Store({
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
         currentItemName: '',
+
+        reviews: [],
     },
     mutations: {
         initializeStore(state) {
@@ -121,6 +123,9 @@ const store = new Vuex.Store({
         changeCity(state, city) {
             state.city = city;
         },
+        saveReviews(state, reviews) {
+            state.reviews = reviews;
+        }
     },
     actions: {
         async signIn(context, credential) {
@@ -672,14 +677,14 @@ const store = new Vuex.Store({
 
             context.commit('saveCity', data);
         },
-        async getReviews(context, type, id) {
+        async getReviews(context, {type, id}) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        getReview${type}(id: "${id}") {
+                        getReview${type}(itemId: "${id}") {
                             id,
                             text,
                             point,
@@ -697,10 +702,14 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getReviews'];
+                data = respData;
             });
 
-            context.commit('saveReviews', data);
+            if (!data["errors"]) {
+                context.commit('saveReviews', data);
+            } else {
+                context.commit('saveReviews', []);
+            }
         }
     }
 })

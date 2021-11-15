@@ -17,11 +17,13 @@
           :class="$style['review-text-section']"
           wrap="soft"
           maxlength="300"
+          v-model="reviewContent"
         ></textarea>
         <button :class="$style['send-review-btn']" @click="sendReview">
           Send
         </button>
       </div>
+
       <div v-if="hasReviews">
         <h3>Others</h3>
         <ReviewItem
@@ -42,7 +44,7 @@ import ReviewItem from "./ReviewItem.vue";
 
 export default {
   name: "ReviewingSection",
-  props: ["numberVoting", "ratingScore", "reviews"],
+  props: ["numberVoting", "ratingScore"],
   components: {
     Stars,
     ReviewItem,
@@ -56,9 +58,13 @@ export default {
     hasReviews() {
       return this.numberVoting > 0;
     },
+    reviews() {
+      return this.$store.state.reviews;
+    },
   },
   methods: {
-    sendReview() {},
+    sendReview() {
+    },
   },
 };
 </script>

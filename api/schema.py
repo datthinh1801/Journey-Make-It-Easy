@@ -281,6 +281,7 @@ class UserDataType(DjangoObjectType):
         )
 
 
+# Main Query class
 class Query(graphene.ObjectType):
     all_nations = graphene.List(NationType, limit=graphene.Int(required=False))
     get_nation_by_id = graphene.Field(NationType, id=graphene.ID(required=True))
@@ -501,196 +502,23 @@ class UpdateUserData(graphene.Mutation):
         return UpdateUserData(user=user)
 
 
-# class VoteNation(graphene.Mutation):
-#     class Arguments:
-#         id = graphene.ID(required=True)
-#         point = graphene.Int(required=True)
-
-#     vote = graphene.Field(Nation_VotingType)
-
-#     @classmethod
-#     def mutate(cls, root, info, id, point):
-#         if info.context.user.is_anonymous:
-#             return None
-#         vote = Nation_Voting.objects.filter(item=id, user=info.context.user)
-#         if vote and len(vote) > 0:
-#             vote = vote[0]
-#         else:
-#             vote = Nation_Voting()
-#         item = Nation.objects.get(id=id)
-#         item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-#             item.number_voting + 1
-#         )
-#         item.number_voting += 1
-#         item.save()
-#         vote.item = item
-#         vote.user = info.context.user
-#         vote.point = point
-#         vote.save()
-#         return VoteNation(vote=vote)
-
-
-# class VoteCity(graphene.Mutation):
-#     class Arguments:
-#         id = graphene.ID(required=True)
-#         point = graphene.Int(required=True)
-
-#     vote = graphene.Field(City_VotingType)
-
-#     @classmethod
-#     def mutate(cls, root, info, id, point):
-#         if info.context.user.is_anonymous:
-#             return None
-#         vote = City_Voting.objects.filter(item=id, user=info.context.user)
-#         if vote and len(vote) > 0:
-#             vote = vote[0]
-#         else:
-#             vote = City_Voting()
-#         item = City.objects.get(id=id)
-#         item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-#             item.number_voting + 1
-#         )
-#         item.number_voting += 1
-#         item.save()
-#         vote.item = item
-#         vote.user = info.context.user
-#         vote.point = point
-#         vote.save()
-#         return VoteNation(vote=vote)
-
-
-# class VoteAttraction(graphene.Mutation):
-#     class Arguments:
-#         id = graphene.ID(required=True)
-#         point = graphene.Int(required=True)
-
-#     vote = graphene.Field(Attraction_VotingType)
-
-#     @classmethod
-#     def mutate(cls, root, info, id, point):
-#         if info.context.user.is_anonymous:
-#             return None
-#         vote = Attraction_Voting.objects.filter(item=id, user=info.context.user)
-#         if vote and len(vote) > 0:
-#             vote = vote[0]
-#         else:
-#             vote = Attraction_Voting()
-#         item = Attraction.objects.get(id=id)
-#         item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-#             item.number_voting + 1
-#         )
-#         item.number_voting += 1
-#         item.save()
-#         vote.item = item
-#         vote.user = info.context.user
-#         vote.point = point
-#         vote.save()
-#         return VoteAttraction(vote=vote)
-
-
-# class VoteRestaurant(graphene.Mutation):
-#     class Arguments:
-#         id = graphene.ID(required=True)
-#         point = graphene.Int(required=True)
-
-#     vote = graphene.Field(Restaurant_VotingType)
-
-#     @classmethod
-#     def mutate(cls, root, info, id, point):
-#         if not info.context.user.is_authenticated:
-#             return None
-
-#         vote = Restaurant_Voting.objects.filter(item=id, user=info.context.user)
-#         if vote and len(vote) > 0:
-#             vote = vote[0]
-#         else:
-#             vote = Restaurant_Voting()
-#         item = Restaurant.objects.get(id=id)
-#         item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-#             item.number_voting + 1
-#         )
-#         item.number_voting += 1
-#         item.save()
-#         vote.item = item
-#         vote.user = info.context.user
-#         vote.point = point
-#         vote.save()
-#         return VoteRestaurant(vote=vote)
-
-
-# class VoteStay(graphene.Mutation):
-#     class Arguments:
-#         id = graphene.ID(required=True)
-#         point = graphene.Int(required=True)
-
-#     vote = graphene.Field(Stay_VotingType)
-
-#     @classmethod
-#     def mutate(cls, root, info, id, point):
-#         if not info.context.user.is_authenticated:
-#             return
-#         vote = Stay_Voting.objects.filter(item=id, user=info.context.user)
-#         if vote and len(vote) > 0:
-#             vote = vote[0]
-#         else:
-#             vote = Stay_Voting()
-#         item = Stay.objects.get(id=id)
-#         item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-#             item.number_voting + 1
-#         )
-#         item.number_voting += 1
-#         item.save()
-#         vote.item = item
-#         vote.user = info.context.user
-#         vote.point = point
-#         vote.save()
-#         return VoteStay(vote=vote)
-
-
-class VoteBlog(graphene.Mutation):
-    class Arguments:
-        id = graphene.ID(required=True)
-        point = graphene.Int(required=True)
-
-    vote = graphene.Field(Blog_VotingType)
-
-    @classmethod
-    def mutate(cls, root, info, id, point):
-        if not info.context.user.is_authenticated:
-            return
-        vote = Blog_Voting.objects.filter(item=id, user=info.context.user)
-        if vote and len(vote) > 0:
-            vote = vote[0]
-        else:
-            vote = Blog_Voting()
-        item = Blog.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
-        vote.item = item
-        vote.user = info.context.user
-        vote.point = point
-        vote.save()
-        return VoteBlog(vote=vote)
-
-
 class ReviewNation(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(Nation_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
+    def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
         reviews = Nation_Review()
         reviews.item = Nation.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
         return ReviewNation(reviews=reviews)
 
@@ -698,18 +526,20 @@ class ReviewNation(graphene.Mutation):
 class ReviewCity(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(City_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
+    def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
         reviews = City_Review()
         reviews.item = City.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
         return ReviewCity(reviews=reviews)
 
@@ -717,37 +547,41 @@ class ReviewCity(graphene.Mutation):
 class ReviewAttraction(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(Attraction_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
-        if not info.context.user.is_authenticated:
+    def mutate(cls, root, info, id, point, review):
+        if info.context.user.is_anonymous:
             return
         reviews = Attraction_Review()
         reviews.item = Attraction.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
-        return Attraction_Review(reviews=reviews)
+        return ReviewAttraction(reviews=reviews)
 
 
 class ReviewRestaurant(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(Restaurant_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
+    def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
         reviews = Restaurant_Review()
         reviews.item = Restaurant.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
         return ReviewRestaurant(reviews=reviews)
 
@@ -755,18 +589,20 @@ class ReviewRestaurant(graphene.Mutation):
 class ReviewStay(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(Stay_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
+    def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
         reviews = Stay_Review()
         reviews.item = Stay.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
         return ReviewStay(reviews=reviews)
 
@@ -774,18 +610,20 @@ class ReviewStay(graphene.Mutation):
 class ReviewBlog(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
+        point = graphene.Int(required=True)
         review = graphene.String(required=True)
 
     reviews = graphene.Field(Blog_ReviewType)
 
     @classmethod
-    def mutate(cls, root, info, id, review):
+    def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
         reviews = Blog_Review()
         reviews.item = Blog.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
+        reviews.point = point
         reviews.save()
         return ReviewBlog(reviews=reviews)
 
@@ -799,12 +637,7 @@ class Mutation(graphene.ObjectType):
     create_blog = CreateBlog.Field()
     update_blog = UpdateBlog.Field()
     update_userdata = UpdateUserData.Field()
-    # voting_nation = VoteNation.Field()
-    # voting_city = VoteCity.Field()
-    # voting_attraction = VoteAttraction.Field()
-    # voting_restaurant = VoteRestaurant.Field()
-    # voting_stay = VoteStay.Field()
-    voting_blog = VoteBlog.Field()
+
     review_nation = ReviewNation.Field()
     review_city = ReviewCity.Field()
     review_attraction = ReviewAttraction.Field()
