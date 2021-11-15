@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='city',
             name='nation',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='citys', to='api.nation'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cities', to='api.nation'),
         ),
         migrations.AlterField(
             model_name='city_image',

@@ -13,7 +13,7 @@ class City(models.Model):
     info = models.TextField(blank=True)
     number_voting = models.IntegerField(default=0)
     rating_score = models.FloatField(default=0)
-    nation = models.ForeignKey(Nation, related_name="citys", on_delete=models.CASCADE)
+    nation = models.ForeignKey(Nation, related_name="cities", on_delete=models.CASCADE)
 
 
 class Attraction(models.Model):

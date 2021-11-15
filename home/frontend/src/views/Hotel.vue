@@ -75,6 +75,11 @@
         <h2>Location</h2>
         <iframe loading="lazy" :src="mapURL"></iframe>
       </div>
+      <reviewing-section
+        :numberVoting="numberVoting"
+        :ratingScore="ratingScore"
+        :type="'Stay'"
+      />
     </div>
   </div>
 </template>
@@ -85,6 +90,7 @@ import BigHeart from "../components/BigHeart.vue";
 import ShareButton from "../components/ShareButton.vue";
 import RatingSection from "../components/RatingSection.vue";
 import ImageSlider from "../components/ImageSlider.vue";
+import ReviewingSection from "../components/ReviewingSection.vue";
 
 export default {
   name: "Hotel",
@@ -94,6 +100,7 @@ export default {
     ShareButton,
     RatingSection,
     ImageSlider,
+    ReviewingSection,
   },
   computed: {
     name() {
@@ -138,14 +145,14 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.currentItemName === "") {
+    if (this.$store.state.currentItemId === "") {
       this.$router.push("/");
     } else {
-      this.$store.dispatch("getHotelDetail", this.$store.state.currentItemName);
+      this.$store.dispatch("getHotelDetail", this.$store.state.currentItemId);
     }
   },
   beforeMount() {
-    document.title = `Hotel | ${this.$store.state.currentItemName}`;
+    document.title = `Hotel | ${this.$store.state.currentItemId}`;
   },
 };
 </script>
@@ -163,7 +170,7 @@ export default {
 }
 
 .about-section {
-  width: 80%;
+  width: 100%;
 }
 
 .about-section hr {
@@ -174,7 +181,7 @@ export default {
 .about-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 50px;
 }
 
 .about-detail p {
@@ -206,8 +213,8 @@ export default {
 }
 
 .map {
-  width: 80%;
-  height: 300px;
+  width: 100%;
+  height: 350px;
   margin-bottom: 100px;
 }
 

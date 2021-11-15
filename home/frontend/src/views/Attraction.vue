@@ -46,6 +46,7 @@
       <reviewing-section
         :numberVoting="numberVoting"
         :ratingScore="ratingScore"
+        :type="'Attraction'"
       />
     </div>
   </div>
@@ -114,23 +115,17 @@ export default {
   },
   methods: {},
   beforeCreate() {
-    if (this.$store.state.currentItemName === "") {
+    if (this.$store.state.currentItemId === "") {
       this.$router.push("/");
     } else {
       this.$store.dispatch(
         "getAttractionDetail",
-        this.$store.state.currentItemName
+        this.$store.state.currentItemId
       );
-      if (this.$store.state.item.id) {
-        this.$store.dispatch("getReviews", {
-          type: "Attraction",
-          id: this.$store.state.item.id,
-        });
-      }
     }
   },
   beforeMount() {
-    document.title = `Attraction | ${this.$store.state.currentItemName}`;
+    document.title = `Attraction | ${this.$store.state.currentItemId}`;
   },
 };
 </script>

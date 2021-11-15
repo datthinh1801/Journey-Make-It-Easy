@@ -42,7 +42,7 @@ export default {
       return this.item_n < this.$store.state.attractionArr.length;
     },
     place() {
-      return this.$store.state.city;
+      return this.$store.state.city_name;
     },
     items() {
       return this.$store.state.attractionArr.slice(0, this.item_n);
@@ -62,7 +62,7 @@ export default {
       this.item_n += 9;
     },
     redirectToAttraction(item) {
-      this.$store.commit("changeItemName", item.name);
+      this.$store.commit("changeItemId", item.id);
       this.$router.push("attraction");
     },
   },
@@ -70,7 +70,7 @@ export default {
     if (this.$store.state.city === "") {
       this.$router.push("/");
     } else {
-      this.$store.dispatch("getAttraction", this.$store.state.city);
+      this.$store.dispatch("getAttraction", this.$store.state.city_id);
     }
   },
   beforeMount() {

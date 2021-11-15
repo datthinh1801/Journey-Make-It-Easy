@@ -87,7 +87,7 @@ export default {
       return this.item_n < this.$store.state.restaurantArr.length;
     },
     place() {
-      return this.$store.state.city;
+      return this.$store.state.city_name;
     },
     items() {
       return this.$store.state.restaurantArr.slice(0, this.item_n);
@@ -110,7 +110,7 @@ export default {
       this.item_n += 10;
     },
     redirectToRestaurant(item) {
-      this.$store.commit("changeItemName", item.name);
+      this.$store.commit("changeItemId", item.id);
       this.$router.push("restaurant");
     },
     getCuisines(item) {
@@ -126,7 +126,7 @@ export default {
     if (this.$store.state.city === "") {
       this.$router.push("/");
     } else {
-      this.$store.dispatch("getRestaurant", this.$store.state.city);
+      this.$store.dispatch("getRestaurant", this.$store.state.city_id);
     }
   },
   beforeMount() {

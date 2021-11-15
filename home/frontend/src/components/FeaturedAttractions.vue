@@ -73,7 +73,7 @@ export default {
       ++this.this_item;
     },
     redirectToItem(item) {
-      this.$store.commit("changeItemName", item.name);
+      this.$store.commit("changeItemId", item.id);
       this.$router.push("/attraction");
     },
   },

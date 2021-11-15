@@ -202,7 +202,7 @@ def add_nation(data, cursor):
     cursor.execute(query_str)
     nation_id = cursor.fetchall()[0][0]
 
-    for i in data["citys"]:
+    for i in data["cities"]:
         add_city(i, nation_id, cursor)
 
 

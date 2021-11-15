@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style['review-container']">
     <div :class="$style['meta']">
       <h4>{{ username }}</h4>
       <stars :starCount="point" />
@@ -19,10 +19,14 @@ export default {
 .meta {
   display: flex;
   align-items: center;
-  margin: 20px 0 5px 0;
+  margin: 0 0 5px 0;
 }
 
 .meta h4 {
-  margin: 0;
+  margin: 0 10px 0 0;
+}
+
+.review-container {
+  margin-top: 20px;
 }
 </style>

@@ -55,8 +55,8 @@ export default {
     };
   },
   computed: {
-    place() {
-      return this.$store.state.city;
+    place_id() {
+      return this.$store.state.city_id;
     },
     items() {
       let itemArr = [];
@@ -100,22 +100,13 @@ export default {
     },
   },
   methods: {
-    getAttraction() {
-      this.$store.dispatch("getAttraction", this.place);
-    },
-    getRestaurant() {
-      this.$store.dispatch("getRestaurant", this.place);
-    },
-    getHotel() {
-      this.$store.dispatch("getHotel", this.place);
-    },
     getItem() {
       if (this.title === "Do") {
-        this.getAttraction();
+        this.$store.dispatch("getAttraction", this.place_id);
       } else if (this.title === "Eat") {
-        this.getRestaurant();
+        this.$store.dispatch("getRestaurant", this.place_id);
       } else {
-        this.getHotel();
+        this.$store.dispatch("getHotel", this.place_id);
       }
     },
     moveLeft() {
@@ -126,7 +117,7 @@ export default {
       ++this.currentItem;
     },
     redirectItem(item) {
-      this.$store.commit("changeItemName", item.name);
+      this.$store.commit("changeItemId", item.id);
 
       if (this.title === "Do") {
         this.$router.push("attraction");
@@ -138,9 +129,7 @@ export default {
     },
   },
   beforeMount() {
-    for (let i = 0; i < this.itemToShow; ++i) {
-      this.getItem();
-    }
+    this.getItem();
   },
 };
 </script>

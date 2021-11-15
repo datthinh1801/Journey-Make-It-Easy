@@ -40,18 +40,18 @@ async def extract_nation_data(nation_url: str):
     with open("vietnam.json", "r") as file:
         data = json.load(file)
 
-    citys = []
+    cities = []
     print(len(city_links))
     # for city_link in city_links[:5]:
     #     print(city_link)
-    #     citys.append(asyncio.create_task(extract_city_data(city_link)))
+    #     cities.append(asyncio.create_task(extract_city_data(city_link)))
 
     for city_link in city_links[5:]:
         print(city_link)
-        citys.append(asyncio.create_task(extract_city_data(city_link)))
+        cities.append(asyncio.create_task(extract_city_data(city_link)))
 
     data["name"] = nation_name
-    data["citys"] += await asyncio.gather(*citys)
+    data["cities"] += await asyncio.gather(*cities)
     return data
 
 

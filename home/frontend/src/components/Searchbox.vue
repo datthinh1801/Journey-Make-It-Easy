@@ -1,13 +1,20 @@
 <template>
-  <div :class="$style['search-box-container']" :style="{'z-index': zIndex}">
+  <div :class="$style['search-box-container']" :style="{ 'z-index': zIndex }">
     <div :class="$style['box-container']">
       <label for="search-box">
-        <font-awesome-icon :class="$style['search-icon']" icon="search" /></label>
-      <input id="searchBox-box" class="roboto" :class="$style['search-box']" placeholder="Type to search" type="text"
-        @keyup="search">
+        <font-awesome-icon :class="$style['search-icon']" icon="search"
+      /></label>
+      <input
+        id="searchBox-box"
+        class="roboto"
+        :class="$style['search-box']"
+        placeholder="Type to search"
+        type="text"
+        @keyup="search"
+      />
     </div>
     <ul v-show="shouldExtended" :class="$style['search-result-container']">
-      <li v-for="(item, i) in searches" :key=i @click="goTo(item)">
+      <li v-for="(item, i) in searches" :key="i" @click="goTo(item)">
         {{ item }}
       </li>
     </ul>
@@ -15,24 +22,20 @@
 </template>
 
 <script>
-import {
-  library
-} from "@fortawesome/fontawesome-svg-core";
-import {
-  faSearch
-} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 library.add(faSearch);
 
 export default {
-  name: 'SearchBox',
+  name: "SearchBox",
   data() {
     return {
       searches: [],
       allSearches: [],
       shouldExtended: false,
-    }
+    };
   },
   computed: {
     zIndex() {
@@ -40,42 +43,44 @@ export default {
         return 0;
       }
       return 1;
-    }
+    },
   },
   methods: {
     goTo(item) {
       this.$store.state.city = item;
-      this.$router.push('/explore');
+      this.$router.push("/explore");
     },
     async search() {
-      let searchStr = document.querySelector('#searchBox-box').value;
+      let searchStr = document.querySelector("#searchBox-box").value;
       this.shouldExtended = searchStr.length > 0;
-      let re = new RegExp(`${searchStr}`, 'gi');
+      let re = new RegExp(`${searchStr}`, "gi");
       let data;
 
       if (this.allSearches.length === 0) {
         await axios({
-          method: 'post',
+          method: "post",
           url: `${this.$store.state.BASE_URL}/graphql`,
           data: {
             query: `query {
-                    allCitys {
+                    allCities {
                       id,
                       name
                     }
-                  }`
+                  }`,
           },
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        }).then(resp => {
-          return resp.data;
-        }).then(respData => {
-          data = respData.data['allCitys'];
-        });
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+          .then((resp) => {
+            return resp.data;
+          })
+          .then((respData) => {
+            data = respData.data["allCities"];
+          });
 
-        this.allSearches = data.map(item => item.name);
+        this.allSearches = data.map((item) => item.name);
       }
 
       this.searches = [];
@@ -84,9 +89,9 @@ export default {
           this.searches.push(this.allSearches[i]);
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style module>

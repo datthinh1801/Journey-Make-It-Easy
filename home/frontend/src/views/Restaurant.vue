@@ -12,24 +12,24 @@
       <div :class="$style['description-container']">
         <RatingSection :starCount="ratingScore" :ratingCount="numberVoting" />
         <div class="info-container">
-          <div class="address-info">
+          <div class="address-info" v-if="address">
             <font-awesome-icon icon="map-marked-alt" />
             <span>{{ address }}</span>
           </div>
-          <div class="phone-info">
+          <div class="phone-info" v-if="phone">
             <font-awesome-icon :icon="['fas', 'phone-alt']" />
             <span
               >Phone: <span>{{ phone }}</span></span
             >
           </div>
-          <div class="website">
+          <div class="website" v-if="website">
             <a :href="website" target="_blank">
               <font-awesome-icon icon="external-link-alt" />
               <span>Website</span>
             </a>
           </div>
         </div>
-        <div class="roboto open-time-container" :class="$style['open-time']">
+        <div class="roboto open-time-container" :class="$style['open-time']" v-if="openTime">
           <font-awesome-icon icon="clock" />
           <span>Open Time: {{ openTime }}</span>
         </div>
@@ -82,6 +82,11 @@
           </div>
         </div>
       </div>
+      <reviewing-section
+        :ratingScore="ratingScore"
+        :numberVoting="numberVoting"
+        :type="'Restaurant'"
+      />
     </div>
   </div>
 </template>
@@ -92,6 +97,7 @@ import RatingSection from "../components/RatingSection";
 import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import ImageSlider from "../components/ImageSlider";
+import ReviewingSection from "../components/ReviewingSection";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -125,6 +131,7 @@ export default {
     RatingSection,
     HeaderAndNav,
     ImageSlider,
+    ReviewingSection,
   },
   data() {
     return {};
@@ -174,20 +181,20 @@ export default {
     },
     isFetching() {
       return !this.$store.state.item["id"];
-    }
+    },
   },
   beforeCreate() {
-    if (this.$store.state.currentItemName === "") {
+    if (this.$store.state.currentItemId === "") {
       this.$router.push("/");
     } else {
       this.$store.dispatch(
         "getRestaurantDetail",
-        this.$store.state.currentItemName
+        this.$store.state.currentItemId
       );
     }
   },
   beforeMount() {
-    document.title = `Restaurant | ${this.$store.state.currentItemName}`;
+    document.title = `Restaurant | ${this.$store.state.currentItemId}`;
   },
 };
 </script>

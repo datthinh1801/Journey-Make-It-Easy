@@ -118,15 +118,15 @@ export default {
       return item["propertyAmenities"].map((item) => item.value);
     },
     redirectToHotel(item) {
-      this.$store.commit("changeItemName", item.name);
+      this.$store.commit("changeItemId", item.id);
       this.$router.push("hotel");
     },
   },
   beforeCreate() {
-    this.$store.dispatch("getHotel", this.$store.state.city);
+    this.$store.dispatch("getHotel", this.$store.state.city_id);
   },
   beforeMount() {
-    document.title = "Hotels in " + this.$store.state.city;
+    document.title = "Hotels in " + this.$store.state.city_name;
   },
   beforeDestroy() {
     this.$store.commit("clearAllHotels");

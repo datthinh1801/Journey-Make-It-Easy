@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     place() {
-      return this.$store.state.city;
+      return this.$store.state.city_name;
     },
     itemDetail() {
       return this.$store.state.item;
@@ -48,14 +48,14 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.city === "") {
+    if (this.$store.state.city_name === "") {
       this.$router.push("/");
     } else {
-      this.$store.dispatch("getCityDetail", this.$store.state.city);
+      this.$store.dispatch("getCityDetail", this.$store.state.city_id);
     }
   },
   beforeMount() {
-    document.title = "Explore " + this.$store.state.city;
+    document.title = "Explore " + this.$store.state.city_name;
   },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");

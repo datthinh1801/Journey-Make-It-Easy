@@ -32,7 +32,8 @@ const store = new Vuex.Store({
         refreshToken: '',
 
         // GENERIC STATE
-        city: '',
+        city_id: '',
+        city_name: '',
 
         // STATE for HOME
         cities: [],
@@ -48,9 +49,7 @@ const store = new Vuex.Store({
 
         // STATE for rendering item in SINGLE ITEM pages
         item: {},
-        currentItemName: '',
-
-        reviews: [],
+        currentItemId: '',
     },
     mutations: {
         initializeStore(state) {
@@ -112,20 +111,18 @@ const store = new Vuex.Store({
         },
         saveItem(state, item) {
             state.item = item;
-            this.commit('changeCity', item.city.name);
+            this.commit('changeCity', {city_id: item.city.id, city_name: item.city.name});
         },
         saveCity(state, item) {
             state.item = item;
         },
-        changeItemName(state, name) {
-            state.currentItemName = name;
+        changeItemId(state, id) {
+            state.currentItemId = id;
         },
-        changeCity(state, city) {
-            state.city = city;
+        changeCity(state, {city_id, city_name}) {
+            state.city_id = city_id;
+            state.city_name = city_name;
         },
-        saveReviews(state, reviews) {
-            state.reviews = reviews;
-        }
     },
     actions: {
         async signIn(context, credential) {
@@ -170,10 +167,6 @@ const store = new Vuex.Store({
                     refreshToken
                 });
                 context.commit('saveUsername', username);
-
-                router.push('/').catch(e => {
-                    return e;
-                });
                 return true;
             }
         },
@@ -185,10 +178,6 @@ const store = new Vuex.Store({
             await axios.post(`${context.state.BASE_URL}/register`,
                 `username=${username}&password=${password}`
             );
-
-            await router.push('/').catch(e => {
-                return e;
-            });
         },
         async signOut(context) {
             await axios({
@@ -249,14 +238,14 @@ const store = new Vuex.Store({
                 return true;
             }
         },
-        async getAttraction(context, city) {
+        async getAttraction(context, city_id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                    getCityByName(name: "${city}") {
+                    getCityById(id: "${city_id}") {
                         attractions {
                           id,
                           name,
@@ -279,19 +268,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName']['attractions'];
+                data = respData.data['getCityById']['attractions'];
             });
 
             context.commit('getAttraction', data);
         },
-        async getRestaurant(context, city) {
+        async getRestaurant(context, city_id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                    getCityByName(name: "${city}") {
+                    getCityById(id: "${city_id}") {
                         restaurants {
                           id,
                           name,
@@ -321,19 +310,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName']['restaurants'];
+                data = respData.data['getCityById']['restaurants'];
             });
 
             context.commit('getRestaurant', data);
         },
-        async getHotel(context, city) {
+        async getHotel(context, city_id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                    getCityByName(name: "${city}") {
+                    getCityById(id: "${city_id}") {
                       stays {
                         id,
                         name,
@@ -366,7 +355,7 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName']['stays'];
+                data = respData.data['getCityById']['stays'];
             });
 
             context.commit('getHotel', data);
@@ -473,7 +462,7 @@ const store = new Vuex.Store({
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        allCitys {
+                        allCities {
                           id,
                           name,
                           nation {
@@ -493,19 +482,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['allCitys'];
+                data = respData.data['allCities'];
             });
 
             context.commit('getCities', data);
         },
-        async getAttractionDetail(context, name) {
+        async getAttractionDetail(context, id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                         getAttractionByName(name: "${name}"){
+                         getAttractionById(id: "${id}"){
                             id,
                             name,
                             about,
@@ -517,6 +506,7 @@ const store = new Vuex.Store({
                             ratingScore,
                             ggmap,
                             city {
+                                id,
                                 name
                             },
                             images{
@@ -525,7 +515,12 @@ const store = new Vuex.Store({
                             },
                             reviews {
                                 id,
-                                text
+                                text,
+                                point,
+                                user {
+                                    id,
+                                    username
+                                }
                             }
                           }
                     }`
@@ -537,19 +532,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getAttractionByName'];
+                data = respData.data['getAttractionById'];
             });
 
             context.commit('saveItem', data);
         },
-        async getRestaurantDetail(context, name) {
+        async getRestaurantDetail(context, id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                         getRestaurantByName(name: "${name}"){
+                         getRestaurantById(id: "${id}"){
                             id,
                             name,
                             address,
@@ -576,11 +571,20 @@ const store = new Vuex.Store({
                             numberVoting,
                             ratingScore,
                             city {
+                                id
                                 name
                             },
                             images{
                               id,
                               link
+                            },
+                            reviews {
+                                text,
+                                point,
+                                user {
+                                    id,
+                                    username
+                                }
                             }
                           }
                     }`
@@ -592,19 +596,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getRestaurantByName'];
+                data = respData.data['getRestaurantById'];
             });
 
             context.commit('saveItem', data);
         },
-        async getHotelDetail(context, name) {
+        async getHotelDetail(context, id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        getStayByName(name: "${name}") {
+                        getStayById(id: "${id}") {
                             id,
                             name,
                             about,
@@ -626,11 +630,20 @@ const store = new Vuex.Store({
                             numberVoting,
                             ratingScore,
                             city {
+                              id
                               name
                             },
                             images {
                               id,
                               link
+                            },
+                            reviews {
+                                text,
+                                point,
+                                user {
+                                    id,
+                                    username
+                                }
                             }
                           }
                     }`
@@ -642,19 +655,19 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getStayByName'];
+                data = respData.data['getStayById'];
             });
 
             context.commit('saveItem', data);
         },
-        async getCityDetail(context, name) {
+        async getCityDetail(context, id) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        getCityByName(name: "${name}") {
+                        getCityById(id: "${id}") {
                             id,
                             name,
                             info,
@@ -672,49 +685,10 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['getCityByName'];
+                data = respData.data['getCityById'];
             });
 
             context.commit('saveCity', data);
-        },
-        async getReviews(context, {
-            type,
-            id
-        }) {
-            let data;
-            await axios({
-                method: 'post',
-                url: `${context.state.BASE_URL}/graphql`,
-                data: {
-                    query: `query {
-                        getReview${type}(itemId: "${id}") {
-                            id,
-                            text,
-                            point,
-                            user {
-                                id,
-                                username
-                            }
-                          }
-                    }`
-                },
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(resp => {
-                return resp.data;
-            }).then(respData => {
-                data = respData;
-            });
-
-            console.log(data);
-            if (!data["errors"]) {
-                data = data["data"][`getReview${type}`];
-                context.commit('saveReviews', data);
-            } else {
-                context.commit('saveReviews', []);
-            }
         },
         async submitReview(context, {
             type,
@@ -722,6 +696,11 @@ const store = new Vuex.Store({
             text,
             point
         }) {
+            if (context.state.accessToken === "") {
+                alert('You\'re not logged in yet. Please login and try again');
+                return;
+            }
+
             let data;
             await axios({
                 method: 'post',
@@ -756,15 +735,9 @@ const store = new Vuex.Store({
                         point: point
                     });
                 }
-            } else if (data["errors"]){
+            } else if (data["errors"]) {
                 alert('An error has ocurred while submitting your review. Please reload the page and try again.');
             }
-
-            context.dispatch('getReviews', {
-                type: type,
-                id: id
-            });
-
         },
     }
 })

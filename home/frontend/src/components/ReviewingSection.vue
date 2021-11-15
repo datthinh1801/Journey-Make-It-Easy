@@ -57,7 +57,7 @@ import ReviewItem from "./ReviewItem.vue";
 
 export default {
   name: "ReviewingSection",
-  props: ["numberVoting", "ratingScore"],
+  props: ["numberVoting", "ratingScore", "type"],
   components: {
     Stars,
     ReviewItem,
@@ -73,14 +73,14 @@ export default {
       return this.numberVoting > 0;
     },
     reviews() {
-      return this.$store.state.reviews;
+      return this.$store.state.item.reviews;
     },
   },
   methods: {
     sendReview() {
       if (this.reviewContent.length > 0 && this.myStars > 0) {
         this.$store.dispatch("submitReview", {
-          type: "Attraction",
+          type: this.type,
           point: this.myStars,
           text: this.reviewContent,
           id: this.$store.state.item.id,

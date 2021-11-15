@@ -16,7 +16,7 @@ class NationType(DjangoObjectType):
             "images",
             "votings",
             "reviews",
-            "citys",
+            "cities",
         )
 
 
@@ -288,7 +288,7 @@ class Query(graphene.ObjectType):
     get_nation_by_id = graphene.Field(NationType, id=graphene.ID(required=True))
     get_nation_by_name = graphene.Field(NationType, name=graphene.String(required=True))
 
-    all_citys = graphene.List(CityType, limit=graphene.Int(required=False))
+    all_cities = graphene.List(CityType, limit=graphene.Int(required=False))
     get_city_by_id = graphene.Field(CityType, id=graphene.ID(required=True))
     get_city_by_name = graphene.Field(CityType, name=graphene.String(required=True))
 
@@ -347,7 +347,7 @@ class Query(graphene.ObjectType):
     def resolve_get_nation_by_name(root, info, name):
         return Nation.objects.get(name=name)
 
-    def resolve_all_citys(root, info, limit=0):
+    def resolve_all_cities(root, info, limit=0):
         if limit:
             return City.objects.all()[:limit]
         return City.objects.all()
@@ -516,20 +516,29 @@ class ReviewNation(graphene.Mutation):
 
         try:
             reviews = Nation_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = Nation.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = Nation_Review()
-        reviews.item = Nation.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = Nation.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = Nation.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = Nation.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewNation(reviews=reviews)
 
@@ -549,20 +558,29 @@ class ReviewCity(graphene.Mutation):
 
         try:
             reviews = City_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = City.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = City_Review()
-        reviews.item = City.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = City.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = City.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = City.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewCity(reviews=reviews)
 
@@ -584,20 +602,29 @@ class ReviewAttraction(graphene.Mutation):
             reviews = Attraction_Review.objects.filter(user=info.context.user, item=id)[
                 0
             ]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = Attraction.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = Attraction_Review()
-        reviews.item = Attraction.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = Attraction.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = Attraction.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = Attraction.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewAttraction(reviews=reviews)
 
@@ -619,20 +646,29 @@ class ReviewRestaurant(graphene.Mutation):
             reviews = Restaurant_Review.objects.filter(user=info.context.user, item=id)[
                 0
             ]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = Restaurant.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = Restaurant_Review()
-        reviews.item = Restaurant.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = Restaurant.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = Restaurant.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = Restaurant.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewRestaurant(reviews=reviews)
 
@@ -652,20 +688,29 @@ class ReviewStay(graphene.Mutation):
 
         try:
             reviews = Stay_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = Stay.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = Stay_Review()
-        reviews.item = Stay.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = Stay.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = Stay.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = Stay.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewStay(reviews=reviews)
 
@@ -684,20 +729,29 @@ class ReviewBlog(graphene.Mutation):
             return
         try:
             reviews = Blog_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews.text = review
+            old_point = reviews.point
+            reviews.point = point
+
+            item = Blog.objects.get(id=id)
+            item.rating_score = (
+                item.rating_score * item.number_voting - old_point + point
+            ) / item.number_voting
         except:
             reviews = Blog_Review()
-        reviews.item = Blog.objects.get(id=id)
-        reviews.user = info.context.user
-        reviews.text = review
-        reviews.point = point
-        reviews.save()
+            reviews.item = Blog.objects.get(id=id)
+            reviews.user = info.context.user
+            reviews.text = review
+            reviews.point = point
 
-        item = Blog.objects.get(id=id)
-        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
-            item.number_voting + 1
-        )
-        item.number_voting += 1
-        item.save()
+            item = Blog.objects.get(id=id)
+            item.rating_score = (item.rating_score * item.number_voting + point) / (
+                item.number_voting + 1
+            )
+            item.number_voting = item.number_voting + 1
+        finally:
+            reviews.save()
+            item.save()
 
         return ReviewBlog(reviews=reviews)
 
