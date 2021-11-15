@@ -1,3 +1,4 @@
+from django.db.models import query
 import graphene
 from graphene_django import DjangoObjectType
 import graphql_jwt
@@ -313,19 +314,17 @@ class Query(graphene.ObjectType):
     get_blog_by_id = graphene.Field(BlogType, id=graphene.ID(required=True))
     get_blog_by_user = graphene.List(BlogType, limit=graphene.Int(required=False))
 
-    get_review_nation = graphene.Field(
+    get_review_nation = graphene.List(
         Nation_ReviewType, item_id=graphene.ID(required=True)
     )
-    get_review_city = graphene.Field(
-        City_ReviewType, item_id=graphene.ID(required=True)
-    )
-    get_review_attraction = graphene.Field(
+    get_review_city = graphene.List(City_ReviewType, item_id=graphene.ID(required=True))
+    get_review_attraction = graphene.List(
         Attraction_ReviewType, item_id=graphene.ID(required=True)
     )
-    get_review_restaurant = graphene.Field(
+    get_review_restaurant = graphene.List(
         Restaurant_ReviewType, item_id=graphene.ID(required=True)
     )
-    get_review_stay = graphene.Field(Stay_ReviewType, id=graphene.ID(required=True))
+    get_review_stay = graphene.List(Stay_ReviewType, id=graphene.ID(required=True))
 
     get_user_info = graphene.Field(UserDataType)
 
@@ -408,19 +407,19 @@ class Query(graphene.ObjectType):
         return None
 
     def resolve_get_review_nation(root, info, item_id):
-        return Nation_Review.objects.get(item_id=item_id)
+        return Nation_Review.objects.filter(item_id=item_id)
 
     def resolve_get_review_city(root, info, item_id):
-        return City_Review.objects.get(item_id=item_id)
+        return City_Review.objects.filter(item_id=item_id)
 
     def resolve_get_review_attraction(root, info, item_id):
-        return Attraction_Review.objects.get(item_id=item_id)
+        return Attraction_Review.objects.filter(item_id=item_id)
 
     def resolve_get_review_restaurant(root, info, item_id):
-        return Restaurant_Review.objects.get(item_id=item_id)
+        return Restaurant_Review.objects.filter(item_id=item_id)
 
     def resolve_get_review_stay(root, info, itemid):
-        return Stay_Review.objects.get(item_id=itemid)
+        return Stay_Review.objects.filter(item_id=itemid)
 
     def resolve_get_user_info(root, info):
         if info.context.user.is_authenticated:
@@ -524,6 +523,14 @@ class ReviewNation(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = Nation.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewNation(reviews=reviews)
 
 
@@ -549,6 +556,14 @@ class ReviewCity(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = City.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewCity(reviews=reviews)
 
 
@@ -576,6 +591,14 @@ class ReviewAttraction(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = Attraction.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewAttraction(reviews=reviews)
 
 
@@ -603,6 +626,14 @@ class ReviewRestaurant(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = Restaurant.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewRestaurant(reviews=reviews)
 
 
@@ -628,6 +659,14 @@ class ReviewStay(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = Stay.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewStay(reviews=reviews)
 
 
@@ -652,6 +691,14 @@ class ReviewBlog(graphene.Mutation):
         reviews.text = review
         reviews.point = point
         reviews.save()
+
+        item = Blog.objects.get(id=id)
+        item.rating_score = ((item.rating_score * item.number_voting) + point) / (
+            item.number_voting + 1
+        )
+        item.number_voting += 1
+        item.save()
+
         return ReviewBlog(reviews=reviews)
 
 

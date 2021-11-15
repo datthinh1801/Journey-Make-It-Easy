@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isFetching">
     <HeaderAndNav />
     <div class="width-control">
       <div class="row-container" :class="$style['item-header']">
@@ -78,6 +78,9 @@ export default {
     return {};
   },
   computed: {
+    isFetching() {
+      return !this.$store.state.item["id"];
+    },
     item() {
       return this.$store.state.item;
     },
@@ -92,7 +95,6 @@ export default {
     },
     mapURL() {
       return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${this.address}!6i13`;
-      // return this.item['ggmap'];
     },
     admissionTicket() {
       return this.item["admissionTicket"];
@@ -110,9 +112,7 @@ export default {
       return this.item["numberVoting"];
     },
   },
-  methods: {
-
-  },
+  methods: {},
   beforeCreate() {
     if (this.$store.state.currentItemName === "") {
       this.$router.push("/");
@@ -121,10 +121,12 @@ export default {
         "getAttractionDetail",
         this.$store.state.currentItemName
       );
-      this.$store.dispatch("getReviews", {
-        type: "Attraction",
-        itemId: this.$store.state.item.id,
-      });
+      if (this.$store.state.item.id) {
+        this.$store.dispatch("getReviews", {
+          type: "Attraction",
+          id: this.$store.state.item.id,
+        });
+      }
     }
   },
   beforeMount() {

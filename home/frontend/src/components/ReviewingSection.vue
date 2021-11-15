@@ -13,6 +13,20 @@
       <hr />
       <div>
         <h3>My review</h3>
+        <div :class="$style['star-container']">
+          <label for="my-stars" :class="$style['star-label']">Stars:</label>
+          <select
+            id="my-stars"
+            v-model="myStars"
+            :class="$style['star-select']"
+          >
+            <option value="5">5 &starf;&starf;&starf;&starf;&starf;</option>
+            <option value="4">4 &starf;&starf;&starf;&starf;</option>
+            <option value="3">3 &starf;&starf;&starf;</option>
+            <option value="2">2 &starf;&starf;</option>
+            <option value="1">1 &starf;</option>
+          </select>
+        </div>
         <textarea
           :class="$style['review-text-section']"
           wrap="soft"
@@ -23,8 +37,7 @@
           Send
         </button>
       </div>
-
-      <div v-if="hasReviews">
+      <div v-if="hasReviews" :class="$style['other-reviews']">
         <h3>Others</h3>
         <ReviewItem
           v-for="review in reviews"
@@ -52,6 +65,7 @@ export default {
   data() {
     return {
       reviewContent: "",
+      myStars: 0,
     };
   },
   computed: {
@@ -64,6 +78,16 @@ export default {
   },
   methods: {
     sendReview() {
+      if (this.reviewContent.length > 0 && this.myStars > 0) {
+        this.$store.dispatch("submitReview", {
+          type: "Attraction",
+          point: this.myStars,
+          text: this.reviewContent,
+          id: this.$store.state.item.id,
+        });
+        this.reviewContent = "";
+        this.myStars = 0;
+      }
     },
   },
 };
@@ -118,7 +142,6 @@ export default {
   color: black;
   border: 2px solid black;
   border-radius: 5px;
-  float: left;
   margin-top: 10px;
 }
 
@@ -126,5 +149,21 @@ export default {
   background: black;
   color: white;
   border: 2px solid black;
+}
+
+.star-container {
+  margin-bottom: 5px;
+}
+.star-label {
+  margin-right: 10px;
+}
+
+.star-select {
+  height: 30px;
+  cursor: pointer;
+}
+
+.star-select option {
+  cursor: pointer;
 }
 </style>

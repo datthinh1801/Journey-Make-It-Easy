@@ -677,7 +677,10 @@ const store = new Vuex.Store({
 
             context.commit('saveCity', data);
         },
-        async getReviews(context, {type, id}) {
+        async getReviews(context, {
+            type,
+            id
+        }) {
             let data;
             await axios({
                 method: 'post',
@@ -705,13 +708,20 @@ const store = new Vuex.Store({
                 data = respData;
             });
 
+            console.log(data);
             if (!data["errors"]) {
+                data = data["data"][`getReview${type}`];
                 context.commit('saveReviews', data);
             } else {
                 context.commit('saveReviews', []);
             }
         },
-        async submitReview(context, {type, id, text, point}) {
+        async submitReview(context, {
+            type,
+            id,
+            text,
+            point
+        }) {
             let data;
             await axios({
                 method: 'post',
@@ -725,7 +735,36 @@ const store = new Vuex.Store({
                         }
                     }`
                 },
-            })
+                headers: {
+                    'Authorization': `JWT ${context.state.accessToken}`
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data["errors"] && data["errors"]['message'] === "Signature has expired") {
+                if (!context.dispatch('refreshToken', context.state.refreshToken)) {
+                    context.commit('revokeCred');
+                    alert('Your session has expired. Please login and try again!');
+                } else {
+                    context.dispatch('submitReview', {
+                        type: type,
+                        id: id,
+                        text: text,
+                        point: point
+                    });
+                }
+            } else if (data["errors"]){
+                alert('An error has ocurred while submitting your review. Please reload the page and try again.');
+            }
+
+            context.dispatch('getReviews', {
+                type: type,
+                id: id
+            });
+
         },
     }
 })

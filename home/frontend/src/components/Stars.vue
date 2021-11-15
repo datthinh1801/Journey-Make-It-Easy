@@ -3,7 +3,7 @@
     <div>
       <font-awesome-icon
         v-for="i in fullStars"
-        :key="i"
+        :key="'full' + i"
         :class="$style.star"
         :icon="'star'"
       />
@@ -14,7 +14,7 @@
       />
       <font-awesome-icon
         v-for="j in hiddenStars"
-        :key="j"
+        :key="'half' + j"
         :class="[$style.star, $style['hidden-star']]"
         :icon="'star'"
       />
