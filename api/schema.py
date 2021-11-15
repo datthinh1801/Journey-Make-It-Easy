@@ -214,7 +214,7 @@ class BlogType(DjangoObjectType):
         model = Blog
         feilds = (
             "id",
-            "tittle",
+            "title",
             "content",
             "images",
             "number_voting",
@@ -429,18 +429,18 @@ class Query(graphene.ObjectType):
 
 class CreateBlog(graphene.Mutation):
     class Arguments:
-        tittle = graphene.String(required=True)
+        title = graphene.String(required=True)
         content = graphene.String(required=True)
 
     blog = graphene.Field(BlogType)
 
     @classmethod
-    def mutate(cls, root, info, tittle, content):
+    def mutate(cls, root, info, title, content):
         if not info.context.user.is_authenticated:
             return
         blog = Blog()
         blog.user = info.context.user
-        blog.tittle = tittle
+        blog.title = title
         blog.content = content
         blog.save()
         return CreateBlog(blog=blog)
@@ -449,17 +449,17 @@ class CreateBlog(graphene.Mutation):
 class UpdateBlog(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
-        tittle = graphene.String(required=True)
+        title = graphene.String(required=True)
         content = graphene.String(required=True)
 
     blog = graphene.Field(BlogType)
 
     @classmethod
-    def mutate(cls, root, info, id, tittle, content):
+    def mutate(cls, root, info, id, title, content):
         if not info.context.user.is_authenticated:
             return
         blog = Blog.objects.get(id=id, user=info.context.user)
-        blog.tittle = tittle
+        blog.title = title
         blog.content = content
         blog.save()
         return CreateBlog(blog=blog)

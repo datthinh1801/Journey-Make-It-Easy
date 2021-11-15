@@ -183,7 +183,7 @@ class Stay_Review(models.Model):
 
 # Blog
 class Blog(models.Model):
-    tittle = models.TextField()
+    title = models.TextField()
     content = models.TextField()
     user = models.ForeignKey(User, related_name="blogs", on_delete=models.CASCADE)
     number_voting = models.IntegerField(default=0)

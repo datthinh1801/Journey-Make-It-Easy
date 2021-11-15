@@ -111,7 +111,10 @@ const store = new Vuex.Store({
         },
         saveItem(state, item) {
             state.item = item;
-            this.commit('changeCity', {city_id: item.city.id, city_name: item.city.name});
+            this.commit('changeCity', {
+                city_id: item.city.id,
+                city_name: item.city.name
+            });
         },
         saveCity(state, item) {
             state.item = item;
@@ -119,7 +122,10 @@ const store = new Vuex.Store({
         changeItemId(state, id) {
             state.currentItemId = id;
         },
-        changeCity(state, {city_id, city_name}) {
+        changeCity(state, {
+            city_id,
+            city_name
+        }) {
             state.city_id = city_id;
             state.city_name = city_name;
         },
@@ -361,8 +367,33 @@ const store = new Vuex.Store({
             context.commit('getHotel', data);
         },
         async getAllArticles(context) {
-            let articleArr = await axios.get('https://jsonplaceholder.typicode.com/posts');
-            context.commit('getArticle', articleArr.data);
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        allBlogs {
+                          id,
+                          title,
+                          user {
+                            id,
+                            username
+                          }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['allBlogs'];
+            });
+
+            context.commit('getArticle', data);
         },
         async getAllAttractions(context, limit) {
             let data;

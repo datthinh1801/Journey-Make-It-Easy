@@ -47,8 +47,10 @@ export default {
       this.max_items += 10;
     },
   },
-  beforeMount() {
+  beforeCreate() {
     this.$store.dispatch("getAllArticles");
+  },
+  beforeMount() {
     document.title = "Articles";
   },
   beforeDestroy() {
@@ -56,6 +58,7 @@ export default {
   },
 };
 </script>
+
 <style module>
 .articles-section {
   width: 600px;
