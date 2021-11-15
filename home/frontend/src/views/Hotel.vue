@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isFetching">
     <HeaderAndNav />
     <div class="width-control">
       <div class="row-container" :class="$style['item-header']">
@@ -132,6 +132,9 @@ export default {
       return this.$store.state.item["propertyAmenities"].map(
         (item) => item["value"]
       );
+    },
+    isFetching() {
+      return !this.$store.state.item["id"];
     },
   },
   beforeCreate() {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isFetching">
     <div>
       <Header />
       <div :class="[$style.title, 'roboto', 'row-container', 'width-control']">
@@ -42,6 +42,9 @@ export default {
     },
     itemDetail() {
       return this.$store.state.item;
+    },
+    isFetching() {
+      return !this.$store.state.item["id"];
     },
   },
   beforeCreate() {

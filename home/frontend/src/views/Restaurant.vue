@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isFetching">
     <HeaderAndNav />
     <div class="width-control">
       <div class="row-container" :class="$style['title-container']">
@@ -172,6 +172,9 @@ export default {
     priceRange() {
       return this.item["priceRange"];
     },
+    isFetching() {
+      return !this.$store.state.item["id"];
+    }
   },
   beforeCreate() {
     if (this.$store.state.currentItemName === "") {
