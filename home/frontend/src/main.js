@@ -710,7 +710,23 @@ const store = new Vuex.Store({
             } else {
                 context.commit('saveReviews', []);
             }
-        }
+        },
+        async submitReview(context, {type, id, text, point}) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `mutation {
+                        review${type}(id: "${id}", review: "${text}", point: ${point}) {
+                            reviews {
+                                id
+                            }
+                        }
+                    }`
+                },
+            })
+        },
     }
 })
 

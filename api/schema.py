@@ -514,7 +514,11 @@ class ReviewNation(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
-        reviews = Nation_Review()
+
+        try:
+            reviews = Nation_Review.objects.filter(user=info.context.user, item=id)[0]
+        except:
+            reviews = Nation_Review()
         reviews.item = Nation.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
@@ -535,7 +539,11 @@ class ReviewCity(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
-        reviews = City_Review()
+
+        try:
+            reviews = City_Review.objects.filter(user=info.context.user, item=id)[0]
+        except:
+            reviews = City_Review()
         reviews.item = City.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
@@ -556,7 +564,13 @@ class ReviewAttraction(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if info.context.user.is_anonymous:
             return
-        reviews = Attraction_Review()
+
+        try:
+            reviews = Attraction_Review.objects.filter(user=info.context.user, item=id)[
+                0
+            ]
+        except:
+            reviews = Attraction_Review()
         reviews.item = Attraction.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
@@ -577,7 +591,13 @@ class ReviewRestaurant(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
-        reviews = Restaurant_Review()
+
+        try:
+            reviews = Restaurant_Review.objects.filter(user=info.context.user, item=id)[
+                0
+            ]
+        except:
+            reviews = Restaurant_Review()
         reviews.item = Restaurant.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
@@ -598,7 +618,11 @@ class ReviewStay(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
-        reviews = Stay_Review()
+
+        try:
+            reviews = Stay_Review.objects.filter(user=info.context.user, item=id)[0]
+        except:
+            reviews = Stay_Review()
         reviews.item = Stay.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
@@ -619,7 +643,10 @@ class ReviewBlog(graphene.Mutation):
     def mutate(cls, root, info, id, point, review):
         if not info.context.user.is_authenticated:
             return
-        reviews = Blog_Review()
+        try:
+            reviews = Blog_Review.objects.filter(user=info.context.user, item=id)[0]
+        except:
+            reviews = Blog_Review()
         reviews.item = Blog.objects.get(id=id)
         reviews.user = info.context.user
         reviews.text = review
