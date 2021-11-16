@@ -10,10 +10,16 @@ def index(request):
     return render(request, "index.html")
 
 
-def images(request):
-    img_name = request.get_full_path().split("/")[-1]
-    img_base_path = os.path.join(os.getcwd(), "home", "var", "static_root", "images")
-    response = FileResponse(open(os.path.join(img_base_path, img_name), "rb"))
+def static(request):
+    file_name = request.get_full_path().split("/")[-1]
+    base_path = os.path.join(os.getcwd(), "home", "var", "static_root")
+    if file_name.split(".")[-1] in ["jpg", "png"]:
+        base_path = os.path.join(base_path, "images")
+    elif file_name.split(".")[-1] == "js":
+        base_path = os.path.join(base_path, "js")
+    elif file_name.split(".")[-1] == "css":
+        base_path = os.path.join(base_path, "css")
+    response = FileResponse(open(os.path.join(base_path, file_name), "rb"))
     return response
 
 
