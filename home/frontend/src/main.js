@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/fontawesome-svg-core'
 import {
     faUserSecret,
+    faEdit
 } from '@fortawesome/free-solid-svg-icons'
 import {
     FontAwesomeIcon
@@ -15,7 +16,7 @@ import {
 import router from './router'
 import axios from "axios";
 
-library.add(faUserSecret);
+library.add(faUserSecret, faEdit);
 Vue.use(Vuex);
 Vue.use(VModal);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -111,10 +112,12 @@ const store = new Vuex.Store({
         },
         saveItem(state, item) {
             state.item = item;
-            this.commit('changeCity', {
-                city_id: item.city.id,
-                city_name: item.city.name
-            });
+            if (item.city) {
+                this.commit('changeCity', {
+                    city_id: item.city.id,
+                    city_name: item.city.name
+                });
+            }
         },
         saveCity(state, item) {
             state.item = item;
@@ -722,6 +725,36 @@ const store = new Vuex.Store({
 
             context.commit('saveCity', data);
         },
+        async getArticleDetail(context, id) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getBlogById(id: "${id}") {
+                            id
+                            title
+                            content
+                            user {
+                                id
+                                username
+                            }
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData.data['getBlogById'];
+            });
+
+            context.commit('saveItem', data);
+        },
         async submitReview(context, {
             type,
             id,
@@ -771,7 +804,10 @@ const store = new Vuex.Store({
                 alert('An error has ocurred while submitting your review. Please reload the page and try again.');
             }
         },
-        async postBlog(context, {title, content}) {
+        async postBlog(context, {
+            title,
+            content
+        }) {
             if (context.state.accessToken === "") {
                 alert('You\'re not logged in yet. Please login and try again');
                 return;

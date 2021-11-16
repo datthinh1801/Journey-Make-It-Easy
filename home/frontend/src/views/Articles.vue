@@ -4,7 +4,10 @@
     <section :class="$style['articles-section']">
       <div :class="$style['heading']">
         <h1 :class="$style.head">All Articles</h1>
-        <span @click="edit">Write a post</span>
+        <div :class="$style['edit-btn']" @click="edit">
+          <font-awesome-icon :icon="'edit'" />
+          <span> Write a post </span>
+        </div>
       </div>
       <hr />
       <div :class="$style['articles-container']">
@@ -12,17 +15,20 @@
           v-for="article in articles"
           :key="article.id"
           :class="$style.article"
+          @click="redirectItem(article)"
         >
           <div :class="$style.info">
             <h2 class="roboto">{{ article.title }}</h2>
             <div class="roboto" :class="$style['pre-content']">
-              {{ article.content.substr(0, 50) + "..." }}
+              {{ getText(article.content).substr(0, 100) + " ..." }}
             </div>
             <div :class="$style.author" class="roboto">
               By {{ article.user.username }}
             </div>
           </div>
-          <img src="images/placeholder_img.png" alt="article-img" />
+          <div :class="$style['article-img']">
+            <img :src="imgSrc(article)" alt="" />
+          </div>
         </div>
       </div>
       <LoadMoreButton v-if="hasItems" @click.native="loadMore" />
@@ -57,6 +63,25 @@ export default {
     edit() {
       this.$router.push("/article-editor");
     },
+    getText(html) {
+      html = html.replace(/<style([\s\S]*?)<\/style>/gi, "");
+      html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
+      html = html.replace(/<\/div>/gi, "\n");
+      html = html.replace(/<\/li>/gi, "\n");
+      html = html.replace(/<li>/gi, "  *  ");
+      html = html.replace(/<\/ul>/gi, "\n");
+      html = html.replace(/<\/p>/gi, "\n");
+      html = html.replace(/<br\s*[/]?>/gi, "\n");
+      html = html.replace(/<[^>]+>/gi, "");
+      return html;
+    },
+    redirectItem(item) {
+      this.$store.commit("changeItemId", item.id);
+      this.$router.push("/article");
+    },
+    imgSrc(article) {
+      return `https://source.unsplash.com/user/didiofederico_photographer/250x250?sig=${article.id}`;
+    },
   },
   beforeCreate() {
     this.$store.dispatch("getAllArticles");
@@ -72,7 +97,7 @@ export default {
 
 <style module>
 .articles-section {
-  width: 600px;
+  width: 800px;
   margin: auto;
 }
 
@@ -103,13 +128,32 @@ h1.head {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 100%;
 }
 
-.article img {
+.article-img img {
   height: 100%;
-  width: auto;
+  width: 250px;
   object-fit: cover;
   margin-left: 10px;
+}
+
+.article-img img:empty {
+  background-image: linear-gradient(#eee 8%, #dadada 18%, #eee 33%);
+  animation: skeletonLoading 1.2s linear infinite;
+  animation-fill-mode: backwards;
+  animation-delay: 0.2s;
+  background-size: 200% 200%;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 50% 0%;
+  }
+
+  100% {
+    background-position: 0% -200%;
+  }
 }
 
 .article .info h2 {
@@ -121,12 +165,15 @@ h1.head {
 }
 
 .article .pre-content {
-  color: #777;
+  font-weight: 200;
+  font-style: italic;
   font-size: 18px;
 }
 
 .article .author {
   color: #777;
+  text-align: left;
+  font-style: italic;
 }
 
 .heading {
@@ -135,13 +182,16 @@ h1.head {
   align-items: flex-end;
 }
 
-.heading span {
+.edit-btn {
   color: #888;
-  font-style: italic;
   cursor: pointer;
 }
 
-.heading span:hover {
+.edit-btn span {
+  font-style: italic;
+}
+
+.edit-btn:hover span {
   text-decoration: underline;
 }
 </style>

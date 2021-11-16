@@ -29,7 +29,11 @@
             </a>
           </div>
         </div>
-        <div class="roboto open-time-container" :class="$style['open-time']" v-if="openTime">
+        <div
+          class="roboto open-time-container"
+          :class="$style['open-time']"
+          v-if="openTime"
+        >
           <font-awesome-icon icon="clock" />
           <span>Open Time: {{ openTime }}</span>
         </div>
@@ -194,7 +198,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Restaurant | ${this.$store.state.currentItemId}`;
+    document.title = `Restaurant | ${this.$store.state.item.name}`;
   },
 };
 </script>

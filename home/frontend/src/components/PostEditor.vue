@@ -122,6 +122,7 @@ export default {
       let title = content.match(re)?.[0].trim();
       if (title) {
         this.titleAlert = "";
+        content = content.replace(/^(<h1>)(.*)(<\/h1>)/, "");
         this.$store.dispatch("postBlog", { title: title, content: content });
         this.$router.push("/articles");
       } else {

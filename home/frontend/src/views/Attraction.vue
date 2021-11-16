@@ -125,7 +125,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Attraction | ${this.$store.state.currentItemId}`;
+    document.title = `Attraction | ${this.$store.state.item.name}`;
   },
 };
 </script>

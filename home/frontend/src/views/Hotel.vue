@@ -152,7 +152,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Hotel | ${this.$store.state.currentItemId}`;
+    document.title = `Hotel | ${this.$store.state.item.name}`;
   },
 };
 </script>
