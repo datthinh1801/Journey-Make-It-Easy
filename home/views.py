@@ -1,11 +1,20 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
+
+import os
 
 
 def index(request):
     return render(request, "index.html")
+
+
+def images(request):
+    img_name = request.get_full_path().split("/")[-1]
+    img_base_path = os.path.join(os.getcwd(), "home", "var", "static_root", "images")
+    response = FileResponse(open(os.path.join(img_base_path, img_name), "rb"))
+    return response
 
 
 def signIn(request):
