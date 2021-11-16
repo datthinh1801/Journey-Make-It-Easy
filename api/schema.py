@@ -219,7 +219,6 @@ class BlogType(DjangoObjectType):
             "images",
             "number_voting",
             "rating_score",
-            "votings",
             "reviews",
         )
 

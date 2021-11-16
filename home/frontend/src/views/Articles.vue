@@ -2,16 +2,25 @@
   <div>
     <HeaderAndNav />
     <section :class="$style['articles-section']">
-      <h1 :class="$style.head">All Articles</h1>
+      <div :class="$style['heading']">
+        <h1 :class="$style.head">All Articles</h1>
+        <span @click="edit">Write a post</span>
+      </div>
       <hr />
       <div :class="$style['articles-container']">
-        <div v-for="(article, i) in articles" :key="i" :class="$style.article">
+        <div
+          v-for="article in articles"
+          :key="article.id"
+          :class="$style.article"
+        >
           <div :class="$style.info">
             <h2 class="roboto">{{ article.title }}</h2>
             <div class="roboto" :class="$style['pre-content']">
-              {{ article.body.substr(0, 50) + "..." }}
+              {{ article.content.substr(0, 50) + "..." }}
             </div>
-            <div :class="$style.author" class="roboto">By {{ author }}</div>
+            <div :class="$style.author" class="roboto">
+              By {{ article.user.username }}
+            </div>
           </div>
           <img src="images/placeholder_img.png" alt="article-img" />
         </div>
@@ -30,7 +39,6 @@ export default {
   components: { LoadMoreButton, HeaderAndNav },
   data() {
     return {
-      author: "Thinh, Nguyen Dat",
       max_items: 10,
     };
   },
@@ -45,6 +53,9 @@ export default {
   methods: {
     loadMore() {
       this.max_items += 10;
+    },
+    edit() {
+      this.$router.push("/article-editor");
     },
   },
   beforeCreate() {
@@ -116,5 +127,21 @@ h1.head {
 
 .article .author {
   color: #777;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.heading span {
+  color: #888;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.heading span:hover {
+  text-decoration: underline;
 }
 </style>

@@ -376,6 +376,7 @@ const store = new Vuex.Store({
                         allBlogs {
                           id,
                           title,
+                          content,
                           user {
                             id,
                             username
