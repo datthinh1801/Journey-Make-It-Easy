@@ -435,8 +435,9 @@ class CreateBlog(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, title, content):
-        if not info.context.user.is_authenticated:
-            return
+        if info.context.user.is_anonymous:
+            return None
+
         blog = Blog()
         blog.user = info.context.user
         blog.title = title

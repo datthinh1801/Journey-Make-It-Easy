@@ -391,7 +391,7 @@ const store = new Vuex.Store({
             }).then(resp => {
                 return resp.data;
             }).then(respData => {
-                data = respData.data['allBlogs'];
+                data = respData.data['allBlogs'].reverse();
             });
 
             context.commit('getArticle', data);
@@ -771,6 +771,48 @@ const store = new Vuex.Store({
                 alert('An error has ocurred while submitting your review. Please reload the page and try again.');
             }
         },
+        async postBlog(context, {title, content}) {
+            if (context.state.accessToken === "") {
+                alert('You\'re not logged in yet. Please login and try again');
+                return;
+            }
+
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `mutation {
+                        createBlog(title: "${title}", content: "${content}") {
+                            blog {
+                                id
+                            }
+                        }
+                    }`
+                },
+                headers: {
+                    'Authorization': `JWT ${context.state.accessToken}`
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data["errors"] && data["errors"]['message'] === "Signature has expired") {
+                if (!context.dispatch('refreshToken', context.state.refreshToken)) {
+                    context.commit('revokeCred');
+                    alert('Your session has expired. Please login and try again!');
+                } else {
+                    context.dispatch('postBlog', {
+                        title: title,
+                        content: content
+                    });
+                }
+            } else if (data["errors"]) {
+                alert('An error has ocurred while posting your blog. Please reload the page and try again.');
+            }
+        }
     }
 })
 
