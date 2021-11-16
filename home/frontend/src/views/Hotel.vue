@@ -5,7 +5,6 @@
       <div class="row-container" :class="$style['item-header']">
         <h1>{{ name }}</h1>
         <div class="row-container">
-          <BigHeart />
           <ShareButton />
         </div>
       </div>
@@ -86,7 +85,6 @@
 
 <script>
 import HeaderAndNav from "../components/HeaderAndNav.vue";
-import BigHeart from "../components/BigHeart.vue";
 import ShareButton from "../components/ShareButton.vue";
 import RatingSection from "../components/RatingSection.vue";
 import ImageSlider from "../components/ImageSlider.vue";
@@ -96,7 +94,6 @@ export default {
   name: "Hotel",
   components: {
     HeaderAndNav,
-    BigHeart,
     ShareButton,
     RatingSection,
     ImageSlider,

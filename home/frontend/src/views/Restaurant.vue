@@ -5,7 +5,6 @@
       <div class="row-container" :class="$style['title-container']">
         <h1>{{ name }}</h1>
         <div class="row-container">
-          <BigHeart />
           <ShareButton />
         </div>
       </div>
@@ -98,7 +97,6 @@
 <script>
 import HeaderAndNav from "../components/HeaderAndNav";
 import RatingSection from "../components/RatingSection";
-import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import ImageSlider from "../components/ImageSlider";
 import ReviewingSection from "../components/ReviewingSection";
@@ -131,7 +129,6 @@ library.add(
 export default {
   components: {
     ShareButton,
-    BigHeart,
     RatingSection,
     HeaderAndNav,
     ImageSlider,

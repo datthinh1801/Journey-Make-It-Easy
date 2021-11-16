@@ -83,7 +83,7 @@ export default {
       return this.item_n < this.$store.state.hotelArr.length;
     },
     place() {
-      return this.$store.state.city;
+      return this.$store.state.city_name;
     },
     items() {
       return this.$store.state.hotelArr.slice(0, this.item_n);
@@ -98,7 +98,7 @@ export default {
       return "250px";
     },
     itemWidth() {
-      return "700px";
+      return "800px";
     },
   },
   methods: {

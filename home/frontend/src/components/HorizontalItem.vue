@@ -10,18 +10,14 @@
         :src="imgUrl"
         :style="{ height: imgHeight, width: imgWidth }"
       />
-      <HeartButton :class="$style['heart-btn']" />
     </div>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import HeartButton from "./HeartButton";
-
 export default {
   name: "HorizontalItem",
-  components: { HeartButton },
   props: ["imgSrc", "imgHeight", "imgWidth", "itemHeight", "itemWidth"],
   computed: {
     imgUrl() {
@@ -68,12 +64,6 @@ export default {
 
 .img-container {
   position: relative;
-}
-
-.heart-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
 }
 
 .item-img:empty {

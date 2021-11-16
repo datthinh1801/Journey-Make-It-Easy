@@ -17,6 +17,6 @@ export default {
 
 <style module>
 #nav-bar {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 </style>

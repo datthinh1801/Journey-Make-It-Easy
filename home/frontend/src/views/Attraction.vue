@@ -5,7 +5,6 @@
       <div class="row-container" :class="$style['item-header']">
         <h1>{{ name }}</h1>
         <div class="row-container">
-          <BigHeart />
           <ShareButton />
         </div>
       </div>
@@ -54,7 +53,6 @@
 
 <script>
 import HeaderAndNav from "../components/HeaderAndNav";
-import BigHeart from "../components/BigHeart";
 import ShareButton from "../components/ShareButton";
 import RatingSection from "../components/RatingSection";
 import ImageSlider from "../components/ImageSlider";
@@ -70,7 +68,6 @@ export default {
   components: {
     RatingSection,
     ShareButton,
-    BigHeart,
     HeaderAndNav,
     ImageSlider,
     ReviewingSection,

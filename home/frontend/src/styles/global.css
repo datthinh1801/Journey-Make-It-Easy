@@ -40,12 +40,6 @@
     user-select: none;
 }
 
-.heart-btn {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-}
-
 .open-time-container {
     margin-top: 5px;
     max-width: fit-content;

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.container">
-    <h2 class="width-control">New traveling articles</h2>
+    <h2 class="width-control">New Traveling Articles</h2>
     <div :class="$style['item-container']">
       <FeaturedBlogs />
     </div>
