@@ -31,7 +31,7 @@ export default {
     }
   },
   beforeMount() {
-      document.title = `Blog | ${this.$store.state.item.title}`;
+      document.title = `📮 Blog | ${this.$store.state.item.title}`;
   }
 };
 </script>

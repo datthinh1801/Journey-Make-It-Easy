@@ -3,14 +3,10 @@
     <button @click="showModal" v-if="!authenticated">Sign In</button>
     <div v-else :class="$style['userprofile-container']">
       <button :class="$style['userprofile']" @click="showProfile">
-        <font-awesome-icon
-          :icon="['fas', 'angle-right']"
-          v-if="!expandProfile"
-        />
-        <font-awesome-icon :icon="['fas', 'angle-down']" v-else />
-        <span>
+        <img src="https://i.pravatar.cc/50" alt="" :class="$style.avatar" />
+        <div class="roboto">
           {{ usernameAuth }}
-        </span>
+        </div>
       </button>
       <div
         v-show="expandProfile"
@@ -285,9 +281,11 @@ export default {
   color: black;
   font-weight: 500;
   font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
-.userprofile span {
+.userprofile div {
   margin-left: 5px;
 }
 
@@ -432,5 +430,11 @@ button {
 button:hover {
   background-color: #fdd039;
   border-color: #fdd039;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 </style>

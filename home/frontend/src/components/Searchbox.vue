@@ -34,7 +34,6 @@ export default {
     return {
       searches: [],
       allSearches: [],
-      shouldExtended: false,
     };
   },
   computed: {
@@ -43,6 +42,9 @@ export default {
         return 0;
       }
       return 1;
+    },
+    shouldExtended() {
+      return this.searches.length > 0;
     },
   },
   methods: {
@@ -55,7 +57,6 @@ export default {
     },
     async search() {
       let searchStr = document.querySelector("#searchBox-box").value;
-      this.shouldExtended = searchStr.length > 0;
       let re = new RegExp(`^${searchStr}`, "gi");
       let data;
 
@@ -116,11 +117,6 @@ export default {
 .search-result-container {
   display: flex;
   flex-direction: column;
-}
-
-.search-result-container ul {
-  margin: 0;
-  padding: 0;
 }
 
 .search-result-container li {

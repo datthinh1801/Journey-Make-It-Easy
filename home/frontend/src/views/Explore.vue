@@ -55,7 +55,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = "Explore " + this.$store.state.city_name;
+    document.title = "🇻🇳 " + this.$store.state.city_name;
   },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");

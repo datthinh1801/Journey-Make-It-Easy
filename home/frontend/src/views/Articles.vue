@@ -87,7 +87,7 @@ export default {
     this.$store.dispatch("getAllArticles", 0);
   },
   beforeMount() {
-    document.title = "Articles";
+    document.title = "📮 Articles";
   },
   beforeDestroy() {
     this.$store.commit("clearAllArticles");

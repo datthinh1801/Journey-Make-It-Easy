@@ -149,7 +149,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Hotel | ${this.$store.state.item.name}`;
+    document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
   },
 };
 </script>

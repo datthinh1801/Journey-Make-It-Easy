@@ -74,7 +74,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = "Top Attractions in " + this.place;
+    document.title = "🏖 Top Attractions in " + this.place;
   },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");

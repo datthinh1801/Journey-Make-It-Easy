@@ -195,7 +195,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Restaurant | ${this.$store.state.item.name}`;
+    document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
   },
 };
 </script>

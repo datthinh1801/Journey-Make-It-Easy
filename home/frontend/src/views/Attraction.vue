@@ -122,7 +122,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = `Attraction | ${this.$store.state.item.name}`;
+    document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
   },
 };
 </script>

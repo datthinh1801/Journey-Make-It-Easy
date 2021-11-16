@@ -130,7 +130,7 @@ export default {
     }
   },
   beforeMount() {
-    document.title = "Restaurants in " + this.place;
+    document.title = "🥂 Restaurants in " + this.place;
   },
   beforeDestroy() {
     this.$store.commit("clearAllRestaurants");

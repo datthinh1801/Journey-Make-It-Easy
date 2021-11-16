@@ -126,7 +126,7 @@ export default {
     this.$store.dispatch("getHotel", this.$store.state.city_id);
   },
   beforeMount() {
-    document.title = "Hotels in " + this.$store.state.city_name;
+    document.title = "🏨 Hotels in " + this.$store.state.city_name;
   },
   beforeDestroy() {
     this.$store.commit("clearAllHotels");

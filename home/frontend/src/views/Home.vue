@@ -34,7 +34,7 @@ export default {
     FeaturedRestaurantSection,
   },
   mounted() {
-    document.title = "Home | Journey : Make it easy";
+    document.title = "🌏 Home | Journey : Make it easy";
   },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");
