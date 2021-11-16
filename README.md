@@ -1,18 +1,29 @@
 # Journey-Make-It-Easy
 
 ## Postgresql
-username: admin
-
-password: 1234
+username: `admin`
+password: `1234`
 
 ## Vue commands
-The following commands need to be executed under `home/frontend`.
-Install dependencies
+- Install depencies:  
+> The following commands need to be executed under `home/frontend`.  
+
 ```
 npm install
 ```
 
-Start the development server
+- Start the development server:
 ```
 npm run serve
+```
+
+- Build the project for production:
+```
+npm run build
+```
+
+## Django production
+- Collect static files built from VueJS `build` command:
+```
+python manage.py collectstatic
 ```
