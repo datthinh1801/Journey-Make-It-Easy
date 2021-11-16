@@ -38,7 +38,7 @@ export default {
 
 #search-box {
   position: absolute;
-  top: 400px;
+  top: 410px;
   left: 30%;
 }
 </style>

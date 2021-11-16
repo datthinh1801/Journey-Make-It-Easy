@@ -1,5 +1,5 @@
 <template>
-  <div class="width-control">
+  <div class="width-control" :class="$style['section-container']">
     <p class="roboto title">Popular Destinations</p>
     <div :class="$style['item-list-container']">
       <vertical-item
@@ -31,6 +31,9 @@
 </template>
 
 <style module>
+.section-container {
+  margin-top: 50px;
+}
 .item-list-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
