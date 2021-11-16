@@ -14,8 +14,8 @@
       />
     </div>
     <ul v-show="shouldExtended" :class="$style['search-result-container']">
-      <li v-for="(item, i) in searches" :key="i" @click="goTo(item)">
-        {{ item }}
+      <li v-for="search in searches" :key="search.id" @click="goTo(search)">
+        {{ search["name"] }}
       </li>
     </ul>
   </div>
@@ -47,13 +47,16 @@ export default {
   },
   methods: {
     goTo(item) {
-      this.$store.state.city = item;
+      this.$store.commit("changeCity", {
+        city_id: item["id"],
+        city_name: item["name"],
+      });
       this.$router.push("/explore");
     },
     async search() {
       let searchStr = document.querySelector("#searchBox-box").value;
       this.shouldExtended = searchStr.length > 0;
-      let re = new RegExp(`${searchStr}`, "gi");
+      let re = new RegExp(`^${searchStr}`, "gi");
       let data;
 
       if (this.allSearches.length === 0) {
@@ -80,12 +83,12 @@ export default {
             data = respData.data["allCities"];
           });
 
-        this.allSearches = data.map((item) => item.name);
+        this.allSearches = data;
       }
 
       this.searches = [];
       for (let i = 0; i < this.allSearches.length; ++i) {
-        if (re.test(this.allSearches[i])) {
+        if (re.test(this.allSearches[i]["name"])) {
           this.searches.push(this.allSearches[i]);
         }
       }
