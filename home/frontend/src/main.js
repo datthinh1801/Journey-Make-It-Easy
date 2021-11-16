@@ -369,14 +369,14 @@ const store = new Vuex.Store({
 
             context.commit('getHotel', data);
         },
-        async getAllArticles(context) {
+        async getAllArticles(context, limit ) {
             let data;
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
                 data: {
                     query: `query {
-                        allBlogs {
+                        allBlogs(limit: ${limit}) {
                           id,
                           title,
                           content,

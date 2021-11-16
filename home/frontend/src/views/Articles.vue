@@ -84,7 +84,7 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch("getAllArticles");
+    this.$store.dispatch("getAllArticles", 0);
   },
   beforeMount() {
     document.title = "Articles";

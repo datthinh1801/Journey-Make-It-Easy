@@ -1,52 +1,86 @@
 <template>
   <div class="col-container" :class="$style['col-container']">
-    <img alt="blog-img" src="images/placeholder_img.png" :class="$style.image">
-    <HeartButton class="heart-btn"/>
-    <div>
-      <div class="roboto">Author</div>
-      <div class="roboto">Why Fall is the Perfect Time to visit Our National Parks</div>
+    <div :class="$style.image">
+      <img alt="" :src="imgSrc" :class="$style.image" />
+    </div>
+    <div :class="$style['article-info']">
+      <div class="roboto" :class="$style.author">{{ author }}</div>
+      <div class="roboto" :class="$style.title">{{ title }}</div>
     </div>
   </div>
 </template>
 
 <script>
-import HeartButton from "./HeartButton";
-
 export default {
-  name: 'FeaturedBlog',
-  components: {
-    HeartButton,
-  }
-}
+  name: "FeaturedBlog",
+  components: {},
+  props: ["author", "title", "imgSrc"],
+};
 </script>
 
 <style module>
 .image {
-  max-width: 320px;
-  max-height: 190px;
   width: 320px;
   height: 190px;
+}
+
+.image img:empty {
+  background-image: linear-gradient(#eee 8%, #dadada 18%, #eee 33%);
+  animation: skeletonLoading 1.2s linear infinite;
+  animation-fill-mode: backwards;
+  animation-delay: 0.2s;
+  background-size: 200% 200%;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 50% 0%;
+  }
+
+  100% {
+    background-position: 0% -200%;
+  }
 }
 
 .col-container {
   background-color: white;
   height: 292px;
   width: 320px;
-  max-height: 292px;
-  max-width: 320px;
   position: relative;
   cursor: pointer;
-}
-
-div.col-container div:not(.roboto) {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+  transition: 0.2s;
 }
 
 div.roboto:first-child {
   font-size: 18px;
   font-weight: 500;
   margin: 10px 0;
+}
+
+.article-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.col-container:hover .title {
+  text-decoration: underline;
+}
+
+.col-container:hover .image {
+  opacity: 0.95;
+}
+
+.author {
+  font-weight: 300;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 18px;
 }
 </style>

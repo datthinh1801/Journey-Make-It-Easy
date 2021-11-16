@@ -1,21 +1,24 @@
 <template>
-<div :class="$style.container">
-  <h2 class="width-control">Explore more with blog posts</h2>
-  <div :class="$style['item-container']">
-    <FeaturedBlogs/>
+  <div :class="$style.container">
+    <h2 class="width-control">New traveling articles</h2>
+    <div :class="$style['item-container']">
+      <FeaturedBlogs />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import FeaturedBlogs from "./FeaturedBlogs";
 
 export default {
-  name: 'FeaturedBlogsSection',
+  name: "FeaturedBlogsSection",
   components: {
     FeaturedBlogs,
-  }
-}
+  },
+  beforeCreate() {
+    this.$store.dispatch("getAllArticles", 3);
+  },
+};
 </script>
 
 <style module>
