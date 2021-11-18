@@ -1,7 +1,7 @@
 # Journey-Make-It-Easy
 
 ## Postgresql
-username: `admin`
+username: `postgres`
 password: `1234`
 
 ## Vue commands
