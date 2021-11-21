@@ -77,8 +77,6 @@ def get_from_database():
 
   return users, ratings, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous
 
-users, ratings, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous = get_from_database()
-
 # Utility to split the data into training and test sets.
 def split_dataframe(df, holdout_fraction=0.1):
   """Splits a DataFrame into training and test sets.
@@ -376,13 +374,11 @@ def item_neighbors(model, name_substring, measure=DOT, k=6):
       'name': model._items['name']
   })
   display.display(df.sort_values([score_key], ascending=False).head(k))
-'''
-# Build the CF model and train it.
-model = build_model(ratings, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=30, init_stddev=0.5)
-model.train(num_iterations=1000, learning_rate=10.)
 
-user_recommendations(model, 2, measure=COSINE, k=10)
+def create_model(type='Attraction'):
+  users, ratings, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous = get_from_database()
 
-item_neighbors(model, "item1234", DOT)
-item_neighbors(model, "item1199", COSINE)
-'''
+  model = build_model(ratings, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=30, init_stddev=0.5)
+  model.train(num_iterations=1000, learning_rate=10.)
+
+  return model
