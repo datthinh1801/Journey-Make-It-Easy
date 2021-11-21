@@ -3,6 +3,7 @@ import graphene
 from graphene_django import DjangoObjectType
 import graphql_jwt
 from .models import *
+from api.models import *
 
 
 class NationType(DjangoObjectType):
