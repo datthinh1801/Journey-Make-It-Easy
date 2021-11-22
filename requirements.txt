@@ -32,3 +32,6 @@ typing-extensions==3.10.0.2
 yarl==1.7.0
 django-background-tasks==1.2.5
 git+git://github.com/altair-viz/altair.git
+matplotlib==3.5.0
+scikit-learn==1.0.1
+tensorflow==2.7.0

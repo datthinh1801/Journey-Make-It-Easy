@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import collections
 from mpl_toolkits.mplot3d import Axes3D
-from IPython import display
+#from IPython import display
 from matplotlib import pyplot as plt
 import sklearn
 import sklearn.manifold
@@ -97,13 +97,13 @@ def split_dataframe(df, holdout_fraction=0.1):
   train = df[~df.index.isin(test.index)]
   return train, test
 
-def build_rating_sparse_tensor(ratings_df):
+def build_rating_sparse_tensor(ratings_df, a, b):
   indices = ratings_df[['user_id', 'item_id']].values
   values = ratings_df['point'].values
   return tf.SparseTensor(
       indices=indices,
       values=values,
-      dense_shape=[users.shape[0], items.shape[0]])
+      dense_shape=[a, b])
 
 def sparse_mean_square_error(sparse_ratings, user_embeddings, movie_embeddings):
   """
@@ -211,7 +211,7 @@ class CFModel(object):
           ax.legend()
       return results
 
-def build_model(ratings, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=3, init_stddev=1.):
+def build_model(ratings, users, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=3, init_stddev=1.):
   """
   Args:
     ratings: a DataFrame of the ratings
@@ -223,8 +223,8 @@ def build_model(ratings, user_mapping, item_mapping, reverse_user_mapping, rever
   # Split the ratings DataFrame into train and test.
   train_ratings, test_ratings = split_dataframe(ratings)
   # SparseTensor representation of the train and test datasets.
-  A_train = build_rating_sparse_tensor(train_ratings)
-  A_test = build_rating_sparse_tensor(test_ratings)
+  A_train = build_rating_sparse_tensor(train_ratings, users.shape[0], items.shape[0])
+  A_test = build_rating_sparse_tensor(test_ratings, users.shape[0], items.shape[0])
   # Initialize the embeddings using a normal distribution.
   U = tf.Variable(tf.random_normal(
       [A_train.dense_shape[0], embedding_dim], stddev=init_stddev))
@@ -278,9 +278,10 @@ def user_recommendations(model, id, measure=DOT, exclude_rated=False, k=6):
     # remove items that are already rated
     rated_items = model._ratings[model._ratings.user_id == id]["item_id"].values
     df = df[df.item_id.apply(lambda item_id: item_id not in rated_items)]
-  return df.sort_values([score_key], ascending=False)['item_id'][:k]
-  display.display(df.sort_values([score_key], ascending=False).head(k))  
+    df = df.sort_values([score_key], ascending=False)
+  return df['item_id'][:k].tolist(), df[score_key][:k].tolist()
 
+'''
 def item_neighbors(model, name_substring, measure=DOT, k=6):
   # Search for item ids that match the given substring.
   ids =  model._items[model._items['name'].str.contains(name_substring)].index.values
@@ -302,11 +303,12 @@ def item_neighbors(model, name_substring, measure=DOT, k=6):
       'name': model._items['name']
   })
   display.display(df.sort_values([score_key], ascending=False).head(k))
+'''
 
 def create_model(type='Attraction'):
   users, ratings, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous = get_from_database()
 
-  model = build_model(ratings, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=30, init_stddev=0.5)
+  model = build_model(ratings, users, items, user_mapping, item_mapping, reverse_user_mapping, reverse_item_mapping, anonymous, embedding_dim=30, init_stddev=0.5)
   model.train(num_iterations=1000, learning_rate=10.)
 
   return model

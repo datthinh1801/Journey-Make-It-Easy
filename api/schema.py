@@ -1,9 +1,10 @@
-from django.db.models import query
+from django.db.models import query, Q
 import graphene
 from graphene_django import DjangoObjectType
 import graphql_jwt
 from .models import *
-from rcs.rcs import test
+from rcs.rcs import RCSAttraction
+from rcs.models import *
 
 
 class NationType(DjangoObjectType):
@@ -330,15 +331,18 @@ class Query(graphene.ObjectType):
 
     me = graphene.Field(UserType)
 
-    test = graphene.String(id=graphene.Int())
-    test2 = graphene.String(id=graphene.Int())
+    test = graphene.List(AttractionType, limit=graphene.Int(required=False))
 
-    def resolve_test(self, info, id):
-        return test(id)
-
-    def resolve_test2(self, info, id):
-        from rcs.rcs import test2
-        return test2(id)
+    def resolve_test(root, info, limit=0):
+        user = info.context.user
+        if user.is_anonymous:
+            listrcs = RCSAttraction(-1)
+        else:
+            listrcs = RCSAttraction(user.id)
+        ret = Attraction.objects.filter(id__in=listrcs) | Attraction.objects.filter(~Q(id__in=listrcs))
+        if limit:
+            return ret[:limit]
+        return ret
 
     def resolve_me(self, info):
         user = info.context.user
