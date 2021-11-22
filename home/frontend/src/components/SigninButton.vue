@@ -203,6 +203,10 @@ export default {
       this.$modal.show("sign-in-modal");
     },
     async signIn() {
+      if (this.usernameAlert || this.passwordAlert) {
+        return;
+      }
+
       let response = await this.$store.dispatch("signIn", {
         username: this.username,
         password: this.password,
@@ -219,6 +223,10 @@ export default {
       let username = document.getElementById("username").value;
       let password = document.getElementById("password").value;
       let password2 = document.getElementById("password2").value;
+
+      if (this.usernameAlert || this.passwordAlert || this.password2Alert) {
+        return;
+      }
 
       this.$store
         .dispatch("signUp", {
