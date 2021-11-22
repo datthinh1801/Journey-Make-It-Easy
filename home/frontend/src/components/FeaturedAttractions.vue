@@ -74,7 +74,7 @@ export default {
     },
     redirectToItem(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("/attraction");
+      this.$router.push({ name: "attraction", query: { id: item.id } });
     },
   },
   beforeMount() {

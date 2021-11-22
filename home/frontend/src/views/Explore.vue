@@ -9,7 +9,6 @@
     </div>
     <div :class="[$style.imageSection, 'width-control']">
       <image-slider />
-      {{ images }}
     </div>
     <div
       :class="['row-container', 'col-container', $style.recommendationSection]"
@@ -51,14 +50,15 @@ export default {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.city_id !== "") {
       this.$store.dispatch("getCityDetail", this.$store.state.city_id);
+      document.title = "🇻🇳 " + this.$store.state.city_name;
     } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
+        document.title = "🇻🇳 " + this.place;
+      });
       this.$store.dispatch("getCityDetail", params.get("cityid"));
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = "🇻🇳 " + this.$store.state.city_name;
   },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");
