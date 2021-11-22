@@ -125,15 +125,17 @@ export default {
       return this.$store.state.item["about"];
     },
     roomFeatures() {
-      return this.$store.state.item["roomFeatures"].map(
+      return (this.$store.state.item["roomFeatures"] || []).map(
         (item) => item["value"]
       );
     },
     roomTypes() {
-      return this.$store.state.item["roomTypes"].map((item) => item["value"]);
+      return (this.$store.state.item["roomTypes"] || []).map(
+        (item) => item["value"]
+      );
     },
     amenities() {
-      return this.$store.state.item["propertyAmenities"].map(
+      return (this.$store.state.item["propertyAmenities"] || []).map(
         (item) => item["value"]
       );
     },
