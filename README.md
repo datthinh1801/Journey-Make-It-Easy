@@ -27,3 +27,8 @@ npm run build
 ```
 python manage.py collectstatic
 ```
+
+## Start the production application
+```
+python manange.py runserver
+```
