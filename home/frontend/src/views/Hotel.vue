@@ -142,10 +142,13 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.currentItemId === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.currentItemId !== "") {
       this.$store.dispatch("getHotelDetail", this.$store.state.currentItemId);
+    } else if (params.has("id")) {
+      this.$store.dispatch("getHotelDetail", params.get("id"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {

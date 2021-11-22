@@ -123,10 +123,14 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.city === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
       this.$store.dispatch("getRestaurant", this.$store.state.city_id);
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid"));
+      this.$store.dispatch("getRestaurant", params.get("cityid"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {

@@ -123,7 +123,15 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch("getHotel", this.$store.state.city_id);
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
+      this.$store.dispatch("getHotel", this.$store.state.city_id);
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid"));
+      this.$store.dispatch("getHotel", params.get("cityid"));
+    } else {
+      this.$router.push("/");
+    }
   },
   beforeMount() {
     document.title = "🏨 Hotels in " + this.$store.state.city_name;

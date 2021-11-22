@@ -258,6 +258,37 @@ const store = new Vuex.Store({
                 return true;
             }
         },
+        async getCityById(context, id) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getCityById(id: ${id}) {
+                            id,
+                            name,
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data['errors']) {
+                return false;
+            } else {
+                let city = data['data']['getCityById'];
+                context.commit('changeCity', {city_id: city.id, city_name: city.name});
+                return true;
+            }
+        },
         async getAttraction(context, city_id) {
             let data;
             await axios({

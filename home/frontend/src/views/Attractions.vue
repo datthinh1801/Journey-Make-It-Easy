@@ -15,6 +15,21 @@ export default {
   data() {
     return {};
   },
+  beforeCreate() {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
+      this.$store.dispatch("getAttraction", this.$store.state.city_id);
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid"));
+      this.$store.dispatch("getAttraction", params.get("cityid"));
+    } else {
+      this.$router.push("/");
+    }
+  },
+  beforeMount() {
+    let city = this.$store.state.city_name;
+    document.title = "🏖 Top Attractions in " + city;
+  },
   beforeDestroy() {
     this.$store.commit("clearAllAttractions");
   },
