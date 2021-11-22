@@ -184,9 +184,16 @@ const store = new Vuex.Store({
                 username,
                 password
             } = payload;
+
+            let status;
             await axios.post(`${context.state.BASE_URL}/register`,
                 `username=${username}&password=${password}`
-            );
+            ).then(() => {
+                status = true;
+            }).catch(() => {
+                status = false;
+            });
+            return status;
         },
         async signOut(context) {
             await axios({
