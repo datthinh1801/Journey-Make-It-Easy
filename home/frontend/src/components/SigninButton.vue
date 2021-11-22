@@ -128,7 +128,7 @@
             </button>
           </div>
         </div>
-        <img src="images/signin_img.jpg" alt="" />
+        <img src="static/images/signin_img.jpg" alt="" />
       </div>
     </modal>
   </div>
