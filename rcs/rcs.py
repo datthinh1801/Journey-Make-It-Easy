@@ -29,9 +29,13 @@ def RCSAttraction(id):
     a, b = user_recommendations(attractionRCS, id, measure=DOT, exclude_rated=True, k=5)
     print(a)
     print(b)
+    print(id)
     user = User.objects.filter(id=id)
-    if user:
+    print(user)
+    if len(user):
         user = user[0]
+    else:
+        user = None
     query = AttractionQuery()
     query.user = user
     query.time = timezone.now()
@@ -40,6 +44,7 @@ def RCSAttraction(id):
         item = AttractionReturn()
         item.query = query
         item.point = b[i]
-        item.item = Attraction.objects.get(id=a[i])
+        tmp = Attraction.objects.filter(id=a[i])
+        item.item = tmp[0]
         item.save()
     return a
