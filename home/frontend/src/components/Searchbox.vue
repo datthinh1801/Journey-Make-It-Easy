@@ -57,6 +57,11 @@ export default {
     },
     async search() {
       let searchStr = document.querySelector("#searchBox-box").value;
+      if (searchStr.trim() === "") {
+        this.searches = [];
+        return;
+      }
+
       let re = new RegExp(`^${searchStr}`, "gi");
       let data;
 
