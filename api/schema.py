@@ -3,7 +3,7 @@ import graphene
 from graphene_django import DjangoObjectType
 import graphql_jwt
 from .models import *
-from rcs import attractionRCS
+from rcs.rcs import test
 
 
 class NationType(DjangoObjectType):
@@ -329,6 +329,16 @@ class Query(graphene.ObjectType):
     get_user_info = graphene.Field(UserDataType)
 
     me = graphene.Field(UserType)
+
+    test = graphene.String(id=graphene.Int())
+    test2 = graphene.String(id=graphene.Int())
+
+    def resolve_test(self, info, id):
+        return test(id)
+
+    def resolve_test2(self, info, id):
+        from rcs.rcs import test2
+        return test2(id)
 
     def resolve_me(self, info):
         user = info.context.user
