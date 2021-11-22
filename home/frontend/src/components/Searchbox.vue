@@ -53,10 +53,15 @@ export default {
         city_id: item["id"],
         city_name: item["name"],
       });
-      this.$router.push("/explore");
+      this.$router.push({ name: "explore", query: { cityid: item["id"] } });
     },
     async search() {
       let searchStr = document.querySelector("#searchBox-box").value;
+      if (searchStr.trim() === "") {
+        this.searches = [];
+        return;
+      }
+
       let re = new RegExp(`^${searchStr}`, "gi");
       let data;
 

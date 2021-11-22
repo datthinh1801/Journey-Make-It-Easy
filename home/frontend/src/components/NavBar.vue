@@ -1,45 +1,62 @@
 <template>
   <nav class="row-container width-control">
-    <router-link :class="[$style.navItem, 'roboto']" to="/explore">
+    <router-link
+      :class="[$style.navItem, 'roboto']"
+      :to="'/explore?cityid=' + cityid"
+    >
       Explore
-      <font-awesome-icon icon="globe-asia"/>
+      <font-awesome-icon icon="globe-asia" />
     </router-link>
-    <router-link :class="[$style.navItem, 'roboto']" to="/attractions">
+    <router-link
+      :class="[$style.navItem, 'roboto']"
+      :to="'/attractions?cityid=' + cityid"
+    >
       Attractions
-      <font-awesome-icon icon="umbrella-beach"/>
+      <font-awesome-icon icon="umbrella-beach" />
     </router-link>
-    <router-link :class="[$style.navItem, 'roboto']" to="/restaurants">
+    <router-link
+      :class="[$style.navItem, 'roboto']"
+      :to="'/restaurants?cityid=' + cityid"
+    >
       Restaurants
-      <font-awesome-icon icon="utensils"/>
+      <font-awesome-icon icon="utensils" />
     </router-link>
-    <router-link :class="[$style.navItem, 'roboto']" to="/hotels">
+    <router-link
+      :class="[$style.navItem, 'roboto']"
+      :to="'/hotels?cityid=' + cityid"
+    >
       Hotels
-      <font-awesome-icon icon="hotel"/>
+      <font-awesome-icon icon="hotel" />
     </router-link>
     <router-link :class="[$style.navItem, 'roboto']" to="/articles">
       Articles
-      <font-awesome-icon icon="pencil-alt"/>
+      <font-awesome-icon icon="pencil-alt" />
     </router-link>
   </nav>
 </template>
 
 <script>
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faGlobeAsia} from "@fortawesome/free-solid-svg-icons";
-import {faUtensils} from "@fortawesome/free-solid-svg-icons";
-import {faHotel} from "@fortawesome/free-solid-svg-icons";
-import {faUmbrellaBeach} from "@fortawesome/free-solid-svg-icons";
-import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faGlobeAsia } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faHotel } from "@fortawesome/free-solid-svg-icons";
+import { faUmbrellaBeach } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faGlobeAsia, faUtensils, faHotel, faUmbrellaBeach, faPencilAlt);
 export default {
-  name: 'NavBar',
-  components: {}
-}
+  name: "NavBar",
+  components: {},
+  computed: {
+    cityid() {
+      return this.$store.state.city_id;
+    },
+  },
+};
 </script>
 
 <style module>
-@import '../styles/global.css';
+@import "../styles/global.css";
 
 .navItem {
   background-color: white;

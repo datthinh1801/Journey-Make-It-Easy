@@ -4,22 +4,22 @@
 
 <script>
 export default {
-  name: 'Logo',
+  name: "Logo",
   methods: {
     home() {
-      this.$router.push('/');
-    }
-  }
-}
+      this.$router.push("/").catch((err) => err);
+    },
+  },
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import '../styles/global.css';
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import "../styles/global.css";
 
 .logo {
-  font-family: 'Pacifico', cursive;
-  color: #F9C100;
+  font-family: "Pacifico", cursive;
+  color: #f9c100;
   font-size: 22px;
   cursor: pointer;
 }

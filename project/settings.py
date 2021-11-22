@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-c5v-6%2q1n+wh6f#3@__mns81*%vu3*vin-bcib7pjt4d(@86(
 DEBUG = False
 
 # TODO: Fix this before deploying to production
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "api",
     "graphene_django",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
+    "background_task",
+    "rcs",
 ]
 
 MIDDLEWARE = [
@@ -151,3 +153,5 @@ GRAPHQL_JWT = {
     "JWT_EXPIRATION_DELTA": timedelta(minutes=15),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
 }
+
+BACKGROUND_TASK_RUN_ASYNC = True

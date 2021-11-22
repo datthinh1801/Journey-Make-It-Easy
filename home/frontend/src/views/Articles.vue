@@ -77,7 +77,7 @@ export default {
     },
     redirectItem(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("/article");
+      this.$router.push({name: "article", query: {id: item.id}});
     },
     imgSrc(article) {
       return `https://source.unsplash.com/user/didiofederico_photographer/250x250?sig=${article.id}`;

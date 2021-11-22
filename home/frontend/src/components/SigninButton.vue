@@ -90,6 +90,9 @@
             <span v-if="usernameAlert" :class="$style['alert-msg']">{{
               usernameGuide
             }}</span>
+            <span v-if="usernameExisted" :class="$style['alert-msg']">{{
+              existUsernameMsg
+            }}</span>
 
             <input
               id="password"
@@ -125,7 +128,7 @@
             </button>
           </div>
         </div>
-        <img src="images/signin_img.jpg" alt="" />
+        <img src="static/images/signin_img.jpg" alt="" />
       </div>
     </modal>
   </div>
@@ -151,6 +154,8 @@ export default {
         "Username only includes characters, numbers, and underscore.",
       passwordGuide:
         "Password must be at least 8 characters long including lowercase and uppercase characters, numbers, and at least one special character.",
+      existUsernameMsg: "Username already exists!",
+      usernameExisted: false,
       invalidCredentials: false,
       expandProfile: false,
     };
@@ -198,6 +203,10 @@ export default {
       this.$modal.show("sign-in-modal");
     },
     async signIn() {
+      if (this.usernameAlert || this.passwordAlert) {
+        return;
+      }
+
       let response = await this.$store.dispatch("signIn", {
         username: this.username,
         password: this.password,
@@ -214,11 +223,24 @@ export default {
       let username = document.getElementById("username").value;
       let password = document.getElementById("password").value;
       let password2 = document.getElementById("password2").value;
-      this.$store.dispatch("signUp", {
-        username,
-        password,
-        password2,
-      });
+
+      if (this.usernameAlert || this.passwordAlert || this.password2Alert) {
+        return;
+      }
+
+      this.$store
+        .dispatch("signUp", {
+          username,
+          password,
+          password2,
+        })
+        .then((response) => {
+          if (response) {
+            this.backToSignIn();
+          } else {
+            this.usernameExisted = true;
+          }
+        });
     },
     toSignUp() {
       document.querySelector("#signin-form").style["display"] = "none";
@@ -227,6 +249,7 @@ export default {
     backToSignIn() {
       document.querySelector("#signin-form").style["display"] = "flex";
       document.querySelector("#signup-form").style["display"] = "none";
+      this.usernameExisted = false;
     },
     closeModal() {
       this.username = "";

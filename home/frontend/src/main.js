@@ -121,6 +121,10 @@ const store = new Vuex.Store({
         },
         saveCity(state, item) {
             state.item = item;
+            this.commit('changeCity', {
+                city_id: item.id,
+                city_name: item.name
+            })
         },
         changeItemId(state, id) {
             state.currentItemId = id;
@@ -184,9 +188,16 @@ const store = new Vuex.Store({
                 username,
                 password
             } = payload;
+
+            let status;
             await axios.post(`${context.state.BASE_URL}/register`,
                 `username=${username}&password=${password}`
-            );
+            ).then(() => {
+                status = true;
+            }).catch(() => {
+                status = false;
+            });
+            return status;
         },
         async signOut(context) {
             await axios({
@@ -244,6 +255,37 @@ const store = new Vuex.Store({
                     refreshToken
                 });
                 context.commit('saveUsername', username);
+                return true;
+            }
+        },
+        async getCityById(context, id) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getCityById(id: ${id}) {
+                            id,
+                            name,
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data['errors']) {
+                return false;
+            } else {
+                let city = data['data']['getCityById'];
+                context.commit('changeCity', {city_id: city.id, city_name: city.name});
                 return true;
             }
         },

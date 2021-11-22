@@ -1,20 +1,28 @@
 <template>
   <div class="row-container width-control" :class="$style['row-container']">
-    <img :id="$style['hero-img']" alt="hero-img" src="images/Hero_image.png">
-    <img :id="$style['hero-text']" alt="hero-text" src="images/Hero_text.png">
-    <SearchBox :id="$style['search-box']"/>
+    <img
+      :id="$style['hero-img']"
+      alt="hero-img"
+      src="static/images/Hero_image.png"
+    />
+    <img
+      :id="$style['hero-text']"
+      alt="hero-text"
+      src="static/images/Hero_text.png"
+    />
+    <SearchBox :id="$style['search-box']" />
   </div>
 </template>
 
 <script>
-import SearchBox from './Searchbox';
+import SearchBox from "./Searchbox";
 
 export default {
-  name: 'Hero',
+  name: "Hero",
   components: {
-    SearchBox
-  }
-}
+    SearchBox,
+  },
+};
 </script>
 
 <style module>
