@@ -121,6 +121,10 @@ const store = new Vuex.Store({
         },
         saveCity(state, item) {
             state.item = item;
+            this.commit('changeCity', {
+                city_id: item.id,
+                city_name: item.name
+            })
         },
         changeItemId(state, id) {
             state.currentItemId = id;

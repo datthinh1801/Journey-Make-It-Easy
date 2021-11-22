@@ -67,7 +67,7 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.city === "") {
+    if (this.$store.state.city_id === "") {
       this.$router.push("/");
     } else {
       this.$store.dispatch("getAttraction", this.$store.state.city_id);

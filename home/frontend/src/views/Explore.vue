@@ -48,10 +48,13 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.city_name === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
       this.$store.dispatch("getCityDetail", this.$store.state.city_id);
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityDetail", params.get("cityid"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {
