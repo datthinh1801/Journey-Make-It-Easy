@@ -3,8 +3,7 @@ import graphene
 from graphene_django import DjangoObjectType
 import graphql_jwt
 from .models import *
-from rcs.rcs import RCSAttraction
-from rcs.models import *
+from rcs.rcs import RCSAttraction, RCSRestaurant, RCSStay
 
 
 class NationType(DjangoObjectType):

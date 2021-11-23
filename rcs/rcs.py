@@ -10,18 +10,24 @@ import time
 import _thread
 from django.utils import timezone
 
-attractionRCS = create_model()
+attractionRCS = create_model("Attraction")
+restaurantRCS = create_model("Restaurant")
+stayRCS = create_model("Stay")
 
 def update(delay):
     global attractionRCS
+    global restaurantRCS
+    global stayRCS
     while True:
         time.sleep(delay)
-        attractionRCS = create_model()
-        print("Retrain Model Successfully")
+        attractionRCS = create_model("Attraction")
+        restaurantRCS = create_model("Restaurant")
+        stayRCS = create_model("Stay")
+        print("Re-train Model Successfully")
 
 # Auto update after 1 day
 try:
-   _thread.start_new_thread( update, (30 * 60 * 60, ) )
+   _thread.start_new_thread( update, (24 * 60 * 60, ) )
 except:
    print("Error: Unable to start thread")
 
@@ -30,12 +36,10 @@ def RCSAttraction(id):
     print(a)
     print(b)
     print(id)
-    user = User.objects.filter(id=id)
-    print(user)
-    if len(user):
-        user = user[0]
-    else:
+    if id == -1:
         user = None
+    else:
+        user = User.objects.get(id=id)
     query = AttractionQuery()
     query.user = user
     query.time = timezone.now()
@@ -44,7 +48,51 @@ def RCSAttraction(id):
         item = AttractionReturn()
         item.query = query
         item.point = b[i]
-        tmp = Attraction.objects.filter(id=a[i])
-        item.item = tmp[0]
+        tmp = Attraction.objects.get(id=a[i])
+        item.item = tmp
+        item.save()
+    return a
+
+def RCSRestaurant(id):
+    a, b = user_recommendations(restaurantRCS, id, measure=DOT, exclude_rated=True, k=5)
+    print(a)
+    print(b)
+    print(id)
+    if id == -1:
+        user = None
+    else:
+        user = User.objects.get(id=id)
+    query = RestaurantQuery()
+    query.user = user
+    query.time = timezone.now()
+    query.save()
+    for i in range(5):
+        item = RestaurantReturn()
+        item.query = query
+        item.point = b[i]
+        tmp = Restaurant.objects.get(id=a[i])
+        item.item = tmp
+        item.save()
+    return a
+
+def RCSStay(id):
+    a, b = user_recommendations(stayRCS, id, measure=DOT, exclude_rated=True, k=5)
+    print(a)
+    print(b)
+    print(id)
+    if id == -1:
+        user = None
+    else:
+        user = User.objects.get(id=id)
+    query = StayQuery()
+    query.user = user
+    query.time = timezone.now()
+    query.save()
+    for i in range(5):
+        item = StayReturn()
+        item.query = query
+        item.point = b[i]
+        tmp = Stay.objects.get(id=a[i])
+        item.item = tmp
         item.save()
     return a
