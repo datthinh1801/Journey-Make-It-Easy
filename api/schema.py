@@ -330,19 +330,6 @@ class Query(graphene.ObjectType):
 
     me = graphene.Field(UserType)
 
-    test = graphene.List(AttractionType, limit=graphene.Int(required=False))
-
-    def resolve_test(root, info, limit=0):
-        user = info.context.user
-        if user.is_anonymous:
-            listrcs = RCSAttraction(-1)
-        else:
-            listrcs = RCSAttraction(user.id)
-        ret = [Attraction.objects.get(id=i) for i in listrcs] + list(Attraction.objects.filter(~Q(id__in=listrcs)))
-        if limit:
-            return ret[:limit]
-        return ret
-
     def resolve_me(self, info):
         user = info.context.user
         if user.is_anonymous:
@@ -372,9 +359,15 @@ class Query(graphene.ObjectType):
         return City.objects.get(name=name)
 
     def resolve_all_attractions(root, info, limit=0):
+        user = info.context.user
+        if user.is_anonymous:
+            listrcs = RCSAttraction(-1)
+        else:
+            listrcs = RCSAttraction(user.id)
+        ret = [Attraction.objects.get(id=i) for i in listrcs] + list(Attraction.objects.filter(~Q(id__in=listrcs)))
         if limit:
-            return Attraction.objects.all()[:limit]
-        return Attraction.objects.all()
+            return ret[:limit]
+        return ret
 
     def resolve_get_attraction_by_id(root, info, id):
         return Attraction.objects.get(id=id)
@@ -383,9 +376,15 @@ class Query(graphene.ObjectType):
         return Attraction.objects.get(name=name)
 
     def resolve_all_restaurants(root, info, limit=0):
+        user = info.context.user
+        if user.is_anonymous:
+            listrcs = RCSRestaurant(-1)
+        else:
+            listrcs = RCSRestaurant(user.id)
+        ret = [Restaurant.objects.get(id=i) for i in listrcs] + list(Restaurant.objects.filter(~Q(id__in=listrcs)))
         if limit:
-            return Restaurant.objects.all()[:limit]
-        return Restaurant.objects.all()
+            return ret[:limit]
+        return ret
 
     def resolve_get_restaurant_by_id(root, info, id):
         return Restaurant.objects.get(id=id)
@@ -394,9 +393,15 @@ class Query(graphene.ObjectType):
         return Restaurant.objects.get(name=name)
 
     def resolve_all_stays(root, info, limit=0):
+        user = info.context.user
+        if user.is_anonymous:
+            listrcs = RCSStay(-1)
+        else:
+            listrcs = RCSStay(user.id)
+        ret = [Stay.objects.get(id=i) for i in listrcs] + list(Stay.objects.filter(~Q(id__in=listrcs)))
         if limit:
-            return Stay.objects.all()[:limit]
-        return Stay.objects.all()
+            return ret[:limit]
+        return ret
 
     def resolve_get_stay_by_id(root, info, id):
         return Stay.objects.get(id=id)
