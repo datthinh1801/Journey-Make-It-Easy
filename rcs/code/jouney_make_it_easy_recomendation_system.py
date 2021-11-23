@@ -63,13 +63,12 @@ def GetAttrationDB(cursor):
     data = cursor.fetchall()
     ratings = pd.DataFrame(data=data, index=None, columns=ratings_cols)
 
-    print('Check point 1')
-    print(users)
-    print(ratings)
-    print(items)
     print(users.info())
+    print(users)
     print(ratings.info())
+    print(ratings)
     print(items.info())
+    print(items)
 
     return users, ratings, items
 
@@ -86,13 +85,12 @@ def GetRestaurantDB(cursor):
     data = cursor.fetchall()
     ratings = pd.DataFrame(data=data, index=None, columns=ratings_cols)
 
-    print('Check point 2')
-    print(users)
-    print(ratings)
-    print(items)
     print(users.info())
+    print(users)
     print(ratings.info())
+    print(ratings)
     print(items.info())
+    print(items)
 
     return users, ratings, items
 
@@ -109,13 +107,12 @@ def GetStayDB(cursor):
     data = cursor.fetchall()
     ratings = pd.DataFrame(data=data, index=None, columns=ratings_cols)
 
-    print('Check point 3')
-    print(users)
-    print(ratings)
-    print(items)
     print(users.info())
+    print(users)
     print(ratings.info())
+    print(ratings)
     print(items.info())
+    print(items)
 
     return users, ratings, items
 

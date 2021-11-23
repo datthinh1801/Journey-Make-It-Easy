@@ -27,15 +27,15 @@ def update(delay):
 
 # Auto update after 1 day
 try:
-   _thread.start_new_thread( update, (24 * 60 * 60, ) )
+   _thread.start_new_thread(update, (24 * 60 * 60,))
 except:
    print("Error: Unable to start thread")
 
 def RCSAttraction(id):
     a, b = user_recommendations(attractionRCS, id, measure=DOT, exclude_rated=True, k=5)
+    print('user_id: ' + str(id))
     print(a)
     print(b)
-    print(id)
     if id == -1:
         user = None
     else:
@@ -55,9 +55,9 @@ def RCSAttraction(id):
 
 def RCSRestaurant(id):
     a, b = user_recommendations(restaurantRCS, id, measure=DOT, exclude_rated=True, k=5)
+    print('user_id: ' + str(id))
     print(a)
     print(b)
-    print(id)
     if id == -1:
         user = None
     else:
@@ -77,9 +77,9 @@ def RCSRestaurant(id):
 
 def RCSStay(id):
     a, b = user_recommendations(stayRCS, id, measure=DOT, exclude_rated=True, k=5)
+    print('user_id: ' + str(id))
     print(a)
     print(b)
-    print(id)
     if id == -1:
         user = None
     else:
