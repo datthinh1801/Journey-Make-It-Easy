@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     re_path("static/.*", views.static, name="static"),
-    re_path(".*", views.index, name="index"),
+    re_path("\.*", views.index, name="index"),
 ]
