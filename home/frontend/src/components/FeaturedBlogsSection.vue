@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.container">
+  <div :class="$style.container" v-if="hasArticles">
     <h2 class="width-control">New Traveling Articles</h2>
     <div :class="$style['item-container']">
       <FeaturedBlogs />
@@ -14,6 +14,11 @@ export default {
   name: "FeaturedBlogsSection",
   components: {
     FeaturedBlogs,
+  },
+  computed: {
+    hasArticles() {
+      return this.$store.state.articleArr.length > 0;
+    },
   },
   beforeCreate() {
     this.$store.dispatch("getAllArticles", 3);

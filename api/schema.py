@@ -339,7 +339,9 @@ class Query(graphene.ObjectType):
             listrcs = RCSAttraction(-1)
         else:
             listrcs = RCSAttraction(user.id)
-        ret = Attraction.objects.filter(id__in=listrcs) | Attraction.objects.filter(~Q(id__in=listrcs))
+        ret = Attraction.objects.filter(id__in=listrcs) | Attraction.objects.filter(
+            ~Q(id__in=listrcs)
+        )
         if limit:
             return ret[:limit]
         return ret
