@@ -450,6 +450,8 @@ button {
   margin-right: 10px;
 }
 
+
+
 button:hover {
   background-color: #fdd039;
   border-color: #fdd039;
@@ -459,5 +461,21 @@ button:hover {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+}
+
+@media only screen and (max-width: 800px){
+    button {
+      width: 100px;
+      height: 30px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+      background-color: #f9c100;
+      border: none;
+      transition: 0.3s;
+      margin-right: 30px;
+
+  }
 }
 </style>

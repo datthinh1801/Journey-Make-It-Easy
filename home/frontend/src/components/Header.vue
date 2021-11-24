@@ -28,6 +28,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  /* width : auto; */
   padding: 10px;
   z-index: 1;
 }
@@ -35,4 +36,5 @@ header {
 .logo {
   margin-left: -10px;
 }
+
 </style>

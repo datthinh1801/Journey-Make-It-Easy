@@ -49,4 +49,14 @@ export default {
   top: 410px;
   left: 30%;
 }
+
+@media only screen and (max-width: 800px){
+  #hero-text {
+  position: absolute;
+  width: auto;
+  height: 15%;
+  right: 10%;
+  top: 20%;
+}
+}
 </style>

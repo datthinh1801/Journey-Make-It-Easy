@@ -242,6 +242,7 @@ def setup(data):
     # Closing the connection
     cursor.close()
     conn.close()
+    print('done')
 
 
 if __name__ == "__main__":

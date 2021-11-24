@@ -23,4 +23,14 @@ export default {
   font-size: 22px;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 800px) {
+  .logo{
+    font-family: "Pacifico", cursive;
+    color: #f9c100;
+    font-size: 15px;
+    cursor: pointer;
+    padding-left: 30px;
+  }
+}
 </style>
