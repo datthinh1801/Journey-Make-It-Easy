@@ -24,15 +24,18 @@ export default {
     },
   },
   beforeCreate() {
-    if (!this.$store.state.currentItemId) {
-      this.$router.push("/articles");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.currentItemId) {
       this.$store.dispatch("getArticleDetail", this.$store.state.currentItemId);
+    } else if (params.has("id")) {
+      this.$store.dispatch("getArticleDetail", params.get("id"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {
-      document.title = `📮 Blog | ${this.$store.state.item.title}`;
-  }
+    document.title = `📮 Blog | ${this.$store.state.item.title}`;
+  },
 };
 </script>
 

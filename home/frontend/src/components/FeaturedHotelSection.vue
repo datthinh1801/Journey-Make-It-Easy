@@ -80,7 +80,7 @@ export default {
     },
     redirectToItem(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("/hotel");
+      this.$router.push({ name: "hotel", query: { id: item.id } });
     },
   },
   beforeMount() {

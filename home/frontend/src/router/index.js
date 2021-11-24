@@ -17,57 +17,57 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'home',
         component: Home
     },
     {
         path: '/explore',
-        name: 'Explore',
+        name: 'explore',
         component: Explore
     },
     {
         path: '/attractions',
-        name: 'Attractions',
+        name: 'attractions',
         component: Attractions
     },
     {
         path: '/restaurants',
-        name: 'Restaurants',
+        name: 'restaurants',
         component: Restaurants
     },
     {
         path: '/hotels',
-        name: 'Hotels',
+        name: 'hotels',
         component: Hotels
     },
     {
         path: '/articles',
-        name: 'Articles',
+        name: 'articles',
         component: Articles
     },
     {
         path: '/restaurant',
-        name: 'Restaurant',
+        name: 'restaurant',
         component: Restaurant
     },
     {
         path: '/attraction',
-        name: 'Attraction',
+        name: 'attraction',
         component: Attraction
     },
     {
         path: '/hotel',
-        name: 'Hotel',
+        name: 'hotel',
         component: Hotel
     },
     {
         path: '/article-editor',
-        name: 'ArticleEditor',
+        name: 'articleEditor',
         component: ArticleEditor
     },
     {
         path: '/article',
-        name: 'Article',
+        name: 'article',
         component: Article
     }
 ]

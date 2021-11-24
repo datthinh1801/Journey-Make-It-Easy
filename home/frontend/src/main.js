@@ -31,6 +31,7 @@ const store = new Vuex.Store({
         username: '',
         accessToken: '',
         refreshToken: '',
+        isFetching: true,
 
         // GENERIC STATE
         city_id: '',
@@ -53,19 +54,6 @@ const store = new Vuex.Store({
         currentItemId: '',
     },
     mutations: {
-        initializeStore(state) {
-            if (localStorage.getItem('journey-jwt')) {
-                state.refreshToken = localStorage.getItem('journey-jwt');
-                let refreshStatus = this.dispatch('refreshToken', state.refreshToken);
-                if (!refreshStatus) {
-                    state.refreshToken = '';
-                    state.username = '';
-                }
-            } else {
-                state.refreshToken = '';
-                state.username = '';
-            }
-        },
         saveToken(state, {
             accessToken,
             refreshToken
@@ -121,6 +109,10 @@ const store = new Vuex.Store({
         },
         saveCity(state, item) {
             state.item = item;
+            this.commit('changeCity', {
+                city_id: item.id,
+                city_name: item.name
+            })
         },
         changeItemId(state, id) {
             state.currentItemId = id;
@@ -134,6 +126,27 @@ const store = new Vuex.Store({
         },
     },
     actions: {
+        async initializeStore(context) {
+            if (localStorage.getItem('journey-jwt')) {
+                context.state.refreshToken = localStorage.getItem('journey-jwt');
+                await this.dispatch('refreshToken', context.state.refreshToken)
+                    .then(refreshStatus => {
+                        if (!refreshStatus) {
+                            context.commit('saveToken', {
+                                accessToken: '',
+                                refreshToken: ''
+                            });
+                        }
+                        context.state.isFetching = false;
+                    })
+            } else {
+                context.commit('saveToken', {
+                    accessToken: '',
+                    refreshToken: ''
+                });
+                context.state.isFetching = false;
+            }
+        },
         async signIn(context, credential) {
             let {
                 username,
@@ -184,9 +197,16 @@ const store = new Vuex.Store({
                 username,
                 password
             } = payload;
+
+            let status;
             await axios.post(`${context.state.BASE_URL}/register`,
                 `username=${username}&password=${password}`
-            );
+            ).then(() => {
+                status = true;
+            }).catch(() => {
+                status = false;
+            });
+            return status;
         },
         async signOut(context) {
             await axios({
@@ -244,6 +264,40 @@ const store = new Vuex.Store({
                     refreshToken
                 });
                 context.commit('saveUsername', username);
+                return true;
+            }
+        },
+        async getCityById(context, id) {
+            let data;
+            await axios({
+                method: 'post',
+                url: `${context.state.BASE_URL}/graphql`,
+                data: {
+                    query: `query {
+                        getCityById(id: ${id}) {
+                            id,
+                            name,
+                        }
+                    }`
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(resp => {
+                return resp.data;
+            }).then(respData => {
+                data = respData;
+            });
+
+            if (data['errors']) {
+                return false;
+            } else {
+                let city = data['data']['getCityById'];
+                context.commit('changeCity', {
+                    city_id: city.id,
+                    city_name: city.name
+                });
                 return true;
             }
         },
@@ -369,7 +423,7 @@ const store = new Vuex.Store({
 
             context.commit('getHotel', data);
         },
-        async getAllArticles(context, limit ) {
+        async getAllArticles(context, limit) {
             let data;
             await axios({
                 method: 'post',
@@ -401,6 +455,7 @@ const store = new Vuex.Store({
         },
         async getAllAttractions(context, limit) {
             let data;
+            console.log(context.state.accessToken);
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
@@ -420,7 +475,8 @@ const store = new Vuex.Store({
                 },
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `JWT ${context.state.accessToken}`
                 }
             }).then(resp => {
                 return resp.data;
@@ -450,7 +506,8 @@ const store = new Vuex.Store({
                 },
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `JWT ${context.state.accessToken}`
                 }
             }).then(resp => {
                 return resp.data;
@@ -480,7 +537,8 @@ const store = new Vuex.Store({
                 },
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `JWT ${context.state.accessToken}`
                 }
             }).then(resp => {
                 return resp.data;
@@ -512,7 +570,7 @@ const store = new Vuex.Store({
                 },
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
                 }
             }).then(resp => {
                 return resp.data;

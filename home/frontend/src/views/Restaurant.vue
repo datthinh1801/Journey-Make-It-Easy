@@ -160,16 +160,22 @@ export default {
       return this.item["website"];
     },
     cuisines() {
-      return this.item["cuisines"].map((item) => item["value"]).join(", ");
+      return (this.item["cuisines"] || [])
+        .map((item) => item["value"])
+        .join(", ");
     },
     meals() {
-      return this.item["meals"].map((item) => item["value"]).join(", ");
+      return (this.item["meals"] || []).map((item) => item["value"]).join(", ");
     },
     specialDiets() {
-      return this.item["specialDiets"].map((item) => item["value"]).join(", ");
+      return (this.item["specialDiets"] || [])
+        .map((item) => item["value"])
+        .join(", ");
     },
     features() {
-      return this.item["features"].map((item) => item["value"]).join(", ");
+      return (this.item["features"] || [])
+        .map((item) => item["value"])
+        .join(", ");
     },
     numberVoting() {
       return this.item["numberVoting"];
@@ -185,13 +191,16 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.currentItemId === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.currentItemId !== "") {
       this.$store.dispatch(
         "getRestaurantDetail",
         this.$store.state.currentItemId
       );
+    } else if (params.has("id")) {
+      this.$store.dispatch("getRestaurantDetail", params.get("id"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {

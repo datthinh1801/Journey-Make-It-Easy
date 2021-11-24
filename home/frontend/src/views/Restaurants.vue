@@ -111,7 +111,7 @@ export default {
     },
     redirectToRestaurant(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("restaurant");
+      this.$router.push({ name: "restaurant", query: { id: item.id } });
     },
     getCuisines(item) {
       return item.cuisines.map((cuisine) => cuisine["value"]).join(", ");
@@ -123,14 +123,18 @@ export default {
     },
   },
   beforeCreate() {
-    if (this.$store.state.city === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
       this.$store.dispatch("getRestaurant", this.$store.state.city_id);
+      document.title = "🥂 Restaurants in " + this.place;
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
+        document.title = "🥂 Restaurants in " + this.place;
+      });
+      this.$store.dispatch("getRestaurant", params.get("cityid"));
+    } else {
+      this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = "🥂 Restaurants in " + this.place;
   },
   beforeDestroy() {
     this.$store.commit("clearAllRestaurants");

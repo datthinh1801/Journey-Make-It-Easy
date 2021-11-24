@@ -120,11 +120,11 @@ export default {
       this.$store.commit("changeItemId", item.id);
 
       if (this.title === "Do") {
-        this.$router.push("attraction");
+        this.$router.push({ name: "attraction", query: { id: item.id } });
       } else if (this.title === "Eat") {
-        this.$router.push("restaurant");
+        this.$router.push({ name: "restaurant", query: { id: item.id } });
       } else {
-        this.$router.push("hotel");
+        this.$router.push({ name: "hotel", query: { id: item.id } });
       }
     },
   },

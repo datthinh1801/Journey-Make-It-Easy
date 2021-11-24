@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="!isFetching">
     <router-view />
     <Footer />
   </div>
@@ -12,20 +12,17 @@ import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCaretUp);
 
-import axios from "axios";
-
 export default {
   name: "App",
   components: { Footer },
-  beforeCreate() {
-    this.$store.commit("initializeStore");
-
-    const sessionid = this.$store.state.sessionid;
-
-    if (sessionid) {
-      axios.defaults.headers.common["Cookie"] = `sessionid=${sessionid}`;
+  computed: {
+    isFetching() {
+      return this.$store.state.isFetching;
     }
   },
+  beforeCreate() {
+    this.$store.dispatch("initializeStore");
+  }
 };
 </script>
 

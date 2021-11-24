@@ -20,13 +20,6 @@ def clear(cursor):
     cursor.execute("DELETE FROM api_stay_image")
     cursor.execute("DELETE FROM api_blog_image")
 
-    cursor.execute("DELETE FROM api_nation_voting")
-    cursor.execute("DELETE FROM api_city_voting")
-    cursor.execute("DELETE FROM api_attraction_voting")
-    cursor.execute("DELETE FROM api_restaurant_voting")
-    cursor.execute("DELETE FROM api_stay_voting")
-    cursor.execute("DELETE FROM api_blog_voting")
-
     cursor.execute("DELETE FROM api_nation_review")
     cursor.execute("DELETE FROM api_city_review")
     cursor.execute("DELETE FROM api_attraction_review")
@@ -42,8 +35,14 @@ def clear(cursor):
     cursor.execute("DELETE FROM api_nation")
 
 
+def has_images(data):
+    return len(data["images"]) > 0
+
+
 def add_city(data, nation_id, cursor):
     # add city
+    if not has_images(data):
+        return
     query_str = "INSERT INTO api_city (name, info, number_voting, rating_score, nation_id) VALUES (%s, %s, %s, %s, %s)"
     item_insert = (data["name"], data["info"], 0, 0, nation_id)
     cursor.execute(query_str, item_insert)
@@ -61,6 +60,8 @@ def add_city(data, nation_id, cursor):
 
     # add attractions
     for item in data["attractions"]:
+        if not has_images(item):
+            continue
         query_str = "INSERT INTO api_attraction (name, about, address, admission_ticket, open_time, suggested_duration, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         item_insert = (
             item["name"],
@@ -85,6 +86,8 @@ def add_city(data, nation_id, cursor):
 
     # add restaurants
     for item in data["restaurants"]:
+        if not has_images(item):
+            continue
         query_str = "INSERT INTO api_restaurant (name, address, open_time, phone, price_range, website, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         details = item["details"]
         cuisines, meals, special_diets, price_range, features = "", "", "", "", ""
@@ -144,6 +147,8 @@ def add_city(data, nation_id, cursor):
 
     # add stays room_features, room_types, property_amenities,
     for item in data["stays"]:
+        if not has_images(item):
+            continue
         query_str = "INSERT INTO api_stay (name, about, address, phone, email, ggmap, number_voting, rating_score, city_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         amenities = item["amenities"]
         room_features, room_types, property_amenities = [], [], []
@@ -223,7 +228,12 @@ def setup(data):
     cursor = conn.cursor()
 
     """Call function here"""
-    clear(cursor)
+    try:
+        clear(cursor)
+    except Exception as e:
+        print("[-] Skip clearing database.")
+        print(e)
+
     add_nation(data, cursor)
 
     # Commit your changes in the database
@@ -232,6 +242,7 @@ def setup(data):
     # Closing the connection
     cursor.close()
     conn.close()
+    print('done')
 
 
 if __name__ == "__main__":

@@ -119,15 +119,24 @@ export default {
     },
     redirectToHotel(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("hotel");
+      this.$router.push({ name: "hotel", query: { id: item.id } });
     },
   },
   beforeCreate() {
-    this.$store.dispatch("getHotel", this.$store.state.city_id);
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.city_id !== "") {
+      this.$store.dispatch("getHotel", this.$store.state.city_id);
+      document.title = "🏨 Hotels in " + this.$store.state.city_name;
+    } else if (params.has("cityid")) {
+      this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
+        document.title = "🏨 Hotels in " + this.$store.state.city_name;
+      });
+      this.$store.dispatch("getHotel", params.get("cityid"));
+    } else {
+      this.$router.push("/");
+    }
   },
-  beforeMount() {
-    document.title = "🏨 Hotels in " + this.$store.state.city_name;
-  },
+  beforeMount() {},
   beforeDestroy() {
     this.$store.commit("clearAllHotels");
   },

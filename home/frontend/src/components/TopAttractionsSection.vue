@@ -63,21 +63,8 @@ export default {
     },
     redirectToAttraction(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push("attraction");
+      this.$router.push({ name: "attraction", query: { id: item.id } });
     },
-  },
-  beforeCreate() {
-    if (this.$store.state.city === "") {
-      this.$router.push("/");
-    } else {
-      this.$store.dispatch("getAttraction", this.$store.state.city_id);
-    }
-  },
-  beforeMount() {
-    document.title = "🏖 Top Attractions in " + this.place;
-  },
-  beforeDestroy() {
-    this.$store.commit("clearAllAttractions");
   },
 };
 </script>

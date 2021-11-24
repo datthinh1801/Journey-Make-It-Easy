@@ -32,10 +32,10 @@ export default {
       return `https://source.unsplash.com/user/didiofederico_photographer/320x190?sig=${article.id}`;
     },
     redirectItem(item) {
-      this.$store.commit('changeItemId', item.id);
-      this.$router.push('/article');
-    }
-  }
+      this.$store.commit("changeItemId", item.id);
+      this.$router.push({ name: "article", query: { id: item.id } });
+    },
+  },
 };
 </script>
 

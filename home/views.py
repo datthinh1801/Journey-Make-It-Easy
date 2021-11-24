@@ -14,8 +14,10 @@ def static(request):
     file_name = request.get_full_path().split("/")[-1]
     base_path = os.path.join(os.getcwd(), "home", "var", "static_root")
     if file_name.split(".")[-1] in ["jpg", "png"]:
-        base_path = os.path.join(base_path, "images")
+        base_path = os.path.join(base_path, "static", "images")
     elif file_name.split(".")[-1] == "js":
+        if file_name == "script.js":
+            base_path = os.path.join(base_path, "static")
         base_path = os.path.join(base_path, "js")
     elif file_name.split(".")[-1] == "css":
         base_path = os.path.join(base_path, "css")

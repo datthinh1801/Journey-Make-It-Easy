@@ -112,13 +112,16 @@ export default {
   },
   methods: {},
   beforeCreate() {
-    if (this.$store.state.currentItemId === "") {
-      this.$router.push("/");
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    if (this.$store.state.currentItemId !== "") {
       this.$store.dispatch(
         "getAttractionDetail",
         this.$store.state.currentItemId
       );
+    } else if (params.has("id")) {
+      this.$store.dispatch("getAttractionDetail", params.get("id"));
+    } else {
+      this.$router.push("/");
     }
   },
   beforeMount() {
