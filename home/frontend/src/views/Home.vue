@@ -33,7 +33,7 @@ export default {
     FeaturedHotelSection,
     FeaturedRestaurantSection,
   },
-  mounted() {
+  beforeMount() {
     document.title = "🌏 Home | Journey : Make it easy";
   },
   beforeDestroy() {
