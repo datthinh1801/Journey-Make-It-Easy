@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header :class="$style.header">
     <div class="row-container width-control">
       <Logo :class="$style.logo"/>
       <Button/>
@@ -22,15 +22,14 @@ export default {
 </script>
 
 <style module>
-header {
+.header {
   background-color: white;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  /* width : auto; */
   padding: 10px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .logo {
