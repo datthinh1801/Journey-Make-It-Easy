@@ -105,30 +105,35 @@ export default {
         this.showAttractions = false;
         this.showHotels = false;
         this.showArticles = false;
+        this.currentNavIndex = 0;
       } else if (name === "attractions") {
         this.showExplore = false;
         this.showRestaurants = false;
         this.showAttractions = true;
         this.showHotels = false;
         this.showArticles = false;
+        this.currentNavIndex = 1;
       } else if (name === "restaurants") {
         this.showExplore = false;
         this.showRestaurants = true;
         this.showAttractions = false;
         this.showHotels = false;
         this.showArticles = false;
+        this.currentNavIndex = 2;
       } else if (name === "hotels") {
         this.showExplore = false;
         this.showRestaurants = false;
         this.showAttractions = false;
         this.showHotels = true;
         this.showArticles = false;
+        this.currentNavIndex = 3;
       } else if (name === "articles") {
         this.showExplore = false;
         this.showRestaurants = false;
         this.showAttractions = false;
         this.showHotels = false;
         this.showArticles = true;
+        this.currentNavIndex = 4;
       } else {
         this.showExplore = true;
         this.showRestaurants = true;
@@ -139,7 +144,7 @@ export default {
     },
     relayoutNav() {
       if (screen.width < 500) {
-        this.setNavItem("explore");
+        this.setNavItem(this.$router.currentRoute.name);
         this.showButton = true;
       } else {
         this.setNavItem("");
