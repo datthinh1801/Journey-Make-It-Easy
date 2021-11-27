@@ -85,4 +85,16 @@ export default {
 .imageSection {
   margin-top: 40px;
 }
+
+@media only screen and (max-width:500px)
+{
+  .title {
+  margin-top: 70px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  justify-content: left;
+}
+
+}
 </style>

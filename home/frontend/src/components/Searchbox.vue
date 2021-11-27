@@ -122,11 +122,13 @@ export default {
 .search-result-container {
   display: flex;
   flex-direction: column;
+  padding: 0 0 0 38px;
+  margin: 0;
 }
 
 .search-result-container li {
   list-style: none;
-  padding: 10px 0;
+  padding: 7px 0;
   font-weight: 500;
   font-size: 18px;
   cursor: pointer;
@@ -166,8 +168,7 @@ export default {
   list-style: none;
 }
 
-@media only screen and (max-width:800px)
-{
+@media only screen and (max-width: 800px) {
   .search-box-container {
     height: fit-content;
     width: 50%;
@@ -180,17 +181,28 @@ export default {
 
   .search-box {
     border: none;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     width: 100%;
     height: 90%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
   }
+
   .search-icon {
     font-size: 14px;
     margin: 0 5px;
   }
 
+  .search-result-container {
+    margin: 0;
+    padding: 0 0 0 25px;
+  }
+
+  .search-result-container li {
+    font-size: 14px;
+    padding: 3px 0;
+    margin-left: 0;
+  }
 }
 </style>

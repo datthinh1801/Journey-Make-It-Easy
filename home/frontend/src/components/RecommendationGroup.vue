@@ -210,11 +210,61 @@ export default {
 
 @media only screen and (max-width: 500px)
 {
+  .info p{
+    font-size:15px;
+  }
   .gridContainer {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 320px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 200px;
+    /* grid-template-rows: 320px; */
   }
 
+  .itemContainer {
+  position: relative;
+  grid-column: unset;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  top: 10px;
+  padding-left: 0px;
+  padding-right: 10px;
+}
+.leftButton,
+.rightButton {
+  background-color: white;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  height: 25px;
+  width: 25px;
+  top: 33%;
+
+  border-radius: 100%;
+  border: 2px solid black;
+
+  font-size: 18px;
+  transition: 0.2s;
+  z-index: 0;
+  cursor: pointer;
+}
+  .leftButton {
+    padding-right: 6px;
+    left: 5px;
+  }
+
+  .rightButton {
+    padding-left: 6px;
+    right: -20px;
+  }
+  .recommendedItem .item-detail h4 {
+  margin: 0;
+  font-size:12px;
+}
 }
 </style>
