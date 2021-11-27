@@ -146,15 +146,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch("getHotelDetail", this.$store.state.currentItemId);
-    } else if (params.has("id")) {
-      this.$store.dispatch("getHotelDetail", params.get("id"));
+      this.$store
+        .dispatch("getHotelDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
+        });
+    } else if (params.get("id")) {
+      this.$store.dispatch("getHotelDetail", params.get("id")).then(() => {
+        document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
   },
 };
 </script>
@@ -224,5 +227,41 @@ export default {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .item-header h1 {
+    font-size: 22px;
+  }
+
+  .about-section h2 {
+    font-size: 20px;
+  }
+
+  .about-detail {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+
+  .about-detail p {
+    font-size: 14px;
+  }
+
+  .item-listing-container h3 {
+    font-size: 18px;
+  }
+
+  .item-listing-container li {
+    font-size: 14px;
+  }
+
+  .map {
+    height: 200px;
+    margin-bottom: 50px;
+  }
+
+  .map h2 {
+    font-size: 20px;
+  }
 }
 </style>

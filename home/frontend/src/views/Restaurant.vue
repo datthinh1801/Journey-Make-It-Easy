@@ -37,7 +37,10 @@
           <span>Open Time: {{ openTime }}</span>
         </div>
       </div>
-      <image-slider :class="$style['image-section']" />
+
+      <!-- <image-slider :class="$style['image-section']" /> -->
+      <image-slider />
+
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
           <h3>Details</h3>
@@ -70,13 +73,13 @@
               <font-awesome-icon icon="map-marker-alt" />
               <span>{{ address }}</span>
             </span>
-            <span class="address-info">
+            <span class="address-info" v-if="phone">
               <font-awesome-icon :icon="['fas', 'phone-alt']" />
               <span
                 >Phone: <span>{{ phone }}</span></span
               >
             </span>
-            <span class="website">
+            <span class="website" v-if="website">
               <a :href="website" target="_blank">
                 <font-awesome-icon icon="external-link-alt" />
                 <span>Website</span>
@@ -156,7 +159,7 @@ export default {
     phone() {
       return this.item["phone"];
     },
-    webiste() {
+    website() {
       return this.item["website"];
     },
     cuisines() {
@@ -193,18 +196,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch(
-        "getRestaurantDetail",
-        this.$store.state.currentItemId
-      );
-    } else if (params.has("id")) {
-      this.$store.dispatch("getRestaurantDetail", params.get("id"));
+      this.$store
+        .dispatch("getRestaurantDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+        });
+    } else if (params.get("id")) {
+      this.$store.dispatch("getRestaurantDetail", params.get("id")).then(() => {
+        document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
   },
 };
 </script>
@@ -279,6 +282,7 @@ span {
 .map {
   height: 60%;
   margin: auto auto 20px auto;
+  border-radius: 10px;
 }
 
 .map iframe {
@@ -306,5 +310,38 @@ span {
 .info > span > a > span {
   margin-left: 5px;
   font-size: 14px;
+}
+
+@media only screen and (max-width: 500px) {
+  .title-container h1 {
+    font-size: 22px;
+  }
+
+  .information-section-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+  }
+
+  .information-section-container > div {
+    padding: 5px 10px;
+  }
+
+  .details-section h3 {
+    font-size: 18px;
+  }
+
+  .details-section h6 {
+    font-size: 10px;
+  }
+
+  .details-section div {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .map {
+    margin: auto;
+  }
 }
 </style>

@@ -1,41 +1,44 @@
 <template>
   <div :class="$style['review-section-container']">
-    <div :class="$style['stars-section']" v-if="hasReviews">
-      <h2>{{ ratingScore }}</h2>
-      <Stars :starCount="ratingScore" :hideScore="true" />
-      <i>{{ numberVoting }} reviews</i>
-    </div>
-    <div v-else :class="[$style['stars-section'], $style['else']]">
-      No rating yet.
-    </div>
     <div :class="$style['review-section']">
       <h2>Reviews</h2>
-      <hr />
+      <div :class="$style['stars-section']" v-if="hasReviews">
+        <h2>{{ ratingScore }}</h2>
+        <Stars :starCount="ratingScore" :hideScore="true" />
+        <i>{{ numberVoting }} reviews</i>
+      </div>
+      <div v-else :class="[$style['stars-section'], $style['else']]">
+        No rating yet.
+      </div>
+
+      <hr v-if="hasReviews" />
       <div>
-        <h3>My review</h3>
-        <div :class="$style['star-container']">
-          <label for="my-stars" :class="$style['star-label']">Stars:</label>
-          <select
-            id="my-stars"
-            v-model="myStars"
-            :class="$style['star-select']"
-          >
-            <option value="5">5 &starf;&starf;&starf;&starf;&starf;</option>
-            <option value="4">4 &starf;&starf;&starf;&starf;</option>
-            <option value="3">3 &starf;&starf;&starf;</option>
-            <option value="2">2 &starf;&starf;</option>
-            <option value="1">1 &starf;</option>
-          </select>
+        <div v-if="authenticated">
+          <h3>My review</h3>
+          <div :class="$style['star-container']">
+            <label for="my-stars" :class="$style['star-label']">Stars:</label>
+            <select
+              id="my-stars"
+              v-model="myStars"
+              :class="$style['star-select']"
+            >
+              <option value="5">5 &starf;&starf;&starf;&starf;&starf;</option>
+              <option value="4">4 &starf;&starf;&starf;&starf;</option>
+              <option value="3">3 &starf;&starf;&starf;</option>
+              <option value="2">2 &starf;&starf;</option>
+              <option value="1">1 &starf;</option>
+            </select>
+          </div>
+          <textarea
+            :class="$style['review-text-section']"
+            wrap="soft"
+            maxlength="300"
+            v-model="reviewContent"
+          ></textarea>
+          <button :class="$style['send-review-btn']" @click="sendReview">
+            Send
+          </button>
         </div>
-        <textarea
-          :class="$style['review-text-section']"
-          wrap="soft"
-          maxlength="300"
-          v-model="reviewContent"
-        ></textarea>
-        <button :class="$style['send-review-btn']" @click="sendReview">
-          Send
-        </button>
       </div>
       <div v-if="hasReviews" :class="$style['other-reviews']">
         <h3>Others</h3>
@@ -75,6 +78,19 @@ export default {
     reviews() {
       return this.$store.state.item.reviews;
     },
+    authenticated() {
+      return this.$store.state.username.length > 0;
+    },
+    myReview() {
+      if (this.authenticated) {
+        for (let i = 0; i < this.reviews.length; i++) {
+          if (this.reviews[i].user.username === this.$store.state.username) {
+            return this.reviews[i];
+          }
+        }
+      }
+      return null;
+    },
   },
   methods: {
     sendReview() {
@@ -87,6 +103,7 @@ export default {
         });
         this.reviewContent = "";
         this.myStars = 0;
+        location.reload();
       }
     },
   },
@@ -97,7 +114,6 @@ export default {
 .review-section-container {
   width: 100%;
   margin-top: 50px;
-  padding: 20px 10px;
   display: flex;
   align-items: flex-start;
 }
@@ -105,19 +121,19 @@ export default {
 .stars-section {
   display: flex;
   align-items: center;
-  width: 40%;
+  width: 100%;
 }
 
 .stars-section h2 {
-  margin: 0 10px 0 0;
+  margin: 0 5px 0 0;
 }
 
 .review-section {
   width: 100%;
 }
 
-.review-section h2 {
-  margin: 0 0 20px 0;
+.review-section > h2 {
+  margin: 20px 0;
 }
 
 .else {
@@ -165,5 +181,20 @@ export default {
 
 .star-select option {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .review-section-container {
+    flex-direction: column;
+    width: 98%;
+  }
+
+  .review-text-section {
+    height: 100px;
+  }
+
+  .review-section > h2 {
+    margin: 10px 0;
+  }
 }
 </style>

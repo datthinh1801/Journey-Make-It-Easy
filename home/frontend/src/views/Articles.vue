@@ -4,7 +4,7 @@
     <section :class="$style['articles-section']">
       <div :class="$style['heading']">
         <h1 :class="$style.head">All Articles</h1>
-        <div :class="$style['edit-btn']" @click="edit">
+        <div :class="$style['edit-btn']" @click="edit" v-if="authenticated">
           <font-awesome-icon :icon="'edit'" />
           <span> Write a post </span>
         </div>
@@ -55,6 +55,9 @@ export default {
     hasItems() {
       return this.max_items < this.$store.state.articleArr.length;
     },
+    authenticated() {
+      return this.$store.state.username.length > 0;
+    },
   },
   methods: {
     loadMore() {
@@ -77,7 +80,7 @@ export default {
     },
     redirectItem(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push({name: "article", query: {id: item.id}});
+      this.$router.push({ name: "article", query: { id: item.id } });
     },
     imgSrc(article) {
       return `https://source.unsplash.com/user/didiofederico_photographer/250x250?sig=${article.id}`;
@@ -97,7 +100,7 @@ export default {
 
 <style module>
 .articles-section {
-  width: 800px;
+  max-width: 800px;
   margin: auto;
 }
 
@@ -193,5 +196,40 @@ h1.head {
 
 .edit-btn:hover span {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 500px) {
+  .articles-section h1.head {
+    font-size: 22px;
+  }
+
+  .edit-btn span {
+    font-size: 14px;
+  }
+
+  .info h2 {
+    font-size: 20px;
+  }
+
+  .article {
+    height: auto;
+  }
+
+  .article h2 {
+    margin: 0;
+  }
+
+  .article .pre-content {
+    font-size: 16px;
+  }
+
+  .article .author {
+    font-size: 14px;
+  }
+
+  .article-img img {
+    width: 150px;
+    height: 150px;
+  }
 }
 </style>

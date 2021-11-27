@@ -163,12 +163,17 @@ export default {
   color: black;
   background-color: white;
   width: auto;
+  min-width: 20px;
   height: auto;
   margin: 0 5px 0 0;
+  border-radius: 4px;
+  transition: 0.2s;
 }
 
-.editor-controller button:hover {
-  text-decoration: underline;
+.editor-controller button:hover,
+.editor-controller button:active {
+  background-color: black;
+  color: white;
 }
 
 .editing-space .ProseMirror {
@@ -213,5 +218,27 @@ export default {
   font-weight: 500;
   font-size: 16px;
   font-style: italic;
+}
+
+@media only screen and (max-width: 500px) {
+  .editor-container {
+    width: auto;
+  }
+
+  .editor-controller {
+    flex-wrap: wrap;
+  }
+
+  .editing-space .ProseMirror {
+    height: 300px;
+  }
+
+  .post-btn {
+    font-size: 16px;
+  }
+
+  .word-count {
+    font-size: 14px;
+  }
 }
 </style>

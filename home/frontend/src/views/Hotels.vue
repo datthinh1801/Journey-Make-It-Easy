@@ -125,9 +125,10 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.city_id !== "") {
-      this.$store.dispatch("getHotel", this.$store.state.city_id);
-      document.title = "🏨 Hotels in " + this.$store.state.city_name;
-    } else if (params.has("cityid")) {
+      this.$store.dispatch("getHotel", this.$store.state.city_id).then(() => {
+        document.title = "🏨 Hotels in " + this.$store.state.city_name;
+      });
+    } else if (params.get("cityid")) {
       this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
         document.title = "🏨 Hotels in " + this.$store.state.city_name;
       });

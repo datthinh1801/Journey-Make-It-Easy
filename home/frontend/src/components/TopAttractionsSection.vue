@@ -95,4 +95,29 @@ div.item-description .title {
 .place {
   color: #2e86c1;
 }
+
+@media only screen and (max-width: 500px) {
+  h1.header {
+    font-size: 20px;
+  }
+
+  .content-container {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+
+  .grid-item {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+  }
+
+  .item-description {
+    text-align: center;
+  }
+
+  .item-description {
+    font-size: 14px;
+  }
+}
 </style>

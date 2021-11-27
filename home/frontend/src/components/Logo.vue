@@ -25,12 +25,12 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
-  .logo{
+  .logo {
     font-family: "Pacifico", cursive;
     color: #f9c100;
     font-size: 15px;
     cursor: pointer;
-    padding-left: 30px;
+    padding-left: 10px;
   }
 }
 </style>

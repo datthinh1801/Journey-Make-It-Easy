@@ -1,24 +1,24 @@
 <template>
   <header :class="$style.header">
     <div class="row-container width-control">
-      <Logo :class="$style.logo"/>
-      <Button/>
+      <Logo :class="$style.logo" />
+      <Button />
     </div>
   </header>
 </template>
 
 <script>
-import Logo from './Logo'
-import Button from './SigninButton'
+import Logo from "./Logo";
+import Button from "./SigninButton";
 
 export default {
-  name: 'Header',
+  name: "Header",
   components: {
     Logo,
-    Button
+    Button,
   },
-  props: {}
-}
+  props: {},
+};
 </script>
 
 <style module>
@@ -35,5 +35,4 @@ export default {
 .logo {
   margin-left: -10px;
 }
-
 </style>

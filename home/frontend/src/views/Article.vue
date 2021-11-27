@@ -27,7 +27,7 @@ export default {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId) {
       this.$store.dispatch("getArticleDetail", this.$store.state.currentItemId);
-    } else if (params.has("id")) {
+    } else if (params.get("id")) {
       this.$store.dispatch("getArticleDetail", params.get("id"));
     } else {
       this.$router.push("/");
@@ -46,5 +46,11 @@ export default {
 
 .blog-container h1 {
   text-align: center;
+  color: #2e86c1;
+}
+
+.blog-container p {
+  text-indent: 30px;
+  text-align: justify;
 }
 </style>

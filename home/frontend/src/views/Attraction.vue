@@ -114,18 +114,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch(
-        "getAttractionDetail",
-        this.$store.state.currentItemId
-      );
-    } else if (params.has("id")) {
-      this.$store.dispatch("getAttractionDetail", params.get("id"));
+      this.$store
+        .dispatch("getAttractionDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
+        });
+    } else if (params.get("id")) {
+      this.$store.dispatch("getAttractionDetail", params.get("id")).then(() => {
+        document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
   },
 };
 </script>
@@ -155,7 +155,7 @@ h1 {
 
 .map {
   width: 100%;
-  height: 200px;
+  height: 300px;
   margin-bottom: 100px;
 }
 
@@ -163,5 +163,22 @@ h1 {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .item-header h1 {
+    font-size: 22px;
+  }
+
+  .overview-container {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    margin-top: 0;
+  }
+
+  .map {
+    height: 200px;
+    margin-bottom: 50px;
+  }
 }
 </style>

@@ -455,7 +455,6 @@ const store = new Vuex.Store({
         },
         async getAllAttractions(context, limit) {
             let data;
-            console.log(context.state.accessToken);
             await axios({
                 method: 'post',
                 url: `${context.state.BASE_URL}/graphql`,
