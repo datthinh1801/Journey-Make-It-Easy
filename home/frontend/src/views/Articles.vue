@@ -77,7 +77,7 @@ export default {
     },
     redirectItem(item) {
       this.$store.commit("changeItemId", item.id);
-      this.$router.push({name: "article", query: {id: item.id}});
+      this.$router.push({ name: "article", query: { id: item.id } });
     },
     imgSrc(article) {
       return `https://source.unsplash.com/user/didiofederico_photographer/250x250?sig=${article.id}`;
@@ -97,7 +97,7 @@ export default {
 
 <style module>
 .articles-section {
-  width: 800px;
+  max-width: 800px;
   margin: auto;
 }
 
@@ -193,5 +193,32 @@ h1.head {
 
 .edit-btn:hover span {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 500px) {
+  .articles-section h1.head {
+    font-size: 22px;
+  }
+
+  .edit-btn span {
+    font-size: 14px;
+  }
+
+  .info h2 {
+    font-size: 20px;
+  }
+
+  .article .pre-content {
+    font-size: 16px;
+  }
+
+  .article .author {
+    font-size: 14px;
+  }
+
+  .article-img img {
+    width: 200px;
+    height: 200px;
+  }
 }
 </style>
