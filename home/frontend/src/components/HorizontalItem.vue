@@ -83,4 +83,5 @@ export default {
     background-position: 0% -200%;
   }
 }
+
 </style>

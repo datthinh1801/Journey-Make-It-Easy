@@ -262,7 +262,7 @@ export default {
     padding-left: 6px;
     right: -20px;
   }
-  .recommendedItem .item-detail h4 {
+  .recommendedItem .item-detail {
   margin: 0;
   font-size:12px;
 }

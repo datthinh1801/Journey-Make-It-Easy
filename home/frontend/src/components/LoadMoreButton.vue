@@ -38,8 +38,8 @@ button.load-more-btn:hover {
 
 @media only screen and (max-width: 500px) {
   button.load-more-btn {
-    width: 50%;
-    height: 50px;
+    width: 40%;
+    height: 40px;
     font-size: 14px;
     margin: 30px auto 20px auto;
   }
