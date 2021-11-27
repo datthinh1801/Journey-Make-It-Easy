@@ -114,7 +114,6 @@ export default {
 .review-section-container {
   width: 100%;
   margin-top: 50px;
-  padding: 20px 10px;
   display: flex;
   align-items: flex-start;
 }
@@ -134,7 +133,7 @@ export default {
 }
 
 .review-section > h2 {
-  margin: 0 0 20px 0;
+  margin: 20px 0;
 }
 
 .else {
@@ -187,8 +186,15 @@ export default {
 @media only screen and (max-width: 500px) {
   .review-section-container {
     flex-direction: column;
-    padding: 0;
     width: 98%;
+  }
+
+  .review-text-section {
+    height: 100px;
+  }
+
+  .review-section > h2 {
+    margin: 10px 0;
   }
 }
 </style>
