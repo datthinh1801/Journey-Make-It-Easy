@@ -14,8 +14,7 @@
 <script>
 export default {
   name: "VerticalItem",
-  components: {
-  },
+  components: {},
   props: ["imgSrc", "imgWidth", "imgHeight"],
   data() {
     return {};
@@ -48,6 +47,26 @@ export default {
         return "1000";
       }
     },
+  },
+  methods: {
+    resizeImage() {
+      const images = document.querySelectorAll(`.${this.$style.image} img`);
+      if (screen.width < 500) {
+        for (let i = 0; i < images.length; ++i) {
+          images[i].style.width = "100%";
+          images[i].style.height = "auto";
+        }
+      } else {
+        for (let i = 0; i < images.length; ++i) {
+          images[i].style.width = this.imgWidth;
+          images[i].style.height = this.imgHeight;
+        }
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.resizeImage);
+    this.resizeImage();
   },
 };
 </script>
@@ -87,5 +106,4 @@ export default {
     background-position: 0% -200%;
   }
 }
-
 </style>

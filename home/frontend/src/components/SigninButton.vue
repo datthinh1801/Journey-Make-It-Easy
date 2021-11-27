@@ -274,17 +274,13 @@ export default {
     },
     resizeModal() {
       if (screen.width < 500) {
-        // this.modalWidth = 300;
-        // this.modalHeight = 200;
         this.isMobile = true;
       } else {
-        // this.modalWidth = 700;
-        // this.modalHeight = 500;
         this.isMobile = false;
       }
     },
   },
-  beforeMount() {
+  mounted() {
     window.addEventListener("resize", this.resizeModal);
     this.resizeModal();
   },

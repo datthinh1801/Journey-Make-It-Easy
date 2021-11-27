@@ -1,11 +1,13 @@
 <template>
-  <button :class="$style['load-more-btn']" @click="$emit('loadMore')">LOAD MORE</button>
+  <button :class="$style['load-more-btn']" @click="$emit('loadMore')">
+    LOAD MORE
+  </button>
 </template>
 
 <script>
 export default {
-  name: 'LoadMoreButton',
-}
+  name: "LoadMoreButton",
+};
 </script>
 
 <style module>
@@ -33,5 +35,14 @@ button.load-more-btn {
 button.load-more-btn:hover {
   background-color: black;
   color: white;
+}
+
+@media only screen and (max-width: 500px) {
+  button.load-more-btn {
+    width: 50%;
+    height: 50px;
+    font-size: 14px;
+    margin: 30px auto 20px auto;
+  }
 }
 </style>

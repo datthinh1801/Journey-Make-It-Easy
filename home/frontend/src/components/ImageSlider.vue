@@ -30,6 +30,7 @@ export default {
       vfOptions: {
         autoplay: true,
         lazyLoadAfter: 2,
+        enableGestures: true,
       },
       vfTransitions: ["slide"],
     };

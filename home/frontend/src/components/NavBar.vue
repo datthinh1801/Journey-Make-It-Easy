@@ -156,7 +156,7 @@ export default {
       this.setNavItem(this.navNames[this.currentNavIndex]);
     },
   },
-  beforeMount() {
+  mounted() {
     window.addEventListener("resize", this.relayoutNav);
     this.relayoutNav();
   },

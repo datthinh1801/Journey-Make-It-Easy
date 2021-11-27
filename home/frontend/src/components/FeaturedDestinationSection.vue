@@ -199,9 +199,11 @@ export default {
     },
   },
   beforeMount() {
+    this.$store.dispatch("getAllCities");
+  },
+  mounted() {
     window.addEventListener("resize", this.resize_img_mobile);
     this.resize_img_mobile();
-    this.$store.dispatch("getAllCities");
   },
 };
 </script>
