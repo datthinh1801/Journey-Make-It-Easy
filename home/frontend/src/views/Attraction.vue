@@ -114,18 +114,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch(
-        "getAttractionDetail",
-        this.$store.state.currentItemId
-      );
+      this.$store
+        .dispatch("getAttractionDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
+        });
     } else if (params.has("id")) {
-      this.$store.dispatch("getAttractionDetail", params.get("id"));
+      this.$store.dispatch("getAttractionDetail", params.get("id")).then(() => {
+        document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
   },
 };
 </script>

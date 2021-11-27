@@ -73,13 +73,13 @@
               <font-awesome-icon icon="map-marker-alt" />
               <span>{{ address }}</span>
             </span>
-            <span class="address-info">
+            <span class="address-info" v-if="phone">
               <font-awesome-icon :icon="['fas', 'phone-alt']" />
               <span
                 >Phone: <span>{{ phone }}</span></span
               >
             </span>
-            <span class="website">
+            <span class="website" v-if="website">
               <a :href="website" target="_blank">
                 <font-awesome-icon icon="external-link-alt" />
                 <span>Website</span>
@@ -159,7 +159,7 @@ export default {
     phone() {
       return this.item["phone"];
     },
-    webiste() {
+    website() {
       return this.item["website"];
     },
     cuisines() {
@@ -196,18 +196,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch(
-        "getRestaurantDetail",
-        this.$store.state.currentItemId
-      );
+      this.$store
+        .dispatch("getRestaurantDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+        });
     } else if (params.has("id")) {
-      this.$store.dispatch("getRestaurantDetail", params.get("id"));
+      this.$store.dispatch("getRestaurantDetail", params.get("id")).then(() => {
+        document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
   },
 };
 </script>

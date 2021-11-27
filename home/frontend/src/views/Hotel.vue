@@ -146,15 +146,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch("getHotelDetail", this.$store.state.currentItemId);
+      this.$store
+        .dispatch("getHotelDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
+        });
     } else if (params.has("id")) {
-      this.$store.dispatch("getHotelDetail", params.get("id"));
+      this.$store.dispatch("getHotelDetail", params.get("id")).then(() => {
+        document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
   },
 };
 </script>

@@ -10,6 +10,12 @@
     <div :class="[$style.imageSection, 'width-control']">
       <image-slider />
     </div>
+    <div :class="[$style['info'], 'width-control']">
+      <h2>Info</h2>
+      <p>
+        {{ itemDetail.info }}
+      </p>
+    </div>
     <div
       :class="['row-container', 'col-container', $style.recommendationSection]"
     >
@@ -86,15 +92,21 @@ export default {
   margin-top: 40px;
 }
 
-@media only screen and (max-width:500px)
-{
+
+.info p {
+  text-align: justify;
+  text-indent: 40px;
+}
+
+@media only screen and (max-width: 500px) {
+  .info p {
+    text-indent: 30px;
+  }
   .title {
   margin-top: 70px;
   margin-bottom: 10px;
   font-size: 30px;
   font-weight: bold;
   justify-content: left;
-}
-
 }
 </style>
