@@ -4,7 +4,7 @@
     <section :class="$style['articles-section']">
       <div :class="$style['heading']">
         <h1 :class="$style.head">All Articles</h1>
-        <div :class="$style['edit-btn']" @click="edit">
+        <div :class="$style['edit-btn']" @click="edit" v-if="authenticated">
           <font-awesome-icon :icon="'edit'" />
           <span> Write a post </span>
         </div>
@@ -54,6 +54,9 @@ export default {
     },
     hasItems() {
       return this.max_items < this.$store.state.articleArr.length;
+    },
+    authenticated() {
+      return this.$store.state.username.length > 0;
     },
   },
   methods: {
@@ -208,6 +211,14 @@ h1.head {
     font-size: 20px;
   }
 
+  .article {
+    height: auto;
+  }
+
+  .article h2 {
+    margin: 0;
+  }
+
   .article .pre-content {
     font-size: 16px;
   }
@@ -217,8 +228,8 @@ h1.head {
   }
 
   .article-img img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 }
 </style>
