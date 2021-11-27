@@ -46,5 +46,11 @@ export default {
 
 .blog-container h1 {
   text-align: center;
+  color: #2e86c1;
+}
+
+.blog-container p {
+  text-indent: 30px;
+  text-align: justify;
 }
 </style>
