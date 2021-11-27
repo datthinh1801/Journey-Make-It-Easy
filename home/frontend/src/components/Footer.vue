@@ -22,6 +22,7 @@
   padding: 10px 0;
 }
 
+
 .footer-container hr {
   max-width: 100%;
   width: 1000px;
@@ -73,8 +74,28 @@
   }
 
   .all-right-reserved {
-    font-size: 12px;
+    font-size: 8px;
   }
+}
+
+@media only screen and (max-width: 500px)
+{
+    .logo-footer {
+        font-family: 'Pacifico', cursive;
+        font-size: 15px;
+            color: #f9c100;
+    }
+    .sns {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    color: #888;
+    }
+    .footer-container {
+        padding: 10px 0;
+        height: 10px;
+    }
+
 }
 </style>
 
