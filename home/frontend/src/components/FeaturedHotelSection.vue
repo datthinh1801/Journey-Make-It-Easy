@@ -93,10 +93,12 @@ export default {
       {
         this.imgWidth= "235px";
         this.imgHeight = "200px";
+        this.showed_items=4;
       }
       else{
         this.imgWidth= "170px";
         this.imgHeight = "185px";
+        this.showed_items=3;
       }
     },
   },
@@ -168,6 +170,10 @@ export default {
 }
 
 @media only screen and (max-width: 500px){
+  .v-item-detail
+  {
+    font-size: 12px
+  }
 
 .leftButton,
 .rightButton {
@@ -201,5 +207,12 @@ export default {
     right: -20px;
   }
 
+  .item-list-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  width: 100%;
+  position: relative;
+}
 }
 </style>

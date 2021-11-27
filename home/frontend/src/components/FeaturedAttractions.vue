@@ -83,14 +83,16 @@ export default {
       this.$router.push({ name: "attraction", query: { id: item.id } });
     },
     resize_img_mobile(){
-      if (screen.width>800)
+      if (screen.width>500)
       {
         this.imgWidth= "235px";
         this.imgHeight = "200px"; 
+        this.showed_items = 4;
       }
       else{
         this.imgWidth= "170px";
         this.imgHeight = "185px";
+        this.showed_items = 3;
       }
     },
   },
@@ -162,6 +164,11 @@ export default {
 
 @media only screen and (max-width: 500px)
 {
+  .item-detail-container {
+    height: 70px;
+    font-size: 12px;
+  }
+
   .leftButton,
 .rightButton {
   background-color: white;
@@ -193,6 +200,11 @@ export default {
     padding-left: 6px;
     right: -20px;
   }
-
+  .grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  position: relative;
+}
 }
 </style>

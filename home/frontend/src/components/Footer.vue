@@ -74,7 +74,7 @@
   }
 
   .all-right-reserved {
-    font-size: 12px;
+    font-size: 8px;
   }
 }
 
@@ -90,11 +90,11 @@
     display: flex;
     align-items: center;
     color: #888;
-}
-.footer-container {
-    padding: 10px 0;
-    height: 10px;
-}
+    }
+    .footer-container {
+        padding: 10px 0;
+        height: 10px;
+    }
 
 }
 </style>
