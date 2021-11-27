@@ -73,13 +73,13 @@
               <font-awesome-icon icon="map-marker-alt" />
               <span>{{ address }}</span>
             </span>
-            <span class="address-info">
+            <span class="address-info" v-if="phone">
               <font-awesome-icon :icon="['fas', 'phone-alt']" />
               <span
                 >Phone: <span>{{ phone }}</span></span
               >
             </span>
-            <span class="website">
+            <span class="website" v-if="website">
               <a :href="website" target="_blank">
                 <font-awesome-icon icon="external-link-alt" />
                 <span>Website</span>
@@ -159,7 +159,7 @@ export default {
     phone() {
       return this.item["phone"];
     },
-    webiste() {
+    website() {
       return this.item["website"];
     },
     cuisines() {
