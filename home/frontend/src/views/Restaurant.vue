@@ -196,18 +196,18 @@ export default {
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId !== "") {
-      this.$store.dispatch(
-        "getRestaurantDetail",
-        this.$store.state.currentItemId
-      );
+      this.$store
+        .dispatch("getRestaurantDetail", this.$store.state.currentItemId)
+        .then(() => {
+          document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+        });
     } else if (params.has("id")) {
-      this.$store.dispatch("getRestaurantDetail", params.get("id"));
+      this.$store.dispatch("getRestaurantDetail", params.get("id")).then(() => {
+        document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
+      });
     } else {
       this.$router.push("/");
     }
-  },
-  beforeMount() {
-    document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
   },
 };
 </script>
