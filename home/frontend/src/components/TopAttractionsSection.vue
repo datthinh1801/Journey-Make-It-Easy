@@ -78,7 +78,7 @@ h1.header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
-  grid-gap: 20px;
+  grid-gap: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -98,7 +98,7 @@ div.item-description .title {
 
 @media only screen and (max-width: 500px) {
   h1.header {
-    font-size: 20px;
+    font-size: 25px;
   }
 
   .content-container {
@@ -107,17 +107,14 @@ div.item-description .title {
   }
 
   .grid-item {
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     margin: auto;
   }
 
   .item-description {
     text-align: center;
-  }
-
-  .item-description {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 </style>

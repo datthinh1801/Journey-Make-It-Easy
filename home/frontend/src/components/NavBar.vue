@@ -197,8 +197,8 @@ export default {
 
 @media only screen and (max-width: 500px) {
   .navItem {
-    width: 60%;
-    height: 30px;
+    width: 50%;
+    height: 23px;
     margin: auto;
     display: flex;
     justify-content: center;

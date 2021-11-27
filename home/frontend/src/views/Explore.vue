@@ -101,6 +101,8 @@ export default {
 @media only screen and (max-width: 500px) {
   .info p {
     text-indent: 30px;
+    font-size: 15px;
+    padding-right: 10px;
   }
   .title {
   margin-top: 70px;
@@ -108,5 +110,6 @@ export default {
   font-size: 30px;
   font-weight: bold;
   justify-content: left;
+}
 }
 </style>

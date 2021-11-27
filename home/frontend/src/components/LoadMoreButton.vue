@@ -16,7 +16,6 @@ button.load-more-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 150px;
   height: 60px;
   text-transform: uppercase;
