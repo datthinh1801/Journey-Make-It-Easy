@@ -143,8 +143,12 @@ export default {
       }
     },
     relayoutNav() {
+      let routerName = this.$router.currentRoute.name;
+      if (routerName !== "explore" && routerName.slice(-1) !== "s") {
+        routerName += "s";
+      }
       if (screen.width < 500) {
-        this.setNavItem(this.$router.currentRoute.name);
+        this.setNavItem(routerName);
         this.showButton = true;
       } else {
         this.setNavItem("");
