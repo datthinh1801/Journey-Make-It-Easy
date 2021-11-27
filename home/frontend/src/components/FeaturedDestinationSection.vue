@@ -154,10 +154,6 @@ export default {
 
     };
   },
-  created(){
-    window.addEventListener("resize",this.resize_img_mobile);
-    this.resize_img_mobile();
-  },
   computed: {
     items() {
       return this.$store.state.cities.slice(
@@ -173,13 +169,6 @@ export default {
         this.$store.state.cities.length > this.this_item + this.showed_items
       );
     },
-    // imgHeight() {
-    //   return "200px";
-      
-    // },
-    // imgWidth() {
-    //   return "235px";
-    // },
   },
   methods: {
     moveLeft() {
@@ -213,6 +202,10 @@ export default {
         this.imgHeight = "185px";
       }
     }
+  },
+  mounted(){
+    window.addEventListener("resize",this.resize_img_mobile);
+    this.resize_img_mobile();
   },
   beforeMount() {
     this.$store.dispatch("getAllCities");
