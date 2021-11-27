@@ -27,7 +27,7 @@ export default {
     const params = new URLSearchParams(window.location.search);
     if (this.$store.state.currentItemId) {
       this.$store.dispatch("getArticleDetail", this.$store.state.currentItemId);
-    } else if (params.has("id")) {
+    } else if (params.get("id")) {
       this.$store.dispatch("getArticleDetail", params.get("id"));
     } else {
       this.$router.push("/");

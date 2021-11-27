@@ -201,7 +201,7 @@ export default {
         .then(() => {
           document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
         });
-    } else if (params.has("id")) {
+    } else if (params.get("id")) {
       this.$store.dispatch("getRestaurantDetail", params.get("id")).then(() => {
         document.title = `🥂 Restaurant | ${this.$store.state.item.name}`;
       });

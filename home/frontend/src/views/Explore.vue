@@ -57,7 +57,7 @@ export default {
     if (this.$store.state.city_id !== "") {
       this.$store.dispatch("getCityDetail", this.$store.state.city_id);
       document.title = "🇻🇳 " + this.$store.state.city_name;
-    } else if (params.has("cityid")) {
+    } else if (params.get("cityid")) {
       this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
         document.title = "🇻🇳 " + this.place;
       });
