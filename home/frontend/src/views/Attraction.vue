@@ -177,6 +177,7 @@ h1 {
   }
 
   .map {
+    height: 200px;
     margin-bottom: 50px;
   }
 }
