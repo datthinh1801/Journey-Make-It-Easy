@@ -225,4 +225,40 @@ export default {
   height: 100%;
   border: none;
 }
+
+@media only screen and (max-width: 500px) {
+  .item-header h1 {
+    font-size: 22px;
+  }
+
+  .about-section h2 {
+    font-size: 20px;
+  }
+
+  .about-detail {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+
+  .about-detail p {
+    font-size: 14px;
+  }
+
+  .item-listing-container h3 {
+    font-size: 18px;
+  }
+
+  .item-listing-container li {
+    font-size: 14px;
+  }
+
+  .map {
+    height: 200px;
+    margin-bottom: 50px;
+  }
+
+  .map h2 {
+    font-size: 20px;
+  }
+}
 </style>
