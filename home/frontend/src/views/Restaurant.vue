@@ -37,7 +37,10 @@
           <span>Open Time: {{ openTime }}</span>
         </div>
       </div>
-      <image-slider :class="$style['image-section']" />
+
+      <!-- <image-slider :class="$style['image-section']" /> -->
+      <image-slider />
+
       <div :class="$style['information-section-container']">
         <div :class="$style['details-section']">
           <h3>Details</h3>
@@ -279,6 +282,7 @@ span {
 .map {
   height: 60%;
   margin: auto auto 20px auto;
+  border-radius: 10px;
 }
 
 .map iframe {
@@ -306,5 +310,38 @@ span {
 .info > span > a > span {
   margin-left: 5px;
   font-size: 14px;
+}
+
+@media only screen and (max-width: 500px) {
+  .title-container h1 {
+    font-size: 22px;
+  }
+
+  .information-section-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+  }
+
+  .information-section-container > div {
+    padding: 5px 10px;
+  }
+
+  .details-section h3 {
+    font-size: 18px;
+  }
+
+  .details-section h6 {
+    font-size: 10px;
+  }
+
+  .details-section div {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .map {
+    margin: auto;
+  }
 }
 </style>
