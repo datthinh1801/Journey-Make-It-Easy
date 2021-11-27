@@ -1,0 +1,2901 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.0
+-- Dumped by pg_dump version 14.0
+
+-- Started on 2021-10-12 23:54:19
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 239 (class 1259 OID 16622)
+-- Name: api_attraction; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_attraction (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    about text NOT NULL,
+    address text NOT NULL,
+    admission_ticket text NOT NULL,
+    open_time text NOT NULL,
+    suggested_duration text NOT NULL,
+    number_voting text NOT NULL,
+    rating_score double precision NOT NULL,
+    city_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_attraction OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 16621)
+-- Name: api_attraction_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_attraction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_attraction_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3625 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: api_attraction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_attraction_id_seq OWNED BY public.api_attraction.id;
+
+
+--
+-- TOC entry 237 (class 1259 OID 16603)
+-- Name: api_attraction_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_attraction_image (
+    id bigint NOT NULL,
+    link text NOT NULL,
+    item_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_attraction_image OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 16688)
+-- Name: api_attraction_voting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_attraction_voting (
+    id bigint NOT NULL,
+    point integer NOT NULL,
+    item_vote_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_attraction_voting OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 16687)
+-- Name: api_attraction_voting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_attraction_voting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_attraction_voting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3626 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: api_attraction_voting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_attraction_voting_id_seq OWNED BY public.api_attraction_voting.id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 16551)
+-- Name: api_city; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_city (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    number_voting text NOT NULL,
+    rating_score double precision NOT NULL,
+    nation_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_city OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 16550)
+-- Name: api_city_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_city_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_city_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3627 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: api_city_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_city_id_seq OWNED BY public.api_city.id;
+
+
+--
+-- TOC entry 243 (class 1259 OID 16695)
+-- Name: api_city_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_city_image (
+    id bigint NOT NULL,
+    link text NOT NULL,
+    item_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_city_image OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 16694)
+-- Name: api_city_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_city_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_city_image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3628 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: api_city_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_city_image_id_seq OWNED BY public.api_city_image.id;
+
+
+--
+-- TOC entry 245 (class 1259 OID 16704)
+-- Name: api_city_voting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_city_voting (
+    id bigint NOT NULL,
+    point integer NOT NULL,
+    item_vote_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_city_voting OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 16703)
+-- Name: api_city_voting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_city_voting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_city_voting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3629 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: api_city_voting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_city_voting_id_seq OWNED BY public.api_city_voting.id;
+
+
+--
+-- TOC entry 236 (class 1259 OID 16602)
+-- Name: api_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3630 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: api_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_image_id_seq OWNED BY public.api_attraction_image.id;
+
+
+--
+-- TOC entry 235 (class 1259 OID 16594)
+-- Name: api_nation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_nation (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    number_voting text NOT NULL,
+    rating_score double precision NOT NULL
+);
+
+
+ALTER TABLE public.api_nation OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 16593)
+-- Name: api_nation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_nation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_nation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3631 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: api_nation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_nation_id_seq OWNED BY public.api_nation.id;
+
+
+--
+-- TOC entry 247 (class 1259 OID 16711)
+-- Name: api_nation_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_nation_image (
+    id bigint NOT NULL,
+    link text NOT NULL,
+    item_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_nation_image OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 16710)
+-- Name: api_nation_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_nation_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_nation_image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3632 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: api_nation_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_nation_image_id_seq OWNED BY public.api_nation_image.id;
+
+
+--
+-- TOC entry 249 (class 1259 OID 16720)
+-- Name: api_nation_voting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_nation_voting (
+    id bigint NOT NULL,
+    point integer NOT NULL,
+    item_vote_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_nation_voting OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 16719)
+-- Name: api_nation_voting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_nation_voting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_nation_voting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3633 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: api_nation_voting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_nation_voting_id_seq OWNED BY public.api_nation_voting.id;
+
+
+--
+-- TOC entry 233 (class 1259 OID 16585)
+-- Name: api_restaurant; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_restaurant (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    address text NOT NULL,
+    open_time text NOT NULL,
+    phone text NOT NULL,
+    website text NOT NULL,
+    cuisines text NOT NULL,
+    meals text NOT NULL,
+    special_diets text NOT NULL,
+    price_range text NOT NULL,
+    features text NOT NULL,
+    number_voting text NOT NULL,
+    rating_score double precision NOT NULL,
+    city_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_restaurant OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 16584)
+-- Name: api_restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_restaurant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_restaurant_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3634 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: api_restaurant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_restaurant_id_seq OWNED BY public.api_restaurant.id;
+
+
+--
+-- TOC entry 251 (class 1259 OID 16727)
+-- Name: api_restaurant_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_restaurant_image (
+    id bigint NOT NULL,
+    link text NOT NULL,
+    item_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_restaurant_image OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 16726)
+-- Name: api_restaurant_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_restaurant_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_restaurant_image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3635 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: api_restaurant_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_restaurant_image_id_seq OWNED BY public.api_restaurant_image.id;
+
+
+--
+-- TOC entry 253 (class 1259 OID 16736)
+-- Name: api_restaurant_voting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_restaurant_voting (
+    id bigint NOT NULL,
+    point integer NOT NULL,
+    item_vote_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_restaurant_voting OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 16735)
+-- Name: api_restaurant_voting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_restaurant_voting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_restaurant_voting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3636 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: api_restaurant_voting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_restaurant_voting_id_seq OWNED BY public.api_restaurant_voting.id;
+
+
+--
+-- TOC entry 231 (class 1259 OID 16576)
+-- Name: api_stay; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_stay (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    about text NOT NULL,
+    address text NOT NULL,
+    phone text NOT NULL,
+    email text NOT NULL,
+    room_features text NOT NULL,
+    room_types text NOT NULL,
+    property_amenities text NOT NULL,
+    number_voting text NOT NULL,
+    rating_score double precision NOT NULL,
+    city_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_stay OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 16575)
+-- Name: api_stay_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_stay_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_stay_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3637 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: api_stay_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_stay_id_seq OWNED BY public.api_stay.id;
+
+
+--
+-- TOC entry 255 (class 1259 OID 16743)
+-- Name: api_stay_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_stay_image (
+    id bigint NOT NULL,
+    link text NOT NULL,
+    item_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.api_stay_image OWNER TO postgres;
+
+--
+-- TOC entry 254 (class 1259 OID 16742)
+-- Name: api_stay_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_stay_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_stay_image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3638 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: api_stay_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_stay_image_id_seq OWNED BY public.api_stay_image.id;
+
+
+--
+-- TOC entry 257 (class 1259 OID 16752)
+-- Name: api_stay_voting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_stay_voting (
+    id bigint NOT NULL,
+    point integer NOT NULL,
+    item_vote_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_stay_voting OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 16751)
+-- Name: api_stay_voting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_stay_voting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_stay_voting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3639 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: api_stay_voting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_stay_voting_id_seq OWNED BY public.api_stay_voting.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16421)
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16420)
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3640 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16430)
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id bigint NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16429)
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3641 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 16414)
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16413)
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3642 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16437)
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16446)
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16445)
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3643 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16436)
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3644 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16453)
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16452)
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3645 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16512)
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16511)
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3646 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 16405)
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16404)
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3647 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 16396)
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id bigint NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16395)
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3648 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 16541)
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- TOC entry 3298 (class 2604 OID 16625)
+-- Name: api_attraction id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction ALTER COLUMN id SET DEFAULT nextval('public.api_attraction_id_seq'::regclass);
+
+
+--
+-- TOC entry 3297 (class 2604 OID 16606)
+-- Name: api_attraction_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_image ALTER COLUMN id SET DEFAULT nextval('public.api_image_id_seq'::regclass);
+
+
+--
+-- TOC entry 3299 (class 2604 OID 16691)
+-- Name: api_attraction_voting id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_voting ALTER COLUMN id SET DEFAULT nextval('public.api_attraction_voting_id_seq'::regclass);
+
+
+--
+-- TOC entry 3293 (class 2604 OID 16554)
+-- Name: api_city id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city ALTER COLUMN id SET DEFAULT nextval('public.api_city_id_seq'::regclass);
+
+
+--
+-- TOC entry 3300 (class 2604 OID 16698)
+-- Name: api_city_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_image ALTER COLUMN id SET DEFAULT nextval('public.api_city_image_id_seq'::regclass);
+
+
+--
+-- TOC entry 3301 (class 2604 OID 16707)
+-- Name: api_city_voting id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_voting ALTER COLUMN id SET DEFAULT nextval('public.api_city_voting_id_seq'::regclass);
+
+
+--
+-- TOC entry 3296 (class 2604 OID 16597)
+-- Name: api_nation id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation ALTER COLUMN id SET DEFAULT nextval('public.api_nation_id_seq'::regclass);
+
+
+--
+-- TOC entry 3302 (class 2604 OID 16714)
+-- Name: api_nation_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_image ALTER COLUMN id SET DEFAULT nextval('public.api_nation_image_id_seq'::regclass);
+
+
+--
+-- TOC entry 3303 (class 2604 OID 16723)
+-- Name: api_nation_voting id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_voting ALTER COLUMN id SET DEFAULT nextval('public.api_nation_voting_id_seq'::regclass);
+
+
+--
+-- TOC entry 3295 (class 2604 OID 16588)
+-- Name: api_restaurant id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant ALTER COLUMN id SET DEFAULT nextval('public.api_restaurant_id_seq'::regclass);
+
+
+--
+-- TOC entry 3304 (class 2604 OID 16730)
+-- Name: api_restaurant_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_image ALTER COLUMN id SET DEFAULT nextval('public.api_restaurant_image_id_seq'::regclass);
+
+
+--
+-- TOC entry 3305 (class 2604 OID 16739)
+-- Name: api_restaurant_voting id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_voting ALTER COLUMN id SET DEFAULT nextval('public.api_restaurant_voting_id_seq'::regclass);
+
+
+--
+-- TOC entry 3294 (class 2604 OID 16579)
+-- Name: api_stay id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay ALTER COLUMN id SET DEFAULT nextval('public.api_stay_id_seq'::regclass);
+
+
+--
+-- TOC entry 3306 (class 2604 OID 16746)
+-- Name: api_stay_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_image ALTER COLUMN id SET DEFAULT nextval('public.api_stay_image_id_seq'::regclass);
+
+
+--
+-- TOC entry 3307 (class 2604 OID 16755)
+-- Name: api_stay_voting id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_voting ALTER COLUMN id SET DEFAULT nextval('public.api_stay_voting_id_seq'::regclass);
+
+
+--
+-- TOC entry 3286 (class 2604 OID 16424)
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- TOC entry 3287 (class 2604 OID 16433)
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 3285 (class 2604 OID 16417)
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- TOC entry 3288 (class 2604 OID 16440)
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3289 (class 2604 OID 16449)
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- TOC entry 3290 (class 2604 OID 16456)
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 3291 (class 2604 OID 16515)
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- TOC entry 3284 (class 2604 OID 16408)
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- TOC entry 3283 (class 2604 OID 16399)
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3601 (class 0 OID 16622)
+-- Dependencies: 239
+-- Data for Name: api_attraction; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (271, 'Christ the King', 'Explore different ways to experience this place.', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (272, 'The Robert Taylor Museum Of Worldwide Arms', 'Explore different ways to experience this place.', '', 'What people are saying', '8:00 AM - 6:00 PM', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (273, 'GreenlinesDP Fast Ferry', 'GreenlinesDP Fast Ferry. was founded and developed using 100% demestic investment, trading in passenger transport with high speed catamaran ferries of 50pax, 96pax, 132 pax operating on demestic waterway, coastal and island routes. also our company offers express boats of all kinds to serve transport for key areas such as Ho Chi Minh - Vung Tau, Ho Chi Minh - Can Gio - Vung Tau, Vung Tau - Ben Tre.', '01A Tran Phu Ward 1, Vung Tau 790000 Vietnam', '', '8:00 AM - 5:00 PM', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (274, 'Vung Tau Lighthouse', 'Explore different ways to experience this place.', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (275, 'Vung Tau Beach', 'Explore different ways to experience this place.', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (276, 'Ho May Park', 'HO MAY PARK on Nui Lon’s peak – Vung Tau city is completely gathered with the factors creating a dreamlike landscape just like an Elysium, making the tourists everywhere become charmed and amazed. With the area of 50ha, at the height of over 250m compared with the sea water level, HỒ MÂY PARK always has cool and clean air, bringing an easy and comfortable feeling to the tourists. At the 120km distance from Ho Chi Minh City, HO MAY PARK is an ideal destination so that you can go sightseeing, relax and have happy and comfortable moments with your family and friends. This place is one of the famous tourist attractions in Vung Tau as well, it is favored by many domestic and foreign tourists. HO MAY PARK is a population of various landscapes in combination with many different forms of tour such as: ecological tour, spiritual tour, cultural tour, tour of entertainment, relaxation…If Ho May is considered as other Ba Na within Vung Tau, it is because the way to Ho May is rather special.', '', 'from $22.57', '7:30 AM - 10:00 PM', 'More than 3 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (277, 'Upside Down House', 'Since long ago, people always try to solve problem by the same way: beginning-ending. That procedure only brings little improvement. So we take a step backward, turn it upside down to approach them, freshly. Thus Upside Down House wants to share with you the different angle of daily items to you. Besides the imaginetastic experience, you will be able to browse our gift shop and enjoy local drinks.', '66 Co Giang Ward 4, Vung Tau 790000 Vietnam', '', '6:00 AM - 10:00 PM', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (278, 'Back Beach', '', 'Thuy Van Road, Vung Tau 790000 Vietnam', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (279, 'Duc Me Bai Dau', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (280, 'Vung Tau Ferry Terminal', '', '', '', '', '1-2 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (281, 'White Palace', 'Explore different ways to experience this place.', '10 Tran Phu Ward 1, Vung Tau 790000 Vietnam', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (282, 'The Battle of Long Tan', 'Explore different ways to experience this place.', '', '', '12:00 AM - 11:59 PM', '1-2 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (283, 'Front Beach', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (284, 'The Old Artillery Field Sao Mai - Nui Lon', '', '', '', '', 'More than 3 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (285, 'Hon Ba Island', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (286, 'Vung Tau Beach', '', 'Beach Road, Vung Tau 790000 Vietnam', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (287, 'The Whale Temple', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (288, 'Lam Son Stadium', '', '', '', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (289, 'Minh Dam Bases', '', '', '', '', '1-2 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (290, 'Vung Tau Night Market', '', '', '', '', '1-2 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (291, 'The Vung Tau War Heroes Shrine', '', '', '', '', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (292, 'Xom Luoi Market', '', '', '', '', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (293, 'Mui Nghinh Phong', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (294, 'Vo Thi Sau Monument', '', '', '', '', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (295, 'Vung Tau Market', '', '146 Nam Ky Khoi Nghia Thang Tam, Vung Tau 790000 Vietnam', '', '', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (296, 'Thich Ca Phat Dai', 'Explore different ways to experience this place.', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (297, 'Vung Tau Church', '', '', '', '', '< 1 hour', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (298, 'Imperial Plaza Shopping Center', '', '', '', '9:30 AM - 9:30 PM', 'More than 3 hours', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (299, 'Kim Long Tunnels', '', '', 'What people are saying', '', '', '0', 0, 14);
+INSERT INTO public.api_attraction (id, name, about, address, admission_ticket, open_time, suggested_duration, number_voting, rating_score, city_id) VALUES (300, 'Martyrs'' Memorial', '', '', 'What people are saying', '', '', '0', 0, 14);
+
+
+--
+-- TOC entry 3599 (class 0 OID 16603)
+-- Dependencies: 237
+-- Data for Name: api_attraction_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2224, 'https://media-cdn.tripadvisor.com/media/photo-l/03/07/63/98/caption.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2225, 'https://media-cdn.tripadvisor.com/media/photo-l/06/e3/94/47/christ-of-vung-tau.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2226, 'https://media-cdn.tripadvisor.com/media/photo-l/03/07/63/98/caption.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2227, 'https://media-cdn.tripadvisor.com/media/photo-l/10/23/60/a9/img-20170421-095739-hdr.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2228, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/9a/90/40/img-20170304-wa0063-largejpg.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2229, 'https://media-cdn.tripadvisor.com/media/photo-l/06/e3/94/49/hammock-rest-stop-by.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2230, 'https://media-cdn.tripadvisor.com/media/photo-l/05/f6/5f/38/tuong-dai-chua-kito-vua.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2231, 'https://media-cdn.tripadvisor.com/media/photo-l/1d/69/3b/99/skit.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2232, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6d/31/img-20201116-110827-largejpg.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2233, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6d/30/img-20201116-110353-largejpg.jpg', 271);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2234, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/a2/de/9d/amazing-display-a-must.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2235, 'https://media-cdn.tripadvisor.com/media/photo-l/17/70/1e/23/20190420-114152-largejpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2236, 'https://media-cdn.tripadvisor.com/media/photo-l/12/6d/6f/26/dsc04910-largejpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2237, 'https://media-cdn.tripadvisor.com/media/photo-l/12/1c/95/a5/img-20180220-115123-largejpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2238, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/a2/de/96/amazing-display-a-must.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2239, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/81/e3/d5/photo5jpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2240, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/81/e3/d4/photo4jpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2241, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/81/e3/d3/photo3jpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2242, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/81/e3/d2/photo2jpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2243, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/81/e3/d1/photo1jpg.jpg', 272);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2244, 'https://media-cdn.tripadvisor.com/media/photo-l/11/72/f3/de/catamaran-ferry-double.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2245, 'https://media-cdn.tripadvisor.com/media/photo-l/10/d7/9c/c5/catamaran-ferry-double.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2246, 'https://media-cdn.tripadvisor.com/media/photo-l/10/d7/86/63/catamaran-ferry-best.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2247, 'https://media-cdn.tripadvisor.com/media/photo-l/10/d7/71/c7/when-you-come-my-boat.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2248, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e7/54/bc/greenlines-dp-will-operate.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2249, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e7/4f/1e/greenlines-dp-will-operate.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2250, 'https://media-cdn.tripadvisor.com/media/photo-l/11/ac/8a/1e/the-images-inside-the.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2251, 'https://media-cdn.tripadvisor.com/media/photo-l/11/56/17/96/new-catamaran-greenlines.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2252, 'https://media-cdn.tripadvisor.com/media/photo-l/11/32/89/a1/on-the-occasion-of-prepare.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2253, 'https://media-cdn.tripadvisor.com/media/photo-l/11/32/89/a0/on-the-occasion-of-prepare.jpg', 273);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2254, 'https://media-cdn.tripadvisor.com/media/photo-l/09/21/e8/ec/vung-tau-lighthouse.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2255, 'https://media-cdn.tripadvisor.com/media/photo-l/16/0c/a2/ab/11h00-pm-tai-ngon-hai.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2256, 'https://media-cdn.tripadvisor.com/media/photo-l/16/0c/a2/a4/vung-tau-nhin-tu-ngon.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2257, 'https://media-cdn.tripadvisor.com/media/photo-l/16/0c/a2/98/group-friend.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2258, 'https://media-cdn.tripadvisor.com/media/photo-l/16/0c/a2/97/khong-gian-nhin-tu-tren.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2259, 'https://media-cdn.tripadvisor.com/media/photo-l/12/e4/15/b3/lighthouse-balcony-viewpoint.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2260, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/30/24/de/20170117-130508-largejpg.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2261, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/76/17/f1/photo2jpg.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2262, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/76/17/f0/photo1jpg.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2263, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/76/17/ef/photo0jpg.jpg', 274);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2264, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/c3/42/09/vung-tau-beach.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2265, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/de/56/70/bai-bi-n-vung-tau.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2266, 'https://media-cdn.tripadvisor.com/media/photo-l/17/70/1a/d2/20190418-173930-largejpg.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2267, 'https://media-cdn.tripadvisor.com/media/photo-l/16/de/7c/94/bai-bi-n-vung-tau.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2268, 'https://media-cdn.tripadvisor.com/media/photo-l/16/55/7a/00/vung-tau-beach.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2269, 'https://media-cdn.tripadvisor.com/media/photo-l/14/fc/cc/46/beach-cleaners-in-action.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2270, 'https://media-cdn.tripadvisor.com/media/photo-l/14/ae/04/2b/vung-tau-beach.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2271, 'https://media-cdn.tripadvisor.com/media/photo-l/14/ae/03/e1/vung-tau-beach.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2272, 'https://media-cdn.tripadvisor.com/media/photo-l/13/2d/e0/ca/caption.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2273, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e0/03/d6/20180126-094524-largejpg.jpg', 275);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2274, 'https://media-cdn.tripadvisor.com/media/photo-l/0b/1c/57/2c/khu-du-l-ch-van-hoa-sinh.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2275, 'https://media-cdn.tripadvisor.com/media/photo-l/14/fb/b1/9b/cable-car-to-ho-may-park.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2276, 'https://media-cdn.tripadvisor.com/media/photo-l/0b/1c/57/2c/khu-du-l-ch-van-hoa-sinh.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2277, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/7b/f1-racing-car.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2278, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/6e/paintball-game.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2279, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/57/paintball-game.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2280, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/47/sumo-game.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2281, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/30/rock-climbing.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2282, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e7/12/family-coaster.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2283, 'https://media-cdn.tripadvisor.com/media/photo-l/19/66/e6/e8/drop-tower-game.jpg', 276);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2284, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/8f/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2285, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/8f/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2286, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/e7/2c/f5/countryside-market.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2287, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/e7/2c/67/bedroom.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2288, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/96/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2289, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/95/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2290, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/94/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2291, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/93/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2292, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/90/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2293, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/fe/96/8d/the-new-upside-down-house.jpg', 277);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2294, 'https://media-cdn.tripadvisor.com/media/photo-l/08/af/f9/64/back-beach.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2295, 'https://media-cdn.tripadvisor.com/media/photo-l/17/68/31/e4/bai-sau.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2296, 'https://media-cdn.tripadvisor.com/media/photo-l/17/68/31/e3/bai-sau.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2297, 'https://media-cdn.tripadvisor.com/media/photo-l/16/85/c4/8e/vung-tau-beach-during.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2298, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/f6/a4/3e/nice-and-clean-long-stretch.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2299, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/e5/c6/ef/vung-tau-back-beach.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2300, 'https://media-cdn.tripadvisor.com/media/photo-l/0c/43/9f/ef/p-20160721-212524-largejpg.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2301, 'https://media-cdn.tripadvisor.com/media/photo-l/0c/43/9f/eb/p-20160721-213648-largejpg.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2302, 'https://media-cdn.tripadvisor.com/media/photo-l/0c/43/9f/ea/p-20160721-213334-largejpg.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2303, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/77/aa/fa/lam-1-t-m-s-ng-o.jpg', 278);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2304, 'https://media-cdn.tripadvisor.com/media/photo-l/03/06/bd/f9/caption.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2305, 'https://media-cdn.tripadvisor.com/media/photo-l/03/06/bd/f9/caption.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2306, 'https://media-cdn.tripadvisor.com/media/photo-l/03/06/bd/f3/caption.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2307, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/41/photo7jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2308, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/40/photo6jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2309, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/3f/photo5jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2310, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/3e/photo4jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2311, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/3d/photo3jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2312, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/3c/photo2jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2313, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/6c/c8/3b/photo1jpg.jpg', 279);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2314, 'https://media-cdn.tripadvisor.com/media/photo-l/08/ad/55/d9/vung-tau-ferry-terminal.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2315, 'https://media-cdn.tripadvisor.com/media/photo-l/09/9b/20/88/20151021-133354-largejpg.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2316, 'https://media-cdn.tripadvisor.com/media/photo-l/10/cf/c6/34/vung-tau-ferry-terminal.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2317, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/fb/e2/78/caption.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2318, 'https://media-cdn.tripadvisor.com/media/photo-l/08/ad/56/38/vung-tau-ferry-terminal.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2319, 'https://media-cdn.tripadvisor.com/media/photo-l/19/3a/00/72/photo0jpg.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2320, 'https://media-cdn.tripadvisor.com/media/photo-l/18/4c/f5/15/photo0jpg.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2321, 'https://media-cdn.tripadvisor.com/media/photo-l/17/21/86/a9/user-scoped-temp-data.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2322, 'https://media-cdn.tripadvisor.com/media/photo-l/16/5e/1c/38/photo4jpg.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2323, 'https://media-cdn.tripadvisor.com/media/photo-l/16/5e/1c/37/photo3jpg.jpg', 280);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2324, 'https://media-cdn.tripadvisor.com/media/photo-l/07/dd/7f/bf/bach-dinh-white-palace.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2325, 'https://media-cdn.tripadvisor.com/media/photo-l/15/42/24/63/20181105-140231-largejpg.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2326, 'https://media-cdn.tripadvisor.com/media/photo-l/15/1c/8a/c4/white-palace.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2327, 'https://media-cdn.tripadvisor.com/media/photo-l/15/1c/8a/b8/white-palace.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2328, 'https://media-cdn.tripadvisor.com/media/photo-l/14/8a/e3/35/view-from-1st-floor.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2329, 'https://media-cdn.tripadvisor.com/media/photo-l/13/b6/52/ca/20180715-224155-largejpg.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2330, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/26/6a/5a/white-palace.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2331, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/fe/ae/cd/white-palace.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2332, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/20/be/13/photo3jpg.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2333, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/20/be/12/photo2jpg.jpg', 281);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2334, 'https://media-cdn.tripadvisor.com/media/photo-l/11/f2/9e/1f/with-my-family-at-long.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2335, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d7/01/23/australians-at-the-long.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2336, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d7/00/c2/the-memorial-cross-with.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2337, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d7/00/52/memorial-cross.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2338, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d6/ff/e2/location-of-the-australian.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2339, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d6/ff/3f/this-is-the-airstrip.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2340, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/d6/fe/d7/making-australian-s-feel.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2341, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/10/c4/0c/20191104-112735-largejpg.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2342, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/10/c4/0b/20191104-100903-largejpg.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2343, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/10/c4/0a/20191104-072916-largejpg.jpg', 282);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2344, 'https://media-cdn.tripadvisor.com/media/photo-l/08/24/af/6e/front-beach.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2345, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/9b/ea/14/front-beach.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2346, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/d0/0b/c5/caption.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2347, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/d0/0b/bf/caption.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2348, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/d0/0b/ba/caption.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2349, 'https://media-cdn.tripadvisor.com/media/photo-l/19/c2/83/4a/img-20191019-092323571.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2350, 'https://media-cdn.tripadvisor.com/media/photo-l/19/c2/83/49/img-20191016-165351432.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2351, 'https://media-cdn.tripadvisor.com/media/photo-l/19/c2/83/48/img-20191016-165048921.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2352, 'https://media-cdn.tripadvisor.com/media/photo-l/19/c2/83/47/img-20191017-091640223.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2353, 'https://media-cdn.tripadvisor.com/media/photo-l/19/c2/83/46/img-20191017-091653674.jpg', 283);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2354, 'https://media-cdn.tripadvisor.com/media/photo-l/08/22/41/46/the-old-artillery-field.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2355, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/81/4b/a9/h-m-thu-loi.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2356, 'https://media-cdn.tripadvisor.com/media/photo-l/0b/e5/09/f7/photo0jpg.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2357, 'https://media-cdn.tripadvisor.com/media/photo-l/08/22/41/6a/the-old-artillery-field.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2358, 'https://media-cdn.tripadvisor.com/media/photo-l/08/22/41/5d/the-old-artillery-field.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2359, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/22/de/ae/img-20200310-170329-largejpg.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2360, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/22/de/ad/img-20200310-170346-largejpg.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2361, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/22/de/ac/b612-20200310-170540.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2362, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/22/de/aa/b612-20200310-170500.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2363, 'https://media-cdn.tripadvisor.com/media/photo-l/1b/22/de/a9/b612-20200310-170457.jpg', 284);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2364, 'https://media-cdn.tripadvisor.com/media/photo-l/03/eb/70/4d/hon-ba-island.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2365, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/1a/8d/30/dsc-0516-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2366, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/bc/dsc-0094-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2367, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/bb/dsc-0085-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2368, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/ba/dsc-0090-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2369, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/b9/dsc-0120-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2370, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/b8/img-20201117-074144-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2371, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/b7/img-20201117-075207-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2372, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/b6/dsc-0108-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2373, 'https://media-cdn.tripadvisor.com/media/photo-l/1c/55/6e/b5/dsc-0111-largejpg.jpg', 285);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2374, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/ee/d5/67/detalles-de-los-puestos.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2375, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/ee/d5/6f/detalle-de-las-macas.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2376, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/30/b6/d0/20191130-110819-largejpg.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2377, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/30/b6/ce/20191130-120007-largejpg.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2378, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/30/b6/cb/20191201-110656-largejpg.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2379, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/30/b6/ca/img-20191201-wa0022-largejpg.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2380, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/30/b6/c9/20191202-104830-largejpg.jpg', 286);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2381, 'https://media-cdn.tripadvisor.com/media/photo-l/05/3d/57/9d/lang-ca-ong-whale-temple.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2382, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/ae/67/6b/the-ceiling-is-well-decorated.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2383, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/ae/67/1b/replica-of-whale.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2384, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/23/8c/f9/photo6jpg.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2385, 'https://media-cdn.tripadvisor.com/media/photo-l/18/b0/55/4b/it-s-worth-having-a-tour.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2386, 'https://media-cdn.tripadvisor.com/media/photo-l/18/b0/55/11/the-whale-bones-are-a.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2387, 'https://media-cdn.tripadvisor.com/media/photo-l/17/18/a8/5c/photo2jpg.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2388, 'https://media-cdn.tripadvisor.com/media/photo-l/17/18/a8/5b/photo1jpg.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2389, 'https://media-cdn.tripadvisor.com/media/photo-l/17/18/a8/5a/photo0jpg.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2390, 'https://media-cdn.tripadvisor.com/media/photo-l/14/9b/ca/c0/the-whale-temple.jpg', 287);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2391, 'https://media-cdn.tripadvisor.com/media/photo-l/03/07/6a/23/caption.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2392, 'https://media-cdn.tripadvisor.com/media/photo-l/05/19/7e/07/lam-son-stadium.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2393, 'https://media-cdn.tripadvisor.com/media/photo-l/14/63/05/16/racing-greyhounds-having.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2394, 'https://media-cdn.tripadvisor.com/media/photo-l/14/63/04/eb/puppies-on-sale.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2395, 'https://media-cdn.tripadvisor.com/media/photo-l/0e/9a/ec/97/view-from-the-petro-hotel.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2396, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/ce/04/a9/caption.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2397, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/6e/77/ec/20161022-193117-largejpg.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2398, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/6e/77/eb/20161022-215820-largejpg.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2399, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/6e/77/ea/20161022-193120-largejpg.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2400, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/6e/77/e9/20161022-191847-largejpg.jpg', 288);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2401, 'https://media-cdn.tripadvisor.com/media/photo-l/08/a4/72/86/minh-dam-bases.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2402, 'https://media-cdn.tripadvisor.com/media/photo-l/0d/c1/68/c3/photo8jpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2403, 'https://media-cdn.tripadvisor.com/media/photo-l/1d/98/9d/e4/minh-dam-bases.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2404, 'https://media-cdn.tripadvisor.com/media/photo-l/1d/98/9d/e2/minh-dam-bases.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2405, 'https://media-cdn.tripadvisor.com/media/photo-l/1d/98/9d/e0/minh-dam-bases.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2406, 'https://media-cdn.tripadvisor.com/media/photo-l/12/cf/77/04/img-20180419-141459-largejpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2407, 'https://media-cdn.tripadvisor.com/media/photo-l/12/cf/77/03/img-20180419-142735-largejpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2408, 'https://media-cdn.tripadvisor.com/media/photo-l/12/cf/77/02/img-20180419-142546-largejpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2409, 'https://media-cdn.tripadvisor.com/media/photo-l/12/cf/77/01/img-20180419-135728-largejpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2410, 'https://media-cdn.tripadvisor.com/media/photo-l/12/cf/77/00/img-20180419-135029-largejpg.jpg', 289);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2411, 'https://media-cdn.tripadvisor.com/media/photo-l/13/bf/ef/8c/caption.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2412, 'https://media-cdn.tripadvisor.com/media/photo-l/13/bf/ef/a6/caption.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2413, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/42/photo5jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2414, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/41/photo4jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2415, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/40/photo3jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2416, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/3f/photo2jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2417, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/3e/photo1jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2418, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3c/fc/3d/photo0jpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2419, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/2b/f8/32/20191130-183433-largejpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2420, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/2b/f8/31/20191130-183435-largejpg.jpg', 290);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2421, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a0/8f/bc/the-vung-tau-war-heroes.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2422, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/9d/photo8jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2423, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/9b/photo7jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2424, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/9a/photo6jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2425, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/99/photo5jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2426, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/98/photo4jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2427, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/97/photo3jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2428, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/96/photo2jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2429, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/95/photo1jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2430, 'https://media-cdn.tripadvisor.com/media/photo-l/17/fb/7e/94/photo0jpg.jpg', 291);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2431, 'https://media-cdn.tripadvisor.com/media/photo-l/13/aa/33/dd/caption.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2432, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/3b/06/1d/20191105-103328-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2433, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/03/7b/25/hau.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2434, 'https://media-cdn.tripadvisor.com/media/photo-l/1a/03/7b/24/gh.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2435, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/3e/20181014-064454-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2436, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/3d/20181014-064504-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2437, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/3c/20181014-064550-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2438, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/3b/20181014-064613-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2439, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/3a/20181013-111742-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2440, 'https://media-cdn.tripadvisor.com/media/photo-l/15/09/19/39/20181013-111957-largejpg.jpg', 292);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2441, 'https://media-cdn.tripadvisor.com/media/photo-l/0a/79/ce/05/vo-thi-sau-monument.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2442, 'https://media-cdn.tripadvisor.com/media/photo-l/0a/79/cd/df/vo-thi-sau-monument.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2443, 'https://media-cdn.tripadvisor.com/media/photo-l/0a/79/cd/ee/vo-thi-sau-monument.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2444, 'https://media-cdn.tripadvisor.com/media/photo-l/10/4e/d2/cf/photo1jpg.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2445, 'https://media-cdn.tripadvisor.com/media/photo-l/0b/a5/f4/f2/20160617-155510-largejpg.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2446, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e8/03/b1/steps-to-the-shrine.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2447, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e8/03/a9/painting-of-the-minh.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2448, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e8/03/a3/shrine-dedicated-to-vo.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2449, 'https://media-cdn.tripadvisor.com/media/photo-l/11/e8/03/9b/huge-statue-of-vo-thi.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2450, 'https://media-cdn.tripadvisor.com/media/photo-l/10/4e/d2/d1/photo3jpg.jpg', 294);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2451, 'https://media-cdn.tripadvisor.com/media/photo-l/08/1e/2b/fb/thich-ca-phat-dai.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2452, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/d2/30/6e/photo5jpg.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2453, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/d2/30/6c/photo4jpg.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2454, 'https://media-cdn.tripadvisor.com/media/photo-l/0f/d2/30/6b/photo3jpg.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2455, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/44/96/caption.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2456, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/44/43/caption.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2457, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/43/f4/caption.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2458, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/43/a5/caption.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2459, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/43/59/caption.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2460, 'https://media-cdn.tripadvisor.com/media/photo-l/16/1d/42/fa/chua-do-phap.jpg', 296);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2461, 'https://media-cdn.tripadvisor.com/media/photo-l/13/b4/f3/9f/caption.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2462, 'https://media-cdn.tripadvisor.com/media/photo-l/16/5b/ff/cc/the-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2463, 'https://media-cdn.tripadvisor.com/media/photo-l/16/5b/f8/fc/the-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2464, 'https://media-cdn.tripadvisor.com/media/photo-l/16/5b/f7/24/the-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2465, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/88/vung-tau-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2466, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/86/vung-tau-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2467, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/7f/vung-tau-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2468, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/7b/vung-tau-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2469, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/79/vung-tau-church.jpg', 297);
+INSERT INTO public.api_attraction_image (id, link, item_id) VALUES (2470, 'https://media-cdn.tripadvisor.com/media/photo-l/14/a1/df/75/vung-tau-church.jpg', 297);
+
+
+--
+-- TOC entry 3603 (class 0 OID 16688)
+-- Dependencies: 241
+-- Data for Name: api_attraction_voting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3591 (class 0 OID 16551)
+-- Dependencies: 229
+-- Data for Name: api_city; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_city (id, name, number_voting, rating_score, nation_id) VALUES (14, 'Vung Tau', '0', 0, 2);
+
+
+--
+-- TOC entry 3605 (class 0 OID 16695)
+-- Dependencies: 243
+-- Data for Name: api_city_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3607 (class 0 OID 16704)
+-- Dependencies: 245
+-- Data for Name: api_city_voting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3597 (class 0 OID 16594)
+-- Dependencies: 235
+-- Data for Name: api_nation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_nation (id, name, number_voting, rating_score) VALUES (2, 'Viet Nam', '0', 0);
+
+
+--
+-- TOC entry 3609 (class 0 OID 16711)
+-- Dependencies: 247
+-- Data for Name: api_nation_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3611 (class 0 OID 16720)
+-- Dependencies: 249
+-- Data for Name: api_nation_voting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3595 (class 0 OID 16585)
+-- Dependencies: 233
+-- Data for Name: api_restaurant; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (143, 'Pizza Leo', '2a Phan Chu Trinh, Vung Tau 790000 Vietnam', '7 min:  Se / e all hours', '0334830185', 'https://www.facebook.com/vungtaupizza/', 'Pizza, Seafood, Fast Food, Vietnamese, Beer restaurants', 'Lunch, Dinner, Drinks', 'Vegetarian Friendly, Vegan Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (144, 'Bistro Nine', '9 Truong Vinh Ky Ward 1, Vung Tau 790000 Vietnam', '', '+84 93 337 29 10', 'http://Www.bistroninevungtau.com', 'French, International, European', 'Breakfast, Lunch, Dinner, Brunch, Late Night', 'Vegetarian Friendly, Vegan Options, Gluten Free Options', '₫45,455 - ₫454,545', 'Outdoor Seating, Parking Available, Delivery, Takeout, Reservations, Seating, Street Parking, Television, Highchairs Available, Wheelchair Accessible, Serves Alcohol, Full Bar, Wine and Beer, Accepts Mastercard, Accepts Visa, Free Wifi, Accepts Credit Cards, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (145, 'Taj Grill Indian Restaurant', '152 Phan Chu Trinh, Vung Tau 760000 Vietnam', '', '+84 90 264 69 45', 'http://www.facebook.com/tajgrillatvungtau', 'Indian, Asian', 'Lunch, Dinner, Late Night', 'Vegetarian Friendly, Vegan Options, Halal, Gluten Free Options', '₫4 - ₫12', 'Delivery, Takeout, Reservations, Seating, Serves Alcohol, Free Wifi, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (146, 'Matildas', '6 Nguyen Du, Vung Tau 790000 Vietnam', '', '+84 93 321 64 25', 'http://vtmatildas.com/', 'Pub, Australian, International', 'Breakfast, Lunch, Dinner, Brunch, Drinks', 'Vegetarian Friendly, Vegan Options, Gluten Free Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (147, 'Ganh Hao', '03 Tran Phu -p.5-TP Vung Tau, Vung Tau Vietnam', '', '+84 254 3550 909', 'http://www.ganhhao.com.vn/index.php/vites-gance-ites-2', 'Seafood, Asian, Vietnamese', 'Lunch, Dinner, Late Night', 'Vegetarian Friendly, Gluten Free Options', '', 'Takeout, Reservations, Outdoor Seating, Seating, Parking Available, Validated Parking, Highchairs Available, Serves Alcohol, Full Bar, Free Wifi, Accepts Credit Cards, Table Service, Waterfront', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (148, 'Don Quijote Restaurant', '98C Xo Viet Nghe Tinh Street, Vung Tau Vietnam', '7 min:  Se / e all hours', '+84 254 6508 033', 'http://www.facebook.com/Don-quijote-284690285287201/', 'French, Bar, Barbecue, Spanish', '', 'Vegetarian Friendly', '₫70 - ₫500', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (149, 'Lucys'' Sports Bar and Hotel', '138 Ha Long Street, Vung Tau 94000 Vietnam', '', '090643858896', 'http://www.lucyssportsbar.com', 'Bar, Pub, International', '', 'Vegetarian Friendly, Vegan Options', '₫83,426 - ₫333,704', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (150, 'David Pizzeria', '92 Ha Long Ward 2, Vung Tau 790000 Vietnam', '', '+84 64 3521 012', 'http://www.foody.vn/vung-tau/david-restaurant-am-thuc-y', 'Italian, Pizza, European', 'Lunch, Dinner, Brunch, Late Night', 'Vegetarian Friendly, Vegan Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (151, 'Luca Pizza & Italian Restaurant', '230 Phan Chu Trinh, Vung Tau 790000 Vietnam', '7 min:  Se / e all hours', '+84 254 3854 261', 'https://www.facebook.com/LucaPizzaItalianRestaurant', 'Italian, Pizza, European, Grill', '', 'Vegetarian Friendly, Vegan Options', '₫113,636 - ₫568,182', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (152, 'Belly''s Watering Hole', '53 Phan Chu Trinh Ward 2, Vung Tau 790000 Vietnam', '', '+84 254 3527 707', 'http://www.facebook.com/Bellys-Watering-Hole-600443493650154/', 'Bar, Australian, International', '', 'Vegetarian Friendly, Vegan Options, Gluten Free Options', '₫113,636 - ₫272,727', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (153, 'Lily''s Baradise and Restaurant', '3 Le Ngoc Han St Thao Dien, Vung Tau 70000 Vietnam', '', '+84 93 875 79 48', 'http://www.tommysvietnam.com', 'Italian, Cafe, Pub, Bar', '', 'Vegetarian Friendly', '₫68,182 - ₫272,727', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (154, 'Ly''s Cafe', 'I 28 Bau Sen 2, A Chau off Phan Chu Trinh Street, Vung Tau 790000 Vietnam', '', '+84 98 690 50 52', 'https://www.facebook.com/lylynguyen82/', 'Cafe, Italian, British, Vietnamese', 'Breakfast, Lunch, Brunch, Drinks', 'Vegetarian Friendly', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (155, 'Sushi Tokyo', '201 Thong Nhat Street Ward 8, Vung Tau Vietnam', '', '3807066', 'http://sushitokyo.vn/?fbclid=IwAR1fP9iL7ppCysV1t1-aywYABom5OSnty_P2TR2-cYAeiHTWvw12-EQdmIU', 'Japanese, Sushi, Asian', 'Lunch, Dinner, Brunch', 'Vegetarian Friendly', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (156, 'Adam Troy''s Pub', '100 Phan Chu Trinh, Vung Tau Vietnam', '', '+84 128 400 4349', 'http://adamtroypub.weebly.com/', 'Bar, Pub, Australian', 'Breakfast, Lunch, Dinner, Brunch', 'Vegetarian Friendly', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (157, 'Century Fish and Chips', '76 Phan Chu Trinh, Vung Tau 790000 Vietnam', '', '+84 98 274 03 53', 'https://www.facebook.com/New-Century-Fish-and-Chips-236855367162884/', 'Fast Food, Pub, Bar, Cafe, European, British', 'Lunch, Dinner, Brunch, Drinks', 'Vegetarian Friendly', '₫2 - ₫20', 'Delivery, Takeout, Reservations, Outdoor Seating, Seating, Wheelchair Accessible, Serves Alcohol, Full Bar, Free Wifi, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (158, 'Horizon Bar', '99 Vo Thi Sau, Vung Tau 790000 Vietnam', '09:00 AM - 12:00 AM', '+84 8 3798 1962', 'https://www.facebook.com/horizonbar1/', 'Bar, Cafe, British, Pub, Vietnamese', 'Breakfast, Lunch, Dinner, Brunch, Late Night, Drinks', '', '₫50,000 - ₫250,000', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (159, 'Yummy Yummy Restaurant', '6 Tran Hung Dao Street, Vung Tau Vietnam', '', '+84 254 3570 551', 'http://www.facebook.com/Yummy-yummy-770255056501470/', 'International', 'Dinner, Drinks', 'Vegetarian Friendly, Vegan Options, Gluten Free Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (160, 'OMG (Oh My God) Restaurant', '254A-B Phan Chu Trinh Ward 2, Vung Tau 790000 Vietnam', '7 min:  Se / e all hours', '+84 167 961 0538', '', 'American, Diner', '', 'Vegetarian Friendly', '₫30 - ₫300', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (161, 'La Sirena Seafood Restaurant', '159 Thuy Van, Vung Tau 790000 Vietnam', '', '+84 90 842 98 66', 'https://www.facebook.com/LaSirenaVungTau/', 'Barbecue, British, Vietnamese, Seafood, Asian, Brew Pub, Pub', 'Lunch, Dinner, Brunch, Drinks', '', '₫50,000 - ₫10,000,000', 'Seating, Accepts Credit Cards, Table Service, Takeout, Reservations, Outdoor Seating, Buffet, Private Dining, Parking Available, Validated Parking, Highchairs Available, Serves Alcohol, Full Bar, Wine and Beer, Digital Payments, Free Wifi', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (162, 'Banh Khot Co Ba Vung Tau', '1 Hoang Hoa Tham Ward 3, Vung Tau 790000 Vietnam', '', '+84 64 3526 165', 'http://cobavungtau.com/', 'Vietnamese', 'Lunch, Dinner', 'Vegan Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (163, 'Soul Pizza', '12 Quang Trung Ward 1, Vung Tau 790000 Vietnam', '5:00 PM - 11:45 AM', '+84 70 3546 845', 'https://www.facebook.com/SoulPizzaVungTau/', 'Italian, Pizza', 'Dinner', '', '₫35 - ₫279', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (164, 'Alibaba Indian Restaurant', '07 Nguyen Trai St., Vung Tau Vietnam', '', '+84 64 3510 685', '', 'Indian, Asian', 'Dinner, Lunch', 'Vegetarian Friendly, Vegan Options', '', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (165, 'CJ Pub & Restaurant', '100 Phan Chu Trinh, Vung Tau 790000 Vietnam', '', '+84 254 3835 665', 'https://www.facebook.com/cjpubrestaurant/', 'Seafood, Asian, Deli, Pizza, European', '', 'Vegetarian Friendly, Vegan Options', '₫50 - ₫500', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (166, 'Tom and Jerry Bar and Cafe', '127 Phan Chu Trinh, Vung Tau Vietnam', '', '+84 8 2737 3285', 'https://www.facebook.com/pg/tomandjerryvt/about/', 'Southwestern, Fast Food, Vietnamese, Bar, Cafe, Pub', 'Breakfast, Lunch, Dinner', '', '₫60,000 - ₫120,000', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (167, 'Lan Rung', '2 Tran Hung Dao, Vung Tau Vietnam', '', '', '', 'Seafood, Asian, Vietnamese', 'Lunch, Dinner, Brunch, Late Night', '', '', 'Reservations, Outdoor Seating, Seating, Serves Alcohol, Full Bar, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (168, 'Ganh Hao 2 Restaurant', 'Ha Long.Phuong 2. TP, Vung Tau Vietnam', '', '+84 254 3577 777', 'http://ganhhao.com.vn/', 'Seafood, European, Asian, Vietnamese, Healthy', 'Lunch, Dinner, Brunch', '', '', 'Takeout, Reservations, Outdoor Seating, Seating, Serves Alcohol, Delivery, Parking Available, Street Parking, Free off-street parking, Highchairs Available, Wine and Beer, Accepts Credit Cards, Table Service, Beach, Family style', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (169, 'Offshore Bar & Hotel Restaurant', '4 Hoang Dieu Street Ward 1, Vung Tau Vietnam', '07:00 AM - 02:00 AM', '+84 93 233 71 46', 'http://offshore.com.vn/', 'Bar, Asian, Pub', '', 'Vegetarian Friendly', '₫3 - ₫15', '', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (170, 'Tommys sports bar Vung tau Vietnam', '3 Le Ngoc Han Street, Ward 1, Vung Tau Vietnam', '', '+84 64 3707 845', 'http://www.tommysvietnam.com/', 'Bar, Australian, European, Vietnamese', 'Breakfast, Lunch, Dinner, Late Night', '', '', 'Seating, Television, Wheelchair Accessible, Serves Alcohol, Reservations, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (171, 'Kozak', '06-07 H3, Nguyen Tri Phuong, Vung Tau Vietnam', '', '+84 93 303 03 44', 'http://www.facebook.com/pages/Kozak/263872516959408?nr', 'Eastern European, European, Asian', 'Lunch, Dinner, Late Night', '', '', 'Takeout, Reservations, Seating, Serves Alcohol, Table Service', '0', 0, 14);
+INSERT INTO public.api_restaurant (id, name, address, open_time, phone, website, cuisines, meals, special_diets, price_range, features, number_voting, rating_score, city_id) VALUES (172, 'Banh Khot Goc Vu Sua', '14 Nguyen Truong to, P2, Vung Tau Vietnam', '', '+84 64 3523 465', '', 'Vietnamese, Asian', 'Lunch', '', '', 'Takeout, Seating', '0', 0, 14);
+
+
+--
+-- TOC entry 3613 (class 0 OID 16727)
+-- Dependencies: 251
+-- Data for Name: api_restaurant_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3615 (class 0 OID 16736)
+-- Dependencies: 253
+-- Data for Name: api_restaurant_voting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3593 (class 0 OID 16576)
+-- Dependencies: 231
+-- Data for Name: api_stay; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (40, 'Muong Thanh Vung Tau Hotel', 'Located on Thong Nhat street right in center off Vung Tau City, Muong Thanh Vung Tau Hotel is an ideal place for you to explore Tam Duong Bay, Vong Nguyet Bathing Place and other famous sightseeing of Vung Tau such as Quang Trung Park, the Central Square, the Cultural Museum. Especially, it is extremely favorable to come from Muong Thanh Vung Tau to Ho Chi Minh City with a hydrofoil pier hundreds of meter far away from the hotel. The hotel has full modern amenities and services including gym; outdoor swimming pool; conference rooms; bars; Europe & Asia restaurants with a professional team of chefs who serve well-known seafood dishes; karaoke systems with excellent sound, beautiful decors which make Muong Thanh Vung Tau a reliable address when visiting the Southern sea city.', '09 Thong Nhat Street, Ward 1, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (41, 'Malibu Hotel', 'Finding an ideal trendy hotel in Vung Tau does not have to be difficult. Welcome to Malibu Hotel, a nice option for travelers like you.Guest rooms offer amenities such as air conditioning, a refrigerator, and a minibar, and guests can go online with free wifi offered by the hotel.Malibu Hotel features room service and a concierge, to help make your stay more enjoyable. The property also boasts a pool and free breakfast. If you are driving to Malibu Hotel, free parking is available.While staying at Malibu Hotel, visitors can check out The Vung Tau War Heroes Shrine (0.5 mi) and The Whale Temple (1.0 mi), some of Vung Tau''s top attractions.When you’re feeling hungry, be sure to check out OMG (Oh My God) Restaurant, Cj''s Pub, and Banana Leaf Restaurant, which are some diners that are popular with locals and out-of-towners alike.Best of all, Malibu Hotel makes it easy to experience some great Vung Tau attractions like Vung Tau Lighthouse, which is a popular lighthouse.Malibu Hotel puts the best of Vung Tau at your fingertips, making your stay both relaxing and enjoyable.', '263 Le Hong Phong Street, Thang Tam Ward, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (42, 'The Wind Mountain Side Hotel', 'The Wind Mountain Side Hotel is an excellent choice for travelers visiting Vung Tau, offering a family-friendly environment alongside many helpful amenities designed to enhance your stay. The Wind is the only Spa Inclusive Hotel in Vung Tau. Rooms at The Wind Mountain Side Hotel offer air conditioning, a minibar, and a refrigerator providing exceptional comfort and convenience, and guests can go online with free wifi. A 24 hour front desk, room service, and 24 hour check-in are some of the conveniences offered at this hotel. A pool and breakfast will also help to make your stay even more special. If you are driving to The Wind Mountain Side Hotel, free parking is available. Nearby landmarks such as The Whale Temple (0.5 mi) and Hon Ba Island (0.6 mi) make The Wind Mountain Side Hotel a great place to stay when visiting Vung Tau. While you’re here, be sure to check out some of the Asian restaurants, including Ganh Hao, Ganh Hao 2 Restaurant, and Offshore Bar & Hotel Restaurant, all of which are a short distance from The Wind Mountain Side Hotel. During your visit, be sure to check out popular attractions like Christ the King (0.7 mi), Vung Tau Lighthouse (0.3 mi), and Vung Tau Ferry Terminal (0.6 mi), which are all within walking distance of the hotel. Enjoy your stay in Vung Tau!', '98 Phan Chu Trinh, Vung Tau Vietnam', '+842543858859', 'info@thewind.com.vn', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (43, 'Romeliess Hotel', 'See why so many travelers make Romeliess Hotel their small hotel of choice when visiting Vung Tau. Providing an ideal mix of value, comfort and convenience, it offers a family-friendly setting with an array of amenities designed for travelers like you.Close to some of Vung Tau''s most popular landmarks, such as The Whale Temple (0.3 mi) and Mui Nghinh Phong (0.7 mi), Romeliess Hotel is a great destination for tourists.Romeliess Hotel is a family-friendly small hotel offering a minibar, air conditioning, and a refrigerator in the rooms, and it is easy to stay connected during your stay as free wifi is offered to guests.The small hotel features a 24 hour front desk, a concierge, and 24 hour check-in. Plus, guests can enjoy a pool and free breakfast, which have made this a popular choice among travelers visiting Vung Tau. For guests with a vehicle, free parking is available.While you’re here, be sure to check out some of the barbeque restaurants, including Don Quijote Restaurant, La SIRENA Bar & Grill, and Red Parrot Bar, all of which are a short distance from Romeliess Hotel.If you are interested in exploring Vung Tau, check out a park, such as Tao Phung Park.At Romeliess Hotel, your comfort and satisfaction come first, and they look forward to welcoming you to Vung Tau.', '31-33 Thuy Van Street, Ward 02, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (44, 'Binh Chau Hot Spring Resort', 'Binh Chau Hot Spring Resort offers an extraordinary balanced blend of all the gifts from nature. It is only here that you and your loved ones can enjoy uninterrupted peaceful moments while soaking in the fresh mineral stream to re-calibrate both body and mind. The warm water stream containing precious minerals from nature that encourage muscles and joints recovery, reduce pain or aches, reverse the aging process and give back to you soundless sleeps and rejuvenating getaway with the family.', 'National Highway 55, Binh Chau Xuyen Moc District, Ba Ria, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (45, 'Lotus Apartment Hotel', 'See why so many travelers make Lotus Apartment Hotel their small hotel of choice when visiting Vung Tau. Providing an ideal mix of value, comfort and convenience, it offers a family-friendly setting with an array of amenities designed for travelers like you.As your “home away from home,” the small hotel rooms offer air conditioning, a kitchenette, and a refrigerator, and getting online is easy, with free wifi available.Guests have access to a 24 hour front desk, room service, and a concierge while staying at Lotus Apartment Hotel. And, as an added convenience, there is free parking available to guests.Nearby landmarks such as The Vung Tau War Heroes Shrine (1.1 mi) and The Whale Temple (1.5 mi) make Lotus Apartment Hotel a great place to stay when visiting Vung Tau.Vung Tau has plenty of steakhouses. So when you’re here, be sure to check out popular spots like Riviera Restaurant and RuSeasons restaurant-club, which are serving up some great dishes.If you are interested in exploring Vung Tau, check out a park, such as Tao Phung Park.We’re sure you’ll enjoy your stay at Lotus Apartment Hotel as you experience all of the things Vung Tau has to offer.', '6/11 Nguyen Du, Phuong 1, Thanh Pho, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (33, 'Muong Thanh Vung Tau Hotel', 'Located on Thong Nhat street right in center off Vung Tau City, Muong Thanh Vung Tau Hotel is an ideal place for you to explore Tam Duong Bay, Vong Nguyet Bathing Place and other famous sightseeing of Vung Tau such as Quang Trung Park, the Central Square, the Cultural Museum. Especially, it is extremely favorable to come from Muong Thanh Vung Tau to Ho Chi Minh City with a hydrofoil pier hundreds of meter far away from the hotel. The hotel has full modern amenities and services including gym; outdoor swimming pool; conference rooms; bars; Europe & Asia restaurants with a professional team of chefs who serve well-known seafood dishes; karaoke systems with excellent sound, beautiful decors which make Muong Thanh Vung Tau a reliable address when visiting the Southern sea city.', '09 Thong Nhat Street, Ward 1, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (34, 'Mercure Vung Tau', 'Nestled in Nghinh Phong cape, Mercure Vung Tau offers a beautiful panoramic ocean view for your tranquil vacation.', '03-06 Ha Long Ward 2, Vung Tau 790000 Vietnam', '+84 254 3526 010', 'hb738-re1@accor.com', '{"Air conditioning","Private beach",Desk,"Room service",Minibar,Refrigerator,"Bath / shower","Hair dryer"}', '{"Ocean view","Non-smoking rooms",Suites,"Family rooms","Smoking rooms available"}', '{"Free parking","Free High Speed Internet (WiFi)",Pool,"Fitness Center with Gym / Workout Room","Free breakfast",Beach,"Kids stay free","Children Activities (Kid / Family Friendly)"}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (35, 'Pullman Vung Tau', 'Pullman Vung Tau is the first 5 star international hotel in Vung Tau City. It is just 1.5 hour drive away and closest beach destination from Ho Chi Minh City. It offers 356 rooms and suites featuring Pullman signature standard with spectacular ocean views over the Back Beach as well as the Front Beach. The hotel has 1 all day dining restaurant with international cuisine, bars and bakery. It has 2 stories conference centre catering up to 1,200 participants, fit lounge and outdoor swimming pool.', '15 Thi Sach Street Thang Tam Ward, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (36, 'The Imperial Hotel & Resort Vung Tau', 'The IMPERIAL Hotel and Resort is the first and the only 5-star hotel & resort with its own private beach and fabulous Beach Club in Vung Tau city. Situated on its own stretch of private sandy beach in the seaside resort town of Vung Tau, The IMPERIAL Hotel and Resort is truly an art boutique hotel, completely unique in concept and design. Providing an ideal mix of value, comfort and convenience, it offers a romantic setting with an array of amenities designed for travelers like you. Rooms at The Imperial Hotel and Resort Vung Tau offer a flat screen TV, air conditioning, and a refrigerator providing exceptional comfort and convenience, and guests can go online with free WiFi. Room service and a concierge are some of the conveniences offered at this hotel. A pool and free breakfast will also help to make your stay even more special. If you are driving to The Imperial Hotel and Resort Vung Tau, free parking is available with 24 hours security surveillance. Close to some of Vung Tau''s most popular landmarks, such as The Vung Tau War Heroes Shrine (0.4 mi) and The Whale Temple (0.8 mi), The Imperial Hotel and Resort Vung Tau is a great destination for tourists. If you’re looking for a steakhouse, consider a visit to RuSeasons restaurant-club or Riviera Restaurant, which are all conveniently located a short distance from The Imperial Hotel Vung Tau. Should time allow, Thich Ca Phat Dai is a popular historic site that is relatively easy to get to. We’re sure you’ll enjoy your stay at The Imperial Hotel and Resort Vung Tau as you experience all of the things Vung Tau has to offer.', '159 Thuy Van Street, Vung Tau 790000 Vietnam', 'Ask a question', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (37, 'The Wind Boutique Resort', 'Escape to modern luxury in a peaceful, tropical setting. The Wind is Vung Tau''s only Spa Inclusive Resort. We offer personalized service in a space that’s beautiful, peaceful, and surprisingly upscale. Our cliff-side location, waterfalls, and beautiful tropical gardens make The Wind Boutique Resort one of a kind. Our rooms are tastefully decorated and fully equipped with the finest items - modern kitchens, 50” LCDs, and leather couches. Every room is unique and has been carefully designed for your comfort. Relax amongst our multiple waterfalls while the children play in the pool, or enjoy a romantic evening while you take-in the city lights from our cliff overlook bar. And of course we offer high speed internet everywhere on the property, so you’re only as removed as you wish to be. Our other facilities include an outdoor pool, steam room, sauna, billiards, jacuzzi, pool bar, and children''s shallow swimming area. We have a free shuttle service to the shops, beaches, and amenities around town, and we’re within 5 minutes walk to a selection of restaurants nearby. Front beach is 1.1km while back beach is 1.8km.', 'B10, 84 Phan Chu Trinh, Vung Tau Vietnam', '+84 2543858859', 'info@thewind.com.vn', '{Bathrobes,"Air conditioning",Desk,Housekeeping,"Room service",Kitchenette,Microwave,"Bath / shower"}', '{"Non-smoking rooms",Suites,"Family rooms"}', '{"Free parking","Free High Speed Internet (WiFi)",Pool,"Fitness Center with Gym / Workout Room","Free breakfast","Free shuttle or taxi services","Steam room","24-hour security"}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (38, 'Fusion Suites Vung Tau', 'Fusion Suites Vung Tau brings originality and a wellness inspired hotel to the seaside town of Vung Tau. It has set a new trend with 170 stylish suites, studios and apartments with expansive ocean and mountain views. Featuring daily spa treatments at no extra cost, yoga classes, fitness center, 8 uniquely designed sky pools and a rooftop infinity pool. You can enjoy breakfast, lunch or dinner in the 19th floor restaurant "Fresh" with 360 degree views or indulge in a few cocktails in the best rooftop bar in town "Breeze". The ground floor features “Fusion Courtyard" with a café, weekend burger bar, bubble tea station and wine shop. Fusion Suites also offers banquet meeting rooms for up to 240 people.Only 2 hours drive from Saigon by road or direct ferry, Fusion Suites Vung Tau is ideal for families, couples, groups and solos looking to swap urban bustle for coastal calm without involving a trip to the airport.If you are looking for a modern hotel in a great location with exceptional food and beverage outlets, premium spa and a friendly team - then Fusion Suites Vung Tau is your destination!', '02 Truong Cong Dinh Ward 2, Vung Tau 790000 Vietnam', '+84 254 6257 272', 'reservations.fsvt@fusionhotelgroup.com', '{"Blackout curtains",Bathrobes,"Air conditioning",Desk,Housekeeping,"Coffee / tea maker","Cable / satellite TV","Walk-in shower"}', '{"Mountain view","Ocean view","City view","Non-smoking rooms",Suites,"Family rooms"}', '{"Free parking","Free High Speed Internet (WiFi)",Pool,"Fitness Center with Gym / Workout Room","Free breakfast","Kids club","Conference facilities","Banquet room"}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (39, 'Mercure Vung Tau', 'Nestled in Nghinh Phong cape, Mercure Vung Tau offers a beautiful panoramic ocean view for your tranquil vacation.', '03-06 Ha Long Ward 2, Vung Tau 790000 Vietnam', '+84 254 3526 010', 'hb738-re1@accor.com', '{"Air conditioning","Private beach",Desk,"Room service",Minibar,Refrigerator,"Bath / shower","Hair dryer"}', '{"Ocean view","Non-smoking rooms",Suites,"Family rooms","Smoking rooms available"}', '{"Free parking","Free High Speed Internet (WiFi)",Pool,"Fitness Center with Gym / Workout Room","Free breakfast",Beach,"Kids stay free","Children Activities (Kid / Family Friendly)"}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (46, 'Seaside Resort', 'Welcome to Seaside Resort, your Vung Tau “home away from home.” Seaside Resort aims to make your visit as relaxing and enjoyable as possible, which is why so many guests continue to come back year after year.While staying at Seaside Resort, visitors can check out White Palace (0.2 mi) and Hon Ba Island (1.1 mi), some of Vung Tau''s top attractions.Guest rooms offer air conditioning and a minibar, and Seaside Resort makes getting online easy as free wifi is available.You can also take advantage of some of the amenities offered by the hotel, including a concierge and room service. In addition, guests can enjoy a pool and free breakfast during their visit. As an added convenience, there is free parking available to guests.Travelers looking to enjoy some lobster can head to Ganh Hao. Otherwise, you may want to check out a steakhouse such as RuSeasons restaurant-club or Riviera Restaurant.Should time allow, Duc Me Bai Dau and Vung Tau Ferry Terminal are some popular attractions that are within walking distance.Seaside Resort puts the best of Vung Tau at your fingertips, making your stay both relaxing and enjoyable.', '28 Tran Phu Street, Ward 01, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (47, 'Green Hotel', 'Coveniently located at 147C Thuy Van street Thang Tam ward Vung Tau city, Ba Ria - Vung Tau provice. Offers 50 sea view Rooms and Suites, the Three-star Green Hotel become the most favorite destination of the travelers and businessmen. Amenities include IDD telephone, satellite television chanel, DVD Player, mini-bar, tea and coffe-makers and in-room safe. Complimentary Wi-Fi Internet in-room and throughout the Hotel.Two restaurants served exellent foods from Vietnamese to international Cuisines especially Seafood specialties.Three Meeting Rooms with capacity of 20 to 350 guests equipped with modern meeting facilities can be satisfied any kind of your functions. A Wedding Hall 300 seats committed best quality of facilites as well as services.For your leisure and relexation, our warm, cozy atmosphere Lobby-bar serves wonderful Cocktails and Drinks with charmed and professional staffs.', '147C Thuy Van Thang Tam Ward, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (48, 'Sky Luck Hotel', 'Looking for a place to stay in Vung Tau? Then look no further than Sky Luck Hotel, a budget friendly small hotel that brings the best of Vung Tau to your doorstep.Guest rooms offer air conditioning, a minibar, and a kitchenette, and Sky Luck Hotel makes getting online easy as free wifi is available.You can also take advantage of some of the amenities offered by the small hotel, including a 24 hour front desk, room service, and a concierge. As an added convenience, there is parking available to guests.While staying at Sky Luck Hotel, visitors can check out Hon Ba Island (0.2 mi) and The Vung Tau War Heroes Shrine (0.8 mi), some of Vung Tau''s top attractions.Vung Tau has plenty of seafood restaurants. So when you’re here, be sure to check out popular spots like Ganh Hao, Ganh Hao 2 Restaurant, and Lan Rung, which are serving up some great dishes.If you’re looking for something to do, Christ the King (1.1 mi), Vung Tau Lighthouse (0.5 mi), and Vung Tau Ferry Terminal (0.2 mi) are a nice way to spend some time, and they are all within walking distance of Sky Luck Hotel.We’re sure you’ll enjoy your stay at Sky Luck Hotel as you experience everything Vung Tau has to offer.', '12/3 Hoang Hoa Tham Street, Ward 2, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (49, 'VeeVoo hotel', 'Ideally located in the best advantageous tourist place Bai Sau Beach at Vung Tau city, the new built VEEVOO Hotel is totally a perfect accommodation choice for sharing memorable moments with family and friends… We offers guest 30 convenient rooms: Standard double, Standard twin & Superior; each equipped with modern equipment & facilities, free wifi access…', '47 Phan Van Tri street Thang Tam ward, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (50, 'Petro Hotel', 'Finding an ideal family-friendly hotel in Vung Tau does not have to be difficult. Welcome to Petro Hotel, a nice option for travelers like you.Free wifi is offered to guests, and rooms at Petro Hotel offer air conditioning and a minibar.During your stay, take advantage of some of the amenities offered, including room service. Guests of Petro Hotel are also welcome to enjoy a pool and free breakfast, located on site. For travelers arriving by car, free parking is available.For those interested in checking out popular landmarks while visiting Vung Tau, Petro Hotel is located a short distance from White Palace (0.5 mi) and The Vung Tau War Heroes Shrine (1.2 mi).If you like diners, Petro Hotel is conveniently located near OMG (Oh My God) Restaurant, Cj''s Pub, and Banana Leaf Restaurant.Plus, during your trip, don''t forget to check out an architectural building, such as Thich Ca Phat Dai.Petro Hotel puts the best of Vung Tau at your fingertips, making your stay both relaxing and enjoyable.', '9 - 11 Hoang Dieu St., Ward 1, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (51, 'Premier Pearl Hotel Vung Tau', 'Set the scene for a truly memorable stay by experiencing the uninterrupted sea view rooms blended with unsurpassed luxury and comfort , indulge in our enticing international cuisine restaurants or seaside bars, swim in the awe inspiring infinity pool under sunshine, enjoy the lanscaped sea view with crystal clear waters ideal for travellers seeking a relaxing retreat on the beach.', '69 THUY VAN, PHU_NG 2, Vung Tau 78000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (52, 'Hoang Phat Hotel', 'Located in Vung Tau City in Ba Ria - Vung Tau Province, 1.4 km from Vung Tau Statue of Christ, Vung Tau Lighthouse is about 18 minutes walk, Nghinh Phong Cape 2.1 km and White Palace 2, 8 km, Hoang Phat Hotel offers a terrace, 24-hour front desk and free Wi-Fi. All rooms have air conditioning, flat-screen cable TV, kettle, bidet, free toiletries, work desk, wardrobe and refrigerator. .', '1 La Van Cau Thang Tam Ward, Vung Tau 78210 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (53, 'Vung Tau Riva Hotel', 'Riva Hotel would like to offer to our guests great experiences on during vacation at Vung Tau beautiful beach city, Riva Hotel is designed with a unique style and high class furniture and equipped with rich wood furnishings combined with wooden floors create the luxurious style, located on the poetic beach of Thuy Van street, an ideal destination to be able to walk from the hotel and just 10 minutes walk to Circle K+, Restaurants, Cafes, Bars and 500 meters to Jesus Statue on Tao Phung Mountain.', '03 - 05 Thuy Van Ward 2, Vung Tau 78000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (54, 'Petro House Hotel', 'Located right in the heart of Vung Tau, Petro House is a boutique business hotel, welcoming both business and leisure guests alike to Vung Tau since the 60’s. Renovated in 2012, the hotel retains the charm of the original colonial architecture, with columns and arch windows. Her spacious guest rooms have been thoroughly modernized, delivering comfort, safety and connectivity.', '63 Tran Hung Dao Street Ward 1, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (55, 'Novena Hotel', 'Novena Hotel located on 302 Phan Chu Trinh, Ward 2, Vung Tau City, Viet Nam. 3 minutes by walking to back beach, 5 minutes by walking to Jesus Statue, 1,5 Km to Thang Tam Temple, 1,5 km to Niet Ban Tinh Xa, 2 km by car from shopping center lottemart, Bank Khot cake...Novena Hotel are please welcome and serve our guests with all the best.', '302 Phan Chu Trinh Ward 2, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (56, 'Hai Duong Intourco Resort', 'Situated right on the Back Beach of Vung Tau city – Viet Nam, HaiDuong Intourco Resort to be proud of bringing you to the best convinience. Immersing yourself in the blue seawater to refresh yourshelf after hard- working days. With two separate space: HaiDuong Intourco Resort has almost room in building area for guests, who would like staying together, closing and crowded. And villa area has private balcony with garden view/ sea view. It brings to you the closing natural feeling, quiet and peaceful. At HaiDuong Intourco Resort, you can have the elegant breakfast also enjoy the first sunlight of day on the beach. Or having lunch/ dinner/ sea food… in elsewhere sea – swing, seeing the sunlight/moonlight in fresh seawater and dissolving in each white waves. Along the beach, a lot of shack and folding chairs arranged to free for staying guests. As your home, you can come to a halt, take team activities or lie down on folding chair to hear song of sea.', '01 Thuy Van, Ward 8, Vung Tau Vietnam', '+84 0254 3859 916', 'info@haiduongintourcoresort.com.vn', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (57, 'Ocean Star Hotel', 'Welcome to Ocean Star Hotel, your Vung Tau “home away from home.” Ocean Star Hotel aims to make your visit as relaxing and enjoyable as possible, which is why so many guests continue to come back year after year.Given the close proximity of popular landmarks, such as The Whale Temple (0.3 mi) and Mui Nghinh Phong (0.8 mi), guests of Ocean Star Hotel can easily experience some of Vung Tau''s most well known attractions.Rooms at Ocean Star Hotel offer air conditioning and a refrigerator providing exceptional comfort and convenience, and guests can go online with free wifi.A 24 hour front desk and baggage storage are some of the conveniences offered at this hotel. An on-site restaurant will also help to make your stay even more special. If you are driving to Ocean Star Hotel, free parking is available.Travelers looking to enjoy some lobster can head to Ganh Hao. Otherwise, you may want to check out a steakhouse such as RuSeasons restaurant-club or Riviera Restaurant.Plus, during your trip, don''t forget to check out a lighthouse, such as Vung Tau Lighthouse.Ocean Star Hotel puts the best of Vung Tau at your fingertips, making your stay both relaxing and enjoyable.', 'S_ 43A  Thuy Van, Phu_ng 2, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (58, 'Beachfront Hotel', 'Ky Hoa Vung Tau Hotel is approached as to a great direct to Vung Tau seaside. This hotel consists of several air-conditioning rooms associated with isolated parking area and Free Wifi. Guests or visitors may enjoy their breaths taken to swimming-pool or piscine outdoor direct to sea landscape. This place may take you about 2 minutes to Vung Tau Telpher and about 5 minutes to Express Ship Habour or as at the seaside, and about 10 minutes driving to take to Vung Tau market. Specific objects may be seen as made in wood furniture, including cable TVs, minibar and private bathroom and attached shower facility for each room. Such luxury rooms or superior rooms with private balcony facility for let our view to mountain or sea landscape. Ky Hoa Vung Tau Hotel is facilitate with reception counter 24/24 hours and The Rose Restaurant in major of European-Oriental as well as special foods culinary daily. Room service is also facilitated to site of resort. Comfortable facility is integrated to', '30-32 Tran Phu Str, W. 01, Vung Tau 790000 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (59, 'Ngoc Hanh Beach Hotel', '', '47-49 Thuy Van, Ward 2, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (60, 'Royal Hotel Vung Tau', 'If you’re looking for a hotel in Vung Tau, look no further than Royal Hotel Vung Tau.While staying at Royal Hotel Vung Tau, visitors can check out Thich Ca Phat Dai (0.2 mi) and White Palace (0.5 mi), some of Vung Tau''s top attractions.Guest rooms offer amenities such as air conditioning, a minibar, and a desk, and guests can go online with free wifi offered by the hotel.Royal Hotel Vung Tau features a 24 hour front desk, a concierge, and room service, to help make your stay more enjoyable. The property also boasts a pool and an on-site restaurant. If you are driving to Royal Hotel Vung Tau, parking is available.While in Vung Tau be sure to experience local hotpot favorites at Ganh Hao.During your visit, be sure to check out popular attractions like Vung Tau Lighthouse (1.1 mi), Vung Tau Ferry Terminal (0.5 mi), and Hon Ba Island (0.5 mi), which are all within walking distance of the hotel.The staff at Royal Hotel Vung Tau looks forward to serving you during your upcoming visit.', '36 Quang Trung St., Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (61, 'The Cap Hotel', 'The Cap Hotel is one of 4-star international hotels in Vung Tau, Vietnam. With outstanding service and state-of-the-art facilities, we deliver memorable experiences at one of the Viet Nam most beautiful. Besides its great location in the heart of the city which takes you only 2 minutes to the beach by walk and 10 minutes to drive to Vung Tau Central market, the hotel also boasts some of the finest', '01 Thi Sach, P. Th_ng Tam, Vung Tau 0254 Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (62, 'Nguyen Ha Hotel', 'Welcome to Nguyen Ha Hotel, your Vung Tau “home away from home.” Nguyen Ha Hotel aims to make your visit as relaxing and enjoyable as possible, which is why so many guests continue to come back year after year.Close to some of Vung Tau''s most popular landmarks, such as The Whale Temple (0.3 mi) and Mui Nghinh Phong (0.8 mi), Nguyen Ha Hotel is a great destination for tourists.The rooms offer air conditioning and a refrigerator, and getting online is possible, as free wifi is available, allowing you to rest and refresh with ease.Nguyen Ha Hotel features a 24 hour front desk.While you’re here, be sure to check out some of the Italian restaurants, including David Pizzeria, Ly''s Coffee & Cakes, and Prego Yogurt, all of which are a short distance from Nguyen Ha Hotel.If you’re looking for things to do, you can check out Christ the King (0.4 mi), Vung Tau Lighthouse (0.8 mi), or Vung Tau Ferry Terminal (1.2 mi), which are popular attractions amongst tourists, and they are all within walking distance.Nguyen Ha Hotel puts the best of Vung Tau at your fingertips, making your stay both relaxing and enjoyable.', '81/16 Thuy Van, Ward 2, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (63, 'Dream Box Hostel', '', '27-29-31 Trung Nhi, Ward 1, Vung Tau Vietnam', '', '', '{}', '{}', '{}', '0', 0, 14);
+INSERT INTO public.api_stay (id, name, about, address, phone, email, room_features, room_types, property_amenities, number_voting, rating_score, city_id) VALUES (64, 'Marina Bay Vung Tau Resort & Spa', 'Discover your paradise in Vung Tau and enjoy life to the fullest with Marina Bay Vung Tau Resort & Spa. The first and only 5-star beachfront resort in Vung Tau City that offer splendid sea view from all 100 rooms and suites.', '115 Tran Phu Ward 5, Vung Tau 790000 Vietnam', '', '', '{"Allergy-free room","Blackout curtains","Air conditioning",Desk,Housekeeping,Microwave,"Cable / satellite TV",Bidet}', '{"Mountain view","Ocean view","Pool view","Non-smoking rooms",Suites,"Family rooms"}', '{"Free parking","Free High Speed Internet (WiFi)",Pool,"Fitness Center with Gym / Workout Room","Free breakfast",Beach,"Kids stay free","Children''s playground"}', '0', 0, 14);
+
+
+--
+-- TOC entry 3617 (class 0 OID 16743)
+-- Dependencies: 255
+-- Data for Name: api_stay_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.api_stay_image (id, link, item_id) VALUES (4, 'https://media-cdn.tripadvisor.com/media/photo-o/1c/f1/f1/2d/family.jpg', 34);
+INSERT INTO public.api_stay_image (id, link, item_id) VALUES (5, 'https://media-cdn.tripadvisor.com/media/photo-o/1c/f1/f1/2d/family.jpg', 39);
+INSERT INTO public.api_stay_image (id, link, item_id) VALUES (6, 'https://media-cdn.tripadvisor.com/media/photo-o/1c/da/56/8e/deluxe-ocean-view-32m2.jpg', 64);
+
+
+--
+-- TOC entry 3619 (class 0 OID 16752)
+-- Dependencies: 257
+-- Data for Name: api_stay_voting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3578 (class 0 OID 16421)
+-- Dependencies: 216
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3580 (class 0 OID 16430)
+-- Dependencies: 218
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3576 (class 0 OID 16414)
+-- Dependencies: 214
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (1, 'Can add log entry', 1, 'add_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (2, 'Can change log entry', 1, 'change_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (3, 'Can delete log entry', 1, 'delete_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (4, 'Can view log entry', 1, 'view_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (5, 'Can add permission', 2, 'add_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (6, 'Can change permission', 2, 'change_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (7, 'Can delete permission', 2, 'delete_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (8, 'Can view permission', 2, 'view_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (9, 'Can add group', 3, 'add_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (10, 'Can change group', 3, 'change_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (11, 'Can delete group', 3, 'delete_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (12, 'Can view group', 3, 'view_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (13, 'Can add user', 4, 'add_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (14, 'Can change user', 4, 'change_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (15, 'Can delete user', 4, 'delete_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (16, 'Can view user', 4, 'view_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (17, 'Can add content type', 5, 'add_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (18, 'Can change content type', 5, 'change_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (19, 'Can delete content type', 5, 'delete_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (20, 'Can view content type', 5, 'view_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (21, 'Can add session', 6, 'add_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (22, 'Can change session', 6, 'change_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (23, 'Can delete session', 6, 'delete_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (24, 'Can view session', 6, 'view_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (25, 'Can add global id', 7, 'add_globalid');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (26, 'Can change global id', 7, 'change_globalid');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (27, 'Can delete global id', 7, 'delete_globalid');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (28, 'Can view global id', 7, 'view_globalid');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (29, 'Can add image', 8, 'add_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (30, 'Can change image', 8, 'change_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (31, 'Can delete image', 8, 'delete_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (32, 'Can view image', 8, 'view_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (33, 'Can add voting', 9, 'add_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (34, 'Can change voting', 9, 'change_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (35, 'Can delete voting', 9, 'delete_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (36, 'Can view voting', 9, 'view_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (37, 'Can add nation', 10, 'add_nation');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (38, 'Can change nation', 10, 'change_nation');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (39, 'Can delete nation', 10, 'delete_nation');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (40, 'Can view nation', 10, 'view_nation');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (41, 'Can add city', 11, 'add_city');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (42, 'Can change city', 11, 'change_city');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (43, 'Can delete city', 11, 'delete_city');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (44, 'Can view city', 11, 'view_city');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (45, 'Can add restaurant', 12, 'add_restaurant');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (46, 'Can change restaurant', 12, 'change_restaurant');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (47, 'Can delete restaurant', 12, 'delete_restaurant');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (48, 'Can view restaurant', 12, 'view_restaurant');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (49, 'Can add attraction', 13, 'add_attraction');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (50, 'Can change attraction', 13, 'change_attraction');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (51, 'Can delete attraction', 13, 'delete_attraction');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (52, 'Can view attraction', 13, 'view_attraction');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (53, 'Can add stay', 14, 'add_stay');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (54, 'Can change stay', 14, 'change_stay');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (55, 'Can delete stay', 14, 'delete_stay');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (56, 'Can view stay', 14, 'view_stay');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (57, 'Can add attraction_ voting', 15, 'add_attraction_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (58, 'Can change attraction_ voting', 15, 'change_attraction_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (59, 'Can delete attraction_ voting', 15, 'delete_attraction_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (60, 'Can view attraction_ voting', 15, 'view_attraction_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (61, 'Can add city_ image', 16, 'add_city_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (62, 'Can change city_ image', 16, 'change_city_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (63, 'Can delete city_ image', 16, 'delete_city_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (64, 'Can view city_ image', 16, 'view_city_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (65, 'Can add city_ voting', 17, 'add_city_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (66, 'Can change city_ voting', 17, 'change_city_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (67, 'Can delete city_ voting', 17, 'delete_city_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (68, 'Can view city_ voting', 17, 'view_city_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (69, 'Can add nation_ image', 18, 'add_nation_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (70, 'Can change nation_ image', 18, 'change_nation_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (71, 'Can delete nation_ image', 18, 'delete_nation_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (72, 'Can view nation_ image', 18, 'view_nation_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (73, 'Can add nation_ voting', 19, 'add_nation_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (74, 'Can change nation_ voting', 19, 'change_nation_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (75, 'Can delete nation_ voting', 19, 'delete_nation_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (76, 'Can view nation_ voting', 19, 'view_nation_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (77, 'Can add restaurant_ image', 20, 'add_restaurant_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (78, 'Can change restaurant_ image', 20, 'change_restaurant_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (79, 'Can delete restaurant_ image', 20, 'delete_restaurant_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (80, 'Can view restaurant_ image', 20, 'view_restaurant_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (81, 'Can add restaurant_ voting', 21, 'add_restaurant_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (82, 'Can change restaurant_ voting', 21, 'change_restaurant_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (83, 'Can delete restaurant_ voting', 21, 'delete_restaurant_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (84, 'Can view restaurant_ voting', 21, 'view_restaurant_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (85, 'Can add stay_ image', 22, 'add_stay_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (86, 'Can change stay_ image', 22, 'change_stay_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (87, 'Can delete stay_ image', 22, 'delete_stay_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (88, 'Can view stay_ image', 22, 'view_stay_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (89, 'Can add stay_ voting', 23, 'add_stay_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (90, 'Can change stay_ voting', 23, 'change_stay_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (91, 'Can delete stay_ voting', 23, 'delete_stay_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (92, 'Can view stay_ voting', 23, 'view_stay_voting');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (93, 'Can add attraction_ image', 8, 'add_attraction_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (94, 'Can change attraction_ image', 8, 'change_attraction_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (95, 'Can delete attraction_ image', 8, 'delete_attraction_image');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (96, 'Can view attraction_ image', 8, 'view_attraction_image');
+
+
+--
+-- TOC entry 3582 (class 0 OID 16437)
+-- Dependencies: 220
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES (1, 'pbkdf2_sha256$260000$ndHXQwn4R2nyBPtnjwXqfA$lVce4BAyI7oE1ROPaOcI7WDzgycvMdaCQu8twEoM1FI=', '2021-10-12 20:31:55.413151+07', true, 'admin', '', '', '', true, true, '2021-10-12 16:00:02.898097+07');
+
+
+--
+-- TOC entry 3584 (class 0 OID 16446)
+-- Dependencies: 222
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3586 (class 0 OID 16453)
+-- Dependencies: 224
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3588 (class 0 OID 16512)
+-- Dependencies: 226
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3574 (class 0 OID 16405)
+-- Dependencies: 212
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (1, 'admin', 'logentry');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (2, 'auth', 'permission');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (3, 'auth', 'group');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (4, 'auth', 'user');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (5, 'contenttypes', 'contenttype');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (6, 'sessions', 'session');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (7, 'api', 'globalid');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (9, 'api', 'voting');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (10, 'api', 'nation');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (11, 'api', 'city');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (12, 'api', 'restaurant');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (13, 'api', 'attraction');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (14, 'api', 'stay');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (8, 'api', 'attraction_image');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (15, 'api', 'attraction_voting');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (16, 'api', 'city_image');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (17, 'api', 'city_voting');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (18, 'api', 'nation_image');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (19, 'api', 'nation_voting');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (20, 'api', 'restaurant_image');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (21, 'api', 'restaurant_voting');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (22, 'api', 'stay_image');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (23, 'api', 'stay_voting');
+
+
+--
+-- TOC entry 3572 (class 0 OID 16396)
+-- Dependencies: 210
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (1, 'contenttypes', '0001_initial', '2021-10-12 15:57:17.208937+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (2, 'auth', '0001_initial', '2021-10-12 15:57:17.336287+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (3, 'admin', '0001_initial', '2021-10-12 15:57:17.36793+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (4, 'admin', '0002_logentry_remove_auto_add', '2021-10-12 15:57:17.383558+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (5, 'admin', '0003_logentry_add_action_flag_choices', '2021-10-12 15:57:17.383558+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (6, 'contenttypes', '0002_remove_content_type_name', '2021-10-12 15:57:17.414806+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (7, 'auth', '0002_alter_permission_name_max_length', '2021-10-12 15:57:17.414806+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (8, 'auth', '0003_alter_user_email_max_length', '2021-10-12 15:57:17.430431+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (9, 'auth', '0004_alter_user_username_opts', '2021-10-12 15:57:17.446056+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (10, 'auth', '0005_alter_user_last_login_null', '2021-10-12 15:57:17.446056+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (11, 'auth', '0006_require_contenttypes_0002', '2021-10-12 15:57:17.446056+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (12, 'auth', '0007_alter_validators_add_error_messages', '2021-10-12 15:57:17.462073+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (13, 'auth', '0008_alter_user_username_max_length', '2021-10-12 15:57:17.477697+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (14, 'auth', '0009_alter_user_last_name_max_length', '2021-10-12 15:57:17.477697+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (15, 'auth', '0010_alter_group_name_max_length', '2021-10-12 15:57:17.493325+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (16, 'auth', '0011_update_proxy_permissions', '2021-10-12 15:57:17.493325+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (17, 'auth', '0012_alter_user_first_name_max_length', '2021-10-12 15:57:17.508948+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (18, 'sessions', '0001_initial', '2021-10-12 15:57:17.524572+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (19, 'api', '0001_initial', '2021-10-12 18:58:20.734854+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (20, 'api', '0002_auto_20211012_2011', '2021-10-12 20:11:23.285043+07');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (21, 'api', '0003_auto_20211012_2146', '2021-10-12 21:46:48.21062+07');
+
+
+--
+-- TOC entry 3589 (class 0 OID 16541)
+-- Dependencies: 227
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.django_session (session_key, session_data, expire_date) VALUES ('h9k3wfjpntasbr46p52u0isdscebzwrl', '.eJxVjMEOwiAQRP-FsyGwLS149N5vIMuySNVAUtqT8d9tkx70OPPezFt43Nbst8aLn6O4Ci0uv11AenI5QHxguVdJtazLHOShyJM2OdXIr9vp_h1kbHlfY7A6WgKn42icTg6od32iPQQg1loRw2gUJ2UdROwcJ8ChM4qGABzE5wvisDgE:1maHsp:U5Q0bdNRm4EXm8IoantoRqxlr3FUltDo4S7Ooisn6ts', '2021-10-26 20:31:55.415149+07');
+
+
+--
+-- TOC entry 3649 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: api_attraction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_attraction_id_seq', 300, true);
+
+
+--
+-- TOC entry 3650 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: api_attraction_voting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_attraction_voting_id_seq', 1, false);
+
+
+--
+-- TOC entry 3651 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: api_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_city_id_seq', 14, true);
+
+
+--
+-- TOC entry 3652 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: api_city_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_city_image_id_seq', 1, false);
+
+
+--
+-- TOC entry 3653 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: api_city_voting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_city_voting_id_seq', 1, false);
+
+
+--
+-- TOC entry 3654 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: api_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_image_id_seq', 2470, true);
+
+
+--
+-- TOC entry 3655 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: api_nation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_nation_id_seq', 2, true);
+
+
+--
+-- TOC entry 3656 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: api_nation_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_nation_image_id_seq', 1, false);
+
+
+--
+-- TOC entry 3657 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: api_nation_voting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_nation_voting_id_seq', 1, false);
+
+
+--
+-- TOC entry 3658 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: api_restaurant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_restaurant_id_seq', 172, true);
+
+
+--
+-- TOC entry 3659 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: api_restaurant_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_restaurant_image_id_seq', 1, false);
+
+
+--
+-- TOC entry 3660 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: api_restaurant_voting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_restaurant_voting_id_seq', 1, false);
+
+
+--
+-- TOC entry 3661 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: api_stay_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_stay_id_seq', 64, true);
+
+
+--
+-- TOC entry 3662 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: api_stay_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_stay_image_id_seq', 6, true);
+
+
+--
+-- TOC entry 3663 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: api_stay_voting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_stay_voting_id_seq', 1, false);
+
+
+--
+-- TOC entry 3664 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- TOC entry 3665 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3666 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 96, true);
+
+
+--
+-- TOC entry 3667 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- TOC entry 3668 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- TOC entry 3669 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3670 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- TOC entry 3671 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 23, true);
+
+
+--
+-- TOC entry 3672 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 21, true);
+
+
+--
+-- TOC entry 3371 (class 2606 OID 16629)
+-- Name: api_attraction api_attraction_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction
+    ADD CONSTRAINT api_attraction_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3374 (class 2606 OID 16693)
+-- Name: api_attraction_voting api_attraction_voting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_voting
+    ADD CONSTRAINT api_attraction_voting_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3378 (class 2606 OID 16702)
+-- Name: api_city_image api_city_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_image
+    ADD CONSTRAINT api_city_image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3357 (class 2606 OID 16558)
+-- Name: api_city api_city_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city
+    ADD CONSTRAINT api_city_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3381 (class 2606 OID 16709)
+-- Name: api_city_voting api_city_voting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_voting
+    ADD CONSTRAINT api_city_voting_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3368 (class 2606 OID 16610)
+-- Name: api_attraction_image api_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_image
+    ADD CONSTRAINT api_image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3385 (class 2606 OID 16718)
+-- Name: api_nation_image api_nation_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_image
+    ADD CONSTRAINT api_nation_image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3365 (class 2606 OID 16601)
+-- Name: api_nation api_nation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation
+    ADD CONSTRAINT api_nation_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3388 (class 2606 OID 16725)
+-- Name: api_nation_voting api_nation_voting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_voting
+    ADD CONSTRAINT api_nation_voting_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3392 (class 2606 OID 16734)
+-- Name: api_restaurant_image api_restaurant_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_image
+    ADD CONSTRAINT api_restaurant_image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3363 (class 2606 OID 16592)
+-- Name: api_restaurant api_restaurant_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant
+    ADD CONSTRAINT api_restaurant_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3395 (class 2606 OID 16741)
+-- Name: api_restaurant_voting api_restaurant_voting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_voting
+    ADD CONSTRAINT api_restaurant_voting_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3399 (class 2606 OID 16750)
+-- Name: api_stay_image api_stay_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_image
+    ADD CONSTRAINT api_stay_image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3360 (class 2606 OID 16583)
+-- Name: api_stay api_stay_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay
+    ADD CONSTRAINT api_stay_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3402 (class 2606 OID 16757)
+-- Name: api_stay_voting api_stay_voting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_voting
+    ADD CONSTRAINT api_stay_voting_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3321 (class 2606 OID 16539)
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3326 (class 2606 OID 16469)
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- TOC entry 3329 (class 2606 OID 16435)
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3323 (class 2606 OID 16426)
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3316 (class 2606 OID 16460)
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- TOC entry 3318 (class 2606 OID 16419)
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3337 (class 2606 OID 16451)
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3340 (class 2606 OID 16484)
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- TOC entry 3331 (class 2606 OID 16442)
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3343 (class 2606 OID 16458)
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3346 (class 2606 OID 16498)
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- TOC entry 3334 (class 2606 OID 16534)
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 3349 (class 2606 OID 16520)
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3311 (class 2606 OID 16412)
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- TOC entry 3313 (class 2606 OID 16410)
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3309 (class 2606 OID 16403)
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3353 (class 2606 OID 16547)
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- TOC entry 3369 (class 1259 OID 16684)
+-- Name: api_attraction_city_id_id_b2a624c9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_attraction_city_id_id_b2a624c9 ON public.api_attraction USING btree (city_id);
+
+
+--
+-- TOC entry 3372 (class 1259 OID 16865)
+-- Name: api_attraction_voting_item_vote_id_5073a2ce; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_attraction_voting_item_vote_id_5073a2ce ON public.api_attraction_voting USING btree (item_vote_id);
+
+
+--
+-- TOC entry 3375 (class 1259 OID 16866)
+-- Name: api_attraction_voting_user_id_676ec71f; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_attraction_voting_user_id_676ec71f ON public.api_attraction_voting USING btree (user_id);
+
+
+--
+-- TOC entry 3376 (class 1259 OID 16864)
+-- Name: api_city_image_item_id_75262a80; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_city_image_item_id_75262a80 ON public.api_city_image USING btree (item_id);
+
+
+--
+-- TOC entry 3355 (class 1259 OID 16673)
+-- Name: api_city_nation_id_id_a75160af; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_city_nation_id_id_a75160af ON public.api_city USING btree (nation_id);
+
+
+--
+-- TOC entry 3379 (class 1259 OID 16862)
+-- Name: api_city_voting_item_vote_id_f69dfd1c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_city_voting_item_vote_id_f69dfd1c ON public.api_city_voting USING btree (item_vote_id);
+
+
+--
+-- TOC entry 3382 (class 1259 OID 16863)
+-- Name: api_city_voting_user_id_c405c1a8; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_city_voting_user_id_c405c1a8 ON public.api_city_voting USING btree (user_id);
+
+
+--
+-- TOC entry 3366 (class 1259 OID 16671)
+-- Name: api_image_item_id_855af8df; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_image_item_id_855af8df ON public.api_attraction_image USING btree (item_id);
+
+
+--
+-- TOC entry 3383 (class 1259 OID 16861)
+-- Name: api_nation_image_item_id_befb47df; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_nation_image_item_id_befb47df ON public.api_nation_image USING btree (item_id);
+
+
+--
+-- TOC entry 3386 (class 1259 OID 16859)
+-- Name: api_nation_voting_item_vote_id_55b81df6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_nation_voting_item_vote_id_55b81df6 ON public.api_nation_voting USING btree (item_vote_id);
+
+
+--
+-- TOC entry 3389 (class 1259 OID 16860)
+-- Name: api_nation_voting_user_id_079c09a0; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_nation_voting_user_id_079c09a0 ON public.api_nation_voting USING btree (user_id);
+
+
+--
+-- TOC entry 3361 (class 1259 OID 16658)
+-- Name: api_restaurant_city_id_id_be9873fe; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_restaurant_city_id_id_be9873fe ON public.api_restaurant USING btree (city_id);
+
+
+--
+-- TOC entry 3390 (class 1259 OID 16858)
+-- Name: api_restaurant_image_item_id_7b3cdc91; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_restaurant_image_item_id_7b3cdc91 ON public.api_restaurant_image USING btree (item_id);
+
+
+--
+-- TOC entry 3393 (class 1259 OID 16856)
+-- Name: api_restaurant_voting_item_vote_id_b10e2d9f; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_restaurant_voting_item_vote_id_b10e2d9f ON public.api_restaurant_voting USING btree (item_vote_id);
+
+
+--
+-- TOC entry 3396 (class 1259 OID 16857)
+-- Name: api_restaurant_voting_user_id_3d9e4226; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_restaurant_voting_user_id_3d9e4226 ON public.api_restaurant_voting USING btree (user_id);
+
+
+--
+-- TOC entry 3358 (class 1259 OID 16646)
+-- Name: api_stay_city_id_id_1f313c3d; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_stay_city_id_id_1f313c3d ON public.api_stay USING btree (city_id);
+
+
+--
+-- TOC entry 3397 (class 1259 OID 16855)
+-- Name: api_stay_image_item_id_bac3c324; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_stay_image_item_id_bac3c324 ON public.api_stay_image USING btree (item_id);
+
+
+--
+-- TOC entry 3400 (class 1259 OID 16853)
+-- Name: api_stay_voting_item_vote_id_59a19233; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_stay_voting_item_vote_id_59a19233 ON public.api_stay_voting USING btree (item_vote_id);
+
+
+--
+-- TOC entry 3403 (class 1259 OID 16854)
+-- Name: api_stay_voting_user_id_6cad34d4; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_stay_voting_user_id_6cad34d4 ON public.api_stay_voting USING btree (user_id);
+
+
+--
+-- TOC entry 3319 (class 1259 OID 16540)
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- TOC entry 3324 (class 1259 OID 16480)
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- TOC entry 3327 (class 1259 OID 16481)
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 3314 (class 1259 OID 16466)
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- TOC entry 3335 (class 1259 OID 16496)
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- TOC entry 3338 (class 1259 OID 16495)
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- TOC entry 3341 (class 1259 OID 16510)
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 3344 (class 1259 OID 16509)
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- TOC entry 3332 (class 1259 OID 16535)
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- TOC entry 3347 (class 1259 OID 16531)
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- TOC entry 3350 (class 1259 OID 16532)
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- TOC entry 3351 (class 1259 OID 16549)
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- TOC entry 3354 (class 1259 OID 16548)
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- TOC entry 3417 (class 2606 OID 16758)
+-- Name: api_attraction api_attraction_city_id_cb0f3c09_fk_api_city_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction
+    ADD CONSTRAINT api_attraction_city_id_cb0f3c09_fk_api_city_id FOREIGN KEY (city_id) REFERENCES public.api_city(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3416 (class 2606 OID 16778)
+-- Name: api_attraction_image api_attraction_image_item_id_492d8d6d_fk_api_attraction_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_image
+    ADD CONSTRAINT api_attraction_image_item_id_492d8d6d_fk_api_attraction_id FOREIGN KEY (item_id) REFERENCES public.api_attraction(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3418 (class 2606 OID 16843)
+-- Name: api_attraction_voting api_attraction_votin_item_vote_id_5073a2ce_fk_api_attra; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_voting
+    ADD CONSTRAINT api_attraction_votin_item_vote_id_5073a2ce_fk_api_attra FOREIGN KEY (item_vote_id) REFERENCES public.api_attraction(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3419 (class 2606 OID 16848)
+-- Name: api_attraction_voting api_attraction_voting_user_id_676ec71f_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_attraction_voting
+    ADD CONSTRAINT api_attraction_voting_user_id_676ec71f_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3420 (class 2606 OID 16838)
+-- Name: api_city_image api_city_image_item_id_75262a80_fk_api_city_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_image
+    ADD CONSTRAINT api_city_image_item_id_75262a80_fk_api_city_id FOREIGN KEY (item_id) REFERENCES public.api_city(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3413 (class 2606 OID 16763)
+-- Name: api_city api_city_nation_id_1e650d54_fk_api_nation_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city
+    ADD CONSTRAINT api_city_nation_id_1e650d54_fk_api_nation_id FOREIGN KEY (nation_id) REFERENCES public.api_nation(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3421 (class 2606 OID 16828)
+-- Name: api_city_voting api_city_voting_item_vote_id_f69dfd1c_fk_api_city_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_voting
+    ADD CONSTRAINT api_city_voting_item_vote_id_f69dfd1c_fk_api_city_id FOREIGN KEY (item_vote_id) REFERENCES public.api_city(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3422 (class 2606 OID 16833)
+-- Name: api_city_voting api_city_voting_user_id_c405c1a8_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_city_voting
+    ADD CONSTRAINT api_city_voting_user_id_c405c1a8_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3423 (class 2606 OID 16823)
+-- Name: api_nation_image api_nation_image_item_id_befb47df_fk_api_nation_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_image
+    ADD CONSTRAINT api_nation_image_item_id_befb47df_fk_api_nation_id FOREIGN KEY (item_id) REFERENCES public.api_nation(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3424 (class 2606 OID 16813)
+-- Name: api_nation_voting api_nation_voting_item_vote_id_55b81df6_fk_api_nation_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_voting
+    ADD CONSTRAINT api_nation_voting_item_vote_id_55b81df6_fk_api_nation_id FOREIGN KEY (item_vote_id) REFERENCES public.api_nation(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3425 (class 2606 OID 16818)
+-- Name: api_nation_voting api_nation_voting_user_id_079c09a0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_nation_voting
+    ADD CONSTRAINT api_nation_voting_user_id_079c09a0_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3415 (class 2606 OID 16768)
+-- Name: api_restaurant api_restaurant_city_id_25bc344e_fk_api_city_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant
+    ADD CONSTRAINT api_restaurant_city_id_25bc344e_fk_api_city_id FOREIGN KEY (city_id) REFERENCES public.api_city(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3426 (class 2606 OID 16808)
+-- Name: api_restaurant_image api_restaurant_image_item_id_7b3cdc91_fk_api_restaurant_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_image
+    ADD CONSTRAINT api_restaurant_image_item_id_7b3cdc91_fk_api_restaurant_id FOREIGN KEY (item_id) REFERENCES public.api_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3427 (class 2606 OID 16798)
+-- Name: api_restaurant_voting api_restaurant_votin_item_vote_id_b10e2d9f_fk_api_resta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_voting
+    ADD CONSTRAINT api_restaurant_votin_item_vote_id_b10e2d9f_fk_api_resta FOREIGN KEY (item_vote_id) REFERENCES public.api_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3428 (class 2606 OID 16803)
+-- Name: api_restaurant_voting api_restaurant_voting_user_id_3d9e4226_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_restaurant_voting
+    ADD CONSTRAINT api_restaurant_voting_user_id_3d9e4226_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3414 (class 2606 OID 16773)
+-- Name: api_stay api_stay_city_id_35dc972f_fk_api_city_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay
+    ADD CONSTRAINT api_stay_city_id_35dc972f_fk_api_city_id FOREIGN KEY (city_id) REFERENCES public.api_city(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3429 (class 2606 OID 16793)
+-- Name: api_stay_image api_stay_image_item_id_bac3c324_fk_api_stay_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_image
+    ADD CONSTRAINT api_stay_image_item_id_bac3c324_fk_api_stay_id FOREIGN KEY (item_id) REFERENCES public.api_stay(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3430 (class 2606 OID 16783)
+-- Name: api_stay_voting api_stay_voting_item_vote_id_59a19233_fk_api_stay_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_voting
+    ADD CONSTRAINT api_stay_voting_item_vote_id_59a19233_fk_api_stay_id FOREIGN KEY (item_vote_id) REFERENCES public.api_stay(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3431 (class 2606 OID 16788)
+-- Name: api_stay_voting api_stay_voting_user_id_6cad34d4_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_stay_voting
+    ADD CONSTRAINT api_stay_voting_user_id_6cad34d4_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3406 (class 2606 OID 16475)
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3405 (class 2606 OID 16470)
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3404 (class 2606 OID 16461)
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3408 (class 2606 OID 16490)
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3407 (class 2606 OID 16485)
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3410 (class 2606 OID 16504)
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3409 (class 2606 OID 16499)
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3411 (class 2606 OID 16521)
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3412 (class 2606 OID 16526)
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+-- Completed on 2021-10-12 23:54:20
+
+--
+-- PostgreSQL database dump complete
+--
+
