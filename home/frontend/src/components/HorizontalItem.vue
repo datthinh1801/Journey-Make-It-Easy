@@ -1,7 +1,7 @@
 <template>
   <div
     :class="$style['item-container']"
-    :style="{ height: itemHeight, width: itemWidth }"
+    :style="{ height: itemRenderHeight, width: itemRenderWidth }"
   >
     <div :class="$style['img-container']">
       <img
@@ -40,6 +40,20 @@ export default {
         return "300";
       }
       return parseInt(this.imgHeight);
+    },
+    itemRenderHeight() {
+      if (screen.width < 500) {
+        return "auto";
+      } else {
+        return this.itemHeight;
+      }
+    },
+    itemRenderWidth() {
+      if (screen.width < 500) {
+        return "auto";
+      } else {
+        return this.itemWidth;
+      }
     },
   },
 };
@@ -81,6 +95,12 @@ export default {
 
   100% {
     background-position: 0% -200%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .item-container {
+    flex-direction: column;
   }
 }
 </style>

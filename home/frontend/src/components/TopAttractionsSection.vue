@@ -114,9 +114,6 @@ div.item-description .title {
 
   .item-description {
     text-align: center;
-  }
-
-  .item-description {
     font-size: 14px;
   }
 }
