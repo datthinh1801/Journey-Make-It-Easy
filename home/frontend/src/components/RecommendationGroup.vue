@@ -207,4 +207,14 @@ export default {
 .rightButton {
   right: 0;
 }
+
+@media only screen and (max-width: 500px)
+{
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 320px;
+  }
+
+}
 </style>
