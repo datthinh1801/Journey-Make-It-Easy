@@ -46,7 +46,13 @@ export default {
     return {
       this_item: 0,
       showed_items: 4,
+      imgWidth: "235px",
+      imgHeight: "200px",
     };
+  },
+  created(){
+    window.addEventListener("resize",this.resize_img_mobile);
+    this.resize_img_mobile();
   },
   computed: {
     items() {
@@ -64,12 +70,12 @@ export default {
         this.this_item + this.showed_items
       );
     },
-    imgWidth() {
-      return "235px";
-    },
-    imgHeight() {
-      return "200px";
-    },
+    // imgWidth() {
+    //   return "235px";
+    // },
+    // imgHeight() {
+    //   return "200px";
+    // },
   },
   methods: {
     moveLeft() {
@@ -81,6 +87,17 @@ export default {
     redirectToItem(item) {
       this.$store.commit("changeItemId", item.id);
       this.$router.push({ name: "restaurant", query: { id: item.id } });
+    },
+    resize_img_mobile(){
+      if (screen.width>800)
+      {
+        this.imgWidth= "235px";
+        this.imgHeight = "200px";
+      }
+      else{
+        this.imgWidth= "170px";
+        this.imgHeight = "185px";
+      }
     },
   },
   beforeMount() {
@@ -149,4 +166,40 @@ export default {
   color: white;
   border-color: black;
 }
+
+@media only screen and (max-width: 500px){
+
+.leftButton,
+.rightButton {
+  background-color: white;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  height: 25px;
+  width: 25px;
+  top: 33%;
+
+  border-radius: 100%;
+  border: 2px solid black;
+
+  font-size: 18px;
+  transition: 0.2s;
+  z-index: 0;
+  cursor: pointer;
+}
+  .leftButton {
+    padding-right: 6px;
+    left: 5px;
+  }
+
+  .rightButton {
+    padding-left: 6px;
+    right: -20px;
+  }
+
+} 
 </style>

@@ -3,7 +3,7 @@
         <hr>
         <div class="width-control" :class="$style.footer">
             <div class="logo no-select" :class="$style['logo-footer']">Journey: Make it easy</div>
-            <span>{{ thisYear }} &copy; All rights reserved</span>
+            <span :class="$style['center-text']">{{ thisYear }} &copy; All rights reserved</span>
             <div :class="$style['sns']">
                 <span>Powered by</span>
                 <font-awesome-icon :icon="['fab', 'python']" />
@@ -16,6 +16,10 @@
 <style module>
 .footer-container {
     padding: 10px 0;
+}
+
+.center-text{
+
 }
 
 .footer-container hr {
@@ -36,7 +40,7 @@
 }
 
 .sns {
-    font-size: 24px;
+    font-size: 22px;
     display: flex;
     align-items: center;
     color: #888;
@@ -45,6 +49,29 @@
 .sns span {
     font-size: 16px;
     margin-right: 5px;
+}
+
+@media only screen and (max-width: 500px)
+{
+    .logo-footer {
+        font-family: 'Pacifico', cursive;
+        font-size: 15px;
+            color: #f9c100;
+    }
+    .center-text{
+        font-size:10px;
+    }
+    .sns {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    color: #888;
+}
+.footer-container {
+    padding: 10px 0;
+    height: 10px;
+}
+
 }
 </style>
 

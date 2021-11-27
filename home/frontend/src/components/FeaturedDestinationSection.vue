@@ -92,16 +92,7 @@
 }
 
 
-@media only screen and (max-width: 800px){
-    .item-list-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-    width: 100%;
-    height: 30%;
-    position: relative;
-    z-index: 0;
-  }
+@media only screen and (max-width: 500px){
 
 .leftButton,
 .rightButton {
@@ -212,7 +203,7 @@ export default {
         this.imgWidth= "170px";
         this.imgHeight = "185px";
       }
-    }
+    },
   },
   beforeMount() {
     this.$store.dispatch("getAllCities");
