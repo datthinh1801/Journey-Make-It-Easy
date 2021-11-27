@@ -138,13 +138,14 @@ export default {
       }
     },
     relayoutNav() {
-      if (screen.width < 800) {
+      if (screen.width < 500) {
         this.setNavItem("explore");
         this.showButton = true;
       } else {
         this.setNavItem("");
         this.showButton = false;
       }
+      // TODO: width < 1000 here
     },
     moveLeft() {
       this.currentNavIndex = (this.currentNavIndex - 1 + 5) % 5;
@@ -186,22 +187,31 @@ export default {
   color: white;
 }
 
-.navButton {
-  background-color: transparent;
-  color: black;
-  height: 70px;
-  margin: 0;
-  border-radius: 0;
-}
-
-.navButton:hover {
-  background-color: transparent;
-}
-
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .navItem {
-    width: 80%;
+    width: 60%;
+    height: 30px;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .navItem svg {
+    margin-left: 5px;
+  }
+
+  .navButton {
+    background-color: transparent;
+    color: black;
+    height: 70px;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .navButton:hover {
+    background-color: transparent;
   }
 }
 </style>
