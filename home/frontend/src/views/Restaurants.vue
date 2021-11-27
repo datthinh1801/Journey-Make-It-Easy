@@ -80,6 +80,8 @@ export default {
   data() {
     return {
       item_n: 10,
+      itemHeight: "300px",
+      imgWidth: "300px",
     };
   },
   computed: {
@@ -92,15 +94,15 @@ export default {
     items() {
       return this.$store.state.restaurantArr.slice(0, this.item_n);
     },
-    itemHeight() {
-      return "250px";
-    },
+    // itemHeight() {
+    //   return "200px";
+    // },
     itemWidth() {
       return "800px";
     },
-    imgWidth() {
-      return "250px";
-    },
+    // imgWidth() {
+    //   return "100%";
+    // },
     imgHeight() {
       return this.itemHeight;
     },
@@ -120,6 +122,16 @@ export default {
       return item.specialDiets
         .map((specialDiet) => specialDiet["value"])
         .join(", ");
+    },
+    resize_mobile(){
+      if(screen.width<=500){
+        this.itemHeight = "200px";
+        this.imgWidth = "100%";
+      }
+      else{
+        this.itemHeight = "300px";
+        this.imgWidth = "300px";
+      }
     },
   },
   beforeCreate() {
@@ -143,6 +155,10 @@ export default {
   beforeDestroy() {
     this.$store.commit("clearAllRestaurants");
   },
+    mounted() {
+    window.addEventListener("resize", this.resize_mobile);
+    this.resize_mobile();
+  },
 };
 </script>
 
@@ -163,8 +179,7 @@ h1.head {
 .item-detail-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  width: 100%;
+  padding: 10px;
 }
 
 .item-detail-top h3 {
@@ -173,8 +188,9 @@ h1.head {
 }
 
 .item-detail-top hr {
-  max-width: 100%;
   width: 100%;
+  max-width: 100%;
+  
 }
 
 .item-detail-bottom {
@@ -206,5 +222,28 @@ h1.head {
 
 .place {
   color: #2e86c1;
+}
+
+@media only screen and (max-width: 500px)
+{
+  .item-detail-top h3{
+    font-size: 14px;
+  }
+  .item-detail-bottom {
+    font-size: 12px;
+  }
+
+  .item-detail-container .price,
+.item-detail-container .cuisine,
+.item-detail-container .specialty {
+  font-size: 14px;
+  width: 15px;
+  margin-right: 5px;
+}
+h1.head {
+  text-align: center;
+  font-size: 30px
+}
+
 }
 </style>

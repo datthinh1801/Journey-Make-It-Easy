@@ -76,6 +76,8 @@ export default {
   data() {
     return {
       item_n: 10,
+      itemHeight: "300px",
+      imgWidth: "300px",
     };
   },
   computed: {
@@ -88,15 +90,15 @@ export default {
     items() {
       return this.$store.state.hotelArr.slice(0, this.item_n);
     },
-    imgWidth() {
-      return "250px";
-    },
+    // imgWidth() {
+    //   return "250px";
+    // },
     imgHeight() {
       return this.itemHeight;
     },
-    itemHeight() {
-      return "250px";
-    },
+    // itemHeight() {
+    //   return "250px";
+    // },
     itemWidth() {
       return "800px";
     },
@@ -121,6 +123,16 @@ export default {
       this.$store.commit("changeItemId", item.id);
       this.$router.push({ name: "hotel", query: { id: item.id } });
     },
+        resize_mobile(){
+      if(screen.width<=500){
+        this.itemHeight = "200px";
+        this.imgWidth = "100%";
+      }
+      else{
+        this.itemHeight = "300px";
+        this.imgWidth = "300px";
+      }
+    },
   },
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
@@ -140,6 +152,10 @@ export default {
   beforeMount() {},
   beforeDestroy() {
     this.$store.commit("clearAllHotels");
+  },
+  mounted() {
+    window.addEventListener("resize", this.resize_mobile);
+    this.resize_mobile();
   },
 };
 </script>
@@ -203,5 +219,23 @@ h1.head {
 
 .place {
   color: #2e86c1;
+}
+
+@media only screen and (max-width: 500px)
+{
+  h1.head {
+  text-align: center;
+  font-size: 30px;
+}
+
+  .item-detail-top{
+    font-size: 14px;
+  }
+  .item-detail-bottom h5 {
+    font-size: 12px;
+  }
+  .item-detail-bottom li{
+    font-size: 12px;
+  }
 }
 </style>

@@ -98,7 +98,7 @@ div.item-description .title {
 
 @media only screen and (max-width: 500px) {
   h1.header {
-    font-size: 25px;
+    font-size: 30px;
   }
 
   .content-container {

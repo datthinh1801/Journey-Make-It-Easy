@@ -19,6 +19,12 @@
 export default {
   name: "HorizontalItem",
   props: ["imgSrc", "imgHeight", "imgWidth", "itemHeight", "itemWidth"],
+  data(){
+    return {
+      itemRenderHeight: "auto",
+      itemRenderWidth: "auto",
+    };
+  },
   computed: {
     imgUrl() {
       let newUrl = this.imgSrc
@@ -41,20 +47,38 @@ export default {
       }
       return parseInt(this.imgHeight);
     },
-    itemRenderHeight() {
+    // itemRenderHeight() {
+    //   if (screen.width < 500) {
+    //     return "auto";
+    //   } else {
+    //     return this.itemHeight;
+    //   }
+    // },
+    // itemRenderWidth() {
+    //   if (screen.width < 500) {
+    //     return "auto";
+    //   } else {
+    //     return this.itemWidth;
+    //   }
+    // },
+  },
+  methods:{
+    resize_mobile()
+    {
       if (screen.width < 500) {
-        return "auto";
+        this.itemRenderHeight = "auto";
+        this.itemRenderWidth = "auto";
+        this.imgHeight = "200px";
+        this.imgWidth = "100%";
       } else {
-        return this.itemHeight;
+        this.itemRenderHeight =  this.itemHeight;
+        this.itemRenderWidth = this.itemWidth;
       }
-    },
-    itemRenderWidth() {
-      if (screen.width < 500) {
-        return "auto";
-      } else {
-        return this.itemWidth;
-      }
-    },
+    }
+  },
+  mounted() {
+    window.addEventListener("resize", this.resize_mobile);
+    this.resize_mobile();
   },
 };
 </script>
