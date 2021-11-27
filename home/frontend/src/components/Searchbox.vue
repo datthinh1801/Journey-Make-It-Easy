@@ -165,4 +165,32 @@ export default {
   margin-left: 55px;
   list-style: none;
 }
+
+@media only screen and (max-width:800px)
+{
+  .search-box-container {
+    height: fit-content;
+    width: 50%;
+    border: 1px solid #aaaaaa;
+    background-color: white;
+    border-radius: 24px;
+    padding: 5px 5px;
+    margin: auto;
+  }
+
+  .search-box {
+    border: none;
+    font-size: 10px;
+    font-weight: 500;
+    width: 100%;
+    height: 90%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+  .search-icon {
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+}
 </style>

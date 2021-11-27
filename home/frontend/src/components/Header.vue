@@ -30,7 +30,7 @@ header {
   width: 100%;
   /* width : auto; */
   padding: 10px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .logo {
