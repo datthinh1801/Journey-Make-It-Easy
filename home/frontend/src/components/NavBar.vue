@@ -1,8 +1,13 @@
 <template>
   <nav class="row-container width-control">
+    <button :class="$style.navButton" @click="moveLeft" v-if="showButton">
+      <font-awesome-icon icon="chevron-left" />
+    </button>
+
     <router-link
       :class="[$style.navItem, 'roboto']"
       :to="'/explore?cityid=' + cityid"
+      v-show="showExplore"
     >
       Explore
       <font-awesome-icon icon="globe-asia" />
@@ -10,6 +15,7 @@
     <router-link
       :class="[$style.navItem, 'roboto']"
       :to="'/attractions?cityid=' + cityid"
+      v-show="showAttractions"
     >
       Attractions
       <font-awesome-icon icon="umbrella-beach" />
@@ -17,6 +23,7 @@
     <router-link
       :class="[$style.navItem, 'roboto']"
       :to="'/restaurants?cityid=' + cityid"
+      v-show="showRestaurants"
     >
       Restaurants
       <font-awesome-icon icon="utensils" />
@@ -24,33 +31,134 @@
     <router-link
       :class="[$style.navItem, 'roboto']"
       :to="'/hotels?cityid=' + cityid"
+      v-show="showHotels"
     >
       Hotels
       <font-awesome-icon icon="hotel" />
     </router-link>
-    <router-link :class="[$style.navItem, 'roboto']" to="/articles">
+    <router-link
+      :class="[$style.navItem, 'roboto']"
+      to="/articles"
+      v-show="showArticles"
+    >
       Articles
       <font-awesome-icon icon="pencil-alt" />
     </router-link>
+    <button :class="$style.navButton" @click="moveRight" v-if="showButton">
+      <font-awesome-icon icon="chevron-right" />
+    </button>
   </nav>
 </template>
 
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faGlobeAsia } from "@fortawesome/free-solid-svg-icons";
-import { faUtensils } from "@fortawesome/free-solid-svg-icons";
-import { faHotel } from "@fortawesome/free-solid-svg-icons";
-import { faUmbrellaBeach } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobeAsia,
+  faUtensils,
+  faHotel,
+  faUmbrellaBeach,
+  faPencilAlt,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faGlobeAsia, faUtensils, faHotel, faUmbrellaBeach, faPencilAlt);
+library.add(
+  faGlobeAsia,
+  faUtensils,
+  faHotel,
+  faUmbrellaBeach,
+  faPencilAlt,
+  faChevronLeft,
+  faChevronRight
+);
 export default {
   name: "NavBar",
   components: {},
+  data() {
+    return {
+      showExplore: true,
+      showAttractions: true,
+      showRestaurants: true,
+      showHotels: true,
+      showArticles: true,
+      currentNavIndex: 0,
+      showButton: false,
+      navNames: ["explore", "attractions", "restaurants", "hotels", "articles"],
+    };
+  },
   computed: {
     cityid() {
       return this.$store.state.city_id;
     },
+    showPrev() {
+      return this.currentNavIndex > 0;
+    },
+    showNext() {
+      return this.currentNavIndex < 5;
+    },
+  },
+  methods: {
+    setNavItem(name) {
+      if (name === "explore") {
+        this.showExplore = true;
+        this.showRestaurants = false;
+        this.showAttractions = false;
+        this.showHotels = false;
+        this.showArticles = false;
+      } else if (name === "attractions") {
+        this.showExplore = false;
+        this.showRestaurants = false;
+        this.showAttractions = true;
+        this.showHotels = false;
+        this.showArticles = false;
+      } else if (name === "restaurants") {
+        this.showExplore = false;
+        this.showRestaurants = true;
+        this.showAttractions = false;
+        this.showHotels = false;
+        this.showArticles = false;
+      } else if (name === "hotels") {
+        this.showExplore = false;
+        this.showRestaurants = false;
+        this.showAttractions = false;
+        this.showHotels = true;
+        this.showArticles = false;
+      } else if (name === "articles") {
+        this.showExplore = false;
+        this.showRestaurants = false;
+        this.showAttractions = false;
+        this.showHotels = false;
+        this.showArticles = true;
+      } else {
+        this.showExplore = true;
+        this.showRestaurants = true;
+        this.showAttractions = true;
+        this.showHotels = true;
+        this.showArticles = true;
+      }
+    },
+    relayoutNav() {
+      if (screen.width < 500) {
+        this.setNavItem("explore");
+        this.showButton = true;
+      } else {
+        this.setNavItem("");
+        this.showButton = false;
+      }
+      // TODO: width < 1000 here
+    },
+    moveLeft() {
+      this.currentNavIndex = (this.currentNavIndex - 1 + 5) % 5;
+      this.setNavItem(this.navNames[this.currentNavIndex]);
+    },
+    moveRight() {
+      this.currentNavIndex = (this.currentNavIndex + 1) % 5;
+      this.setNavItem(this.navNames[this.currentNavIndex]);
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.relayoutNav);
+    this.relayoutNav();
   },
 };
 </script>
@@ -77,5 +185,33 @@ export default {
 .navItem:hover {
   background-color: black;
   color: white;
+}
+
+@media only screen and (max-width: 500px) {
+  .navItem {
+    width: 60%;
+    height: 30px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .navItem svg {
+    margin-left: 5px;
+  }
+
+  .navButton {
+    background-color: transparent;
+    color: black;
+    height: 70px;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .navButton:hover {
+    background-color: transparent;
+  }
 }
 </style>

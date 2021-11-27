@@ -18,7 +18,13 @@
         <span>Log out</span>
       </div>
     </div>
-    <modal name="sign-in-modal" @closed="closeModal" :width="700" :height="500">
+    <modal
+      name="sign-in-modal"
+      @closed="closeModal"
+      :width="modalWidth"
+      :height="modalHeight"
+      :adaptive="true"
+    >
       <div :class="$style['signin-modal']">
         <div :class="$style.form">
           <div :class="$style['signin-form']" id="signin-form">
@@ -128,7 +134,7 @@
             </button>
           </div>
         </div>
-        <img src="static/images/signin_img.jpg" alt="" />
+        <img src="static/images/signin_img.jpg" alt="" v-if="!isMobile" />
       </div>
     </modal>
   </div>
@@ -158,6 +164,9 @@ export default {
       usernameExisted: false,
       invalidCredentials: false,
       expandProfile: false,
+      modalWidth: 700,
+      modalHeight: 400,
+      isMobile: false,
     };
   },
   computed: {
@@ -261,9 +270,19 @@ export default {
       this.expandProfile = !this.expandProfile;
     },
     logout() {
-      console.log("logout");
       this.$store.dispatch("signOut");
     },
+    resizeModal() {
+      if (screen.width < 500) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.resizeModal);
+    this.resizeModal();
   },
 };
 </script>
@@ -450,8 +469,6 @@ button {
   margin-right: 10px;
 }
 
-
-
 button:hover {
   background-color: #fdd039;
   border-color: #fdd039;
@@ -463,19 +480,22 @@ button:hover {
   border-radius: 50%;
 }
 
-@media only screen and (max-width: 800px){
-    button {
-      width: 100px;
-      height: 30px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      color: white;
-      background-color: #f9c100;
-      border: none;
-      transition: 0.3s;
-      margin-right: 30px;
+@media only screen and (max-width: 800px) {
+  button {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: #f9c100;
+    border: none;
+    transition: 0.3s;
+    margin-right: 30px;
+  }
 
+  .signin-modal {
+    grid-template-columns: 1fr;
   }
 }
 </style>

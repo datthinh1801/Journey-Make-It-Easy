@@ -155,7 +155,7 @@ h1 {
 
 .map {
   width: 100%;
-  height: 200px;
+  height: 300px;
   margin-bottom: 100px;
 }
 
@@ -163,5 +163,22 @@ h1 {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .item-header h1 {
+    font-size: 22px;
+  }
+
+  .overview-container {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    margin-top: 0;
+  }
+
+  .map {
+    height: 200px;
+    margin-bottom: 50px;
+  }
 }
 </style>

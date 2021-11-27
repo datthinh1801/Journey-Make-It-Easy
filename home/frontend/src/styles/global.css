@@ -4,7 +4,7 @@
 }
 
 .shadow {
-  border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .width-control {
@@ -108,4 +108,16 @@
 
 .info-container div:last-child::after {
     content: '';
+}
+
+@media only screen and (max-width: 600px) {
+    .info-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
+    }
+
+    .info-container div::after {
+        content: none;
+    }
 }

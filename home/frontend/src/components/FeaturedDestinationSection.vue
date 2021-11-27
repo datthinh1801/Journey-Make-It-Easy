@@ -93,29 +93,28 @@
 
 
 @media only screen and (max-width: 500px){
+  .leftButton,
+  .rightButton {
+    background-color: white;
+    color: black;
 
-.leftButton,
-.rightButton {
-  background-color: white;
-  color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+    height: 25px;
+    width: 25px;
+    top: 33%;
 
-  height: 25px;
-  width: 25px;
-  top: 33%;
+    border-radius: 100%;
+    border: 2px solid black;
 
-  border-radius: 100%;
-  border: 2px solid black;
-
-  font-size: 18px;
-  transition: 0.2s;
-  z-index: 0;
-  cursor: pointer;
-}
+    font-size: 18px;
+    transition: 0.2s;
+    z-index: 0;
+    cursor: pointer;
+  }
   .leftButton {
     padding-right: 6px;
     left: 5px;
@@ -125,7 +124,6 @@
     padding-left: 6px;
     right: -20px;
   }
-
 }
 </style>
 
@@ -142,12 +140,7 @@ export default {
       showed_items: 4,
       imgHeight: "200px",
       imgWidth: "235px",
-
     };
-  },
-  created(){
-    window.addEventListener("resize",this.resize_img_mobile);
-    this.resize_img_mobile();
   },
   computed: {
     items() {
@@ -164,13 +157,6 @@ export default {
         this.$store.state.cities.length > this.this_item + this.showed_items
       );
     },
-    // imgHeight() {
-    //   return "200px";
-      
-    // },
-    // imgWidth() {
-    //   return "235px";
-    // },
   },
   methods: {
     moveLeft() {
@@ -193,20 +179,22 @@ export default {
         return item.nation.name;
       }
     },
-    resize_img_mobile(){
-      if (screen.width>800)
-      {
-        this.imgWidth= "235px";
+    resize_img_mobile() {
+      if (screen.width > 800) {
+        this.imgWidth = "235px";
         this.imgHeight = "200px";
-      }
-      else{
-        this.imgWidth= "170px";
+      } else {
+        this.imgWidth = "170px";
         this.imgHeight = "185px";
       }
     },
   },
   beforeMount() {
     this.$store.dispatch("getAllCities");
+  },
+  mounted() {
+    window.addEventListener("resize", this.resize_img_mobile);
+    this.resize_img_mobile();
   },
 };
 </script>
