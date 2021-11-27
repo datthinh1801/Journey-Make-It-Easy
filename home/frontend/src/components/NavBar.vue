@@ -145,7 +145,6 @@ export default {
         this.setNavItem("");
         this.showButton = false;
       }
-      // TODO: width < 1000 here
     },
     moveLeft() {
       this.currentNavIndex = (this.currentNavIndex - 1 + 5) % 5;
