@@ -482,16 +482,10 @@ button:hover {
 
 @media only screen and (max-width: 800px) {
   button {
-    width: 100px;
+    width: 80px;
     height: 30px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    color: white;
-    background-color: #f9c100;
-    border: none;
-    transition: 0.3s;
-    margin-right: 30px;
+    font-size: 14px;
+    margin-right: 20px;
   }
 
   .signin-modal {

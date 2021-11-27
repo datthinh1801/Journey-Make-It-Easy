@@ -151,7 +151,7 @@ export default {
         .then(() => {
           document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
         });
-    } else if (params.has("id")) {
+    } else if (params.get("id")) {
       this.$store.dispatch("getHotelDetail", params.get("id")).then(() => {
         document.title = `🏨 Hotel | ${this.$store.state.item.name}`;
       });

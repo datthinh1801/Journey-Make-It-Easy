@@ -124,13 +124,14 @@ export default {
   },
   beforeCreate() {
     const params = new URLSearchParams(window.location.search);
+    console.log(params);
     if (this.$store.state.city_id !== "") {
       this.$store
         .dispatch("getRestaurant", this.$store.state.city_id)
         .then(() => {
           document.title = "🥂 Restaurants in " + this.place;
         });
-    } else if (params.has("cityid")) {
+    } else if (params.get("cityid")) {
       this.$store.dispatch("getCityById", params.get("cityid")).then(() => {
         document.title = "🥂 Restaurants in " + this.place;
       });

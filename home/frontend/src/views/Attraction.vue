@@ -119,7 +119,7 @@ export default {
         .then(() => {
           document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
         });
-    } else if (params.has("id")) {
+    } else if (params.get("id")) {
       this.$store.dispatch("getAttractionDetail", params.get("id")).then(() => {
         document.title = `🏖 Attraction | ${this.$store.state.item.name}`;
       });
