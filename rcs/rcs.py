@@ -3,16 +3,20 @@ from .models import *
 from api.models import *
 
 from django.contrib.auth.models import User
-from background_task import background
-from background_task.models import Task
-from random import randrange
+
 import time
 import _thread
 from django.utils import timezone
 
-attractionRCS = create_model("Attraction")
-restaurantRCS = create_model("Restaurant")
-stayRCS = create_model("Stay")
+# Set INIT = 1 to stop start 3 RCS when first run
+INIT = 0
+
+if INIT:
+    attractionRCS, restaurantRCS, stayRCS = None, None, None
+else:
+    attractionRCS = create_model("Attraction")
+    restaurantRCS = create_model("Restaurant")
+    stayRCS = create_model("Stay")
 
 def update(delay):
     global attractionRCS
@@ -26,12 +30,15 @@ def update(delay):
         print("Re-train Model Successfully")
 
 # Auto update after 1 day
-try:
-   _thread.start_new_thread(update, (24 * 60 * 60,))
-except:
-   print("Error: Unable to start thread")
+if not INIT:
+    try:
+       _thread.start_new_thread(update, (24 * 60 * 60,))
+    except:
+       print("Error: Unable to start thread")
 
 def RCSAttraction(id):
+    if INIT:
+        return []
     a, b = user_recommendations(attractionRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
     print(a)
@@ -54,6 +61,8 @@ def RCSAttraction(id):
     return a
 
 def RCSRestaurant(id):
+    if INIT:
+        return []
     a, b = user_recommendations(restaurantRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
     print(a)
@@ -76,6 +85,8 @@ def RCSRestaurant(id):
     return a
 
 def RCSStay(id):
+    if INIT:
+        return []
     a, b = user_recommendations(stayRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
     print(a)

@@ -25,17 +25,32 @@ def fake_review_attraction(cursor, min_id, max_id, num):
 
     for i in range(num):
         while True:
-            user_id = randrange(min_id, max_id)
+            user_id = randrange(min_id, max_id + 1)
             item_id = id[randrange(len(id))]
             if str(user_id) + '-' + str(item_id) not in s:
                 s.add(str(user_id) + '-' + str(item_id))
                 break
 
+        point = randrange(1, 6)
         query_str = (
             "INSERT INTO api_attraction_review (text, item_id, user_id, point) VALUES (%s, %s, %s, %s)"
         )
-        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, randrange(1, 5))
+        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, point)
         cursor.execute(query_str, item_insert)
+
+        cursor.execute('SELECT number_voting, rating_score FROM api_attraction WHERE id = ' + str(item_id))
+        z = cursor.fetchall()[0]
+        number_voting, rating_score = int(z[0]), float(z[1])
+
+        rating_score = ((rating_score * number_voting) + point) / (
+                number_voting + 1
+        )
+        number_voting = number_voting + 1
+
+        query_str = (
+            "UPDATE api_attraction SET number_voting = " + str(number_voting) + ", rating_score = " + str(rating_score) + " WHERE id = " + str(item_id)
+        )
+        cursor.execute(query_str)
 
 def fake_review_restaurant(cursor, min_id, max_id, num):
     cursor.execute('SELECT id FROM api_restaurant')
@@ -45,17 +60,32 @@ def fake_review_restaurant(cursor, min_id, max_id, num):
 
     for i in range(num):
         while True:
-            user_id = randrange(min_id, max_id)
+            user_id = randrange(min_id, max_id + 1)
             item_id = id[randrange(len(id))]
             if str(user_id) + '-' + str(item_id) not in s:
                 s.add(str(user_id) + '-' + str(item_id))
                 break
 
+        point = randrange(1, 6)
         query_str = (
             "INSERT INTO api_restaurant_review (text, item_id, user_id, point) VALUES (%s, %s, %s, %s)"
         )
-        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, randrange(1, 5))
+        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, point)
         cursor.execute(query_str, item_insert)
+
+        cursor.execute('SELECT number_voting, rating_score FROM api_restaurant WHERE id = ' + str(item_id))
+        z = cursor.fetchall()[0]
+        number_voting, rating_score = int(z[0]), float(z[1])
+
+        rating_score = (rating_score * number_voting + point) / (
+                number_voting + 1
+        )
+        number_voting = number_voting + 1
+
+        query_str = (
+            "UPDATE api_restaurant SET number_voting = " + str(number_voting) + ", rating_score = " + str(rating_score) + " WHERE id = " + str(item_id)
+        )
+        cursor.execute(query_str)
 
 def fake_review_stay(cursor, min_id, max_id, num):
     cursor.execute('SELECT id FROM api_stay')
@@ -65,19 +95,34 @@ def fake_review_stay(cursor, min_id, max_id, num):
 
     for i in range(num):
         while True:
-            user_id = randrange(min_id, max_id)
+            user_id = randrange(min_id, max_id + 1)
             item_id = id[randrange(len(id))]
             if str(user_id) + '-' + str(item_id) not in s:
                 s.add(str(user_id) + '-' + str(item_id))
                 break
 
+        point = randrange(1, 6)
         query_str = (
             "INSERT INTO api_stay_review (text, item_id, user_id, point) VALUES (%s, %s, %s, %s)"
         )
-        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, randrange(1, 5))
+        item_insert = ('Fake comment from user ' + str(user_id), item_id, user_id, point)
         cursor.execute(query_str, item_insert)
 
-if __name__ == "__main__":
+        cursor.execute('SELECT number_voting, rating_score FROM api_stay WHERE id = ' + str(item_id))
+        z = cursor.fetchall()[0]
+        number_voting, rating_score = int(z[0]), float(z[1])
+
+        rating_score = (rating_score * number_voting + point) / (
+                number_voting + 1
+        )
+        number_voting = number_voting + 1
+
+        query_str = (
+            "UPDATE api_stay SET number_voting = " + str(number_voting) + ", rating_score = " + str(rating_score) + " WHERE id = " + str(item_id)
+        )
+        cursor.execute(query_str)
+
+def create_fake_data():
     conn = psycopg2.connect(
         database="Journey-Make-It-Easy",
         user="postgres",
@@ -100,3 +145,6 @@ if __name__ == "__main__":
 
     cursor.close()
     conn.close()
+
+if __name__ == "__main__":
+    create_fake_data()

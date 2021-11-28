@@ -330,6 +330,25 @@ class Query(graphene.ObjectType):
 
     me = graphene.Field(UserType)
 
+    """Special schema use for add database and create fake database in remote server"""
+    add_database = graphene.Boolean()
+    create_fake_data = graphene.Boolean()
+
+    def resolve_add_database(self, info):
+        if info.context.user.is_superuser:
+            from api.utils.add_database import add
+            add("vietnam.json")
+            return True
+        return False
+
+    def resolve_create_fake_data(self, info):
+        if info.context.user.is_superuser:
+            from rcs.code.create_fake_data import create_fake_data
+            create_fake_data()
+            return True
+        return False
+    """End special schema"""
+
     def resolve_me(self, info):
         user = info.context.user
         if user.is_anonymous:
