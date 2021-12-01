@@ -123,8 +123,12 @@ export default {
       if (title) {
         this.titleAlert = "";
         content = content.replace(/^(<h1>)(.*)(<\/h1>)/, "");
-        this.$store.dispatch("postBlog", { title: title, content: content });
-        this.$router.push("/articles");
+        this.$store
+          .dispatch("postBlog", { title: title, content: content })
+          .then(() => {
+            this.$router.push("/articles");
+            location.reload();
+          });
       } else {
         this.titleAlert = "Your post must have a title styled as H1!";
       }

@@ -20,7 +20,7 @@ export default {
 
 <style module>
 .image {
-  width: 320px;
+  width: 100%;
   height: 190px;
 }
 
@@ -45,7 +45,8 @@ export default {
 .col-container {
   background-color: white;
   height: 292px;
-  width: 320px;
+  /* width: 320px; */
+  width: 30%;
   position: relative;
   cursor: pointer;
   transition: 0.2s;
@@ -62,6 +63,7 @@ div.roboto:first-child {
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  width: 100%;
   text-align: center;
 }
 
@@ -82,5 +84,42 @@ div.roboto:first-child {
 .title {
   font-weight: 500;
   font-size: 18px;
+}
+
+@media only screen and (max-width: 500px) {
+  .col-container {
+    width: 90%;
+    height: 200px;
+    margin: auto auto 30px auto;
+    background-color: transparent;
+  }
+
+  .col-container:last-child {
+    margin-bottom: 0;
+  }
+
+  .image {
+    height: 100%;
+  }
+
+  .article-info {
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgb(87, 87, 87)
+    );
+    position: absolute;
+    top: 110px;
+    height: 90px;
+    color: white;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .author {
+    font-size: 14px;
+  }
 }
 </style>

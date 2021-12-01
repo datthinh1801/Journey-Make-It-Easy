@@ -42,4 +42,11 @@ export default {
   display: flex;
   align-items: center;
 }
+
+@media only screen and (max-width: 500px) {
+  .container h2 {
+    width: 90%;
+    font-size: 20px;
+  }
+}
 </style>
