@@ -220,7 +220,7 @@ h1.head {
   color: #2e86c1;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   h1.head {
     text-align: center;
     font-size: 22px;

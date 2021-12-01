@@ -86,7 +86,7 @@ div.roboto:first-child {
   font-size: 18px;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .col-container {
     width: 90%;
     height: 200px;

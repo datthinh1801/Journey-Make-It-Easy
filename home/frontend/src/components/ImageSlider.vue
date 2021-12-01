@@ -57,7 +57,7 @@ export default {
   z-index: 0;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .overview-image {
     height: 300px;
   }

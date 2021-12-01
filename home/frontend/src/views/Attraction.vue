@@ -165,7 +165,7 @@ h1 {
   border: none;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .item-header h1 {
     font-size: 22px;
   }

@@ -480,7 +480,7 @@ button:hover {
   border-radius: 50%;
 }
 
-@media only screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   button {
     width: 80px;
     height: 30px;

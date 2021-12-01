@@ -224,7 +224,7 @@ export default {
   font-style: italic;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .editor-container {
     width: auto;
   }

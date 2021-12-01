@@ -91,11 +91,9 @@
   border-color: black;
 }
 
-
-@media only screen and (max-width: 500px){
-  .v-item-detail
-  {
-    font-size: 12px
+@media screen and (max-width: 500px) {
+  .v-item-detail {
+    font-size: 12px;
   }
   .leftButton,
   .rightButton {
@@ -129,13 +127,13 @@
     right: -20px;
   }
   .item-list-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
-  width: 100%;
-  position: relative;
-  z-index: 0;
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+  }
 }
 </style>
 

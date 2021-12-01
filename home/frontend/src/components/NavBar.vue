@@ -195,7 +195,7 @@ export default {
   color: white;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .navItem {
     width: 50%;
     height: 23px;

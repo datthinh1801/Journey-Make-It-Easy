@@ -168,7 +168,7 @@ export default {
   list-style: none;
 }
 
-@media only screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .search-box-container {
     height: fit-content;
     width: 50%;

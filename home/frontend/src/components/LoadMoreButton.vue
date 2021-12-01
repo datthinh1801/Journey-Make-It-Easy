@@ -36,7 +36,7 @@ button.load-more-btn:hover {
   color: white;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   button.load-more-btn {
     width: 40%;
     height: 40px;

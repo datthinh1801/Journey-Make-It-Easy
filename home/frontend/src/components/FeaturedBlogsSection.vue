@@ -43,7 +43,7 @@ export default {
   align-items: center;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .container h2 {
     width: 90%;
     font-size: 20px;

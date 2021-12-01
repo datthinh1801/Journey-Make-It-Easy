@@ -50,7 +50,7 @@ export default {
   left: 30%;
 }
 
-@media only screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
   #hero-text {
     position: absolute;
     width: auto;
@@ -58,7 +58,7 @@ export default {
     right: 10%;
     top: 20%;
   }
-  
+
   #search-box {
     position: absolute;
     top: 90%;

@@ -44,7 +44,7 @@ export default {
   width: 1000px;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .row-container {
     width: 100%;
     display: flex;

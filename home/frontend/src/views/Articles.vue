@@ -198,7 +198,7 @@ h1.head {
   text-decoration: underline;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .articles-section h1.head {
     font-size: 22px;
   }

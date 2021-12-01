@@ -22,7 +22,6 @@
   padding: 10px 0;
 }
 
-
 .footer-container hr {
   max-width: 100%;
   width: 1000px;
@@ -52,7 +51,7 @@
   margin-right: 5px;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .footer-container {
     padding: 5px 0;
   }
@@ -78,24 +77,22 @@
   }
 }
 
-@media only screen and (max-width: 500px)
-{
-    .logo-footer {
-        font-family: 'Pacifico', cursive;
-        font-size: 15px;
-            color: #f9c100;
-    }
-    .sns {
+@media screen and (max-width: 500px) {
+  .logo-footer {
+    font-family: "Pacifico", cursive;
+    font-size: 15px;
+    color: #f9c100;
+  }
+  .sns {
     font-size: 15px;
     display: flex;
     align-items: center;
     color: #888;
-    }
-    .footer-container {
-        padding: 10px 0;
-        height: 10px;
-    }
-
+  }
+  .footer-container {
+    padding: 10px 0;
+    height: 10px;
+  }
 }
 </style>
 

@@ -183,7 +183,7 @@ export default {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .review-section-container {
     flex-direction: column;
     width: 98%;

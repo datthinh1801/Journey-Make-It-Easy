@@ -167,7 +167,7 @@ export default {
   border-color: black;
 }
 
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .v-item-detail {
     height: 70px;
     font-size: 12px;
