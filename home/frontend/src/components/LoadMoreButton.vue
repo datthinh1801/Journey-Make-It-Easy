@@ -41,7 +41,7 @@ button.load-more-btn:hover {
     width: 40%;
     height: 40px;
     font-size: 14px;
-    margin: 30px auto 20px auto;
+    margin: 20px auto;
   }
 }
 </style>

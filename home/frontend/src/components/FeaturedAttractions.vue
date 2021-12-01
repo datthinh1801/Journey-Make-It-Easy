@@ -44,8 +44,8 @@ export default {
       imgWidth: "235px",
     };
   },
-  created(){
-    window.addEventListener("resize",this.resize_img_mobile);
+  created() {
+    window.addEventListener("resize", this.resize_img_mobile);
     this.resize_img_mobile();
   },
   computed: {
@@ -82,15 +82,13 @@ export default {
       this.$store.commit("changeItemId", item.id);
       this.$router.push({ name: "attraction", query: { id: item.id } });
     },
-    resize_img_mobile(){
-      if (screen.width>500)
-      {
-        this.imgWidth= "235px";
-        this.imgHeight = "200px"; 
+    resize_img_mobile() {
+      if (screen.width > 500) {
+        this.imgWidth = "235px";
+        this.imgHeight = "200px";
         this.showed_items = 4;
-      }
-      else{
-        this.imgWidth= "170px";
+      } else {
+        this.imgWidth = "170px";
         this.imgHeight = "185px";
         this.showed_items = 3;
       }
@@ -162,38 +160,37 @@ export default {
   border-color: black;
 }
 
-@media only screen and (max-width: 500px)
-{
+@media only screen and (max-width: 500px) {
   .item-detail-container {
     height: 70px;
     font-size: 12px;
   }
 
   .leftButton,
-.rightButton {
-  background-color: white;
-  color: black;
+  .rightButton {
+    background-color: white;
+    color: black;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
 
-  height: 25px;
-  width: 25px;
-  top: 33%;
+    height: 25px;
+    width: 25px;
+    top: 33%;
 
-  border-radius: 100%;
-  border: 2px solid black;
+    border-radius: 100%;
+    border: 2px solid black;
 
-  font-size: 18px;
-  transition: 0.2s;
-  z-index: 0;
-  cursor: pointer;
-}
+    font-size: 18px;
+    transition: 0.2s;
+    z-index: 0;
+    cursor: pointer;
+  }
   .leftButton {
     padding-right: 6px;
-    left: 5px;
+    left: 0px;
   }
 
   .rightButton {
@@ -201,10 +198,10 @@ export default {
     right: -20px;
   }
   .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
-  position: relative;
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    position: relative;
+  }
 }
 </style>

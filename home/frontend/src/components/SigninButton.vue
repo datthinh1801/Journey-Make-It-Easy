@@ -491,5 +491,9 @@ button:hover {
   .signin-modal {
     grid-template-columns: 1fr;
   }
+
+  .userprofile-container {
+    margin-right: 10px;
+  }
 }
 </style>

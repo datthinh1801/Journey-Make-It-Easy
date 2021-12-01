@@ -98,7 +98,7 @@ div.item-description .title {
 
 @media only screen and (max-width: 500px) {
   h1.header {
-    font-size: 30px;
+    font-size: 22px;
   }
 
   .content-container {
@@ -107,8 +107,8 @@ div.item-description .title {
   }
 
   .grid-item {
-    width: 80%;
-    height: 80%;
+    width: 350px;
+    height: 400px;
     margin: auto;
   }
 

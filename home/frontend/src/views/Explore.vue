@@ -92,7 +92,6 @@ export default {
   margin-top: 40px;
 }
 
-
 .info p {
   text-align: justify;
   text-indent: 40px;
@@ -104,12 +103,21 @@ export default {
     font-size: 15px;
     padding-right: 10px;
   }
+
   .title {
-  margin-top: 70px;
-  margin-bottom: 10px;
-  font-size: 30px;
-  font-weight: bold;
-  justify-content: left;
-}
+    margin-top: 70px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    justify-content: left;
+  }
+
+  .imageSection {
+    margin-top: 20px;
+  }
+
+  .info h2 {
+    font-size: 20px;
+  }
 }
 </style>

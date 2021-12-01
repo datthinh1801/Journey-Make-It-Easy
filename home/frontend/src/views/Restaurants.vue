@@ -123,12 +123,11 @@ export default {
         .map((specialDiet) => specialDiet["value"])
         .join(", ");
     },
-    resize_mobile(){
-      if(screen.width<=500){
+    resize_mobile() {
+      if (screen.width <= 500) {
         this.itemHeight = "200px";
         this.imgWidth = "100%";
-      }
-      else{
+      } else {
         this.itemHeight = "300px";
         this.imgWidth = "300px";
       }
@@ -155,7 +154,7 @@ export default {
   beforeDestroy() {
     this.$store.commit("clearAllRestaurants");
   },
-    mounted() {
+  mounted() {
     window.addEventListener("resize", this.resize_mobile);
     this.resize_mobile();
   },
@@ -190,7 +189,6 @@ h1.head {
 .item-detail-top hr {
   width: 100%;
   max-width: 100%;
-  
 }
 
 .item-detail-bottom {
@@ -224,26 +222,30 @@ h1.head {
   color: #2e86c1;
 }
 
-@media only screen and (max-width: 500px)
-{
-  .item-detail-top h3{
+@media only screen and (max-width: 500px) {
+  .item-detail-top h3 {
     font-size: 14px;
   }
+
   .item-detail-bottom {
-    font-size: 12px;
+    font-size: 13px;
+  }
+
+  .item-detail-bottom div {
+    margin-bottom: 5px;
   }
 
   .item-detail-container .price,
-.item-detail-container .cuisine,
-.item-detail-container .specialty {
-  font-size: 14px;
-  width: 15px;
-  margin-right: 5px;
-}
-h1.head {
-  text-align: center;
-  font-size: 30px
-}
+  .item-detail-container .cuisine,
+  .item-detail-container .specialty {
+    font-size: 15px;
+    width: 15px;
+    margin-right: 5px;
+  }
 
+  h1.head {
+    text-align: center;
+    font-size: 22px;
+  }
 }
 </style>

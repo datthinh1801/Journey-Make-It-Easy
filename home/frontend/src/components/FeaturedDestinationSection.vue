@@ -121,7 +121,7 @@
   }
   .leftButton {
     padding-right: 6px;
-    left: 5px;
+    left: 0px;
   }
 
   .rightButton {

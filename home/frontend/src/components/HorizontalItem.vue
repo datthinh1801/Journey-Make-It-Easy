@@ -19,7 +19,7 @@
 export default {
   name: "HorizontalItem",
   props: ["imgSrc", "imgHeight", "imgWidth", "itemHeight", "itemWidth"],
-  data(){
+  data() {
     return {
       itemRenderHeight: "auto",
       itemRenderWidth: "auto",
@@ -62,19 +62,18 @@ export default {
     //   }
     // },
   },
-  methods:{
-    resize_mobile()
-    {
+  methods: {
+    resize_mobile() {
       if (screen.width < 500) {
         this.itemRenderHeight = "auto";
         this.itemRenderWidth = "auto";
         this.imgHeight = "200px";
         this.imgWidth = "100%";
       } else {
-        this.itemRenderHeight =  this.itemHeight;
+        this.itemRenderHeight = this.itemHeight;
         this.itemRenderWidth = this.itemWidth;
       }
-    }
+    },
   },
   mounted() {
     window.addEventListener("resize", this.resize_mobile);

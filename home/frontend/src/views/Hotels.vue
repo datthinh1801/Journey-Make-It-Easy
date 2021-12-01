@@ -123,12 +123,11 @@ export default {
       this.$store.commit("changeItemId", item.id);
       this.$router.push({ name: "hotel", query: { id: item.id } });
     },
-        resize_mobile(){
-      if(screen.width<=500){
+    resize_mobile() {
+      if (screen.width <= 500) {
         this.itemHeight = "200px";
         this.imgWidth = "100%";
-      }
-      else{
+      } else {
         this.itemHeight = "300px";
         this.imgWidth = "300px";
       }
@@ -221,20 +220,19 @@ h1.head {
   color: #2e86c1;
 }
 
-@media only screen and (max-width: 500px)
-{
+@media only screen and (max-width: 500px) {
   h1.head {
-  text-align: center;
-  font-size: 30px;
-}
+    text-align: center;
+    font-size: 22px;
+  }
 
-  .item-detail-top{
+  .item-detail-top {
     font-size: 14px;
   }
   .item-detail-bottom h5 {
     font-size: 12px;
   }
-  .item-detail-bottom li{
+  .item-detail-bottom li {
     font-size: 12px;
   }
 }

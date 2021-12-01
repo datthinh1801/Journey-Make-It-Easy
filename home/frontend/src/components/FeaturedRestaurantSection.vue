@@ -50,8 +50,8 @@ export default {
       imgHeight: "200px",
     };
   },
-  created(){
-    window.addEventListener("resize",this.resize_img_mobile);
+  created() {
+    window.addEventListener("resize", this.resize_img_mobile);
     this.resize_img_mobile();
   },
   computed: {
@@ -88,17 +88,15 @@ export default {
       this.$store.commit("changeItemId", item.id);
       this.$router.push({ name: "restaurant", query: { id: item.id } });
     },
-    resize_img_mobile(){
-      if (screen.width>800)
-      {
-        this.imgWidth= "235px";
+    resize_img_mobile() {
+      if (screen.width > 800) {
+        this.imgWidth = "235px";
         this.imgHeight = "200px";
-        this.showed_items=4;
-      }
-      else{
-        this.imgWidth= "170px";
+        this.showed_items = 4;
+      } else {
+        this.imgWidth = "170px";
         this.imgHeight = "185px";
-        this.showed_items=3;
+        this.showed_items = 3;
       }
     },
   },
@@ -169,49 +167,48 @@ export default {
   border-color: black;
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
   .v-item-detail {
     height: 70px;
-    font-size:12px;
+    font-size: 12px;
   }
   .item-list-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
-  width: 100%;
-  position: relative;
-}
-.leftButton,
-.rightButton {
-  background-color: white;
-  color: black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    width: 100%;
+    position: relative;
+  }
+  .leftButton,
+  .rightButton {
+    background-color: white;
+    color: black;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
 
-  height: 25px;
-  width: 25px;
-  top: 33%;
+    height: 25px;
+    width: 25px;
+    top: 33%;
 
-  border-radius: 100%;
-  border: 2px solid black;
+    border-radius: 100%;
+    border: 2px solid black;
 
-  font-size: 18px;
-  transition: 0.2s;
-  z-index: 0;
-  cursor: pointer;
-}
+    font-size: 18px;
+    transition: 0.2s;
+    z-index: 0;
+    cursor: pointer;
+  }
   .leftButton {
     padding-right: 6px;
-    left: 5px;
+    left: 0px;
   }
 
   .rightButton {
     padding-left: 6px;
     right: -20px;
   }
-
-} 
+}
 </style>
