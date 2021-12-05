@@ -20,6 +20,15 @@ def clear(cursor):
     cursor.execute("DELETE FROM api_stay_image")
     cursor.execute("DELETE FROM api_blog_image")
 
+    '''
+    cursor.execute("DELETE FROM api_nation_voting")
+    cursor.execute("DELETE FROM api_city_voting")
+    cursor.execute("DELETE FROM api_attraction_voting")
+    cursor.execute("DELETE FROM api_restaurant_voting")
+    cursor.execute("DELETE FROM api_stay_voting")
+    cursor.execute("DELETE FROM api_blog_voting")
+    '''
+
     cursor.execute("DELETE FROM api_nation_review")
     cursor.execute("DELETE FROM api_city_review")
     cursor.execute("DELETE FROM api_attraction_review")
@@ -242,7 +251,17 @@ def setup(data):
     # Closing the connection
     cursor.close()
     conn.close()
+
     print('done')
+    
+    
+def add(filename):
+    with open(filename) as f:
+        try:
+            data = json.load(f)
+            setup(data)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":
@@ -250,9 +269,4 @@ if __name__ == "__main__":
         print("Usage: python add_database.py <json_file_name>")
         exit(0)
 
-    with open(sys.argv[1]) as f:
-        try:
-            data = json.load(f)
-            setup(data)
-        except Exception as e:
-            print(e)
+    add(sys.argv[1])
