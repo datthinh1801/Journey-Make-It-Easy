@@ -339,7 +339,9 @@ class Query(graphene.ObjectType):
             listrcs = RCSAttraction(-1)
         else:
             listrcs = RCSAttraction(user.id)
-        ret = Attraction.objects.filter(id__in=listrcs) | Attraction.objects.filter(~Q(id__in=listrcs))
+        ret = Attraction.objects.filter(id__in=listrcs) | Attraction.objects.filter(
+            ~Q(id__in=listrcs)
+        )
         if limit:
             return ret[:limit]
         return ret
@@ -407,7 +409,8 @@ class Query(graphene.ObjectType):
 
     def resolve_all_blogs(root, info, limit=0):
         if limit:
-            return Blog.objects.all()[:limit]
+            length = len(Blog.objects.all())
+            return Blog.objects.all()[length - limit :]
         return Blog.objects.all()
 
     def resolve_get_blog_by_id(root, info, id):

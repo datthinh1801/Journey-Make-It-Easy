@@ -1,11 +1,13 @@
 <template>
-  <button :class="$style['load-more-btn']" @click="$emit('loadMore')">LOAD MORE</button>
+  <button :class="$style['load-more-btn']" @click="$emit('loadMore')">
+    LOAD MORE
+  </button>
 </template>
 
 <script>
 export default {
-  name: 'LoadMoreButton',
-}
+  name: "LoadMoreButton",
+};
 </script>
 
 <style module>
@@ -14,7 +16,6 @@ button.load-more-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 150px;
   height: 60px;
   text-transform: uppercase;
@@ -33,5 +34,14 @@ button.load-more-btn {
 button.load-more-btn:hover {
   background-color: black;
   color: white;
+}
+
+@media screen and (max-width: 500px) {
+  button.load-more-btn {
+    width: 40%;
+    height: 40px;
+    font-size: 14px;
+    margin: 20px auto;
+  }
 }
 </style>

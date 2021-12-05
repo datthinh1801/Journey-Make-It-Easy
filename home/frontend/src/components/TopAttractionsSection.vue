@@ -78,7 +78,7 @@ h1.header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
-  grid-gap: 20px;
+  grid-gap: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -94,5 +94,27 @@ div.item-description .title {
 
 .place {
   color: #2e86c1;
+}
+
+@media screen and (max-width: 500px) {
+  h1.header {
+    font-size: 22px;
+  }
+
+  .content-container {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+
+  .grid-item {
+    width: 350px;
+    height: 400px;
+    margin: auto;
+  }
+
+  .item-description {
+    text-align: center;
+    font-size: 12px;
+  }
 }
 </style>

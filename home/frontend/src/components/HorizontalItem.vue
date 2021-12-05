@@ -1,7 +1,7 @@
 <template>
   <div
     :class="$style['item-container']"
-    :style="{ height: itemHeight, width: itemWidth }"
+    :style="{ height: itemRenderHeight, width: itemRenderWidth }"
   >
     <div :class="$style['img-container']">
       <img
@@ -19,6 +19,12 @@
 export default {
   name: "HorizontalItem",
   props: ["imgSrc", "imgHeight", "imgWidth", "itemHeight", "itemWidth"],
+  data() {
+    return {
+      itemRenderHeight: "auto",
+      itemRenderWidth: "auto",
+    };
+  },
   computed: {
     imgUrl() {
       let newUrl = this.imgSrc
@@ -41,6 +47,37 @@ export default {
       }
       return parseInt(this.imgHeight);
     },
+    // itemRenderHeight() {
+    //   if (screen.width < 500) {
+    //     return "auto";
+    //   } else {
+    //     return this.itemHeight;
+    //   }
+    // },
+    // itemRenderWidth() {
+    //   if (screen.width < 500) {
+    //     return "auto";
+    //   } else {
+    //     return this.itemWidth;
+    //   }
+    // },
+  },
+  methods: {
+    resize_mobile() {
+      if (screen.width < 500) {
+        this.itemRenderHeight = "auto";
+        this.itemRenderWidth = "auto";
+        this.imgHeight = "200px";
+        this.imgWidth = "100%";
+      } else {
+        this.itemRenderHeight = this.itemHeight;
+        this.itemRenderWidth = this.itemWidth;
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.resize_mobile);
+    this.resize_mobile();
   },
 };
 </script>
@@ -81,6 +118,12 @@ export default {
 
   100% {
     background-position: 0% -200%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .item-container {
+    flex-direction: column;
   }
 }
 </style>

@@ -43,4 +43,12 @@ export default {
 .row-container {
   width: 1000px;
 }
+
+@media screen and (max-width: 500px) {
+  .row-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
 </style>

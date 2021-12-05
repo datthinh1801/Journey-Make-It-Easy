@@ -122,11 +122,13 @@ export default {
 .search-result-container {
   display: flex;
   flex-direction: column;
+  padding: 0 0 0 38px;
+  margin: 0;
 }
 
 .search-result-container li {
   list-style: none;
-  padding: 10px 0;
+  padding: 7px 0;
   font-weight: 500;
   font-size: 18px;
   cursor: pointer;
@@ -164,5 +166,43 @@ export default {
 .recommended-searches ul li {
   margin-left: 55px;
   list-style: none;
+}
+
+@media screen and (max-width: 800px) {
+  .search-box-container {
+    height: fit-content;
+    width: 50%;
+    border: 1px solid #aaaaaa;
+    background-color: white;
+    border-radius: 24px;
+    padding: 5px 5px;
+    margin: auto;
+  }
+
+  .search-box {
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    height: 90%;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+
+  .search-icon {
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+  .search-result-container {
+    margin: 0;
+    padding: 0 0 0 25px;
+  }
+
+  .search-result-container li {
+    font-size: 14px;
+    padding: 3px 0;
+    margin-left: 0;
+  }
 }
 </style>
