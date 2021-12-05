@@ -15,7 +15,12 @@
 
     <script type="text/javascript" src="{% static 'js/chunk-vendors.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
-    <script type="text/javascript" src="https://raw.githubusercontent.com/IxZZZ/img_project_web/main/script.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('shadow', window.scrollY > 0);
+        })
+    </script>
 </body>
 
 </html>
