@@ -224,6 +224,7 @@ export default {
       if (response) {
         this.invalidCredentials = false;
         this.$modal.hide("sign-in-modal");
+        location.reload();
       } else {
         this.invalidCredentials = true;
       }

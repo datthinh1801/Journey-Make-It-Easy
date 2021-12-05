@@ -3,7 +3,7 @@
     <div :class="$style['review-section']">
       <h2>Reviews</h2>
       <div :class="$style['stars-section']" v-if="hasReviews">
-        <h2>{{ ratingScore }}</h2>
+        <h2>{{ Math.round(ratingScore*10)/10 }}</h2>
         <Stars :starCount="ratingScore" :hideScore="true" />
         <i>{{ numberVoting }} reviews</i>
       </div>
@@ -41,13 +41,15 @@
         </div>
       </div>
       <div v-if="hasReviews" :class="$style['other-reviews']">
-        <h3>Others</h3>
-        <ReviewItem
-          v-for="review in reviews"
+        <h3>All reviews</h3>
+        <ReviewItem 
+          v-for="review in reviews" 
           :key="review.id"
           :username="review.user.username"
           :point="review.point"
           :text="review.text"
+        />
+        <load-more-button @click.native="loadMore" v-if="hide_btn"
         />
       </div>
     </div>
@@ -57,6 +59,7 @@
 <script>
 import Stars from "./Stars.vue";
 import ReviewItem from "./ReviewItem.vue";
+import LoadMoreButton from "./LoadMoreButton.vue";
 
 export default {
   name: "ReviewingSection",
@@ -64,19 +67,25 @@ export default {
   components: {
     Stars,
     ReviewItem,
+    LoadMoreButton,
   },
   data() {
     return {
+      item_nums: 10,
       reviewContent: "",
       myStars: 0,
     };
   },
   computed: {
+    hide_btn(){
+      return this.item_nums < this.$store.state.item.reviews.length;
+    }
+    ,
     hasReviews() {
       return this.numberVoting > 0;
     },
     reviews() {
-      return this.$store.state.item.reviews;
+      return this.$store.state.item.reviews.slice().reverse().slice(0,this.item_nums);
     },
     authenticated() {
       return this.$store.state.username.length > 0;
@@ -93,6 +102,9 @@ export default {
     },
   },
   methods: {
+    loadMore(){
+      this.item_nums+=10;
+    },
     sendReview() {
       if (this.reviewContent.length > 0 && this.myStars > 0) {
         this.$store.dispatch("submitReview", {

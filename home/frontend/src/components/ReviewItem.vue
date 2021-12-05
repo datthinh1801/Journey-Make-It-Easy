@@ -28,5 +28,7 @@ export default {
 
 .review-container {
   margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
 }
 </style>

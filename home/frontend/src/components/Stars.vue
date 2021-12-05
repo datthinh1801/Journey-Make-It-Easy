@@ -46,7 +46,7 @@ export default {
       if (this.hideScore) {
         return "";
       } else {
-        return String(this.starCount).padEnd(3, ".0");
+        return String( Math.round(this.starCount*10)/10).padEnd(3, ".0");
       }
     },
     hiddenStars() {
