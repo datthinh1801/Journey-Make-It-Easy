@@ -134,7 +134,7 @@
             </button>
           </div>
         </div>
-        <img src="static/images/signin_img.jpg" alt="" v-if="!isMobile" />
+        <img src="https://raw.githubusercontent.com/IxZZZ/img_project_web/main/signin_img.jpg" alt="" v-if="!isMobile" />
       </div>
     </modal>
   </div>

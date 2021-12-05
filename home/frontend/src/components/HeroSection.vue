@@ -3,12 +3,12 @@
     <img
       :id="$style['hero-img']"
       alt="hero-img"
-      src="static/images/Hero_image.png"
+      src="https://raw.githubusercontent.com/IxZZZ/img_project_web/main/Hero_image.png"
     />
     <img
       :id="$style['hero-text']"
       alt="hero-text"
-      src="static/images/Hero_text.png"
+      src="https://raw.githubusercontent.com/IxZZZ/img_project_web/main/Hero_text.png"
     />
     <SearchBox :id="$style['search-box']" />
   </div>
