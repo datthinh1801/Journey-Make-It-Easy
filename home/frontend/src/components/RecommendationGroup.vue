@@ -208,7 +208,7 @@ export default {
   right: 0;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .info h3 {
     font-size: 18px;
     margin: 10px 0 5px 0;

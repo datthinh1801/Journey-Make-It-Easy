@@ -121,7 +121,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .item-container {
     flex-direction: column;
   }

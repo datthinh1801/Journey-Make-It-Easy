@@ -96,7 +96,7 @@ div.item-description .title {
   color: #2e86c1;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   h1.header {
     font-size: 22px;
   }

@@ -24,7 +24,7 @@ export default {
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
   .logo {
     font-family: "Pacifico", cursive;
     color: #f9c100;

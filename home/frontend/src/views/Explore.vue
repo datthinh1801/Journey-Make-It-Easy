@@ -97,7 +97,7 @@ export default {
   text-indent: 40px;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .info p {
     text-indent: 30px;
     font-size: 15px;

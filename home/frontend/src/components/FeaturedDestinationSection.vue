@@ -91,7 +91,7 @@
   border-color: black;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .v-item-detail {
     font-size: 12px;
   }

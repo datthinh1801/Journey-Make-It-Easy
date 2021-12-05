@@ -25,8 +25,10 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
     state: {
         // SETTINGS
-        BASE_URL: 'http://localhost:8000',
+        // BASE_URL: location.substr(0,location.length-1),
 
+        // BASE_URL: 'http://localhost:8000',
+        BASE_URL: String(location).substr(0, String(location).length - 1),
         // AUTHENTICATION
         username: '',
         accessToken: '',

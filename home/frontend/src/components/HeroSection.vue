@@ -50,7 +50,7 @@ export default {
   left: 30%;
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
   #hero-text {
     position: absolute;
     width: auto;

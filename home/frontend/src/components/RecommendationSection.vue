@@ -46,7 +46,7 @@ export default {
   margin-right: auto;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .width-control h2 {
     font-size: 20px;
     margin: 10px 0;

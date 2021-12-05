@@ -312,7 +312,7 @@ span {
   font-size: 14px;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .title-container h1 {
     font-size: 22px;
   }

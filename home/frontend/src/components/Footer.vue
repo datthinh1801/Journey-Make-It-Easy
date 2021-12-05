@@ -51,7 +51,7 @@
   margin-right: 5px;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .footer-container {
     padding: 5px 0;
   }
@@ -77,7 +77,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .logo-footer {
     font-family: "Pacifico", cursive;
     font-size: 15px;

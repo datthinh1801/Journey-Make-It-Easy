@@ -222,7 +222,7 @@ h1.head {
   color: #2e86c1;
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .item-detail-top h3 {
     font-size: 14px;
   }
