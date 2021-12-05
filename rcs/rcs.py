@@ -41,8 +41,8 @@ def RCSAttraction(id):
         return []
     a, b = user_recommendations(attractionRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
-    print(a)
-    print(b)
+    print('attractions recommend id: ' + str(a))
+    print('attractions score: ' + str(b))
     if id == -1:
         user = None
     else:
@@ -65,8 +65,8 @@ def RCSRestaurant(id):
         return []
     a, b = user_recommendations(restaurantRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
-    print(a)
-    print(b)
+    print('restaurants recommend id: ' + str(a))
+    print('restaurants score: ' + str(b))
     if id == -1:
         user = None
     else:
@@ -89,8 +89,8 @@ def RCSStay(id):
         return []
     a, b = user_recommendations(stayRCS, id, measure=DOT, exclude_rated=True, k=5)
     print('user_id: ' + str(id))
-    print(a)
-    print(b)
+    print('stays recommend id: ' + str(a))
+    print('stays score: ' + str(b))
     if id == -1:
         user = None
     else:
