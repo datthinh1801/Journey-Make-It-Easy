@@ -285,15 +285,20 @@ class UserDataType(DjangoObjectType):
 # Main Query class
 class Query(graphene.ObjectType):
     all_nations = graphene.List(NationType, limit=graphene.Int(required=False))
-    get_nation_by_id = graphene.Field(NationType, id=graphene.ID(required=True))
-    get_nation_by_name = graphene.Field(NationType, name=graphene.String(required=True))
+    get_nation_by_id = graphene.Field(
+        NationType, id=graphene.ID(required=True))
+    get_nation_by_name = graphene.Field(
+        NationType, name=graphene.String(required=True))
 
     all_cities = graphene.List(CityType, limit=graphene.Int(required=False))
     get_city_by_id = graphene.Field(CityType, id=graphene.ID(required=True))
-    get_city_by_name = graphene.Field(CityType, name=graphene.String(required=True))
+    get_city_by_name = graphene.Field(
+        CityType, name=graphene.String(required=True))
 
-    all_attractions = graphene.List(AttractionType, limit=graphene.Int(required=False))
-    get_attraction_by_id = graphene.Field(AttractionType, id=graphene.ID(required=True))
+    all_attractions = graphene.List(
+        AttractionType, limit=graphene.Int(required=False))
+    get_attraction_by_id = graphene.Field(
+        AttractionType, id=graphene.ID(required=True))
     get_attraction_by_name = graphene.Field(
         AttractionType, name=graphene.String(required=True)
     )
@@ -301,30 +306,35 @@ class Query(graphene.ObjectType):
     all_restaurants = graphene.List(
         graphene.NonNull(RestaurantType), limit=graphene.Int(required=False)
     )
-    get_restaurant_by_id = graphene.Field(RestaurantType, id=graphene.ID(required=True))
+    get_restaurant_by_id = graphene.Field(
+        RestaurantType, id=graphene.ID(required=True))
     get_restaurant_by_name = graphene.Field(
         RestaurantType, name=graphene.String(required=True)
     )
 
     all_stays = graphene.List(StayType, limit=graphene.Int(required=False))
     get_stay_by_id = graphene.Field(StayType, id=graphene.ID(required=True))
-    get_stay_by_name = graphene.Field(StayType, name=graphene.String(required=True))
+    get_stay_by_name = graphene.Field(
+        StayType, name=graphene.String(required=True))
 
     all_blogs = graphene.List(BlogType, limit=graphene.Int(required=False))
     get_blog_by_id = graphene.Field(BlogType, id=graphene.ID(required=True))
-    get_blog_by_user = graphene.List(BlogType, limit=graphene.Int(required=False))
+    get_blog_by_user = graphene.List(
+        BlogType, limit=graphene.Int(required=False))
 
     get_review_nation = graphene.List(
         Nation_ReviewType, item_id=graphene.ID(required=True)
     )
-    get_review_city = graphene.List(City_ReviewType, item_id=graphene.ID(required=True))
+    get_review_city = graphene.List(
+        City_ReviewType, item_id=graphene.ID(required=True))
     get_review_attraction = graphene.List(
         Attraction_ReviewType, item_id=graphene.ID(required=True)
     )
     get_review_restaurant = graphene.List(
         Restaurant_ReviewType, item_id=graphene.ID(required=True)
     )
-    get_review_stay = graphene.List(Stay_ReviewType, id=graphene.ID(required=True))
+    get_review_stay = graphene.List(
+        Stay_ReviewType, id=graphene.ID(required=True))
 
     get_user_info = graphene.Field(UserDataType)
 
@@ -342,11 +352,14 @@ class Query(graphene.ObjectType):
         return False
 
     def resolve_create_fake_data(self, info):
-        if info.context.user.is_superuser:
+        # if info.context.user.is_superuser:
+        try:
             from rcs.code.create_fake_data import create_fake_data
             create_fake_data()
             return True
-        return False
+        except Exception as e:
+            print("except: ", e)
+            return False
     """End special schema"""
 
     def resolve_me(self, info):
@@ -383,7 +396,8 @@ class Query(graphene.ObjectType):
             listrcs = RCSAttraction(-1)
         else:
             listrcs = RCSAttraction(user.id)
-        ret = [Attraction.objects.get(id=i) for i in listrcs] + list(Attraction.objects.filter(~Q(id__in=listrcs)))
+        ret = [Attraction.objects.get(
+            id=i) for i in listrcs] + list(Attraction.objects.filter(~Q(id__in=listrcs)))
         if limit:
             return ret[:limit]
         return ret
@@ -400,7 +414,8 @@ class Query(graphene.ObjectType):
             listrcs = RCSRestaurant(-1)
         else:
             listrcs = RCSRestaurant(user.id)
-        ret = [Restaurant.objects.get(id=i) for i in listrcs] + list(Restaurant.objects.filter(~Q(id__in=listrcs)))
+        ret = [Restaurant.objects.get(
+            id=i) for i in listrcs] + list(Restaurant.objects.filter(~Q(id__in=listrcs)))
         if limit:
             return ret[:limit]
         return ret
@@ -417,7 +432,8 @@ class Query(graphene.ObjectType):
             listrcs = RCSStay(-1)
         else:
             listrcs = RCSStay(user.id)
-        ret = [Stay.objects.get(id=i) for i in listrcs] + list(Stay.objects.filter(~Q(id__in=listrcs)))
+        ret = [Stay.objects.get(id=i) for i in listrcs] + \
+            list(Stay.objects.filter(~Q(id__in=listrcs)))
         if limit:
             return ret[:limit]
         return ret
@@ -553,7 +569,8 @@ class ReviewNation(graphene.Mutation):
             return
 
         try:
-            reviews = Nation_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews = Nation_Review.objects.filter(
+                user=info.context.user, item=id)[0]
             reviews.text = review
             old_point = reviews.point
             reviews.point = point
@@ -595,7 +612,8 @@ class ReviewCity(graphene.Mutation):
             return
 
         try:
-            reviews = City_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews = City_Review.objects.filter(
+                user=info.context.user, item=id)[0]
             reviews.text = review
             old_point = reviews.point
             reviews.point = point
@@ -725,7 +743,8 @@ class ReviewStay(graphene.Mutation):
             return
 
         try:
-            reviews = Stay_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews = Stay_Review.objects.filter(
+                user=info.context.user, item=id)[0]
             reviews.text = review
             old_point = reviews.point
             reviews.point = point
@@ -766,7 +785,8 @@ class ReviewBlog(graphene.Mutation):
         if not info.context.user.is_authenticated:
             return
         try:
-            reviews = Blog_Review.objects.filter(user=info.context.user, item=id)[0]
+            reviews = Blog_Review.objects.filter(
+                user=info.context.user, item=id)[0]
             reviews.text = review
             old_point = reviews.point
             reviews.point = point
